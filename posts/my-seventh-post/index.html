@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>07-机器语言和名词解释 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="07-机器语言和名词解释" />
+<meta property="og:description" content="Program with machine language according to the following C int8_t a = 1; int8_t c = a &#43; 3; Write your assembly code &amp; machine code Assembly Code: mov cx, 01h addi ax, cx, 03h Machine Code: 1011 1001 0001 0000 0000 0000 ; mov ax, 01h ; 1011 w reg data (data if w = 1) ; 第一个字节前4位是操作码" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-seventh-post/" />
+<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="article:published_time" content="2020-10-18T18:44:44+08:00" />
+<meta property="article:modified_time" content="2020-10-18T18:44:44+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
+
+<meta name="twitter:title" content="07-机器语言和名词解释"/>
+<meta name="twitter:description" content="Program with machine language according to the following C int8_t a = 1; int8_t c = a &#43; 3; Write your assembly code &amp; machine code Assembly Code: mov cx, 01h addi ax, cx, 03h Machine Code: 1011 1001 0001 0000 0000 0000 ; mov ax, 01h ; 1011 w reg data (data if w = 1) ; 第一个字节前4位是操作码"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://adbean.gitee.io/posts/my-seventh-post/" /><link rel="prev" href="https://adbean.gitee.io/posts/my-third-project/" /><link rel="next" href="https://adbean.gitee.io/posts/my-eighth-post/" /><link rel="stylesheet" href="../../lib/normalize/normalize.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="../../lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "07-机器语言和名词解释",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/adbean.gitee.io\/posts\/my-seventh-post\/"
+        },"genre": "posts","keywords": "机器语言, 名词解释\u0022, 作业","wordcount":  2932 ,
+        "url": "https:\/\/adbean.gitee.io\/posts\/my-seventh-post\/","datePublished": "2020-10-18T18:44:44+08:00","dateModified": "2020-10-18T18:44:44+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../posts/my-index/"> 索引 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../posts/my-index/" title="">索引</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">07-机器语言和名词解释</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-18">2020-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2932 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#program-with-machine-language-according-to-the-following-c">Program with machine language according to the following C</a>
+      <ul>
+        <li><a href="#write-your-assembly-code--machine-code">Write your <strong>assembly code</strong> &amp; <strong>machine code</strong></a></li>
+        <li><a href="#explain-machine-code-execution-with-the-fetch-decode-execute-cycle">Explain <strong>machine code</strong> execution with the <strong>fetch-decode-execute cycle</strong></a></li>
+        <li><a href="#explain-functions-about-ir-pc-acc-registers-in-a-cpu">Explain functions about <strong>IR</strong>, <strong>PC</strong>, <strong>ACC</strong> <strong>registers</strong> in a CPU</a></li>
+        <li><a href="#explain-physical-meaning-about-vars-a--c-in-a-machine">Explain physical meaning about vars a &amp; c in a machine</a></li>
+      </ul>
+    </li>
+    <li><a href="#简答题">简答题</a>
+      <ul>
+        <li><a href="#what-are-stored-in-memory">What are stored in <strong>memory</strong></a></li>
+        <li><a href="#can-a-data-or-a-instruction-stored-in-the-same-place">Can a <strong>data</strong> or a <strong>instruction</strong> stored in the same place</a></li>
+        <li><a href="#explain-instruction-format-with-example-instructions">Explain Instruction Format with example instructions</a></li>
+      </ul>
+    </li>
+    <li><a href="#explanation-of-terms-名词解释">Explanation of Terms 名词解释</a>
+      <ul>
+        <li><a href="#汇编语言assembly-language">汇编语言（Assembly Language）</a></li>
+        <li><a href="#编译compiler">编译（Compiler）</a></li>
+        <li><a href="#命令式语言imperative-programming">命令式语言（Imperative programming）</a></li>
+        <li><a href="#函数编程语言functional-programming">函数编程语言（Functional programming）</a></li>
+        <li><a href="#过程式编程procedural-programming">过程式编程（Procedural programming）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="program-with-machine-language-according-to-the-following-c">Program with machine language according to the following C</h2>
+<blockquote>
+<p>int8_t a = 1;</p>
+<p>int8_t c = a + 3;</p>
+</blockquote>
+<h3 id="write-your-assembly-code--machine-code">Write your <strong>assembly code</strong> &amp; <strong>machine code</strong></h3>
+<p><strong>Assembly Code</strong>:</p>
+<pre><code class="language-x86" data-lang="x86">    mov  cx, 01h
+    addi ax, cx, 03h
+</code></pre><p><strong>Machine Code</strong>:</p>
+<pre><code class="language-machine" data-lang="machine">     1011 1001 0001 0000 0000 0000
+     ; mov  ax, 01h
+     ; 1011 w reg data (data if w = 1)
+     ; 第一个字节前4位是操作码, w = 1表示传递的数据类型是字
+     ; 后三位表示寄存器编号(AX: 000, CX: 001)
+     ; 第二个字节表示数据，此时w=1，传送的是16位的数据，注意顺序
+     1000 0001 oo00 0001 0000 0003 0000 0000 0000
+     ; addi ax, cx , 03h
+     ; 1000 00dw oo000mmm disp data
+     ; 第一个字节是操作码
+     ; 第二个字节和后四位是偏移量和寄存器
+     ; 倒数两个字节是立即数，采用小端模式
+</code></pre><h3 id="explain-machine-code-execution-with-the-fetch-decode-execute-cycle">Explain <strong>machine code</strong> execution with the <strong>fetch-decode-execute cycle</strong></h3>
+<p><strong>Fetch</strong>: 首先将<strong>程序计数器 PC 寄存器</strong>的内容装入<strong>地址寄存器 MAR</strong>，并且将<strong>程序计数器 PC 寄存器</strong>的值 <strong>+4</strong> (因为我们完成当前这一条指令之后还需要继续进行<strong>下一条</strong>，就是通过这种方式来实现指令的顺序执行的)。然后将地址指向的内容装入<strong>数据寄存器 MDR</strong>，最后控制单元将<strong>数据寄存器 MDR</strong> 中的内容送入<strong>指令寄存器 IR</strong>。至此，完成了指令到 IR 的<strong>获取</strong>。</p>
+<p><strong>Decode</strong>：指令由<strong>处理器解码</strong>。如果指令需要，处理器将获得任何<strong>操作数</strong>或<strong>操作码</strong>，也就是在这一步得到<strong>机器码</strong>。</p>
+<p><strong>Execute</strong>：在最后一个阶段，处理器执行指令，如果需要，处理器将操作数从指令中指定的地址拷贝到寄存器中，接着根据<strong>操作码和操作数</strong>执行对应的操作。</p>
+<h3 id="explain-functions-about-ir-pc-acc-registers-in-a-cpu">Explain functions about <strong>IR</strong>, <strong>PC</strong>, <strong>ACC</strong> <strong>registers</strong> in a CPU</h3>
+<h4 id="ir-instruction-register-指令寄存器">IR Instruction Register 指令寄存器</h4>
+<blockquote>
+<p>In computing, the <strong>instruction register (IR)</strong> or current instruction register (CIR) is the part of a CPU&rsquo;s control unit that holds the instruction <strong>currently being executed or decoded</strong>. In simple processors, each instruction to be executed is loaded into the instruction register, which holds it while it is decoded, prepared and ultimately executed, which can take several steps.</p>
+</blockquote>
+<p>在计算机中，<strong>指令寄存器</strong>(IR)或当前指令寄存器(CIR)是 CPU 控制单元的一部分，用于保存<strong>当前正在执行或解码</strong>的指令。在简单处理器中，每条要执行的指令都被装入指令寄存器，指令寄存器在指令被解码、准备和最终执行的过程中保存着指令，这需要几个步骤。</p>
+<h4 id="pc-program-counter-程序计数器">PC Program Counter 程序计数器</h4>
+<blockquote>
+<p>The <strong>program counter (PC)</strong>, commonly called the <strong>instruction pointer (IP)</strong> in Intel x86 and Itanium microprocessors, and sometimes called the instruction address register (IAR), the instruction counter, or just part of the instruction sequencer, is a processor register that indicates where a computer is in its program sequence.Usually, the PC is incremented after <strong>fetching</strong> an instruction, and holds the memory address of (&ldquo;points to&rdquo;) the <strong>next instruction</strong> that would be executed.</p>
+</blockquote>
+<p><strong>程序计数器</strong>（PC），在 Intel x86 和 Itanium 微处理器中通常称为指令指针（IP），有时又称为指令地址寄存器（IAR），<strong>指令计数器</strong>是处理器寄存器，或者说是指令序列发生器的一部分，指示计算机在其程序序列中的位置。在大部分的处理器中，指令指针都是在提取程序指令后就被立即增加；也就是说跳跃指令的目的地址，是由跳跃指令的操作数加上跳跃指令之后<strong>下一个指令的地址</strong>（单位为比特或字节，视电脑形态而定）来获得目的地。</p>
+<h4 id="acc-accumulator-累加器">ACC Accumulator 累加器</h4>
+<blockquote>
+<p>In a computer&rsquo;s central processing unit (CPU), the <strong>accumulator</strong> is a register in which intermediate arithmetic and logic results are stored.Without a register like an accumulator, it would be necessary to write the result of each calculation (addition, multiplication, shift, etc.) to main memory, perhaps only to be read right back again for use in the next operation. Access to main memory is slower than access to a register like the accumulator because the technology used for the large main memory is <strong>slower</strong> (but cheaper) than that used for a register. Early electronic computer systems were often split into two groups, those with accumulators and those without.</p>
+</blockquote>
+<p>在<strong>中央处理器</strong>中，累加器 (accumulator) 是一种寄存器，用来储存计算产生的中间结果。如果没有像累加器这样的寄存器，那么在每次计算 (加法，乘法，移位等等) 后就必须要把结果写回到<strong>内存</strong>，也许马上就得读回来。然而存取主存的速度是比从算术逻辑单元到有<strong>直接路径的累加器</strong>存取更慢。</p>
+<h3 id="explain-physical-meaning-about-vars-a--c-in-a-machine">Explain physical meaning about vars a &amp; c in a machine</h3>
+<p>变量 a 和 c 储存在内存当中，a 和 c 是变量名，指向了其所在内存单元的地址。在解码过程中，通过地址码，CPU 可以通过总线获得内存中的数据，进行读写操作。</p>
+<h2 id="简答题">简答题</h2>
+<h3 id="what-are-stored-in-memory">What are stored in <strong>memory</strong></h3>
+<p><strong>内存</strong>中存储着 CPU 中运算的数据，与硬盘等存储器交换的数据，即<strong>机器码或数据</strong>，都以二进制形式储存。</p>
+<h3 id="can-a-data-or-a-instruction-stored-in-the-same-place">Can a <strong>data</strong> or a <strong>instruction</strong> stored in the same place</h3>
+<p>可以，因为不论是指令还是数据，在寄存器中都以二进制形式储存。但是<strong>数据寄存器</strong>储存的<strong>二进制数</strong>会被认为是<strong>数据</strong>而不是<strong>地址码</strong>，<strong>地址段寄存器</strong>里存的<strong>二进制数</strong>会被认为是<strong>地址码</strong>。</p>
+<h3 id="explain-instruction-format-with-example-instructions">Explain Instruction Format with example instructions</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Opcode</th>
+<th align="center">D</th>
+<th align="center">W</th>
+<th align="center">MOD</th>
+<th align="center">MOD</th>
+<th align="center">REG</th>
+<th align="center">REG</th>
+<th align="center">REG</th>
+<th align="center">R/M</th>
+<th align="center">R/M</th>
+<th align="center">R/M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">7 - 2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">7</td>
+<td align="center">6</td>
+<td align="center">5</td>
+<td align="center">4</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>8086 指令系统采用了一种<strong>灵活</strong>的、由 1 - 6 个字节组成的<strong>变字长</strong>指令格式，包括<strong>操作码</strong>、<strong>寻址方式</strong>以及<strong>操作数</strong>三个部分。</p>
+<p>第一个字节中，W 指出<strong>操作数类型</strong>：W=0 为字节、W=1 为字(1 字 = 2 字节)。D 指出<strong>操作数的传送方向</strong>：D=0 寄存器操作数为源操作数、D=1 寄存器操作数为目标操作数。</p>
+<p>第二个字节指出所用的两个操作数存放的位置，以及<strong>存储器</strong>中操作数有效地址 EA 的计算方法。</p>
+<p>REG 字段规定一个<strong>寄存器操作数</strong>，其具体规定见下图：</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../REG.png"
+        data-srcset="../../REG.png, ../../REG.png 1.5x, ../../REG.png 2x"
+        data-sizes="auto"
+        alt="/REG.png"
+        title="reg" /></p>
+<p>MOD 字段用来区分操作数在寄存器(寄存器寻址)还是在存储器中(存储器寻址)。</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../MOD.png"
+        data-srcset="../../MOD.png, ../../MOD.png 1.5x, ../../MOD.png 2x"
+        data-sizes="auto"
+        alt="/MOD.png"
+        title="mod" /></p>
+<p>R/M 字段受 MOD 字段控制。</p>
+<p><strong>例子</strong>:</p>
+<pre><code class="language-8086" data-lang="8086">MOV AH, [BX + DI + 50H]
+
+// OPCODE D W MOD REG R/M DISP-8
+   100010 1 0  01 100 001 01010000
+// 其中 100010 代表MOV指令
+D=1代表 AH 寄存器操作数为目标操作数
+W=0代表为字节操作
+MOD=01代表存储器寻址，有8位偏移量
+REG=100代表AH寄存器操作数
+</code></pre><h2 id="explanation-of-terms-名词解释">Explanation of Terms 名词解释</h2>
+<h3 id="汇编语言assembly-language">汇编语言（Assembly Language）</h3>
+<blockquote>
+<p>In computer programming, <strong>assembly language</strong> (or assembler language), often abbreviated asm, is any low-level programming language in which there is a very strong correspondence between the instructions in the language and the architecture&rsquo;s <strong>machine code instructions</strong>. Because assembly depends on the machine code instructions, every assembly language is designed for exactly one specific computer architecture.</p>
+</blockquote>
+<p>在计算机程序设计中，<strong>汇编语言</strong>，通常缩写为 asm，是任何<strong>低级编程语言</strong>，其中该语言的指令与体系结构的<strong>机器代码指令</strong>之间有非常强的对应关系。 因为汇编取决于机器代码指令，所以每种汇编语言都是针对一种特定的计算机体系结构而设计的。</p>
+<h3 id="编译compiler">编译（Compiler）</h3>
+<blockquote>
+<p>In computing, a <strong>compiler</strong> is a computer program that translates computer code written in one <strong>programming language</strong> (<strong>the source language</strong>) into another language (<strong>the target language</strong>). The name &ldquo;compiler&rdquo; is primarily used for programs that translate source code from a <strong>high-level programming</strong> language to a lower level language (e.g., <strong>assembly language</strong>, object code, or machine code) to create an executable program.</p>
+</blockquote>
+<p>在计算机中，<strong>编译器</strong>是一种计算机程序，可以将以一种<strong>编程语言</strong>（<strong>源语言</strong>）编写的计算机代码转换为另一种语言（<strong>目标语言</strong>）。 名称“编译器”主要用于将源代码从<strong>高级编程语言转换为低级语言</strong>（例如，汇编语言，目标代码或机器代码）以创建可执行程序的程序。</p>
+<h3 id="命令式语言imperative-programming">命令式语言（Imperative programming）</h3>
+<blockquote>
+<p>In computer science, <strong>imperative programming</strong> is a <strong>programming paradigm</strong> that uses statements that change a program&rsquo;s state. In much the same way that the imperative mood in natural languages expresses commands, an imperative program consists of commands for the computer to perform. Imperative programming focuses on <strong>describing how a program operates</strong>.</p>
+</blockquote>
+<p>在计算机科学中，<strong>命令式编程</strong>是一种<strong>编程范式</strong>，它使用更改程序状态的语句。与自然语言中的命令式情绪表达命令的方式几乎相同，命令式程序由计算机执行的命令组成。命令式编程着重于描述程序的<strong>运行方式</strong>。</p>
+<h3 id="函数编程语言functional-programming">函数编程语言（Functional programming）</h3>
+<blockquote>
+<p>In computer science, <strong>functional programming</strong> is a programming paradigm where programs are constructed by applying and composing <strong>functions</strong>. It is a declarative programming paradigm in which function definitions are trees of expressions that each return a value, rather than a sequence of imperative statements which change the state of the program.</p>
+</blockquote>
+<p>在计算机科学中，<strong>函数式编程</strong>是一种<strong>编程范式</strong>，其中通过应用和组合<strong>函数</strong>来构造程序。它是一个<strong>声明式编程范例</strong>，其中函数定义是每个返回一个值的表达式树，而不是一系列更改程序状态的命令性语句。</p>
+<p>其中，<strong><a href="https://en.wikipedia.org/wiki/Lambda_calculus" target="_blank" rel="noopener noreffer">λ 演算</a></strong>（lambda calculus）为该语言最重要的基础。而且，λ 演算的函数可以接受函数当作输入（引数）和输出（传出值）。</p>
+<h3 id="过程式编程procedural-programming">过程式编程（Procedural programming）</h3>
+<blockquote>
+<p><strong>Procedural programming</strong> is a <strong>programming paradigm</strong>, derived from structured programming,[citation needed] based on the concept of the procedure call. Procedures (a type of routine or subroutine) simply contain a series of computational steps to be carried out. Any given procedure might be called at any point during a program&rsquo;s execution, including by other procedures or itself. The first major procedural programming languages appeared circa 1957–1964, including Fortran, ALGOL, COBOL, PL/I and BASIC. Pascal and C were published circa 1970–1972.</p>
+</blockquote>
+<p><strong>过程式程序设计</strong>是一种<strong>编程范式</strong>，它是基于过程调用的概念从结构化编程派生而来的。主要采取程序调用或函数调用的方式来进行流程控制。流程则由包涵一系列运算步骤的过程，例程，子程序, 方法，或函数来控制。在程序运行的任何一个时间点，都可以调用某个特定的程序。任何一个特定的程序，也能被任意一个程序或是它自己本身调用。一种主要的过程编程语言大约在 1957–1964 年间出现，包括 Fortran，ALGOL，COBOL，PL/I 和 BASIC。Pascal 和 C 大约在 1970-1972 年间发表。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="../../tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/">机器语言</a>,&nbsp;<a href="../../tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/">名词解释</a>,&nbsp;<a href="../../tags/%E4%BD%9C%E4%B8%9A/">作业</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-third-project/" class="prev" rel="prev" title="硬件编程--电路与二进制运算"><i class="fas fa-angle-left fa-fw"></i>硬件编程--电路与二进制运算</a>
+            <a href="../../posts/my-eighth-post/" class="next" rel="next" title="08-伪代码、自顶向下设计与项目5">08-伪代码、自顶向下设计与项目5<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="../../lib/katex/katex.min.css"><link rel="stylesheet" href="../../lib/katex/copy-tex.min.css"><script type="text/javascript" src="../../lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="../../lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="../../lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../lib/katex/katex.min.js"></script><script type="text/javascript" src="../../lib/katex/auto-render.min.js"></script><script type="text/javascript" src="../../lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="../../lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

@@ -1,2 +1,1 @@
-# Beans
-Stay hungry stay foolish
+# ad-bean.github.io

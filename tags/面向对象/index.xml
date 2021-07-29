@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>面向对象 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://adbean.gitee.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+        <description>面向对象 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 24 Oct 2020 19:57:39 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="self" type="application/rss+xml" /><item>
+    <title>09-面向对象编程语言</title>
+    <link>https://adbean.gitee.io/posts/my-ninth-post/</link>
+    <pubDate>Sat, 24 Oct 2020 19:57:39 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-ninth-post/</guid>
+    <description><![CDATA[类和对象 根据后面的素材，识别类和对象。 阅读“牧师与恶魔过河”的游戏介绍并玩游 戏。然后回答问题 游戏涉及哪些类。请列表说明 游戏中有哪些对象，各几]]></description>
+</item><item>
+    <title>08-伪代码、自顶向下设计与项目5</title>
+    <link>https://adbean.gitee.io/posts/my-eighth-post/</link>
+    <pubDate>Sun, 18 Oct 2020 18:45:01 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-eighth-post/</guid>
+    <description><![CDATA[Pseudocode Standard 伪代码 阅读 Pseudocode Standard 1. 用伪代码描述将十进制转换成 16 进制的方法 READ decimal Set hexadecimal to an empty string REPEAT Set temp to dec mod 16 CASE temp OF 0 : Set hexadecimal to 0 add hexadecimal 1 : Set hexadecimal to 1 add hexadecimal 2 : Set hexadecimal to 2 add]]></description>
+</item></channel>
+</rss>

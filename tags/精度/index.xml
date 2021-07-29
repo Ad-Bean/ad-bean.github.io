@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>精度 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://adbean.gitee.io/tags/%E7%B2%BE%E5%BA%A6/</link>
+        <description>精度 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 20 Sep 2020 20:06:17 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E7%B2%BE%E5%BA%A6/" rel="self" type="application/rss+xml" /><item>
+    <title>03-判断溢出和精度误差和名词解释</title>
+    <link>https://adbean.gitee.io/posts/my-third-post/</link>
+    <pubDate>Sun, 20 Sep 2020 20:06:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-third-post/</guid>
+    <description><![CDATA[判断溢出错误和精度误差 Write out variables x, y and z in binary code int8_t x = 67; int8_t y = -7; int8_t z = y - x; int8_t x = 0xd3; uint8_t = 0xd3; int8_t x = 127; int8_t y = -7; int8_t z = y – x; float x = 1.125; float x = 23.0; float x = 0.45; Specifier Equivalent]]></description>
+</item></channel>
+</rss>

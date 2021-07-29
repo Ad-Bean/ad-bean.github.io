@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>机器语言 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://adbean.gitee.io/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/</link>
+        <description>机器语言 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 18 Oct 2020 18:44:44 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E6%9C%BA%E5%99%A8%E8%AF%AD%E8%A8%80/" rel="self" type="application/rss+xml" /><item>
+    <title>07-机器语言和名词解释</title>
+    <link>https://adbean.gitee.io/posts/my-seventh-post/</link>
+    <pubDate>Sun, 18 Oct 2020 18:44:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-seventh-post/</guid>
+    <description><![CDATA[Program with machine language according to the following C int8_t a = 1; int8_t c = a + 3; Write your assembly code &amp; machine code Assembly Code: mov cx, 01h addi ax, cx, 03h Machine Code: 1011 1001 0001 0000 0000 0000 ; mov ax, 01h ; 1011 w reg data (data if w = 1) ; 第一个字节前4位是操作码]]></description>
+</item></channel>
+</rss>

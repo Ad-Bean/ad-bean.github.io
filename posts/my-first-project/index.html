@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用 Hogo &#43; LoveIt 构建博客 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="使用 Hogo &#43; LoveIt 构建博客" />
+<meta property="og:description" content="Hugo 和 Loveit 主题 Hugo: The world’s fastest framework for building websites Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. LoveIt: A Clean, Elegant but Advanced Hugo Theme for Hugo. 为什么选择 Hugo Hugo 号称世界上最快的构建网" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-first-project/" />
+<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="article:published_time" content="2020-09-23T12:39:13+08:00" />
+<meta property="article:modified_time" content="2020-09-23T12:39:13+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
+
+<meta name="twitter:title" content="使用 Hogo &#43; LoveIt 构建博客"/>
+<meta name="twitter:description" content="Hugo 和 Loveit 主题 Hugo: The world’s fastest framework for building websites Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. LoveIt: A Clean, Elegant but Advanced Hugo Theme for Hugo. 为什么选择 Hugo Hugo 号称世界上最快的构建网"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://adbean.gitee.io/posts/my-first-project/" /><link rel="prev" href="https://adbean.gitee.io/posts/my-third-post/" /><link rel="next" href="https://adbean.gitee.io/posts/my-fourth-post/" /><link rel="stylesheet" href="../../lib/normalize/normalize.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="../../lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用 Hogo + LoveIt 构建博客",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/adbean.gitee.io\/posts\/my-first-project\/"
+        },"genre": "posts","keywords": "项目, hugo, LoveIt","wordcount":  1882 ,
+        "url": "https:\/\/adbean.gitee.io\/posts\/my-first-project\/","datePublished": "2020-09-23T12:39:13+08:00","dateModified": "2020-09-23T12:39:13+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../posts/my-index/"> 索引 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../posts/my-index/" title="">索引</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">使用 Hogo &#43; LoveIt 构建博客</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-09-23">2020-09-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1882 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#hugo-和-loveit-主题">Hugo 和 Loveit 主题</a>
+      <ul>
+        <li><a href="#为什么选择-hugo">为什么选择 Hugo</a></li>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#搭建博客">搭建博客</a></li>
+      </ul>
+    </li>
+    <li><a href="#更多配置">更多配置</a>
+      <ul>
+        <li><a href="#更换头像网站图标和开启数学公式">更换头像、网站图标和开启数学公式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="hugo-和-loveit-主题">Hugo 和 Loveit 主题</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Hugo.png"
+        data-srcset="../../Hugo.png, ../../Hugo.png 1.5x, ../../Hugo.png 2x"
+        data-sizes="auto"
+        alt="/Hugo.png"
+        title="hugo" />
+<a href="https://gohugo.io/" target="_blank" rel="noopener noreffer"><strong>Hugo</strong></a>:
+The world’s fastest framework for building websites</p>
+<p>Hugo is one of the most popular open-source static site generators. With its <strong>amazing speed and flexibility,</strong> Hugo makes building websites fun again.</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../LoveIt.png"
+        data-srcset="../../LoveIt.png, ../../LoveIt.png 1.5x, ../../LoveIt.png 2x"
+        data-sizes="auto"
+        alt="/LoveIt.png"
+        title="LoveIt" />
+<a href="https://themes.gohugo.io/loveit/" target="_blank" rel="noopener noreffer"><strong>LoveIt</strong></a>:
+A <strong>Clean</strong>, Elegant but Advanced Hugo Theme for Hugo.</p>
+<h3 id="为什么选择-hugo">为什么选择 Hugo</h3>
+<p>Hugo 号称<strong>世界上最快的构建网站工具</strong>，其速度体现在生成静态文件时，要比基于 Node.js 且有许多插件的的 Hexo 要快上好几倍。</p>
+<p>Hugo 基于 Go 语言实现，使用自带的 Go html 模板，生成静态文件仅需几秒到十几秒，当博客的文章、主题、样式、图片越来越多、越来越复杂的时候，Hugo 的优势便显得极为明显。尽管 Hexo 使用更为广泛，且主题更加丰富，但我还是选择了 Hugo。</p>
+<p>本文就将以 Hugo 出发，加以由 <a href="https://dillonzq.com/" target="_blank" rel="noopener noreffer">Dillon</a> 开发的 <a href="https://hugoloveit.com/" target="_blank" rel="noopener noreffer">LoveIt</a>主题，构建一个简洁、优雅且高效 Hugo 博客。</p>
+<h3 id="准备工作">准备工作</h3>
+<h4 id="安装-hugo">安装 Hugo</h4>
+<h5 id="linux-环境">Linux 环境</h5>
+<p>如果你在 Linux 环境下，可以使用 Homebrew 管理工具来安装 Hugo(macOS 同理)</p>
+<pre><code class="language-linux" data-lang="linux">brew install hugo
+</code></pre><h5 id="windows-环境">Windows 环境</h5>
+<p>如果你使用的是 Windows，请使用 Chocolatey 或者 Scoop 包管理工具来安装 Hugo，下面将从安装 Chocolatey 开始，一步步安装 Hugo</p>
+<p>请使用管理员权限运行 powershell，并且确保 Get-ExecutionPolicy 不是 Restricted 的。</p>
+<ol>
+<li>按下键盘上的 win+x ，以管理员模式运行 powershell。</li>
+<li>输入 Get-ExecutionPolicy 并运行，若返回 Restricted，则输入 Set-ExecutionPolicy AllSigned 或 Set-ExecutionPolicy Bypass -Scope Process。</li>
+<li>输入下面的命令并且运行</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">Set-ExecutionPolicy Bypass -Scope Process -Force<span class="p">;</span> <span class="o">[</span>System.Net.ServicePointManager<span class="o">]</span>::SecurityProtocol <span class="o">=</span> <span class="o">[</span>System.Net.ServicePointManager<span class="o">]</span>::SecurityProtocol -bor 3072<span class="p">;</span> iex <span class="o">((</span>New-Object System.Net.WebClient<span class="o">)</span>.DownloadString<span class="o">(</span><span class="s1">&#39;https://chocolatey.org/install.ps1&#39;</span><span class="o">))</span>
+</code></pre></div><ol start="4">
+<li>等待一会后，若无报错。则表明 Chocolatey 安装成功，输入 choco 查看可以当前版本以确保安装成功。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">Chocolatey v0.10.15
+Please run <span class="s1">&#39;choco -?&#39;</span> or <span class="s1">&#39;choco &lt;command&gt; -?&#39;</span> <span class="k">for</span> <span class="nb">help</span> menu.
+</code></pre></div><ol start="5">
+<li>安装 Hugo 和 Hugo extended</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">choco install hugo -confirm
+choco install hugo-extended -confirm
+</code></pre></div><p>在命令行输入 hugo version 以验证 hugo 正确安装</p>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">hugo version
+&gt;&gt;&gt; Hugo Static Site Generator v0.74.3
+</code></pre></div><ol start="6">
+<li>为了后续发布静态页面到 github pages 或是 gitee pages，请安装 Git 和 vscode</li>
+</ol>
+<p>由于 <a href="https://git-scm.com/" target="_blank" rel="noopener noreffer">git</a> 和 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreffer">vscode</a> 等工具的具体使用与本文相关性不大，故不在此介绍其下载和使用方式。</p>
+<h3 id="搭建博客">搭建博客</h3>
+<p>下面的步骤将基于 LoveIt 主题搭建博客，如果需要，你可以查阅 <a href="https://gohugo.io/documentation/" target="_blank" rel="noopener noreffer">Hugo 文档</a>了解更多，同时为了更好的理解，你可以需要阅读 Hugo 提供的 <a href="https://gohugo.io/getting-started/quick-start/" target="_blank" rel="noopener noreffer">Quick Start</a>。</p>
+<h4 id="创建一个新项目">创建一个新项目</h4>
+<p>使用 Hugo new 命令创建一个新的项目：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">hugo new site my_blog
+</code></pre></div><p>同时使用 vscode 打开这个新建项目所在的文件夹，当然你也可以仅用命令行操作，这一切取决于你的习惯。</p>
+<h4 id="安装主题">安装主题</h4>
+<p><strong>LoveIt</strong> 主题的仓库是: <a href="https://github.com/dillonzq/LoveIt">https://github.com/dillonzq/LoveIt</a>.</p>
+<p>我们在 my_blog 目录下使用 git 命令将主题仓库 clone 到本地 themes 文件夹下</p>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</code></pre></div><h4 id="基础配置">基础配置</h4>
+<p>TOML 是前 GitHub CEO， Tom Preston-Werner，于 2013 年创建的语言，其目标是成为一个小规模的易于使用的语义化配置文件格式。TOML 被设计为可以无二义性的转换为一个哈希表(Hash table)。TOML 是大小写敏感的，必须是 UTF-8 编码。</p>
+<p>下面打开处于 my_blog 文件夹下的 config.toml 文件，对其进行编辑。</p>
+<div class="highlight"><pre class="chroma"><code class="language-TOML" data-lang="TOML"><span class="c"># 设置baseURL且使用相对URL</span>
+<span class="nx">baseURL</span> <span class="p">=</span> <span class="s2">&#34;http://example.org/&#34;</span>
+<span class="nx">relativeURLs</span> <span class="p">=</span> <span class="kc">true</span>
+
+<span class="c"># [en, zh-cn, fr, ...] 设置默认的语言</span>
+<span class="nx">defaultContentLanguage</span> <span class="p">=</span> <span class="s2">&#34;zh-cn&#34;</span>
+<span class="c"># 网站语言, 仅在这里 CN 大写</span>
+<span class="nx">languageCode</span> <span class="p">=</span> <span class="s2">&#34;zh-CN&#34;</span>
+<span class="c"># 是否包括中日韩文字</span>
+<span class="nx">hasCJKLanguage</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="c"># 网站标题</span>
+<span class="nx">title</span> <span class="p">=</span> <span class="s2">&#34;我的全新 Hugo 网站&#34;</span>
+
+<span class="c"># 更改使用 Hugo 构建网站时使用的默认主题</span>
+<span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;LoveIt&#34;</span>
+
+<span class="p">[</span><span class="nx">params</span><span class="p">]</span>
+  <span class="c"># LoveIt 主题版本</span>
+  <span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;0.2.X&#34;</span>
+
+<span class="p">[</span><span class="nx">menu</span><span class="p">]</span>
+  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;posts&#34;</span>
+    <span class="c"># 你可以在名称 (允许 HTML 格式) 之前添加其他信息, 例如图标</span>
+    <span class="nx">pre</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="c"># 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标</span>
+    <span class="nx">post</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;文章&#34;</span>
+    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/posts/&#34;</span>
+    <span class="c"># 当你将鼠标悬停在此菜单链接上时, 将显示的标题</span>
+    <span class="nx">title</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">1</span>
+  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;tags&#34;</span>
+    <span class="nx">pre</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">post</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;标签&#34;</span>
+    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/tags/&#34;</span>
+    <span class="nx">title</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">2</span>
+  <span class="p">[[</span><span class="nx">menu</span><span class="p">.</span><span class="nx">main</span><span class="p">]]</span>
+    <span class="nx">identifier</span> <span class="p">=</span> <span class="s2">&#34;categories&#34;</span>
+    <span class="nx">pre</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">post</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;分类&#34;</span>
+    <span class="nx">url</span> <span class="p">=</span> <span class="s2">&#34;/categories/&#34;</span>
+    <span class="nx">title</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="nx">weight</span> <span class="p">=</span> <span class="mi">3</span>
+
+<span class="c"># Hugo 解析文档的配置</span>
+<span class="p">[</span><span class="nx">markup</span><span class="p">]</span>
+  <span class="c"># 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)</span>
+  <span class="p">[</span><span class="nx">markup</span><span class="p">.</span><span class="nx">highlight</span><span class="p">]</span>
+    <span class="c"># false 是必要的设置 (https://github.com/dillonzq/LoveIt/issues/158)</span>
+    <span class="nx">noClasses</span> <span class="p">=</span> <span class="kc">false</span>
+</code></pre></div><h4 id="创建第一篇文章">创建第一篇文章</h4>
+<p>使用 Hugo 的 new 命令在 posts 目录下创建你的第一篇 markdown 文章：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">hugo new posts/my_first_post.md
+</code></pre></div><blockquote>
+<p>默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false 或者为 hugo 命令添加 -D/&ndash;buildDrafts 参数.</p>
+<p>使用 Tags: [&ldquo;XX&rdquo;, &ldquo;XXX&rdquo;] 和 categories: [&ldquo;XXX&rdquo;] 让你的文章易于分类！</p>
+</blockquote>
+<h4 id="在本地启动网站">在本地启动网站</h4>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">hugo serve
+</code></pre></div><p>运行上方命令后，你就可以在 http://localhost:1313 查看你所生成的页面了
+由于此时是动态页面，每当你保存的时候，页面就会随着改变进行刷新。</p>
+<h4 id="构建网站">构建网站</h4>
+<p>一切准备就绪，你可以生成你的静态页面，然后发布在 Github Pages 或是 Gitee Pages 上以供大家查看了！</p>
+<div class="highlight"><pre class="chroma"><code class="language-Bash" data-lang="Bash">hugo
+</code></pre></div><p>该命令会生成一个 public 目录, 其中包含你网站的所有静态内容和资源。</p>
+<p>查阅或搜索 Github Pages 和 Gitee Pages 等服务，将你的网页发布上去吧！</p>
+<h2 id="更多配置">更多配置</h2>
+<p>或许你会觉得此时的页面还太死板，想要更多个性化的样式。</p>
+<p>我们可以通过查阅 <a href="https://hugoloveit.com/zh-cn/" target="_blank" rel="noopener noreffer">LoveIt 官方文档</a>来对配置文件进行修改，达到个性化的操作！</p>
+<p>由于 LoveIt 是由国人开发的，有中文官方文档，这也是我选择其作为主题的原因之一。</p>
+<p>下面我就如何更换头像，网站图标，以及如何开启 KATEX 进行数学公式的编写略写几点。</p>
+<h3 id="更换头像网站图标和开启数学公式">更换头像、网站图标和开启数学公式</h3>
+<p>我们把需要的图片，比如 avatar.png, favicon.ico 放在 my_blog/static 目录下。</p>
+<p>对 config.toml 文件进行修改：</p>
+<div class="highlight"><pre class="chroma"><code class="language-TOML" data-lang="TOML"><span class="p">[</span><span class="nx">params</span><span class="p">]</span>
+    <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">math</span><span class="p">]</span>
+        <span class="c"># 开启数学公式</span>
+        <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+    <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">home</span><span class="p">]</span>
+        <span class="c"># 主页个人信息</span>
+        <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">home</span><span class="p">.</span><span class="nx">profile</span><span class="p">]</span>
+            <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+            <span class="c"># 主页显示头像的 URL</span>
+            <span class="nx">avatarURL</span> <span class="p">=</span> <span class="s2">&#34;/avatar.png&#34;</span>
+      <span class="c"># LoveIt 新增 | 0.2.0 应用图标配置</span>
+    <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">app</span><span class="p">]</span>
+        <span class="c"># 更现代的 SVG 网站图标, 可替代旧的 .png 和 .ico 文件</span>
+        <span class="nx">svgFavicon</span> <span class="p">=</span> <span class="s2">&#34;/favicon.ico&#34;</span>
+</code></pre></div><p>当然，你的博客你做主，除了以上的配置以外，还有更多的个性化配置等你去探索。</p>
+<p>注：若在构建博客中有任何疑问，或者你发现我有错误的地方，还请邮件我指正！</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-09-23</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="../../tags/%E9%A1%B9%E7%9B%AE/">项目</a>,&nbsp;<a href="../../tags/hugo/">hugo</a>,&nbsp;<a href="../../tags/loveit/">LoveIt</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-third-post/" class="prev" rel="prev" title="03-判断溢出和精度误差和名词解释"><i class="fas fa-angle-left fa-fw"></i>03-判断溢出和精度误差和名词解释</a>
+            <a href="../../posts/my-fourth-post/" class="next" rel="next" title="04-名词解释和回答问题">04-名词解释和回答问题<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="../../lib/katex/katex.min.css"><link rel="stylesheet" href="../../lib/katex/copy-tex.min.css"><script type="text/javascript" src="../../lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="../../lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="../../lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../lib/katex/katex.min.js"></script><script type="text/javascript" src="../../lib/katex/auto-render.min.js"></script><script type="text/javascript" src="../../lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="../../lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

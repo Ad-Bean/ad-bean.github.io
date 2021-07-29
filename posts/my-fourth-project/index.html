@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>04-硬件编程--机器指令编程 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="04-硬件编程--机器指令编程" />
+<meta property="og:description" content="实验目的 理解冯·诺伊曼计算机的结构 理解机器指令的构成 理解机器指令执行周期 用汇编编写简单程序 实验/学习工具 简单 CPU 仿真工具 Pippin CPUSim 实验环境环境 windows 7 或" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-fourth-project/" />
+<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="article:published_time" content="2020-10-24T10:02:45+08:00" />
+<meta property="article:modified_time" content="2020-10-24T10:02:45+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
+
+<meta name="twitter:title" content="04-硬件编程--机器指令编程"/>
+<meta name="twitter:description" content="实验目的 理解冯·诺伊曼计算机的结构 理解机器指令的构成 理解机器指令执行周期 用汇编编写简单程序 实验/学习工具 简单 CPU 仿真工具 Pippin CPUSim 实验环境环境 windows 7 或"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://adbean.gitee.io/posts/my-fourth-project/" /><link rel="prev" href="https://adbean.gitee.io/posts/my-eighth-post/" /><link rel="next" href="https://adbean.gitee.io/posts/my-ninth-post/" /><link rel="stylesheet" href="../../lib/normalize/normalize.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="../../lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "04-硬件编程--机器指令编程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/adbean.gitee.io\/posts\/my-fourth-project\/"
+        },"genre": "posts","keywords": "项目, 汇编语言, ","wordcount":  1868 ,
+        "url": "https:\/\/adbean.gitee.io\/posts\/my-fourth-project\/","datePublished": "2020-10-24T10:02:45+08:00","dateModified": "2020-10-24T10:02:45+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../posts/my-index/"> 索引 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../posts/my-index/" title="">索引</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">04-硬件编程--机器指令编程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-24">2020-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1868 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#实验目的">实验目的</a></li>
+    <li><a href="#实验学习工具">实验/学习工具</a>
+      <ul>
+        <li><a href="#实验环境环境">实验环境环境</a></li>
+        <li><a href="#网址">网址</a></li>
+      </ul>
+    </li>
+    <li><a href="#实验步骤">实验步骤</a>
+      <ul>
+        <li><a href="#任务-1简单程序">任务 1：简单程序</a></li>
+        <li><a href="#任务-2简单循环">任务 2：简单循环</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="实验目的">实验目的</h2>
+<ul>
+<li>理解<strong>冯·诺伊曼计算机</strong>的结构</li>
+<li>理解<strong>机器指令</strong>的构成</li>
+<li>理解<strong>机器指令执行周期</strong></li>
+<li>用<strong>汇编</strong>编写简单程序</li>
+</ul>
+<h2 id="实验学习工具">实验/学习工具</h2>
+<p>简单 CPU 仿真工具 <strong>Pippin CPUSim</strong></p>
+<h3 id="实验环境环境">实验环境环境</h3>
+<ul>
+<li>windows 7 或 以下</li>
+<li>浏览器 IE 8 或 以下</li>
+<li>Java Runtime Environment 1.6（JRE 6.0）或 以下</li>
+</ul>
+<h3 id="网址">网址</h3>
+<p><a href="http://www.science.smith.edu/~jcardell/Courses/CSC103/CPUsim/cpusim.html" target="_blank" rel="noopener noreffer">CPUsim</a></p>
+<blockquote>
+<p>注：本次实验在<strong>云晫云桌面</strong>下完成</p>
+</blockquote>
+<h2 id="实验步骤">实验步骤</h2>
+<p>启动 win 7，使用 ie8 访问上述网址，得到如下启动页面</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/start.png"
+        data-srcset="../../Project4/start.png, ../../Project4/start.png 1.5x, ../../Project4/start.png 2x"
+        data-sizes="auto"
+        alt="/Project4/start.png"
+        title="start_page" /></p>
+<h3 id="任务-1简单程序">任务 1：简单程序</h3>
+<p>(1) 打开网页 <a href="http://doctord.webhop.net/Courses/UNH/CS216/PIPPINGuide.html" target="_blank" rel="noopener noreffer">[The PIPPIN User’s Guide]</a>，然后输入 <strong>Program 1：Add 2 number</strong></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/program1.png"
+        data-srcset="../../Project4/program1.png, ../../Project4/program1.png 1.5x, ../../Project4/program1.png 2x"
+        data-sizes="auto"
+        alt="/Project4/program1.png"
+        title="program1" /></p>
+<p>(2) 点 step after step。观察并回答下面问题：</p>
+<ol>
+<li><strong>PC，IR 寄存器</strong>的作用。</li>
+<li><strong>ACC 寄存器</strong>的全称与作用。</li>
+<li>用“<strong>LOD #3</strong>”指令的执行过程，解释 Fetch-Execute 周期。</li>
+<li>用“<strong>ADD W</strong>” 指令的执行过程，解释 Fetch-Execute 周期。</li>
+<li>“LOD #3” 与 “ADD W” 指令的执行在 Fetch-Execute 周期级别，有什么<strong>不同</strong>。</li>
+</ol>
+<h4 id="pc-寄存器">PC 寄存器</h4>
+<p><strong>程序计数器</strong> program counter 保存着<strong>下一条指令的地址</strong>，并且当该条指令，解码执行完成后，会更新为下一条指令的地址。</p>
+<h4 id="ir-寄存器">IR 寄存器</h4>
+<p><strong>指令寄存器</strong> instruction register 保存<strong>当前正在执行或解码</strong>的指令，并且在指令被解码、准备和最终执行的过程中保存着指令。</p>
+<h4 id="acc-寄存器">ACC 寄存器</h4>
+<p><strong>累加器</strong> accumulator 用来储存计算产生的中间结果，如果没有像<strong>累加器</strong>这样的<strong>寄存器</strong>，那么在每次计算 (加法，乘法，移位等等) 后就必须要把结果写回到<strong>内存</strong>，也许马上就得读回来。然而存取主存的速度是比从<strong>算术逻辑单元</strong>到有<strong>直接路径的累加器</strong>存取更慢。</p>
+<h4 id="fetch-execute-周期">Fetch-Execute 周期</h4>
+<h5 id="lod-3">LOD #3</h5>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/LOD.png"
+        data-srcset="../../Project4/LOD.png, ../../Project4/LOD.png 1.5x, ../../Project4/LOD.png 2x"
+        data-sizes="auto"
+        alt="/Project4/LOD.png"
+        title="lod" /></p>
+<p><strong>Fetch 获取</strong>：从<strong>程序计数器 PC</strong> 中取得该指令的的<strong>地址码</strong>，并且将该指令送入<strong>指令寄存器 IR</strong></p>
+<p><strong>Decode 解码</strong>：指令由<strong>处理器解码</strong>，并且将结果传给 <strong>MUX 多路选择器</strong>，将不同的<strong>操作数</strong>输入传给 <strong>ALU 算术逻辑单元</strong>，并且控制 <strong>ALU 算术逻辑单元</strong>的功能。</p>
+<p><strong>Execute 执行</strong>：在最后一个阶段，处理器执行指令。<strong>ALU 算术逻辑单元</strong>将<strong>操作数 #3</strong> 从指令中指定的地址拷贝到 <strong>ACC 累加器寄存器</strong>中。</p>
+<h4 id="add-w">ADD W</h4>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/ADD.png"
+        data-srcset="../../Project4/ADD.png, ../../Project4/ADD.png 1.5x, ../../Project4/ADD.png 2x"
+        data-sizes="auto"
+        alt="/Project4/ADD.png"
+        title="add" /></p>
+<p><strong>Fetch 获取</strong>：从<strong>程序计数器 PC</strong> 中取得该指令的的<strong>地址码</strong>，并且将该指令送入<strong>指令寄存器 IR</strong></p>
+<p><strong>Decode 解码</strong>：指令由<strong>处理器解码</strong>，并且将结果传给 <strong>MUX 多路选择器</strong>，将不同的<strong>操作数</strong>输入传给 <strong>ALU 算术逻辑单元</strong>，并且控制 <strong>ALU 算术逻辑单元</strong>的功能。</p>
+<p><strong>Execute 执行</strong>：在最后一个阶段，处理器执行指令。处理器从<strong>内存 W</strong> 中取出<strong>操作数 3</strong>，与<strong>累加器储存器中的操作数 7</strong> <strong>相加</strong>，<strong>ALU 算术逻辑单元</strong>将相加后的结果储存到 <strong>ACC 累加器寄存器</strong>中。</p>
+<h4 id="寻址方式">寻址方式</h4>
+<p>“LOD #3” 与 “ADD W” 指令的执行在 Fetch-Execute 周期级别中主要是<strong>寻址方式</strong>不同。</p>
+<p>LOD 是<strong>立即数寻址</strong>，即从指令中得到 #3 作为<strong>操作数</strong>，而 ADD W 则要从<strong>寄存器 W</strong> 中获得相应的数据作为<strong>操作数</strong>，再与<strong>累加寄存器</strong>中的<strong>操作数</strong>相加。</p>
+<p>其次，LOD 的<strong>指令格式</strong>与 ADD 也不相同。</p>
+<p>(3) 点击“Binary”,观察回答下面问题</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/program1bi.png"
+        data-srcset="../../Project4/program1bi.png, ../../Project4/program1bi.png 1.5x, ../../Project4/program1bi.png 2x"
+        data-sizes="auto"
+        alt="/Project4/program1bi.png"
+        title="binary" /></p>
+<ol>
+<li>写出指令 “LOD #7” 的<strong>二进制形式</strong>，按<strong>指令结构</strong>，解释每部分的含义。</li>
+<li>解释 <strong>RAM</strong> 的地址。</li>
+<li>该机器 CPU 是<strong>几位</strong>的？（按累加器的位数）</li>
+<li>写出该程序对应的 <strong>C 语言表达</strong>。</li>
+</ol>
+<h4 id="机器码">机器码</h4>
+<p>LOD #7 的<strong>二进制形式</strong>：00010100 00000111</p>
+<p>参照 <a href="http://doctord.webhop.net/Courses/UNH/CS216/PIPPINGuide.html" target="_blank" rel="noopener noreffer">[The PIPPIN User’s Guide]</a></p>
+<table>
+<thead>
+<tr>
+<th align="center">Opcode Operand(Binary)</th>
+<th align="center">Assembly Instruction</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">00000100 bbbbbbbb</td>
+<td align="center">LOD X</td>
+<td align="center">Load the accumulator with the 8-bit value stored at referenced memory address.</td>
+</tr>
+<tr>
+<td align="center">00010100 bbbbbbbb</td>
+<td align="center">LOD #n</td>
+<td align="center">Load the accumulator with an immediated value.</td>
+</tr>
+</tbody>
+</table>
+<p>其中前八位指令代表 LOD，第四位为 0 则从<strong>寄存器</strong>读取操作数，第四位为 1 则是读取一个<strong>立即数</strong></p>
+<p>后八位则为寄存器地址或立即数的二进制形式，在这里$ (00000111)_ 2 = 7_{10} $</p>
+<h4 id="ram-地址">RAM 地址</h4>
+<p>该 CPU 的 RAM 从 0 - 110，二进制为 00000000 到 01101110，用于存储指令。其中每条指令的长度为 16 位 2 个字节。
+而数据存在从 10000000 到 10000111 的寄存器中，其中每个寄存器大小为 8 位。</p>
+<h4 id="cpu-位数">CPU 位数</h4>
+<p>从图上可知该 CPU 的 ACC 寄存器可以储存 8 位大小的数据，所以该 CPU 是 <strong>8 位 CPU</strong>。</p>
+<h4 id="高级语言表达">高级语言表达</h4>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">;</span>
+</code></pre></div><h3 id="任务-2简单循环">任务 2：简单循环</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/program2.png"
+        data-srcset="../../Project4/program2.png, ../../Project4/program2.png 1.5x, ../../Project4/program2.png 2x"
+        data-sizes="auto"
+        alt="/Project4/program2.png"
+        title="program2" /></p>
+<p>(1) 输入程序 Program 2，运行并回答问题：</p>
+<ol>
+<li>用一句话总结<strong>程序的功能</strong></li>
+<li>写出对应的 <strong>c 语言程序</strong></li>
+</ol>
+<p>(2) 修改该程序，用机器语言实现 10 + 9 + 8 + .. + 1 ，输出结果存放于内存 Y</p>
+<ol>
+<li>写出 <strong>c 语言</strong>的计算过程</li>
+<li>写出<strong>机器语言</strong>的计算过程</li>
+<li>用自己的语言，简单总结<strong>高级语言</strong>与<strong>机器语言</strong>的区别与联系。</li>
+</ol>
+<h4 id="程序的功能">程序的功能</h4>
+<p>该程序每次读取寄存器 X 中的数，并且<strong>减一</strong>，不断重复这个过程<strong>直到这个数为 0</strong>，当 X 为 0 时结束程序。</p>
+<h4 id="c-语言实现">C 语言实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h4 id="修改程序">修改程序</h4>
+<p><strong>C 语言</strong>实现:</p>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">w</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p><strong>机器语言</strong>实现：</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/LOOP.png"
+        data-srcset="../../Project4/LOOP.png, ../../Project4/LOOP.png 1.5x, ../../Project4/LOOP.png 2x"
+        data-sizes="auto"
+        alt="/Project4/LOOP.png"
+        title="LOOP" /></p>
+<table>
+<thead>
+<tr>
+<th align="center">Index</th>
+<th align="center">Assembly Instruction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">LOD #0</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">STO W</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">LOD #10</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">STO X</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">LOD X</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">ADD W</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="center">STO W</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="center">LOD X</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="center">SUB #1</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">JMZ 24</td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="center">STO X</td>
+</tr>
+<tr>
+<td align="center">22</td>
+<td align="center">JMP 8</td>
+</tr>
+<tr>
+<td align="center">24</td>
+<td align="center">HLT</td>
+</tr>
+</tbody>
+</table>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../Project4/program2END.png"
+        data-srcset="../../Project4/program2END.png, ../../Project4/program2END.png 1.5x, ../../Project4/program2END.png 2x"
+        data-sizes="auto"
+        alt="/Project4/program2END.png"
+        title="program2" /></p>
+<h4 id="机器语言和高级语言的区别与联系">机器语言和高级语言的区别与联系</h4>
+<p>通过<strong>模拟 CPU</strong>，我直观地感受到<strong>汇编语言</strong>、<strong>机器语言</strong>是对应着不同的机器<strong>语言指令集</strong>，<strong>汇编语言</strong>通过汇编过程转换成<strong>机器指令</strong>。特定的汇编语言和特定的机器语言指令集是一一对应的，是一种直接面向硬件的语言，但是对于递归、循环等等操作，相较于<strong>高级语言</strong>代码量大且复杂，不便于编写和维护。</p>
+<p><strong>高级语言</strong>语法和结构更类似人类语言，更加简单、易于理解和维护。<strong>高级语言</strong>经过编译后可以得到目标程序，<strong>高级语言</strong>要通过编译程序翻译成<strong>汇编代码</strong>，汇编语言要通过汇编得到<strong>机器语言</strong>。</p>
+<p>虽然他们之间存在<strong>区别</strong>，但是<strong>联系</strong>还是非常紧密的。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="../../tags/%E9%A1%B9%E7%9B%AE/">项目</a>,&nbsp;<a href="../../tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/">汇编语言</a>,&nbsp;<a href=""></a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-eighth-post/" class="prev" rel="prev" title="08-伪代码、自顶向下设计与项目5"><i class="fas fa-angle-left fa-fw"></i>08-伪代码、自顶向下设计与项目5</a>
+            <a href="../../posts/my-ninth-post/" class="next" rel="next" title="09-面向对象编程语言">09-面向对象编程语言<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="../../lib/katex/katex.min.css"><link rel="stylesheet" href="../../lib/katex/copy-tex.min.css"><script type="text/javascript" src="../../lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="../../lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="../../lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../lib/katex/katex.min.js"></script><script type="text/javascript" src="../../lib/katex/auto-render.min.js"></script><script type="text/javascript" src="../../lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="../../lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

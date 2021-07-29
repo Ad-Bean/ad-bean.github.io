@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>08-伪代码、自顶向下设计与项目5 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="08-伪代码、自顶向下设计与项目5" />
+<meta property="og:description" content="Pseudocode Standard 伪代码 阅读 Pseudocode Standard 1. 用伪代码描述将十进制转换成 16 进制的方法 READ decimal Set hexadecimal to an empty string REPEAT Set temp to dec mod 16 CASE temp OF 0 : Set hexadecimal to 0 add hexadecimal 1 : Set hexadecimal to 1 add hexadecimal 2 : Set hexadecimal to 2 add" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-eighth-post/" />
+<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="article:published_time" content="2020-10-18T18:45:01+08:00" />
+<meta property="article:modified_time" content="2020-10-18T18:45:01+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
+
+<meta name="twitter:title" content="08-伪代码、自顶向下设计与项目5"/>
+<meta name="twitter:description" content="Pseudocode Standard 伪代码 阅读 Pseudocode Standard 1. 用伪代码描述将十进制转换成 16 进制的方法 READ decimal Set hexadecimal to an empty string REPEAT Set temp to dec mod 16 CASE temp OF 0 : Set hexadecimal to 0 add hexadecimal 1 : Set hexadecimal to 1 add hexadecimal 2 : Set hexadecimal to 2 add"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://adbean.gitee.io/posts/my-eighth-post/" /><link rel="prev" href="https://adbean.gitee.io/posts/my-seventh-post/" /><link rel="next" href="https://adbean.gitee.io/posts/my-fourth-project/" /><link rel="stylesheet" href="../../lib/normalize/normalize.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="../../lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "08-伪代码、自顶向下设计与项目5",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/adbean.gitee.io\/posts\/my-eighth-post\/"
+        },"genre": "posts","keywords": "伪代码, 名词解释, 作业, 面向对象","wordcount":  2516 ,
+        "url": "https:\/\/adbean.gitee.io\/posts\/my-eighth-post\/","datePublished": "2020-10-18T18:45:01+08:00","dateModified": "2020-10-18T18:45:01+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../posts/my-index/"> 索引 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../posts/my-index/" title="">索引</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">08-伪代码、自顶向下设计与项目5</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a>&nbsp;<a href="../../categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-18">2020-10-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2516 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pseudocode-standard-伪代码">Pseudocode Standard 伪代码</a>
+      <ul>
+        <li><a href="#阅读-pseudocode-standardhttpuserscsccalpolyedujdalbeyswepdl_stdhtml">阅读 <a href="http://users.csc.calpoly.edu/~jdalbey/SWE/pdl_std.html">Pseudocode Standard</a></a></li>
+      </ul>
+    </li>
+    <li><a href="#explanation-of-terms-名词解释">Explanation of Terms 名词解释</a>
+      <ul>
+        <li><a href="#top-down-design-自上而下设计">Top-down design 自上而下设计</a></li>
+        <li><a href="#work-breakdown-structure-wbs-工作分解结构">Work breakdown structure (WBS) 工作分解结构</a></li>
+        <li><a href="#简述管理学-wbs-与-信息学-top-down-设计-的异同">简述管理学 WBS 与 信息学 Top-down 设计 的异同</a></li>
+      </ul>
+    </li>
+    <li><a href="#top-down-设计方法-与-pseudocode-描述">Top-down 设计方法 与 Pseudocode 描述</a>
+      <ul>
+        <li><a href="#项目-5用伪代码描述算法">项目 5：用伪代码描述算法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="pseudocode-standard-伪代码">Pseudocode Standard 伪代码</h2>
+<h3 id="阅读-pseudocode-standardhttpuserscsccalpolyedujdalbeyswepdl_stdhtml">阅读 <a href="http://users.csc.calpoly.edu/~jdalbey/SWE/pdl_std.html" target="_blank" rel="noopener noreffer">Pseudocode Standard</a></h3>
+<h4 id="1-用伪代码描述将十进制转换成-16-进制的方法">1. 用伪代码描述将十进制转换成 16 进制的方法</h4>
+<pre><code class="language-Pseudocode" data-lang="Pseudocode">READ decimal
+Set hexadecimal to an empty string
+REPEAT
+    Set temp to dec mod 16
+    CASE temp OF
+               0    :   Set hexadecimal to 0 add hexadecimal
+               1    :   Set hexadecimal to 1 add hexadecimal
+               2    :   Set hexadecimal to 2 add hexadecimal
+               3    :   Set hexadecimal to 3 add hexadecimal
+               4    :   Set hexadecimal to 4 add hexadecimal
+               5    :   Set hexadecimal to 5 add hexadecimal
+               6    :   Set hexadecimal to 6 add hexadecimal
+               7    :   Set hexadecimal to 7 add hexadecimal
+               8    :   Set hexadecimal to 8 add hexadecimal
+               9    :   Set hexadecimal to 9 add hexadecimal
+               A    :   Set hexadecimal to A add hexadecimal
+               B    :   Set hexadecimal to B add hexadecimal
+               C    :   Set hexadecimal to C add hexadecimal
+               D    :   Set hexadecimal to D add hexadecimal
+               E    :   Set hexadecimal to E add hexadecimal
+               F    :   Set hexadecimal to F add hexadecimal
+    ENDCASE
+    Set decimal to decimal divided by 16
+UNTIL decimal &gt; 0
+Print hexadecimal
+</code></pre><h4 id="2-c-语言实现先用注释写好算法然后翻译">2. C 语言实现（先用注释写好算法，然后翻译）</h4>
+<blockquote>
+<p>由于代码长度过长，页面不美观，请<strong>点击下面的代码块</strong>展开查看 C 语言代码</p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// 输入一个十进制数
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">dec</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dec</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dec</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;0</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 使用十六进制对应的哈希表
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">hexa</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="sc">&#39;1&#39;</span><span class="p">,</span> <span class="sc">&#39;2&#39;</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="sc">&#39;4&#39;</span><span class="p">,</span> <span class="sc">&#39;5&#39;</span><span class="p">,</span> <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;7&#39;</span><span class="p">,</span> <span class="sc">&#39;8&#39;</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">,</span> <span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;D&#39;</span><span class="p">,</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;F&#39;</span><span class="p">};</span>
+    <span class="c1">// 保存结果
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// 除 16 取余
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 保存余数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">dec</span> <span class="o">%</span> <span class="mi">16</span><span class="p">;</span>
+        <span class="c1">// 将余数对应为十六进制对应的数
+</span><span class="c1"></span>        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">hexa</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+        <span class="c1">// 除 16
+</span><span class="c1"></span>        <span class="n">dec</span> <span class="o">/=</span> <span class="mi">16</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 此时结果为逆序的十六进制，将结果倒序输出
+</span><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">result</span><span class="p">);</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><h4 id="3-使用-1-0-1-15-263265-最为输入测试你的程序">3. 使用-1, 0, 1, 15, 26，3265 最为输入测试你的程序</h4>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../decToHexa.png"
+        data-srcset="../../decToHexa.png, ../../decToHexa.png 1.5x, ../../decToHexa.png 2x"
+        data-sizes="auto"
+        alt="/decToHexa.png"
+        title="DECTOHEXA" /></p>
+<blockquote>
+<p>由于在设计算法时只考虑了<strong>正数</strong>的情况，所以当输入 -1 时，并没有考虑其结果</p>
+<p>通过使用 C 语言内置的输出格式控制，如 printf(&quot;%x\n&rdquo;, dec);</p>
+<p>可以得到 int 类型的 -1 的十六进制在计算机中是 <strong>ffffffff</strong> (保存为<strong>补码</strong>，具体长度跟数据类型有关)</p>
+<p>实际上如果要得到<strong>正确的答案</strong>，<strong>负数的十六进制是其正数的十六进制加上负号</strong>，只需要在程序中加入负数判断，最后输出负号和其正数的十六进制结果即可
+展开查看<strong>修改后代码</strong></p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">void</span> <span class="nf">trans</span><span class="p">(</span><span class="kt">int</span> <span class="n">dec</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dec</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Its Hexadecimal: 0</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dec</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">dec</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">dec</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 使用十六进制对应的哈希表
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">hexa</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;0&#39;</span><span class="p">,</span> <span class="sc">&#39;1&#39;</span><span class="p">,</span> <span class="sc">&#39;2&#39;</span><span class="p">,</span> <span class="sc">&#39;3&#39;</span><span class="p">,</span> <span class="sc">&#39;4&#39;</span><span class="p">,</span> <span class="sc">&#39;5&#39;</span><span class="p">,</span> <span class="sc">&#39;6&#39;</span><span class="p">,</span> <span class="sc">&#39;7&#39;</span><span class="p">,</span> <span class="sc">&#39;8&#39;</span><span class="p">,</span> <span class="sc">&#39;9&#39;</span><span class="p">,</span> <span class="sc">&#39;A&#39;</span><span class="p">,</span> <span class="sc">&#39;B&#39;</span><span class="p">,</span> <span class="sc">&#39;C&#39;</span><span class="p">,</span> <span class="sc">&#39;D&#39;</span><span class="p">,</span> <span class="sc">&#39;E&#39;</span><span class="p">,</span> <span class="sc">&#39;F&#39;</span><span class="p">};</span>
+    <span class="c1">// 保存结果
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">result</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="c1">// 除 16 取余
+</span><span class="c1"></span>    <span class="k">while</span> <span class="p">(</span><span class="n">dec</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 保存余数
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">dec</span> <span class="o">%</span> <span class="mi">16</span><span class="p">;</span>
+        <span class="c1">// 将余数对应为十六进制对应的数
+</span><span class="c1"></span>        <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">hexa</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+        <span class="c1">// 除 16
+</span><span class="c1"></span>        <span class="n">dec</span> <span class="o">/=</span> <span class="mi">16</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 此时结果为逆序的十六进制，将结果倒序输出
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Its Hexadecimal: &#34;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">flag</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;-&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">result</span><span class="p">);</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%c&#34;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// 控制循环次数
+</span><span class="c1"></span>    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">count</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">dec</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Enter a decimal: &#34;</span><span class="p">);</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dec</span><span class="p">);</span>
+        <span class="n">trans</span><span class="p">(</span><span class="n">dec</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../decToHexa1.png"
+        data-srcset="../../decToHexa1.png, ../../decToHexa1.png 1.5x, ../../decToHexa1.png 2x"
+        data-sizes="auto"
+        alt="/decToHexa1.png"
+        title="decTOHEXA1" /></p>
+<h2 id="explanation-of-terms-名词解释">Explanation of Terms 名词解释</h2>
+<h3 id="top-down-design-自上而下设计">Top-down design 自上而下设计</h3>
+<p><strong>A top-down approach</strong> (also known as <strong>stepwise</strong> design and <strong>stepwise</strong> refinement and in some cases used as a synonym of <strong>decomposition</strong>) is essentially the breaking down of a system to gain insight into its compositional sub-systems in a reverse engineering fashion. In a top-down approach an overview of the system is formulated, specifying, but not detailing, any first-level subsystems. Each subsystem is then refined in yet greater detail, sometimes in many additional subsystem levels, until the entire specification is reduced to base elements.</p>
+<p><strong>自上而下方法</strong>（又称为<strong>逐步设计和逐步细致</strong>化，在某些情况下是“<strong>分解</strong>”的同义词）本质上是对系统进行分解，以便以逆向工程的方式深入了解其组成子系统。采用自上而下的方法时，会对系统的概观进行规划和具体说明，但对于第一层子系统的细节则不予阐述。接着，对每个子系统进行更详细的细化，有时甚至在许多附加的子系统层级中进行细化，直到整个规范都简化为基本元素。</p>
+<h3 id="work-breakdown-structure-wbs-工作分解结构">Work breakdown structure (WBS) 工作分解结构</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../WBS.png"
+        data-srcset="../../WBS.png, ../../WBS.png 1.5x, ../../WBS.png 2x"
+        data-sizes="auto"
+        alt="/WBS.png"
+        title="wbs" /></p>
+<p><strong>A work-breakdown structure (WBS)</strong> in project management and systems engineering, is a deliverable-oriented breakdown of a project into <strong>smaller components</strong>. A work breakdown structure is a key project deliverable that organizes the team&rsquo;s work into manageable sections. The Project Management Body of Knowledge (PMBOK 5) defines the work-breakdown structure as a &ldquo;hierarchical decomposition of the total scope of work to be carried out by the project team to accomplish the project objectives and create the required deliverables.&rdquo;</p>
+<p><strong>项目管理</strong>和<strong>系统工程</strong>中的<strong>工作分解结构（WBS）<strong>或称为</strong>承包商工作分解结构</strong>系将一个项目细部分解为交付标的导向的<strong>较小组成</strong>。工作分解结构是关键的项目交付标的，可将项目团队工作组编成为可管理的部分。项目管理知识体系〈PMBOK 第五版〉所定义的工作分解结构：“由项目团队实施整个项目工作范围的阶层化分解，以达成项目目标，并产出必要的交付标的”。</p>
+<h3 id="简述管理学-wbs-与-信息学-top-down-设计-的异同">简述管理学 WBS 与 信息学 Top-down 设计 的异同</h3>
+<p>我认为自顶向下的 Top-down 设计可以通过逐步细化和分解，生成一个 WBS 结构。但是当对项目或是工作不太了解时，自顶向下的方法不容易纵览全局，从而正确分解成想要的每个子系统，甚至可能因为分解不当，导致子系统优先级混乱，工作结构不清晰。而 WBS 的要求较高，分解时是基于交付目标导向的，可以更好地分解结构。</p>
+<p>但是其<strong>相同之处</strong>都在于，分解任务，从子系统、子组件入手，以求最终达成目标。</p>
+<h2 id="top-down-设计方法-与-pseudocode-描述">Top-down 设计方法 与 Pseudocode 描述</h2>
+<h3 id="项目-5用伪代码描述算法">项目 5：用伪代码描述算法</h3>
+<blockquote>
+<p>介绍“<strong>自顶向下，逐步求精</strong>”的编程方法，以你观察的洗衣机为案例，用<strong>伪代码</strong>描述洗衣机洗衣的程序。</p>
+<p>仔细观察您<strong>洗衣机</strong>的运作过程，运用 <strong>Top-down 设计方法</strong>和 <strong>Pseudocode</strong>描述洗衣机控制程序。</p>
+</blockquote>
+<p>假设洗衣机可执行的基本操作如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C">    <span class="n">water_in_switch</span><span class="p">(</span><span class="n">open_close</span><span class="p">)</span> <span class="c1">// open 打开上水开关，close 关闭
+</span><span class="c1"></span>    <span class="n">water_out_switch</span><span class="p">(</span><span class="n">open_close</span><span class="p">)</span> <span class="c1">// open 打开排水开关，close 关闭
+</span><span class="c1"></span>    <span class="n">get_water_volume</span><span class="p">()</span> <span class="c1">// 返回洗衣机内部水的高度
+</span><span class="c1"></span>    <span class="n">motor_run</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span> <span class="c1">// 电机转动。left左转，right右转，stop停
+</span><span class="c1"></span>    <span class="n">time_counter</span><span class="p">()</span> <span class="c1">// 返回当前时间计数，以秒为单位
+</span><span class="c1"></span>    <span class="n">halt</span><span class="p">(</span><span class="n">returncode</span><span class="p">)</span> <span class="c1">// 停机，success 成功 failure 失败
+</span></code></pre></div><ol>
+<li>
+<p>请使用<strong>伪代码分解</strong>“正常洗衣”程序的大步骤。包括注水、浸泡等</p>
+</li>
+<li>
+<p>进一步用<strong>基本操作</strong>、<strong>控制语句</strong>（IF、FOR、WHILE 等）、变量与表达式，写出每
+个步骤的<strong>伪代码</strong></p>
+</li>
+<li>
+<p>根据你的实践，请分析“正常洗衣”与“快速洗衣”在用户目标和程序上的异同。
+你认为是否存在<strong>改进（创新）空间</strong>，简单说明你的改进意见？</p>
+</li>
+<li>
+<p>通过步骤 3，提取一些<strong>共性功能模块（函数）</strong>，简化“正常洗衣”程序，使程序
+变得更利于人类理解和修改维护。例如：</p>
+<p>wait(time) //等待指定的时间；</p>
+<p>注水(volume,timeout) //在指定时间内完成注水，否则停机；</p>
+<p>排水(timeout)</p>
+</li>
+</ol>
+<h4 id="洗衣机的洗衣程序">洗衣机的洗衣程序</h4>
+<p><strong>自顶向下</strong>地分析一个洗衣机的程序：</p>
+<ol>
+<li>开机</li>
+<li>用户设定注水量和时间，启动后开始计时</li>
+<li>打开上水开关，开始进水，直到超过用户设定注水量</li>
+<li>关闭上水开关，浸泡</li>
+<li>电机转动，在一定时间内左转，一定时间内右转</li>
+<li>打开排水开关，进行脱水</li>
+<li>转动洗衣机，进行脱水，一定时间后关闭排水开关</li>
+<li>停机</li>
+</ol>
+<p>用<strong>伪代码</strong>描述为：</p>
+<pre><code class="language-Pseudocode" data-lang="Pseudocode">READ SettingVolume  // 设定注水量
+READ SettingTime    // 设定运行时间
+Set runtime to SettingTime    // 设定计时器
+water_in_switch(open)
+water_out_switch(close)
+REPEAT
+    water_in    //注水
+    Set volume to get_water_volume()
+    runtime--
+UNTIL (volume &gt; SettingVolume)
+
+water_in_switch(close)
+Set motor_time to SettingTime / 3
+FOR (i &lt;- 0; i &lt; motor_time; ++i)
+    motor_run(left)
+    motor_run(right)
+    runtime--
+END FOR
+motor_run(stop)
+water_out_switch(open)  // 排水
+
+REPEAT
+    motor_run(left)
+    Set volume to get_water_volume()
+UNTIL (volume &lt;= 0)
+
+water_out_switch(close)
+
+IF (runtime &lt;= 0)
+    halt()
+END IF
+</code></pre><h4 id="改进与创新">改进与创新</h4>
+<p><strong>不同之处</strong>：</p>
+<p>正常洗衣：洗衣机执行 1 次洗涤、2 次漂洗、3 次甩干，时间一般需要四五十分钟。
+快速洗衣：往往只需要漂洗一次，水位也较低，时间只需要十到二十分钟。</p>
+<p><strong>相同之处</strong>：</p>
+<p>都需要经过洗涤、漂洗和甩干过程</p>
+<p><strong>尝试创新</strong>：
+我认为快速洗涤不仅省水省电，还省时间，但是存在衣服洗不干净且可能有洗涤剂残留的弊端。若是能在快速洗涤的基础上，用户自定义漂洗次数，也就是说将洗涤、浸泡、漂洗、甩干等分为子程序，让用户<strong>自行选择和组合</strong>，满足用户的多种需求。</p>
+<h4 id="共性功能模块函数">共性功能模块（函数）</h4>
+<pre><code class="language-Pseudocode" data-lang="Pseudocode">    wait(time) //等待指定的时间；
+    注水(volume, timeout) //在指定时间内完成注水，否则停机；
+    排水(timeout)
+
+    motor_run(left, time)   // 电机在一定时间内向左转动
+    motor_run(right, time)  // 电机在一定时间内向右转动
+</code></pre></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-18</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="../../tags/%E4%BC%AA%E4%BB%A3%E7%A0%81/">伪代码</a>,&nbsp;<a href="../../tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/">名词解释</a>,&nbsp;<a href="../../tags/%E4%BD%9C%E4%B8%9A/">作业</a>,&nbsp;<a href="../../tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">面向对象</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-seventh-post/" class="prev" rel="prev" title="07-机器语言和名词解释"><i class="fas fa-angle-left fa-fw"></i>07-机器语言和名词解释</a>
+            <a href="../../posts/my-fourth-project/" class="next" rel="next" title="04-硬件编程--机器指令编程">04-硬件编程--机器指令编程<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="../../lib/katex/katex.min.css"><link rel="stylesheet" href="../../lib/katex/copy-tex.min.css"><script type="text/javascript" src="../../lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="../../lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="../../lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../lib/katex/katex.min.js"></script><script type="text/javascript" src="../../lib/katex/auto-render.min.js"></script><script type="text/javascript" src="../../lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="../../lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

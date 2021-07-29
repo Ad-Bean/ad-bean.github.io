@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>hugo - 标签 - Adbean&#39;s Blog</title>
+        <link>https://adbean.gitee.io/tags/hugo/</link>
+        <description>hugo - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 23 Sep 2020 12:39:13 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/hugo/" rel="self" type="application/rss+xml" /><item>
+    <title>使用 Hogo &#43; LoveIt 构建博客</title>
+    <link>https://adbean.gitee.io/posts/my-first-project/</link>
+    <pubDate>Wed, 23 Sep 2020 12:39:13 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-first-project/</guid>
+    <description><![CDATA[Hugo 和 Loveit 主题 Hugo: The world’s fastest framework for building websites Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. LoveIt: A Clean, Elegant but Advanced Hugo Theme for Hugo. 为什么选择 Hugo Hugo 号称世界上最快的构建网]]></description>
+</item></channel>
+</rss>

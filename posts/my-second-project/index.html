@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>使用Construct3制作一个小游戏 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="使用Construct3制作一个小游戏" />
+<meta property="og:description" content="成果展示 游戏 Demo 试玩地址 https://www.construct.net/en/free-online-games/spider-man-upside-down-18150/play 成果视频 bilibili 地址 游戏介绍 你是超级英雄——蜘蛛侠，在未来的某一天醒来时，你突然发现整座城市被颠倒了！ 作为城市的友好邻居，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-second-project/" />
+<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="article:published_time" content="2020-10-01T23:21:49+08:00" />
+<meta property="article:modified_time" content="2020-10-01T23:21:49+08:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
+
+<meta name="twitter:title" content="使用Construct3制作一个小游戏"/>
+<meta name="twitter:description" content="成果展示 游戏 Demo 试玩地址 https://www.construct.net/en/free-online-games/spider-man-upside-down-18150/play 成果视频 bilibili 地址 游戏介绍 你是超级英雄——蜘蛛侠，在未来的某一天醒来时，你突然发现整座城市被颠倒了！ 作为城市的友好邻居，"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://adbean.gitee.io/posts/my-second-project/" /><link rel="prev" href="https://adbean.gitee.io/posts/my-fifth-post/" /><link rel="next" href="https://adbean.gitee.io/posts/my-sixth-post/" /><link rel="stylesheet" href="../../lib/normalize/normalize.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="../../lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用Construct3制作一个小游戏",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/adbean.gitee.io\/posts\/my-second-project\/"
+        },"genre": "posts","keywords": "项目, Construct3, Game","wordcount":  1069 ,
+        "url": "https:\/\/adbean.gitee.io\/posts\/my-second-project\/","datePublished": "2020-10-01T23:21:49+08:00","dateModified": "2020-10-01T23:21:49+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../posts/my-index/"> 索引 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../posts/my-index/" title="">索引</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">使用Construct3制作一个小游戏</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-10-01">2020-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1069 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#成果展示">成果展示</a></li>
+    <li><a href="#游戏-demo">游戏 Demo</a>
+      <ul>
+        <li><a href="#试玩地址">试玩地址</a></li>
+        <li><a href="#成果视频">成果视频</a></li>
+      </ul>
+    </li>
+    <li><a href="#游戏介绍">游戏介绍</a>
+      <ul>
+        <li><a href="#操作方法">操作方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#游戏制作">游戏制作</a>
+      <ul>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#新建项目">新建项目</a></li>
+        <li><a href="#制作开始页面">制作开始页面</a></li>
+        <li><a href="#制作游戏页面">制作游戏页面</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="成果展示">成果展示</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../start.png"
+        data-srcset="../../start.png, ../../start.png 1.5x, ../../start.png 2x"
+        data-sizes="auto"
+        alt="/start.png"
+        title="start page" /></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../project2.gif"
+        data-srcset="../../project2.gif, ../../project2.gif 1.5x, ../../project2.gif 2x"
+        data-sizes="auto"
+        alt="/project2.gif"
+        title="Spider-Man" /></p>
+<h2 id="游戏-demo">游戏 Demo</h2>
+<h3 id="试玩地址">试玩地址</h3>
+<p><a href="https://www.construct.net/en/free-online-games/spider-man-upside-down-18150/play">https://www.construct.net/en/free-online-games/spider-man-upside-down-18150/play</a></p>
+<h3 id="成果视频">成果视频</h3>
+<p><a href="https://www.bilibili.com/video/BV1rz4y1d7LF/" target="_blank" rel="noopener noreffer">bilibili 地址</a></p>
+<h2 id="游戏介绍">游戏介绍</h2>
+<p>你是超级英雄——<strong>蜘蛛侠</strong>，在未来的某一天醒来时，你突然发现整座城市被<strong>颠倒</strong>了！</p>
+<p>作为<strong>城市的友好邻居</strong>，使用你的蛛丝发射器，拯救这座城市吧！</p>
+<h3 id="操作方法">操作方法</h3>
+<p>使用<strong>鼠标左键</strong>发射蛛丝，并且按住使自己荡起来，你的目标是在敌人的魔音下，尽可能地生存下去，直到援军赶来！</p>
+<blockquote>
+<p>注意：请适当调节背景音乐大小！</p>
+</blockquote>
+<h2 id="游戏制作">游戏制作</h2>
+<h3 id="准备工作">准备工作</h3>
+<p>本次项目使用 <strong>Construct3</strong></p>
+<blockquote>
+<p>Construct 3 is the best software to create games. Over 100,000 users monthly make &amp; sell thousands of games globally. <a href="https://www.construct.net/en" target="_blank" rel="noopener noreffer"><a href="https://www.construct.net/en">https://www.construct.net/en</a></a></p>
+</blockquote>
+<h3 id="新建项目">新建项目</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../new_project.png"
+        data-srcset="../../new_project.png, ../../new_project.png 1.5x, ../../new_project.png 2x"
+        data-sizes="auto"
+        alt="/new_project.png"
+        title="new_project" /></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../project_setting.png"
+        data-srcset="../../project_setting.png, ../../project_setting.png 1.5x, ../../project_setting.png 2x"
+        data-sizes="auto"
+        alt="/project_setting.png"
+        title="project_setting" /></p>
+<p>其中 <strong>preset</strong> 我们选择初始的 SD landscape 16:9 即可。</p>
+<h3 id="制作开始页面">制作开始页面</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../starting-page.png"
+        data-srcset="../../starting-page.png, ../../starting-page.png 1.5x, ../../starting-page.png 2x"
+        data-sizes="auto"
+        alt="/starting-page.png"
+        title="starting page" /></p>
+<p>创建好项目之后，引入眼帘的就是这个页面，左侧是<strong>属性栏</strong>，中间是<strong>操作页面</strong>，右侧是<strong>目录</strong>，我们先在右侧目录栏中将 Layout 1 右键改名 Rename 为 Start 意为开始页面，并着手制作开始页面。</p>
+<ol>
+<li>
+<p>双击页面空白，选择待创建对象的类型，创建一个新的 <strong>Sprite</strong> 对象以及一个<strong>鼠标</strong>对象
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../mouse-even.png"
+        data-srcset="../../mouse-even.png, ../../mouse-even.png 1.5x, ../../mouse-even.png 2x"
+        data-sizes="auto"
+        alt="/mouse-even.png"
+        title="mouse event2" /></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../obj_type.png"
+        data-srcset="../../obj_type.png, ../../obj_type.png 1.5x, ../../obj_type.png 2x"
+        data-sizes="auto"
+        alt="/obj_type.png"
+        title="object type" /></p>
+</li>
+<li>
+<p>为了使开始页面能顺利跳转到游戏页面，将背景设置为 <strong>Sprite</strong> 对象，左键单击要放置的位置，并将准备好的背景图拖入<strong>编辑页面</strong>
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../background_sprite.png"
+        data-srcset="../../background_sprite.png, ../../background_sprite.png 1.5x, ../../background_sprite.png 2x"
+        data-sizes="auto"
+        alt="/background_sprite.png"
+        title="background" /></p>
+</li>
+<li>
+<p>右键 Sprite 背景，将其设置为<strong>覆盖视图</strong></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../align_bg.png"
+        data-srcset="../../align_bg.png, ../../align_bg.png 1.5x, ../../align_bg.png 2x"
+        data-sizes="auto"
+        alt="/align_bg.png"
+        title="background align" /></p>
+</li>
+<li>
+<p>新建一个 Layout 页面并进行<strong>跳转</strong>设置</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../addLayout.png"
+        data-srcset="../../addLayout.png, ../../addLayout.png 1.5x, ../../addLayout.png 2x"
+        data-sizes="auto"
+        alt="/addLayout.png"
+        title="add layout" /></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../addLayout2.png"
+        data-srcset="../../addLayout2.png, ../../addLayout2.png 1.5x, ../../addLayout2.png 2x"
+        data-sizes="auto"
+        alt="/addLayout2.png"
+        title="add layout2" /></p>
+</li>
+<li>
+<p>对 Layout 和 Even Sheets 进行相应地命名。切换回 Start 页面的 Even Sheets，对背景设置跳转功能</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../settings.png"
+        data-srcset="../../settings.png, ../../settings.png 1.5x, ../../settings.png 2x"
+        data-sizes="auto"
+        alt="/settings.png"
+        title="rename" /></p>
+</li>
+<li>
+<p>双击空白处，选择 <strong>Mouse</strong> 即鼠标对应的事件，选择当左键按下时，并且添加对应的操作
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump1.png"
+        data-srcset="../../jump1.png, ../../jump1.png 1.5x, ../../jump1.png 2x"
+        data-sizes="auto"
+        alt="/jump1.png"
+        title="mouse event" />
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump2.png"
+        data-srcset="../../jump2.png, ../../jump2.png 1.5x, ../../jump2.png 2x"
+        data-sizes="auto"
+        alt="/jump2.png"
+        title="mouse event" />
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump3.png"
+        data-srcset="../../jump3.png, ../../jump3.png 1.5x, ../../jump3.png 2x"
+        data-sizes="auto"
+        alt="/jump3.png"
+        title="mouse event" />
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump4.png"
+        data-srcset="../../jump4.png, ../../jump4.png 1.5x, ../../jump4.png 2x"
+        data-sizes="auto"
+        alt="/jump4.png"
+        title="mouse event" />
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump5.png"
+        data-srcset="../../jump5.png, ../../jump5.png 1.5x, ../../jump5.png 2x"
+        data-sizes="auto"
+        alt="/jump5.png"
+        title="mouse event" />
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../jump6.png"
+        data-srcset="../../jump6.png, ../../jump6.png 1.5x, ../../jump6.png 2x"
+        data-sizes="auto"
+        alt="/jump6.png"
+        title="mouse event" /></p>
+</li>
+</ol>
+<p>如此，我们就完成了<strong>开始页面</strong>的制作，并且当左键开始页面的任何一处时，都能顺利地从开始页面<strong>跳转</strong>到游戏页面。</p>
+<h3 id="制作游戏页面">制作游戏页面</h3>
+<ol>
+<li>
+<p>按照上述教程，我们在游戏页面也添加多个 Sprite，分别为背景、鼠标、蜘蛛侠、颠倒城市、蛛网等等。<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../game-sprite.png"
+        data-srcset="../../game-sprite.png, ../../game-sprite.png 1.5x, ../../game-sprite.png 2x"
+        data-sizes="auto"
+        alt="/game-sprite.png"
+        title="game page2" /></p>
+</li>
+<li>
+<p>在<strong>属性栏</strong>中给 Sprite 蜘蛛侠添加各种行为，并且在编辑页面中设置其 Image Point，即蛛丝发射点。
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../spiderman-behavior.png"
+        data-srcset="../../spiderman-behavior.png, ../../spiderman-behavior.png 1.5x, ../../spiderman-behavior.png 2x"
+        data-sizes="auto"
+        alt="/spiderman-behavior.png"
+        title="behavior" /></p>
+<blockquote>
+<p>Line of Sight 视线：测试一个对象的位置是否具有可观察到另一个对象的视野（让蛛丝不能透过颠倒城市）</p>
+</blockquote>
+<blockquote>
+<p>Physics 物理：给蜘蛛侠添加重力</p>
+</blockquote>
+<blockquote>
+<p>Destroy Outside Layout 出界销毁：添加销毁判定</p>
+</blockquote>
+</li>
+<li>
+<p>为游戏页面添加事件，如当页面加载时<strong>设置重力</strong>，播放<strong>背景音乐</strong>，当人物出界时<strong>销毁并回退到开始页面</strong>，发射蛛丝等等行为。
+<img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="../../game-event.png"
+        data-srcset="../../game-event.png, ../../game-event.png 1.5x, ../../game-event.png 2x"
+        data-sizes="auto"
+        alt="/game-event.png"
+        title="game event" /></p>
+</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>除了给<strong>精灵 Sprit</strong> 添加<strong>行为</strong>和设置<strong>事件</strong>以外，还可以使用 <strong>JavaScript</strong> 或者 <strong>Lua</strong> 脚本语言为你的游戏增添更多功能。</p>
+<p>我在学习如何用 <strong>Construct3</strong> 制作游戏的过程中，也能稍微领会到一个游戏的诞生过程。从构思到拓展，再到真的实现，不论是用 Construct3 的<strong>可视化编程</strong>，还是在网上寻找或者自己制作各种<strong>游戏资源</strong>（人物，背景，音乐等等），总而言之制作游戏并不是一件容易的事情，尽管<strong>可视化编程</strong>和现在的许多游戏制作软件大大简化了这个过程。</p>
+<p>但我认为如果想要一个更加完整的游戏，我还需要继续学习，学习游戏引擎 <strong>Unity、UE4</strong> 等等，学习 <strong>3D 模型</strong>的制作，学习<strong>游戏配乐</strong>等等，这是一个很长的旅途，希望自己能在未来能实现一个游戏梦！</p>
+<blockquote>
+<p><strong>注：游戏中一切资源均来源网络，部分经过个人加工，请勿用于商业用途</strong></p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-10-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="../../tags/%E9%A1%B9%E7%9B%AE/">项目</a>,&nbsp;<a href="../../tags/construct3/">Construct3</a>,&nbsp;<a href="../../tags/game/">Game</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-fifth-post/" class="prev" rel="prev" title="05-逻辑门电路和名词解释"><i class="fas fa-angle-left fa-fw"></i>05-逻辑门电路和名词解释</a>
+            <a href="../../posts/my-sixth-post/" class="next" rel="next" title="06-计算机组成和名词解释">06-计算机组成和名词解释<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="../../lib/katex/katex.min.css"><link rel="stylesheet" href="../../lib/katex/copy-tex.min.css"><script type="text/javascript" src="../../lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="../../lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="../../lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="../../lib/katex/katex.min.js"></script><script type="text/javascript" src="../../lib/katex/auto-render.min.js"></script><script type="text/javascript" src="../../lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="../../lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

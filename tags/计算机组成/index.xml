@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>计算机组成 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://adbean.gitee.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/</link>
+        <description>计算机组成 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 13 Oct 2020 15:59:13 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/" rel="self" type="application/rss+xml" /><item>
+    <title>06-计算机组成和名词解释</title>
+    <link>https://adbean.gitee.io/posts/my-sixth-post/</link>
+    <pubDate>Tue, 13 Oct 2020 15:59:13 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://adbean.gitee.io/posts/my-sixth-post/</guid>
+    <description><![CDATA[von Neumann architecture 冯诺依曼结构 According to the von Neumann architecture, List basic parts of a computer. 根据冯诺依曼结构，电子计算机由以下组件构成： 中央处理器 Central processing unit ( CPU that contains an arithmetic logic unit 算术逻辑单元 and processor registers 寄存]]></description>
+</item></channel>
+</rss>
