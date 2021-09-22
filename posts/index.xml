@@ -1,78 +1,78 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>所有文章 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/posts/</link>
+        <link>http://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 22 Sep 2021 19:57:41 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>3D游戏编程作业1-井字棋</title>
+    <link>http://ad-bean.github.io/posts/my-first-unity/</link>
+    <pubDate>Wed, 22 Sep 2021 19:57:41 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-first-unity/</guid>
+    <description><![CDATA[3D 游戏编程 Homework - 1：井字棋 技术限制： 仅允许使用 IMGUI 构建 UI 作业目的： 了解 OnGUI() 事件，提升 debug 能力 提升阅读 API 文档能力 使用说明与成果展示： 项目已经通过编译得]]></description>
+</item><item>
     <title>18322043的软导作业索引页</title>
-    <link>https://adbean.gitee.io/posts/my-index/</link>
+    <link>http://ad-bean.github.io/posts/my-index/</link>
     <pubDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-index/</guid>
+    <guid>http://ad-bean.github.io/posts/my-index/</guid>
     <description><![CDATA[课后作业 01-使用维基百科（Wikipedia）解释名词 02-使用维基百科解释名词和写出英文单词 03-判断溢出和精度误差和名词解释 04-名词]]></description>
 </item><item>
     <title>流量为王的时代，拒绝虚假营销</title>
-    <link>https://adbean.gitee.io/posts/my-tenth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-tenth-project/</link>
     <pubDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-tenth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-tenth-project/</guid>
     <description><![CDATA[互联网时代背景下的热点与营销 互联网是一个信息量丰富聚集的载体，而在这大量的信息中，商家是如何利用这些信息去吸引网民、消费者的注意，如何制造热]]></description>
 </item><item>
     <title>项目9：字符游戏-智能蛇</title>
-    <link>https://adbean.gitee.io/posts/my-ninth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-ninth-project/</link>
     <pubDate>Sun, 27 Dec 2020 10:05:47 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-ninth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-ninth-project/</guid>
     <description><![CDATA[本次项目的任务是让蛇有一定的智能，能通过算法具有 “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现 人控蛇 与 智能蛇 抢食大战。 实]]></description>
 </item><item>
     <title>项目8：字符游戏-贪吃蛇</title>
-    <link>https://adbean.gitee.io/posts/my-eighth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-eighth-project/</link>
     <pubDate>Sun, 20 Dec 2020 15:51:17 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-eighth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-eighth-project/</guid>
     <description><![CDATA[实验目的 了解字符游戏的表示 体验自顶向下的设计方法实现问题求解 使用伪代码表示算法 使用函数抽象过程 游戏要求与表示 玩法 贪吃蛇游戏是一款经典的益智游]]></description>
 </item><item>
     <title>IT 伦理与道德 - 信息爆炸时代，如何保护你的个人信息安全</title>
-    <link>https://adbean.gitee.io/posts/my-seventh-project/</link>
+    <link>http://ad-bean.github.io/posts/my-seventh-project/</link>
     <pubDate>Thu, 03 Dec 2020 16:11:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-seventh-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-seventh-project/</guid>
     <description><![CDATA[什么是个人隐私 个人隐私是指公民个人生活中不愿为他人（一定范围以外的人）公开或知悉的秘密，且这一秘密与其他人及社会利益无关。判断信息是否属于个]]></description>
 </item><item>
     <title>Python 交互式编程</title>
-    <link>https://adbean.gitee.io/posts/my-sixth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-sixth-project/</link>
     <pubDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-sixth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-sixth-project/</guid>
     <description><![CDATA[实验目的 了解一种“解释型”语言 python 使用 python 做一些简单的科学计算 实验环境 编程工具：Python Anaconda vscode 操作系统：Windows 环境准备 安装 Anaconda Anaconda 是一个可]]></description>
 </item><item>
     <title>10-数据结构与算法设计</title>
-    <link>https://adbean.gitee.io/posts/my-tenth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-tenth-post/</link>
     <pubDate>Sun, 08 Nov 2020 23:14:22 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-tenth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-tenth-post/</guid>
     <description><![CDATA[Bubble Sort 冒泡排序 Bubble Sort the list: 33, 56, 17, 8, 95, 22 Make sure the final result is from small to large. Write out the list after the 2nd pass. 冒泡排序原理（升序） 比较相邻的元素。如果前一个元素比后一个元素大，就交换]]></description>
 </item><item>
     <title>09-面向对象编程语言</title>
-    <link>https://adbean.gitee.io/posts/my-ninth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-ninth-post/</link>
     <pubDate>Sat, 24 Oct 2020 19:57:39 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-ninth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-ninth-post/</guid>
     <description><![CDATA[类和对象 根据后面的素材，识别类和对象。 阅读“牧师与恶魔过河”的游戏介绍并玩游 戏。然后回答问题 游戏涉及哪些类。请列表说明 游戏中有哪些对象，各几]]></description>
 </item><item>
-    <title>04-硬件编程--机器指令编程</title>
-    <link>https://adbean.gitee.io/posts/my-fourth-project/</link>
-    <pubDate>Sat, 24 Oct 2020 10:02:45 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-fourth-project/</guid>
-    <description><![CDATA[实验目的 理解冯·诺伊曼计算机的结构 理解机器指令的构成 理解机器指令执行周期 用汇编编写简单程序 实验/学习工具 简单 CPU 仿真工具 Pippin CPUSim 实验环境环境 windows 7 或]]></description>
-</item><item>
     <title>08-伪代码、自顶向下设计与项目5</title>
-    <link>https://adbean.gitee.io/posts/my-eighth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-eighth-post/</link>
     <pubDate>Sun, 18 Oct 2020 18:45:01 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-eighth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-eighth-post/</guid>
     <description><![CDATA[Pseudocode Standard 伪代码 阅读 Pseudocode Standard 1. 用伪代码描述将十进制转换成 16 进制的方法 READ decimal Set hexadecimal to an empty string REPEAT Set temp to dec mod 16 CASE temp OF 0 : Set hexadecimal to 0 add hexadecimal 1 : Set hexadecimal to 1 add hexadecimal 2 : Set hexadecimal to 2 add]]></description>
 </item></channel>
 </rss>

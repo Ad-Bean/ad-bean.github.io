@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>热点领域 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/</link>
+        <link>http://ad-bean.github.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/</link>
         <description>热点领域 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/" rel="self" type="application/rss+xml" /><item>
     <title>流量为王的时代，拒绝虚假营销</title>
-    <link>https://adbean.gitee.io/posts/my-tenth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-tenth-project/</link>
     <pubDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-tenth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-tenth-project/</guid>
     <description><![CDATA[互联网时代背景下的热点与营销 互联网是一个信息量丰富聚集的载体，而在这大量的信息中，商家是如何利用这些信息去吸引网民、消费者的注意，如何制造热]]></description>
 </item></channel>
 </rss>

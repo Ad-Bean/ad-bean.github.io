@@ -1,71 +1,64 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>项目 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E9%A1%B9%E7%9B%AE/</link>
+        <link>http://ad-bean.github.io/tags/%E9%A1%B9%E7%9B%AE/</link>
         <description>项目 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E9%A1%B9%E7%9B%AE/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E9%A1%B9%E7%9B%AE/" rel="self" type="application/rss+xml" /><item>
     <title>流量为王的时代，拒绝虚假营销</title>
-    <link>https://adbean.gitee.io/posts/my-tenth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-tenth-project/</link>
     <pubDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-tenth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-tenth-project/</guid>
     <description><![CDATA[互联网时代背景下的热点与营销 互联网是一个信息量丰富聚集的载体，而在这大量的信息中，商家是如何利用这些信息去吸引网民、消费者的注意，如何制造热]]></description>
 </item><item>
     <title>项目9：字符游戏-智能蛇</title>
-    <link>https://adbean.gitee.io/posts/my-ninth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-ninth-project/</link>
     <pubDate>Sun, 27 Dec 2020 10:05:47 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-ninth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-ninth-project/</guid>
     <description><![CDATA[本次项目的任务是让蛇有一定的智能，能通过算法具有 “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现 人控蛇 与 智能蛇 抢食大战。 实]]></description>
 </item><item>
     <title>项目8：字符游戏-贪吃蛇</title>
-    <link>https://adbean.gitee.io/posts/my-eighth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-eighth-project/</link>
     <pubDate>Sun, 20 Dec 2020 15:51:17 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-eighth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-eighth-project/</guid>
     <description><![CDATA[实验目的 了解字符游戏的表示 体验自顶向下的设计方法实现问题求解 使用伪代码表示算法 使用函数抽象过程 游戏要求与表示 玩法 贪吃蛇游戏是一款经典的益智游]]></description>
 </item><item>
     <title>IT 伦理与道德 - 信息爆炸时代，如何保护你的个人信息安全</title>
-    <link>https://adbean.gitee.io/posts/my-seventh-project/</link>
+    <link>http://ad-bean.github.io/posts/my-seventh-project/</link>
     <pubDate>Thu, 03 Dec 2020 16:11:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-seventh-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-seventh-project/</guid>
     <description><![CDATA[什么是个人隐私 个人隐私是指公民个人生活中不愿为他人（一定范围以外的人）公开或知悉的秘密，且这一秘密与其他人及社会利益无关。判断信息是否属于个]]></description>
 </item><item>
     <title>Python 交互式编程</title>
-    <link>https://adbean.gitee.io/posts/my-sixth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-sixth-project/</link>
     <pubDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-sixth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-sixth-project/</guid>
     <description><![CDATA[实验目的 了解一种“解释型”语言 python 使用 python 做一些简单的科学计算 实验环境 编程工具：Python Anaconda vscode 操作系统：Windows 环境准备 安装 Anaconda Anaconda 是一个可]]></description>
 </item><item>
-    <title>04-硬件编程--机器指令编程</title>
-    <link>https://adbean.gitee.io/posts/my-fourth-project/</link>
-    <pubDate>Sat, 24 Oct 2020 10:02:45 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-fourth-project/</guid>
-    <description><![CDATA[实验目的 理解冯·诺伊曼计算机的结构 理解机器指令的构成 理解机器指令执行周期 用汇编编写简单程序 实验/学习工具 简单 CPU 仿真工具 Pippin CPUSim 实验环境环境 windows 7 或]]></description>
-</item><item>
     <title>硬件编程--电路与二进制运算</title>
-    <link>https://adbean.gitee.io/posts/my-third-project/</link>
+    <link>http://ad-bean.github.io/posts/my-third-project/</link>
     <pubDate>Tue, 13 Oct 2020 20:29:05 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-third-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-third-project/</guid>
     <description><![CDATA[实验目的 了解基本门电路 理解布尔代数、逻辑符号与电路之间关系 用门电路，实现简单的计算和存储功能 实验/学习工具 在线电路设计和仿真工具 EveryCircuit https://everycircuit.com/ 由于本机]]></description>
 </item><item>
     <title>使用Construct3制作一个小游戏</title>
-    <link>https://adbean.gitee.io/posts/my-second-project/</link>
+    <link>http://ad-bean.github.io/posts/my-second-project/</link>
     <pubDate>Thu, 01 Oct 2020 23:21:49 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-second-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-second-project/</guid>
     <description><![CDATA[成果展示 游戏 Demo 试玩地址 https://www.construct.net/en/free-online-games/spider-man-upside-down-18150/play 成果视频 bilibili 地址 游戏介绍 你是超级英雄——蜘蛛侠，在未来的某一天醒来时，你突然发现整座城市被颠倒了！ 作为城市的友好邻居，]]></description>
 </item><item>
     <title>使用 Hogo &#43; LoveIt 构建博客</title>
-    <link>https://adbean.gitee.io/posts/my-first-project/</link>
+    <link>http://ad-bean.github.io/posts/my-first-project/</link>
     <pubDate>Wed, 23 Sep 2020 12:39:13 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-first-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-first-project/</guid>
     <description><![CDATA[Hugo 和 Loveit 主题 Hugo: The world’s fastest framework for building websites Hugo is one of the most popular open-source static site generators. With its amazing speed and flexibility, Hugo makes building websites fun again. LoveIt: A Clean, Elegant but Advanced Hugo Theme for Hugo. 为什么选择 Hugo Hugo 号称世界上最快的构建网]]></description>
 </item></channel>
 </rss>

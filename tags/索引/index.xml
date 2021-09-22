@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>索引 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E7%B4%A2%E5%BC%95/</link>
+        <link>http://ad-bean.github.io/tags/%E7%B4%A2%E5%BC%95/</link>
         <description>索引 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E7%B4%A2%E5%BC%95/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E7%B4%A2%E5%BC%95/" rel="self" type="application/rss+xml" /><item>
     <title>18322043的软导作业索引页</title>
-    <link>https://adbean.gitee.io/posts/my-index/</link>
+    <link>http://ad-bean.github.io/posts/my-index/</link>
     <pubDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-index/</guid>
+    <guid>http://ad-bean.github.io/posts/my-index/</guid>
     <description><![CDATA[课后作业 01-使用维基百科（Wikipedia）解释名词 02-使用维基百科解释名词和写出英文单词 03-判断溢出和精度误差和名词解释 04-名词]]></description>
 </item></channel>
 </rss>

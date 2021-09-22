@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>数学 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E6%95%B0%E5%AD%A6/</link>
+        <link>http://ad-bean.github.io/tags/%E6%95%B0%E5%AD%A6/</link>
         <description>数学 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E6%95%B0%E5%AD%A6/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E6%95%B0%E5%AD%A6/" rel="self" type="application/rss+xml" /><item>
     <title>Python 交互式编程</title>
-    <link>https://adbean.gitee.io/posts/my-sixth-project/</link>
+    <link>http://ad-bean.github.io/posts/my-sixth-project/</link>
     <pubDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-sixth-project/</guid>
+    <guid>http://ad-bean.github.io/posts/my-sixth-project/</guid>
     <description><![CDATA[实验目的 了解一种“解释型”语言 python 使用 python 做一些简单的科学计算 实验环境 编程工具：Python Anaconda vscode 操作系统：Windows 环境准备 安装 Anaconda Anaconda 是一个可]]></description>
 </item></channel>
 </rss>

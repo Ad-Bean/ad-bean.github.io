@@ -1,64 +1,64 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>名词解释 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/</link>
+        <link>http://ad-bean.github.io/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/</link>
         <description>名词解释 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 18 Oct 2020 18:45:01 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 18 Oct 2020 18:45:01 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/" rel="self" type="application/rss+xml" /><item>
     <title>08-伪代码、自顶向下设计与项目5</title>
-    <link>https://adbean.gitee.io/posts/my-eighth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-eighth-post/</link>
     <pubDate>Sun, 18 Oct 2020 18:45:01 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-eighth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-eighth-post/</guid>
     <description><![CDATA[Pseudocode Standard 伪代码 阅读 Pseudocode Standard 1. 用伪代码描述将十进制转换成 16 进制的方法 READ decimal Set hexadecimal to an empty string REPEAT Set temp to dec mod 16 CASE temp OF 0 : Set hexadecimal to 0 add hexadecimal 1 : Set hexadecimal to 1 add hexadecimal 2 : Set hexadecimal to 2 add]]></description>
 </item><item>
     <title>07-机器语言和名词解释</title>
-    <link>https://adbean.gitee.io/posts/my-seventh-post/</link>
+    <link>http://ad-bean.github.io/posts/my-seventh-post/</link>
     <pubDate>Sun, 18 Oct 2020 18:44:44 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-seventh-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-seventh-post/</guid>
     <description><![CDATA[Program with machine language according to the following C int8_t a = 1; int8_t c = a + 3; Write your assembly code &amp; machine code Assembly Code: mov cx, 01h addi ax, cx, 03h Machine Code: 1011 1001 0001 0000 0000 0000 ; mov ax, 01h ; 1011 w reg data (data if w = 1) ; 第一个字节前4位是操作码]]></description>
 </item><item>
     <title>06-计算机组成和名词解释</title>
-    <link>https://adbean.gitee.io/posts/my-sixth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-sixth-post/</link>
     <pubDate>Tue, 13 Oct 2020 15:59:13 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-sixth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-sixth-post/</guid>
     <description><![CDATA[von Neumann architecture 冯诺依曼结构 According to the von Neumann architecture, List basic parts of a computer. 根据冯诺依曼结构，电子计算机由以下组件构成： 中央处理器 Central processing unit ( CPU that contains an arithmetic logic unit 算术逻辑单元 and processor registers 寄存]]></description>
 </item><item>
     <title>05-逻辑门电路和名词解释</title>
-    <link>https://adbean.gitee.io/posts/my-fifth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-fifth-post/</link>
     <pubDate>Thu, 01 Oct 2020 10:53:08 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-fifth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-fifth-post/</guid>
     <description><![CDATA[Digital logic gate 逻辑门电路 AND gate 与门 Symbol Expression Truth Table $ Y = A B $ 与门：仅当与门的输入均为高电平（1）时，输出才为高电平（1）时；若输入中至多有一个高电平时，则输]]></description>
 </item><item>
     <title>04-名词解释和回答问题</title>
-    <link>https://adbean.gitee.io/posts/my-fourth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-fourth-post/</link>
     <pubDate>Wed, 23 Sep 2020 19:44:41 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-fourth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-fourth-post/</guid>
     <description><![CDATA[Explanation of Terms 名词解释 ASCII 美国信息交换标准代码 ASCII, abbreviated from American Standard Code for Information Interchange, is a character encoding standard for electronic communication. ASCII codes represent text in computers, telecommunications equipment, and other devices. Most modern character-encoding schemes are based on ASCII, although they support many additional characters. ASCII，是美国信]]></description>
 </item><item>
     <title>03-判断溢出和精度误差和名词解释</title>
-    <link>https://adbean.gitee.io/posts/my-third-post/</link>
+    <link>http://ad-bean.github.io/posts/my-third-post/</link>
     <pubDate>Sun, 20 Sep 2020 20:06:17 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-third-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-third-post/</guid>
     <description><![CDATA[判断溢出错误和精度误差 Write out variables x, y and z in binary code int8_t x = 67; int8_t y = -7; int8_t z = y - x; int8_t x = 0xd3; uint8_t = 0xd3; int8_t x = 127; int8_t y = -7; int8_t z = y – x; float x = 1.125; float x = 23.0; float x = 0.45; Specifier Equivalent]]></description>
 </item><item>
     <title>02-使用维基百科解释名词和写出英文单词</title>
-    <link>https://adbean.gitee.io/posts/my-second-post/</link>
+    <link>http://ad-bean.github.io/posts/my-second-post/</link>
     <pubDate>Wed, 09 Sep 2020 19:20:50 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-second-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-second-post/</guid>
     <description><![CDATA[Explanation of Terms 名词解释 Information 信息 Information can be thought of as the resolution of uncertainty; it is that which answers the question of &ldquo;What an entity is&rdquo; and thus defines both its essence and nature of its characteristics. The concept of information has different meanings in different contexts. 信息可以被认为是不确定性的解决方案]]></description>
 </item><item>
     <title>01-使用维基百科（Wikipedia）解释名词</title>
-    <link>https://adbean.gitee.io/posts/my-first-post/</link>
+    <link>http://ad-bean.github.io/posts/my-first-post/</link>
     <pubDate>Sat, 05 Sep 2020 15:05:53 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-first-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-first-post/</guid>
     <description><![CDATA[Explanation of Terms 名词解释 Computer 计算机 A computer is a machine that can be instructed to carry out sequences of arithmetic or logical operations automatically via computer programming. Modern computers have the ability to follow generalized sets of operations, called programs. These programs enable computers to perform an extremely wide range of tasks. A &ldquo;complete&rdquo; computer including the hardware, the operating system (main software), and]]></description>
 </item></channel>
 </rss>

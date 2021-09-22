@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>算法 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://adbean.gitee.io/tags/%E7%AE%97%E6%B3%95/</link>
+        <link>http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/</link>
         <description>算法 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 08 Nov 2020 23:14:22 &#43;0800</lastBuildDate><atom:link href="https://adbean.gitee.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 08 Nov 2020 23:14:22 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/" rel="self" type="application/rss+xml" /><item>
     <title>10-数据结构与算法设计</title>
-    <link>https://adbean.gitee.io/posts/my-tenth-post/</link>
+    <link>http://ad-bean.github.io/posts/my-tenth-post/</link>
     <pubDate>Sun, 08 Nov 2020 23:14:22 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://adbean.gitee.io/posts/my-tenth-post/</guid>
+    <guid>http://ad-bean.github.io/posts/my-tenth-post/</guid>
     <description><![CDATA[Bubble Sort 冒泡排序 Bubble Sort the list: 33, 56, 17, 8, 95, 22 Make sure the final result is from small to large. Write out the list after the 2nd pass. 冒泡排序原理（升序） 比较相邻的元素。如果前一个元素比后一个元素大，就交换]]></description>
 </item></channel>
 </rss>
