@@ -8,10 +8,10 @@
         <title>项目9：字符游戏-智能蛇 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="项目9：字符游戏-智能蛇" />
 <meta property="og:description" content="本次项目的任务是让蛇有一定的智能，能通过算法具有 “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现 人控蛇 与 智能蛇 抢食大战。 实" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://adbean.gitee.io/posts/my-ninth-project/" />
-<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-ninth-project/" /><meta property="og:image" content="https://adbean.gitee.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-12-27T10:05:47+08:00" />
 <meta property="article:modified_time" content="2020-12-27T10:05:47+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
 
@@ -142,10 +142,10 @@
 <p>言归正传，早期的输出设备显示器、打印机，输入设备键盘（打字机）都是 80 列行缓冲顺序输入和输出设备。即你打印文件时，打印机必须等收到行结束符，打印机才会动作。然而，输入/输出随着应用需求不断进化，字符界面控制与管理已经非常标准化了。</p>
 <h3 id="vt-100-终端标准">VT 100 终端标准</h3>
 <p>在字符终端上完成“<strong>清屏</strong>”、“<strong>修改光标位置</strong>”、“设置字符前景和背景色”等操作，是通过输出 <strong>esc</strong> 序列实现的。</p>
-<p>对于 VT100 终端, printf(&quot;\033[2J&rdquo;) 就实现了清屏。</p>
+<p>对于 VT100 终端, printf(&quot;\033[2J&quot;) 就实现了清屏。</p>
 <p>详细内容参见， <a href="https://www.cnblogs.com/zengjfgit/p/4373564.html" target="_blank" rel="noopener noreffer"><strong>C 语言与 VT100 控制码编程</strong></a></p>
 <p><strong>sin-demo.c</strong> 的代码。（源代码较长，请<strong>展开</strong>查看）</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cm">/******************************************************************
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/******************************************************************
 </span><span class="cm"> *                        sinDemo
 </span><span class="cm"> *
 </span><span class="cm"> *   1. 本Demo主要目标是为了实现在终端下实现sin函数的动态效果;
@@ -375,7 +375,7 @@
      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
  <span class="p">}</span>
 </code></pre></div><h4 id="编译运行">编译运行</h4>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gcc sin-demo.c -lm -o a<span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">gcc sin-demo.c -lm -o a<span class="p">;</span>
 ./a out
 </code></pre></div><blockquote>
 <p>若编译时不使用-lm 参数则 math.h 库与 sin 函数会报错，原因是 gcc 的 sin 函数是定义在 libm.so 里，-l 选项定义指定的路径。不填写的话默认是/lib 和/usr/lib 内。
@@ -400,7 +400,7 @@
 </ol>
 <p>代码来源: <a href="http://bbs.chinaunix.net/thread-935410-1-1.html" target="_blank" rel="noopener noreffer">Linux 下非阻塞地检测键盘输入的方法 (整理)</a></p>
 <p>代码较长，请<strong>展开</strong>查看</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/time.h&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
@@ -497,7 +497,7 @@
         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><h4 id="编译运行-1">编译运行</h4>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gcc kbhit.c -o a<span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">gcc kbhit.c -o a<span class="p">;</span>
 ./a out
 </code></pre></div><h4 id="运行效果-1">运行效果</h4>
 <p><img
@@ -517,7 +517,7 @@
 <li>思考：一个<strong>长度为 5 的障碍物</strong>能困死该自动跑的蛇吗？</li>
 </ol>
 <h4 id="决定蛇行走的方向函数的伪代码">决定蛇行走的方向函数的伪代码</h4>
-<pre><code class="language-code" data-lang="code">// Hx,Hy: 头的位置
+<pre tabindex="0"><code class="language-code" data-lang="code">// Hx,Hy: 头的位置
 // Fx,Fy：食物的位置
 function whereGoNext(Hx,Hy,Fx,Fy) {
 // 用数组movable[3]={“a”,”d”,”w”,”s”} 记录可走的方向
@@ -529,7 +529,7 @@ function whereGoNext(Hx,Hy,Fx,Fy) {
 // 返回 movable[p]
 }
 </code></pre><h4 id="智能蛇的程序框架">智能蛇的程序框架</h4>
-<pre><code class="language-code" data-lang="code">输出字符矩阵
+<pre tabindex="0"><code class="language-code" data-lang="code">输出字符矩阵
 WHILE not 游戏结束 DO
     wait(time)
     ch＝whereGoNext(Hx,Hy,Fx,Fy)
@@ -553,7 +553,7 @@ END WHILE
         alt="/Project9/main.png"
         title="main" /></p>
 <h3 id="源代码">源代码</h3>
-<p><a href="https://gitee.com/adbean/my-intelligent-snake" target="_blank" rel="noopener noreffer">gitee 仓库</a>：<a href="https://gitee.com/adbean/my-intelligent-snake">https://gitee.com/adbean/my-intelligent-snake</a></p>
+<p><a href="https://gitee.com/adbean/my-intelligent-snake" target="_blank" rel="noopener noreffer">gitee 仓库</a>：<a href="https://gitee.com/adbean/my-intelligent-snake" target="_blank" rel="noopener noreffer">https://gitee.com/adbean/my-intelligent-snake</a></p>
 <h3 id="运行效果-2">运行效果</h3>
 <p><img
         class="lazyload"
@@ -593,7 +593,7 @@ END WHILE
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

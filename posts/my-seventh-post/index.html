@@ -8,10 +8,10 @@
         <title>07-机器语言和名词解释 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="07-机器语言和名词解释" />
 <meta property="og:description" content="Program with machine language according to the following C int8_t a = 1; int8_t c = a &#43; 3; Write your assembly code &amp; machine code Assembly Code: mov cx, 01h addi ax, cx, 03h Machine Code: 1011 1001 0001 0000 0000 0000 ; mov ax, 01h ; 1011 w reg data (data if w = 1) ; 第一个字节前4位是操作码" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://adbean.gitee.io/posts/my-seventh-post/" />
-<meta property="og:image" content="https://adbean.gitee.io/logo.png"/>
+<meta property="og:url" content="https://adbean.gitee.io/posts/my-seventh-post/" /><meta property="og:image" content="https://adbean.gitee.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-10-18T18:44:44+08:00" />
 <meta property="article:modified_time" content="2020-10-18T18:44:44+08:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://adbean.gitee.io/logo.png"/>
 
@@ -133,10 +133,10 @@
 </blockquote>
 <h3 id="write-your-assembly-code--machine-code">Write your <strong>assembly code</strong> &amp; <strong>machine code</strong></h3>
 <p><strong>Assembly Code</strong>:</p>
-<pre><code class="language-x86" data-lang="x86">    mov  cx, 01h
+<pre tabindex="0"><code class="language-x86" data-lang="x86">    mov  cx, 01h
     addi ax, cx, 03h
 </code></pre><p><strong>Machine Code</strong>:</p>
-<pre><code class="language-machine" data-lang="machine">     1011 1001 0001 0000 0000 0000
+<pre tabindex="0"><code class="language-machine" data-lang="machine">     1011 1001 0001 0000 0000 0000
      ; mov  ax, 01h
      ; 1011 w reg data (data if w = 1)
      ; 第一个字节前4位是操作码, w = 1表示传递的数据类型是字
@@ -179,32 +179,32 @@
 <table>
 <thead>
 <tr>
-<th align="center">Opcode</th>
-<th align="center">D</th>
-<th align="center">W</th>
-<th align="center">MOD</th>
-<th align="center">MOD</th>
-<th align="center">REG</th>
-<th align="center">REG</th>
-<th align="center">REG</th>
-<th align="center">R/M</th>
-<th align="center">R/M</th>
-<th align="center">R/M</th>
+<th style="text-align:center">Opcode</th>
+<th style="text-align:center">D</th>
+<th style="text-align:center">W</th>
+<th style="text-align:center">MOD</th>
+<th style="text-align:center">MOD</th>
+<th style="text-align:center">REG</th>
+<th style="text-align:center">REG</th>
+<th style="text-align:center">REG</th>
+<th style="text-align:center">R/M</th>
+<th style="text-align:center">R/M</th>
+<th style="text-align:center">R/M</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center">7 - 2</td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center">7</td>
-<td align="center">6</td>
-<td align="center">5</td>
-<td align="center">4</td>
-<td align="center">3</td>
-<td align="center">2</td>
-<td align="center">1</td>
-<td align="center">0</td>
+<td style="text-align:center">7 - 2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0</td>
 </tr>
 </tbody>
 </table>
@@ -231,7 +231,7 @@
         title="mod" /></p>
 <p>R/M 字段受 MOD 字段控制。</p>
 <p><strong>例子</strong>:</p>
-<pre><code class="language-8086" data-lang="8086">MOV AH, [BX + DI + 50H]
+<pre tabindex="0"><code class="language-8086" data-lang="8086">MOV AH, [BX + DI + 50H]
 
 // OPCODE D W MOD REG R/M DISP-8
    100010 1 0  01 100 001 01010000
@@ -295,7 +295,7 @@ REG=100代表AH寄存器操作数
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.74.3">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
                 </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
