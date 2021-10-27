@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/categories/%E4%BD%9C%E4%B8%9A/</link>
         <description>作业 - 分类 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 19 Oct 2021 20:36:37 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E4%BD%9C%E4%B8%9A/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E4%BD%9C%E4%B8%9A/" rel="self" type="application/rss+xml" /><item>
+    <title>3D游戏编程作业4-打飞碟</title>
+    <link>http://ad-bean.github.io/posts/my-fourth-unity/</link>
+    <pubDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-fourth-unity/</guid>
+    <description><![CDATA[与游戏世界交互 &amp;&amp; 物理系统与碰撞 编写一个简单的鼠标打飞碟（Hit UFO）游戏 游戏内容要求： 游戏有 n 个 round，每个 round 都包括10 次 trial；]]></description>
+</item><item>
     <title>3D游戏编程作业3-牧师与恶魔动作分离版</title>
     <link>http://ad-bean.github.io/posts/my-third-unity/</link>
     <pubDate>Tue, 19 Oct 2021 20:36:37 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-sixth-post/</guid>
     <description><![CDATA[von Neumann architecture 冯诺依曼结构 According to the von Neumann architecture, List basic parts of a computer. 根据冯诺依曼结构，电子计算机由以下组件构成： 中央处理器 Central processing unit ( CPU that contains an arithmetic logic unit 算术逻辑单元 and processor registers 寄存]]></description>
-</item><item>
-    <title>05-逻辑门电路和名词解释</title>
-    <link>http://ad-bean.github.io/posts/my-fifth-post/</link>
-    <pubDate>Thu, 01 Oct 2020 10:53:08 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-fifth-post/</guid>
-    <description><![CDATA[Digital logic gate 逻辑门电路 AND gate 与门 Symbol Expression Truth Table $ Y = A B $ 与门：仅当与门的输入均为高电平（1）时，输出才为高电平（1）时；若输入中至多有一个高电平时，则输]]></description>
 </item></channel>
 </rss>

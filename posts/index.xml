@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 19 Oct 2021 20:36:37 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>3D游戏编程作业4-打飞碟</title>
+    <link>http://ad-bean.github.io/posts/my-fourth-unity/</link>
+    <pubDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-fourth-unity/</guid>
+    <description><![CDATA[与游戏世界交互 &amp;&amp; 物理系统与碰撞 编写一个简单的鼠标打飞碟（Hit UFO）游戏 游戏内容要求： 游戏有 n 个 round，每个 round 都包括10 次 trial；]]></description>
+</item><item>
     <title>3D游戏编程作业3-牧师与恶魔动作分离版</title>
     <link>http://ad-bean.github.io/posts/my-third-unity/</link>
     <pubDate>Tue, 19 Oct 2021 20:36:37 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-sixth-project/</guid>
     <description><![CDATA[实验目的 了解一种“解释型”语言 python 使用 python 做一些简单的科学计算 实验环境 编程工具：Python Anaconda vscode 操作系统：Windows 环境准备 安装 Anaconda Anaconda 是一个可]]></description>
-</item><item>
-    <title>10-数据结构与算法设计</title>
-    <link>http://ad-bean.github.io/posts/my-tenth-post/</link>
-    <pubDate>Sun, 08 Nov 2020 23:14:22 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-tenth-post/</guid>
-    <description><![CDATA[Bubble Sort 冒泡排序 Bubble Sort the list: 33, 56, 17, 8, 95, 22 Make sure the final result is from small to large. Write out the list after the 2nd pass. 冒泡排序原理（升序） 比较相邻的元素。如果前一个元素比后一个元素大，就交换]]></description>
 </item></channel>
 </rss>
