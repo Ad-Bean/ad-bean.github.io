@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>3D游戏编程作业6-智能巡逻兵 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="3D游戏编程作业6-智能巡逻兵" />
+<meta property="og:description" content="七、模型与动画：智能巡逻兵 提交要求： 游戏设计要求： 创建一个地图和若干巡逻兵（使用动画） 每个巡逻兵走一个 3~5 个边的凸多边型，位置数据是相对地址。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/my-sixth-unity/" /><meta property="og:image" content="http://ad-bean.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-30T21:58:45+08:00" />
+<meta property="article:modified_time" content="2021-11-30T21:58:45+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/logo.png"/>
+
+<meta name="twitter:title" content="3D游戏编程作业6-智能巡逻兵"/>
+<meta name="twitter:description" content="七、模型与动画：智能巡逻兵 提交要求： 游戏设计要求： 创建一个地图和若干巡逻兵（使用动画） 每个巡逻兵走一个 3~5 个边的凸多边型，位置数据是相对地址。"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/my-sixth-unity/" /><link rel="prev" href="http://ad-bean.github.io/posts/my-fourth-unity/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "3D游戏编程作业6-智能巡逻兵",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/my-sixth-unity\/"
+        },"genre": "posts","keywords": "3D游戏编程, 作业","wordcount":  2111 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/my-sixth-unity\/","datePublished": "2021-11-30T21:58:45+08:00","dateModified": "2021-11-30T21:58:45+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">3D游戏编程作业6-智能巡逻兵</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-30">2021-11-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2111 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#项目代码与项目视频演示">项目代码与项目视频演示</a></li>
+    <li><a href="#项目文档">项目文档</a>
+      <ul>
+        <li><a href="#项目配置过程">项目配置过程</a></li>
+        <li><a href="#游戏规则">游戏规则</a></li>
+        <li><a href="#项目架构">项目架构</a></li>
+        <li><a href="#模型与动画">模型与动画</a></li>
+        <li><a href="#主要代码">主要代码</a></li>
+        <li><a href="#项目心得">项目心得</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="七模型与动画智能巡逻兵">七、模型与动画：智能巡逻兵</h1>
+<ul>
+<li>提交要求：</li>
+<li>游戏设计要求：
+<ul>
+<li>创建一个地图和若干巡逻兵（使用动画）</li>
+</ul>
+</li>
+<li>每个巡逻兵走一个 3~5 个边的凸多边型，位置数据是相对地址。即每次确定下一个目标位置，用自己当前位置为原点计算；
+<ul>
+<li>巡逻兵碰撞到障碍物，则会自动选下一个点为目标；</li>
+<li>巡逻兵在设定范围内感知到玩家，会自动追击玩家；</li>
+<li>失去玩家目标后，继续巡逻；</li>
+<li>计分：玩家每次甩掉一个巡逻兵计一分，与巡逻兵碰撞游戏结束；</li>
+</ul>
+</li>
+<li>程序设计要求：
+<ul>
+<li>必须使用<strong>订阅与发布</strong>模式传消息
+<ul>
+<li>subject：OnLostGoal</li>
+<li>Publisher: ?</li>
+<li>Subscriber: ?</li>
+</ul>
+</li>
+<li>工厂模式生产巡逻兵</li>
+</ul>
+</li>
+<li>友善提示1：生成 3~5个边的凸多边型
+<ul>
+<li>随机生成矩形</li>
+<li>在矩形每个边上随机找点，可得到 3 - 4 的凸多边型</li>
+<li>5 ?</li>
+</ul>
+</li>
+<li>友善提示2：参考以前博客，给出自己新玩法</li>
+</ul>
+<h2 id="项目代码与项目视频演示">项目代码与项目视频演示</h2>
+<blockquote>
+<p>博客地址：<a href="https://ad-bean.github.io/" target="_blank" rel="noopener noreffer">Github 博客</a></p>
+<p>项目地址：<a href="https://gitee.com/adbean/Unity-3DGameProgramming" target="_blank" rel="noopener noreffer">Gitee 博客</a></p>
+<p>作业6：智能巡逻兵：<a href="https://www.bilibili.com/video/BV1UY411s7Uu/" target="_blank" rel="noopener noreffer">哔哩哔哩_bilibili</a></p>
+</blockquote>
+<h2 id="项目文档">项目文档</h2>
+<h3 id="项目配置过程">项目配置过程</h3>
+<p>将 <code>Assets</code> 文件夹下的文件全拖入新建项目后，点击新导入的 <code>Scene/</code> 中的 <code>Patrol Soldier</code> 场景，开始游戏后即可打开项目。</p>
+<h3 id="游戏规则">游戏规则</h3>
+<ul>
+<li>使用 <code>WASD</code> 前后左右移动人物，按住 <code>Shift</code> 进行奔跑，使用 <code>Space</code> 空格进行跳跃</li>
+<li>操作主角躲避巡逻兵，每到达一个新区域加一分，总分达到十分获得胜利，否则被巡逻兵抓住游戏失败。</li>
+</ul>
+<h3 id="项目架构">项目架构</h3>
+<p>本次项目依然按照 <code>MVC</code> 框架实现，并且使用动作分离、订阅与发布模式传消息。</p>
+<h4 id="model">Model</h4>
+<ul>
+<li><code>GameModels</code> ：游戏实体类，管理游戏当前状态，游戏得分、控制游戏加分和重置。</li>
+<li><code>Soldier</code> ：士兵实体类，获取巡逻士兵的区域，进行巡逻和移动。</li>
+</ul>
+<h4 id="view">View</h4>
+<ul>
+<li><code>GameGUI</code> ：显示游戏得分，开始菜单和退出按钮。</li>
+</ul>
+<h4 id="controller">Controller</h4>
+<ul>
+<li><code>AreaCollider</code> ：区域碰撞控制器，判断玩家进入（碰撞）的区域。</li>
+<li><code>Director</code> ：导演类，控制场景切换。</li>
+<li><code>GameController</code> ：游戏控制器，获取玩家操作，进行相应的动画和场景控制。</li>
+<li><code>GameEventManager</code> ：高级游戏事件管理，获取碰撞事件，判断玩家进入区域或碰撞巡逻兵。</li>
+<li><code>Map</code>：地图控制器，生成相应的资源：围栏、巡逻兵、地面。</li>
+<li><code>PlayerCollider</code>：判断玩家能否跳跃的碰撞控制器。</li>
+<li><code>SoldierCollider</code>：判断玩家是否碰到巡逻兵的碰撞控制器。</li>
+</ul>
+<h4 id="actions-动作管理">Actions 动作管理</h4>
+<ul>
+<li><code>Action</code>：基础的动作类，用于继承。</li>
+<li><code>ActionManager</code>：动作管理类，使用字典管理相应的动作。</li>
+<li><code>GameActionManager</code>：该游戏的动作管理类，用于控制巡逻兵。</li>
+<li><code>MoveToAction</code>：控制巡逻兵移动到相应位置。</li>
+<li><code>TraceAction</code>：控制巡逻兵追赶玩家。</li>
+</ul>
+<h3 id="模型与动画">模型与动画</h3>
+<p>本次项目操作一个骷髅士兵躲避巡逻兵的检查，为其添加动画组件 <code>Animator</code>、碰撞组件 <code>Capsule Collider</code> 和刚体 <code>Rigidbody</code>，并且在其头顶添加一个 <code>Camera</code> 跟踪玩家：</p>
+<p><!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted --></p>
+<p>其中动画初始状态为一个 <code>Blend Tree</code> 混合人物的三种动作：idle、walk、run，根据玩家的操作进行转变，使用变量 <code>Speed</code> 控制，当玩家按住 <code>Shift</code> 时，动画将会转换到 <code>Run</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302046111.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302046111.png, https://gitee.com/AdBean/img/raw/master/images/202111302046111.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302046111.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302046111.png"
+        title="image-20211130204630078" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302046147.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302046147.png, https://gitee.com/AdBean/img/raw/master/images/202111302046147.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302046147.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302046147.png"
+        title="image-20211130204640104" /></p>
+<p>跳跃为了实现 Mask 遮掩，在动画的另一个 Layer 中实现，比较简单：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302048370.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302048370.png, https://gitee.com/AdBean/img/raw/master/images/202111302048370.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302048370.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302048370.png"
+        title="image-20211130204812330" /></p>
+<p>巡逻兵的动画与玩家类似，不再赘述：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302049203.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302049203.png, https://gitee.com/AdBean/img/raw/master/images/202111302049203.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302049203.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302049203.png"
+        title="image-20211130204904151" /></p>
+<p>游戏地图为九个格子，每个格子间有通道：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302051853.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302051853.png, https://gitee.com/AdBean/img/raw/master/images/202111302051853.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302051853.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302051853.png"
+        title="image-20211130205120739" /></p>
+<h3 id="主要代码">主要代码</h3>
+<h4 id="订阅与发布模式">订阅与发布模式</h4>
+<p>使用 <code>AreaCollider</code> 检测碰撞，当玩家进入某个区域时，利用 <code>OnTriggerEnter()</code> <strong>钩子函数</strong>更新/发布玩家当前所在区域的号码，利用<strong>订阅与发布模式</strong>，在 <code>GameController</code> 中解耦/订阅玩家进入新区域事件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">AreaCollider</span> <span class="p">:</span> <span class="n">MonoBehaviour</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="kt">int</span> <span class="n">area</span><span class="p">;</span>
+    
+    <span class="k">public</span> <span class="k">void</span> <span class="n">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">collider</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">collider</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">&#34;Player&#34;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">GameEventManager</span><span class="p">.</span><span class="n">GetInstance</span><span class="p">().</span><span class="n">PlayerEnterArea</span><span class="p">(</span><span class="n">area</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>	
+</code></pre></div><p>使用 <code>SoldierCollider</code> 检测玩家与巡逻兵碰撞，利用 <code>OnCollisionEnter()</code> <strong>钩子函数</strong>更新/发布玩家是否与巡逻兵碰撞事件，利用<strong>订阅与发布模式</strong>，在 <code>GameController</code> 中解耦/订阅相应事件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">SoldierCollider</span> <span class="p">:</span> <span class="n">MonoBehaviour</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="n">OnCollisionEnter</span><span class="p">(</span><span class="n">Collision</span> <span class="n">collision</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">collision</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">&#34;Player&#34;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">GameEventManager</span><span class="p">.</span><span class="n">GetInstance</span><span class="p">().</span><span class="n">SoldierCollideWithPlayer</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p><code>GameController</code> 中订阅玩家进入新区域事件、订阅玩家与巡逻兵碰撞事件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">void</span> <span class="n">Awake</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">model</span><span class="p">.</span><span class="n">onRefresh</span> <span class="p">+=</span> <span class="k">delegate</span> <span class="p">{</span>
+        <span class="n">view</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state</span><span class="p">;</span>
+        <span class="n">view</span><span class="p">.</span><span class="n">score</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">score</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="n">view</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">AddComponent</span><span class="p">&lt;</span><span class="n">GameGUI</span><span class="p">&gt;();</span>
+    <span class="n">actionManager</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">AddComponent</span><span class="p">&lt;</span><span class="n">GameActionManager</span><span class="p">&gt;();</span>
+    <span class="c1">// 
+</span><span class="c1"></span>    <span class="n">GameEventManager</span><span class="p">.</span><span class="n">onPlayerEnterArea</span> <span class="p">+=</span> <span class="n">OnPlayerEnterArea</span><span class="p">;</span>
+    <span class="n">GameEventManager</span><span class="p">.</span><span class="n">onSoldierCollideWithPlayer</span> <span class="p">+=</span> <span class="n">OnSoldierCollideWithPlayer</span><span class="p">;</span>
+    <span class="n">Director</span><span class="p">.</span><span class="n">GetInstance</span><span class="p">().</span><span class="n">OnSceneWake</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 玩家进入新区域
+</span><span class="c1"></span><span class="k">private</span> <span class="k">void</span> <span class="n">OnPlayerEnterArea</span><span class="p">(</span><span class="kt">int</span> <span class="n">area</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state</span> <span class="p">!=</span> <span class="n">GameState</span><span class="p">.</span><span class="n">RUNNING</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">currentArea</span> <span class="p">!=</span> <span class="n">area</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">AddScore</span><span class="p">(</span><span class="m">1</span><span class="p">);</span>
+        <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Soldier</span><span class="p">&gt;().</span><span class="n">isFollowing</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;().</span><span class="n">SetFloat</span><span class="p">(</span><span class="s">&#34;Speed&#34;</span><span class="p">,</span> <span class="m">0.5f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="n">currentArea</span> <span class="p">=</span> <span class="n">area</span><span class="p">;</span>
+        <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Soldier</span><span class="p">&gt;().</span><span class="n">isFollowing</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span> 
+        <span class="n">actionManager</span><span class="p">.</span><span class="n">Trace</span><span class="p">(</span><span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">],</span> <span class="n">player</span><span class="p">);</span>
+        <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;().</span><span class="n">SetFloat</span><span class="p">(</span><span class="s">&#34;Speed&#34;</span><span class="p">,</span> <span class="m">1f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">score</span> <span class="p">==</span> <span class="n">model</span><span class="p">.</span><span class="n">targetScore</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">view</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">GameState</span><span class="p">.</span><span class="n">WIN</span><span class="p">;</span>
+            <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">Confined</span><span class="p">;</span>
+            <span class="n">playerAnimator</span><span class="p">.</span><span class="n">Play</span><span class="p">(</span><span class="s">&#34;Movement&#34;</span><span class="p">);</span>
+            <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Soldier</span><span class="p">&gt;().</span><span class="n">isFollowing</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+            <span class="n">actionManager</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">9</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">soldiers</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;().</span><span class="n">SetFloat</span><span class="p">(</span><span class="s">&#34;Speed&#34;</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 巡逻兵碰撞玩家
+</span><span class="c1"></span><span class="k">private</span> <span class="k">void</span> <span class="n">OnSoldierCollideWithPlayer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">StartCoroutine</span><span class="p">(</span><span class="n">Dead</span><span class="p">());</span>
+    <span class="n">player</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Rigidbody</span><span class="p">&gt;().</span><span class="n">isKinematic</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="n">view</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state</span> <span class="p">=</span> <span class="n">GameState</span><span class="p">.</span><span class="n">LOSE</span><span class="p">;</span>
+    <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Soldier</span><span class="p">&gt;().</span><span class="n">isFollowing</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="n">soldiers</span><span class="p">[</span><span class="n">currentArea</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Rigidbody</span><span class="p">&gt;().</span><span class="n">isKinematic</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">9</span><span class="p">;</span> <span class="p">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">soldiers</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Animator</span><span class="p">&gt;().</span><span class="n">SetFloat</span><span class="p">(</span><span class="s">&#34;Speed&#34;</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">actionManager</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
+    <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">Confined</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h4 id="动作分离">动作分离</h4>
+<p>在 <code>MoveToAction</code> 类中实现巡逻兵的自主巡逻，在 <code>TraceAction</code> 类中，实现了巡逻兵追赶玩家，随后利用 <code>ActionManager</code> 对动作进行管理，每当相应的事件发布/订阅时，进行动作的处理：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">MoveToAction</span> <span class="p">:</span> <span class="n">Action</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="n">Vector3</span> <span class="n">target</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">float</span> <span class="n">speed</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">area</span><span class="p">;</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="n">MoveToAction</span> <span class="n">GetAction</span><span class="p">(</span><span class="n">GameObject</span> <span class="n">gameObject</span><span class="p">,</span> <span class="n">IActionCallback</span> <span class="n">callback</span><span class="p">,</span> <span class="n">Vector3</span> <span class="n">target</span><span class="p">,</span> <span class="kt">float</span> <span class="n">speed</span><span class="p">,</span> <span class="kt">int</span> <span class="n">area</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">MoveToAction</span> <span class="n">action</span> <span class="p">=</span> <span class="n">CreateInstance</span><span class="p">&lt;</span><span class="n">MoveToAction</span><span class="p">&gt;();</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">gameObject</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">transform</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">callback</span> <span class="p">=</span> <span class="n">callback</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">target</span> <span class="p">=</span> <span class="n">target</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">speed</span> <span class="p">=</span> <span class="n">speed</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">area</span> <span class="p">=</span> <span class="n">area</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">action</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Start</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="p">-</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">==</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">zero</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+    
+    <span class="n">Quaternion</span> <span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="n">LookRotation</span><span class="p">(</span><span class="n">target</span> <span class="p">-</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span><span class="p">);</span>
+    <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">rotation</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">target</span><span class="p">).</span><span class="n">magnitude</span> <span class="p">&lt;</span> <span class="m">0.1f</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">destroy</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+      <span class="n">callback</span><span class="p">.</span><span class="n">ActionDone</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// 使用 MoveTowards 将巡逻兵移动到指定位置
+</span><span class="c1"></span>      <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">MoveTowards</span><span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">speed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="k">public</span> <span class="k">class</span> <span class="nc">TraceAction</span> <span class="p">:</span> <span class="n">Action</span> <span class="p">{</span>
+  <span class="k">public</span> <span class="n">GameObject</span> <span class="n">target</span><span class="p">;</span> 
+  <span class="k">public</span> <span class="kt">float</span> <span class="n">speed</span><span class="p">;</span>
+  <span class="k">public</span> <span class="k">static</span> <span class="n">TraceAction</span> <span class="n">GetAction</span><span class="p">(</span><span class="n">GameObject</span> <span class="n">gameObject</span><span class="p">,</span> <span class="n">IActionCallback</span> <span class="n">callback</span><span class="p">,</span> <span class="n">GameObject</span> <span class="n">target</span><span class="p">,</span> <span class="kt">float</span> <span class="n">speed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">TraceAction</span> <span class="n">action</span> <span class="p">=</span> <span class="n">CreateInstance</span><span class="p">&lt;</span><span class="n">TraceAction</span><span class="p">&gt;();</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">gameObject</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">transform</span> <span class="p">=</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">callback</span> <span class="p">=</span> <span class="n">callback</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">target</span> <span class="p">=</span> <span class="n">target</span><span class="p">;</span>
+    <span class="n">action</span><span class="p">.</span><span class="n">speed</span> <span class="p">=</span> <span class="n">speed</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">action</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Start</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">MoveTowards</span><span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">target</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="m">1.5f</span> <span class="p">*</span> <span class="n">speed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Soldier</span><span class="p">&gt;().</span><span class="n">isFollowing</span> <span class="p">==</span> <span class="k">false</span> <span class="p">||</span> <span class="p">(</span><span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">target</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">sqrMagnitude</span> <span class="p">&lt;</span> <span class="m">0.00001f</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">destroy</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+      <span class="n">callback</span><span class="p">.</span><span class="n">ActionDone</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// 使用 Quaternion 四元数对玩家位置定位，进行球面插值获得位置差距
+</span><span class="c1"></span>      <span class="n">Quaternion</span> <span class="n">rotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="n">LookRotation</span><span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">up</span><span class="p">);</span>
+      <span class="n">gameObject</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">rotation</span> <span class="p">=</span> <span class="n">rotation</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="项目心得">项目心得</h3>
+<p>本次项目加强了我对使用 <code>Unity</code> 进行角色动画处理，以及刚体和碰撞的理解，同时如何将用户的输入与动画进行挂钩，如何处理动画并且使用 <code>Blend Tree</code> 将动画组合，实现不同形态的动画转移。</p>
+<p>同时，我发现有时候动画会出现延迟的问题，经过查阅资料后，我发现是因为有些动画需要退出时间，需要在相应的动画 <code>Transition</code> 上取消 <code>Has Exit Time</code>，就会连贯很多：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111302131366.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111302131366.png, https://gitee.com/AdBean/img/raw/master/images/202111302131366.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111302131366.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111302131366.png"
+        title="image-20211130213145314" /></p>
+<p>除此之外，我也能更好地利用面向对象编程，进行游戏设计，将动作分离并且利用订阅/发布模式处理相应的事件，尽管本次项目中有些地方没有处理地很好，比如有时帧率不太高，角色动画不连贯，碰撞体积不对等等，但总的来说，收获了很多。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/my-fourth-unity/" class="prev" rel="prev" title="3D游戏编程作业4-打飞碟"><i class="fas fa-angle-left fa-fw"></i>3D游戏编程作业4-打飞碟</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

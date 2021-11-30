@@ -4,9 +4,16 @@
         <link>http://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 30 Nov 2021 21:58:45 &#43;0800</lastBuildDate>
             <atom:link href="http://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>3D游戏编程作业6-智能巡逻兵</title>
+    <link>http://ad-bean.github.io/posts/my-sixth-unity/</link>
+    <pubDate>Tue, 30 Nov 2021 21:58:45 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-sixth-unity/</guid>
+    <description><![CDATA[七、模型与动画：智能巡逻兵 提交要求： 游戏设计要求： 创建一个地图和若干巡逻兵（使用动画） 每个巡逻兵走一个 3~5 个边的凸多边型，位置数据是相对地址。]]></description>
+</item><item>
     <title>3D游戏编程作业4-打飞碟</title>
     <link>http://ad-bean.github.io/posts/my-fourth-unity/</link>
     <pubDate>Wed, 27 Oct 2021 09:22:46 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-seventh-project/</guid>
     <description><![CDATA[什么是个人隐私 个人隐私是指公民个人生活中不愿为他人（一定范围以外的人）公开或知悉的秘密，且这一秘密与其他人及社会利益无关。判断信息是否属于个]]></description>
-</item><item>
-    <title>Python 交互式编程</title>
-    <link>http://ad-bean.github.io/posts/my-sixth-project/</link>
-    <pubDate>Sat, 14 Nov 2020 16:18:49 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-sixth-project/</guid>
-    <description><![CDATA[实验目的 了解一种“解释型”语言 python 使用 python 做一些简单的科学计算 实验环境 编程工具：Python Anaconda vscode 操作系统：Windows 环境准备 安装 Anaconda Anaconda 是一个可]]></description>
 </item></channel>
 </rss>
