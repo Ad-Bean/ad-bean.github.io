@@ -2,12 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://ad-bean.github.io/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/a-start-algorithm/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/%E7%AE%97%E6%B3%95/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-sixth-unity/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/%E4%BD%9C%E4%B8%9A/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/categories/%E4%BD%9C%E4%B8%9A/</loc><lastmod>2021-11-30T21:58:45&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-fourth-unity/</loc><lastmod>2021-10-27T09:22:46&#43;08:00</lastmod></url><url>
@@ -33,7 +37,6 @@
             <loc>http://ad-bean.github.io/posts/my-sixth-project/</loc><lastmod>2020-11-14T16:18:49&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/%E6%95%B0%E5%AD%A6/</loc><lastmod>2020-11-14T16:18:49&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-tenth-post/</loc><lastmod>2020-11-08T23:14:22&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/</loc><lastmod>2020-11-08T23:14:22&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-ninth-post/</loc><lastmod>2020-10-24T19:57:39&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</loc><lastmod>2020-10-24T19:57:39&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-eighth-post/</loc><lastmod>2020-10-18T18:45:01&#43;08:00</lastmod></url><url>
