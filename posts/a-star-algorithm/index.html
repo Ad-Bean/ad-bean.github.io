@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>启发式搜索 A star 求解八数码问题 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="启发式搜索 A star 求解八数码问题" />
+<meta property="og:description" content="问题：八数码问题 在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1 至 8 的某一数字。 棋盘中留有一个空格，空格用 0 来表示。空格周围的棋子可以移到空" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/a-star-algorithm/" /><meta property="og:image" content="http://ad-bean.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-08T21:43:15+08:00" />
+<meta property="article:modified_time" content="2021-12-08T21:43:15+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/logo.png"/>
+
+<meta name="twitter:title" content="启发式搜索 A star 求解八数码问题"/>
+<meta name="twitter:description" content="问题：八数码问题 在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1 至 8 的某一数字。 棋盘中留有一个空格，空格用 0 来表示。空格周围的棋子可以移到空"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/a-star-algorithm/" /><link rel="prev" href="http://ad-bean.github.io/posts/my-sixth-unity/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "启发式搜索 A star 求解八数码问题",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/a-star-algorithm\/"
+        },"genre": "posts","keywords": "启发式搜索, 算法","wordcount":  3225 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/a-star-algorithm\/","datePublished": "2021-12-08T21:43:15+08:00","dateModified": "2021-12-08T21:43:15+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">启发式搜索 A star 求解八数码问题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-08">2021-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3225 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h4 id="问题八数码问题">问题：八数码问题</h4>
+<p>在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1 至 8 的某一数字。</p>
+<p>棋盘中留有一个空格，空格用 0 来表示。空格周围的棋子可以移到空格中。要求解的问题是：给出一种<strong>初始布局</strong>（初始状态）和<strong>目标布局</strong>（设目标状态为 123456780，或其他状态），找到一种<strong>最少步骤</strong>的移动方法，实现从初始布局到目标布局的转变。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic1.zhimg.com/v2-62b7b2cf0b3331b0232852877f06f37c_r.jpg"
+        data-srcset="https://pic1.zhimg.com/v2-62b7b2cf0b3331b0232852877f06f37c_r.jpg, https://pic1.zhimg.com/v2-62b7b2cf0b3331b0232852877f06f37c_r.jpg 1.5x, https://pic1.zhimg.com/v2-62b7b2cf0b3331b0232852877f06f37c_r.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic1.zhimg.com/v2-62b7b2cf0b3331b0232852877f06f37c_r.jpg"
+        title="preview" /></p>
+<p>八数码问题需要求解到达目标状态的最少步数，该问题可以看作仅仅空格的移动，这样可以减少操作算子（一个空格可以上下左右移动，只需要四个操作算子），可以通过宽度优先搜索按照如下图所示进行搜索，一层一层地扩展直到找到目标状态。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic2.zhimg.com/v2-a0f5fe14b4c4aa7c1180593d50d4c761_r.jpg"
+        data-srcset="https://pic2.zhimg.com/v2-a0f5fe14b4c4aa7c1180593d50d4c761_r.jpg, https://pic2.zhimg.com/v2-a0f5fe14b4c4aa7c1180593d50d4c761_r.jpg 1.5x, https://pic2.zhimg.com/v2-a0f5fe14b4c4aa7c1180593d50d4c761_r.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic2.zhimg.com/v2-a0f5fe14b4c4aa7c1180593d50d4c761_r.jpg"
+        title="img" /></p>
+<p>但盲目的搜索（深度、广度优先搜索），搜索的复杂性是很高的，为了提高搜索的效率，可以使用启发式搜索—— A* 启发式搜索。</p>
+<h4 id="启发式搜索">启发式搜索：</h4>
+<p>启发式搜索利用与问题有关的启发信息引导搜索，在状态空间搜索中，启发式被定义成一系列操作算子，并能从状态空间中选择最有希望到达问题解的路径。</p>
+<p>虽然一个问题可能有确定解，但如果状态空间特别大，搜索中生成扩展的状态数会随着搜索的深度呈指数级增长，深度、广度优先搜索在一个给定的实际时空内很可能难以得到最终解，而启发式搜索通过引导搜索向最有希望的方向进行来降低搜索复杂度。</p>
+<p>在问题求解中，需要启发式知识来剪枝减少状态空间的大小，即根据估价函数来估计带搜索结点的有希望程度，并依次排序。估价函数 $f(n)$ 定义为从初始结点经过 $n$ 节点到达目的节点的路径的最小代价估计值，一般形式是 $f(n) = g(n) + h(n)$，其中 $g(n)$ 是初始结点到 $n$ 结点的实际代价，$h(n)$ 是从 $n$ 节点到目的节点的最佳路径的估计代价，$h(n)$ 就体现了搜索的启发信息，又称启发函数。</p>
+<p>对于八数码问题，有许多种估价函数，其中最简单的为当前状态与目标状态位置不符的数码数目，但没有充分利用信息，会没有考虑数码移动的距离，并且没有考虑到数码逆转的问题。但为了简单，本次实验采用类似的估价函数：各数码移动到目的位置所需要移动的曼哈顿距离。</p>
+<h4 id="a-算法的伪代码">A* 算法的伪代码：</h4>
+<p>为了实现 A* 搜索算法，需要定义 open 表，保留所有医生称但未扩展的状态；closed 表保留已扩展过的状态，A* 算法中有一步需要根据启发信息来排列 open 表，根据状态的启发估价函数值选出最有希望的下一个结点进行搜索，其伪代码实现如下：</p>
+<pre tabindex="0"><code>1.  open 表 &lt;- 初始结点 S0
+2.  若 open 表为空，则搜索失败，退出：
+3.  移出 open 表中第一个结点 N 放入 closed 表中，并顺序标号 n
+4.  若目标节点把附有 f(s0) 的初始 sg = N 则搜索成功，结束
+5.  若 N 不可扩展，则转至步骤 2
+6.  扩展 N，生成一组附有 f(x) 的子节点，进行如下步骤：
+(1). 如果已经存在 open 或 closed 表中，则删除
+(2). 加入 open 表，并按照启发估价值排序
+</code></pre><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111172009580.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111172009580.png, https://gitee.com/AdBean/img/raw/master/images/202111172009580.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111172009580.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111172009580.png"
+        title="image-20211117200946480" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202111172010781.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202111172010781.png, https://gitee.com/AdBean/img/raw/master/images/202111172010781.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202111172010781.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202111172010781.png"
+        title="image-20211117201007732" /></p>
+<h4 id="python-实现">Python 实现：</h4>
+<p>实验提供了 Python 代码实现 A* 启发式搜索算法，利用面向对象实现了一个 <code>State</code> 类，可以通过初始化对象获得其父状态、移动空格进行搜索、获得零点的位置、计算启发式函数估价值等等。</p>
+<p>其主体迭代函数为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># A* 迭代算法主体</span>
+<span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># openList 未搜索状态</span>
+    <span class="n">openTable</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">openTable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># closeList 已搜索状态</span>
+    <span class="n">closeTable</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">openTable</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># 下一步搜索的点移出 open</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">openTable</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># 加入 close 表示已搜索过</span>
+        <span class="n">closeTable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="c1"># 确定下一步点</span>
+        <span class="n">subStates</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">nextStep</span><span class="p">()</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># 判断是否和最终结果相同</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">subStates</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="n">subStates</span><span class="o">.</span><span class="n">answer</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="c1"># 如果搜索结束，通过迭代获得父状态</span>
+            <span class="k">while</span> <span class="n">subStates</span><span class="o">.</span><span class="n">parent</span> <span class="ow">and</span> <span class="n">subStates</span><span class="o">.</span><span class="n">parent</span> <span class="o">!=</span> <span class="n">originState</span><span class="p">:</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subStates</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                <span class="n">subStates</span> <span class="o">=</span> <span class="n">subStates</span><span class="o">.</span><span class="n">parent</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">path</span>
+        <span class="c1"># 将子状态加入 open 表表示待搜索</span>
+        <span class="n">openTable</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">subStates</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+</code></pre></div><p>其主体与伪代码类似，但具体实现还需要有 <code>nextStep()</code> 获得下一个子状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">nextStep</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">subStates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">boarder</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getZeroPos</span><span class="p">()</span>  <span class="c1"># 获取 0 点位置</span>
+    <span class="c1"># 向左</span>
+    <span class="k">if</span> <span class="s1">&#39;left&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">news</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directionFlag</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">news</span><span class="o">.</span><span class="n">setF</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">getFunctionValue</span><span class="p">())</span>
+        <span class="n">subStates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+    <span class="c1"># 向上</span>
+    <span class="k">if</span> <span class="s1">&#39;up&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># it can move to upper place</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="n">news</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directionFlag</span><span class="o">=</span><span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">news</span><span class="o">.</span><span class="n">setF</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">getFunctionValue</span><span class="p">())</span>
+        <span class="n">subStates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+    <span class="c1"># 向下</span>
+    <span class="k">if</span> <span class="s1">&#39;down&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">boarder</span><span class="p">:</span>
+        <span class="c1"># it can move to down place</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+        <span class="n">news</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directionFlag</span><span class="o">=</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">news</span><span class="o">.</span><span class="n">setF</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">getFunctionValue</span><span class="p">())</span>
+        <span class="n">subStates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+    <span class="c1"># 向右</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;right&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">boarder</span><span class="p">:</span>
+        <span class="c1"># it can move to right place</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">news</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">directionFlag</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">news</span><span class="o">.</span><span class="n">setF</span><span class="p">(</span><span class="n">news</span><span class="o">.</span><span class="n">getFunctionValue</span><span class="p">())</span>
+        <span class="n">subStates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">news</span><span class="p">)</span>
+    <span class="c1"># 返回F值最小的下一个点</span>
+    <span class="n">subStates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">compareNum</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subStates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div><p>我将源代码中移动空格的代码修改了一下，使用 python 更为简洁的赋值方式实现交换空格和附近的数码，可以看到该实验利用对象中的 <code>direction</code> 数组来确定当前状态能移动的方向，如果数组中没有该方向或空格下一步超出棋盘，则不需要搜索。</p>
+<p>其中启发式函数为所有数码移动到目的状态的曼哈顿距离：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 曼哈顿距离  f = g + h，g = 1，如果用宽度优先的评估函数可以不调用该函数</span>
+<span class="k">def</span> <span class="nf">getFunctionValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cur_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">fin_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">answer</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cur_node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cur_node</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">fin_node</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fin_node</span> <span class="o">==</span> <span class="n">cur_node</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 最终 x 距离</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 最终 y 距离</span>
+                <span class="n">dist</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">j</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">dist</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div><p>其排序也是根据各个状态的估价函数（曼哈顿距离之和）来进行排序的，其余函数由于较为简单不再赘述。</p>
+<h4 id="运行结果">运行结果：</h4>
+<pre tabindex="0"><code>1  5  3
+2  4  6
+7  0  8
+-&gt;
+1  5  3
+2  4  6
+7  8  0
+-&gt;
+1  5  3
+2  4  0
+7  8  6
+-&gt;
+1  5  3
+2  0  4
+7  8  6
+.
+.
+.
+-&gt;
+1  2  3
+4  5  6
+7  0  8
+-&gt;
+1  2  3
+4  5  6
+7  8  0
+Total steps is 45
+</code></pre><p>初始状态中空格可以向左、向上、向右移动，但由于其三种估价函数的值分别为 8、8、4，所以选择向右移动。再下一步，空格由于由上一步右移而来，不能再向左移动否则导致重复搜索，所以只能向上移动。由此，A* 搜索以启发式函数估价来进行搜索。直到最后得到目的状态（省略了中间步骤）。</p>
+<h4 id="实验总结">实验总结：</h4>
+<h5 id="a-搜索算法局限性">A* 搜索算法局限性：</h5>
+<p>启发式策略也是容易出错的，启发策略仅仅是下一步将要采取措施的猜想，常常根据经验和直觉判断。由于启发式搜索只利用特定问题的有限信息，很难准确地预测下一步在状态空间中采取的具体的搜索行为。一个启发式搜索可能得到一个次优解，也可能一无所获。</p>
+<p>比如对于该题，如果估价函数中 $f(n) = g(n) + h(n)$ 中 $g(n)$ 远大于 $h(n)$ 则启发式搜索会退化成宽度优先搜索，导致难以获得解。</p>
+<p>同时如果某一问题有解，那么利用 A* 搜索算法对该问题进行搜索则一定能搜索到解，并且一定能搜索到最优解。但如果该问题无解，则实验中 A* 搜索的代码会陷入死循环导致无解。</p>
+<p>比如将初始状态 [1, 5, 3], [2, 4, 6], [7, 0, 8] 改为 [1, 3, 5], [2, 4, 6], [7, 0, 8] 则无解。</p>
+<p>但八数码问题有解是存在充要条件的：</p>
+<blockquote>
+<p>逆序对：在一个排列中，如果一对数的前后位置与大小顺序相反，即前面的数大于后面的数，那么它们就称为一个 <strong>逆序</strong>，如 2、4、1 中，&lt;2, 1&gt;，&lt;4, 1&gt; 是逆序。</p>
+</blockquote>
+<p><strong>对于 3 * 3 的八数码问题：</strong></p>
+<ul>
+<li>当<strong>左右移动</strong>空白格时，逆序数不变。</li>
+<li>当<strong>上下移动</strong>空白格时，相当于将一个数字 X 向前（向后）移动 2 格，那么跳过的这两个数，要么比数字 X 都要大（小），逆序对的数量可能 ±2；要么一个比数字 X 大，一个比数字 X 小，逆序数不变。</li>
+</ul>
+<p>综上，移动空白格（上下或者左右移动）前后的逆序数奇偶性保持不变（相同）</p>
+<p>也就是说，<strong>对于八数码问题，如果两个状态的逆序数奇偶性相同，那么这两个状态可以相互到达，否则不能相互到达</strong>，因此，如果初始状态和目标状态的逆序数奇偶性不同，则该八数码问题无解，反之有解。此定理可以推广到 N _ N 甚至 N _ M 的数码问题。</p>
+<p>所以我们可以添加一个判断函数，判断目的状态和初始状态的逆序对数量的奇偶性是否一致，如果一致则表示有解，可以使用 A* 搜索算法进行搜索求解。</p>
+<h5 id="数据结构优化">数据结构优化：</h5>
+<p>对于 open 表和 close 表，由于前者需要进行排序，所以可以直接使用<strong>优先队列</strong>或堆的结构，来使得每次取出堆顶的状态，启发函数估价值都是最小的。</p>
+<p>而通过一个哈希表存储 close 表，并且将状态（八数码 3 * 3 矩阵）转换成一个一维字符串，来记录已搜索过的状态，这样就不需要使用额外的判断。</p>
+<p>并且对于启发式函数（计算曼哈顿距离），是可以省略空格的，因为空格的位置会由其余数字占掉哪些位置而唯一确定。</p>
+<h5 id="实验代码疑问">实验代码疑问：</h5>
+<p>实际上代码最后输出的 steps 45 并<strong>不是最优解</strong>，根据过程也可以看出有许多状态是冗余的，其原因是本实验提供的代码结构复杂且有些不合理，其中 <code>closeTable</code> 有名无实，除了加入已搜索过的状态以外，并没有用来判断是否搜索过该状态。</p>
+<p>再是启发函数的问题，虽然同样是曼哈顿距离，但是数了空格的曼哈顿距离，如果不数空格的距离，则移动步数从 45 会直接降低到 27 。</p>
+<p>并且使用 <code>nextStep</code> 时候<strong>只返回了其中的一个状态</strong>，许多状态丢失，所以导致状态完备性不足，此时的 A* 启发式搜索逐渐退化到了宽度优先搜索，需要通过很多状态转移才能到达目的状态。</p>
+<p>我将 <code>openTable</code> 改为堆或优先队列之后存储所有状态，再选出估价函数最小的一个，即可获得 [1, 5, 3], [2, 4, 6], [7, 0, 8] 到目的状态 [1, 2, 3], [4, 5, 6], [7, 8, 0] 的最优解是 15 而不是 45。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-08</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/">启发式搜索</a>,&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/my-sixth-unity/" class="prev" rel="prev" title="3D游戏编程作业6-智能巡逻兵"><i class="fas fa-angle-left fa-fw"></i>3D游戏编程作业6-智能巡逻兵</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
