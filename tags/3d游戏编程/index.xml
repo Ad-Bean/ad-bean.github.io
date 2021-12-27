@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/</link>
         <description>3D游戏编程 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 30 Nov 2021 21:58:45 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>3D游戏编程作业7-背包系统</title>
+    <link>http://ad-bean.github.io/posts/my-seventh-unity/</link>
+    <pubDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-seventh-unity/</guid>
+    <description><![CDATA[九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客]]></description>
+</item><item>
     <title>3D游戏编程作业6-智能巡逻兵</title>
     <link>http://ad-bean.github.io/posts/my-sixth-unity/</link>
     <pubDate>Tue, 30 Nov 2021 21:58:45 &#43;0800</pubDate>

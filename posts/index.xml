@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 08 Dec 2021 21:43:15 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>3D游戏编程作业7-背包系统</title>
+    <link>http://ad-bean.github.io/posts/my-seventh-unity/</link>
+    <pubDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/my-seventh-unity/</guid>
+    <description><![CDATA[九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客]]></description>
+</item><item>
     <title>启发式搜索 A star 求解八数码问题</title>
     <link>http://ad-bean.github.io/posts/a-star-algorithm/</link>
     <pubDate>Wed, 08 Dec 2021 21:43:15 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-ninth-project/</guid>
     <description><![CDATA[本次项目的任务是让蛇有一定的智能，能通过算法具有 “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现 人控蛇 与 智能蛇 抢食大战。 实]]></description>
-</item><item>
-    <title>项目8：字符游戏-贪吃蛇</title>
-    <link>http://ad-bean.github.io/posts/my-eighth-project/</link>
-    <pubDate>Sun, 20 Dec 2020 15:51:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-eighth-project/</guid>
-    <description><![CDATA[实验目的 了解字符游戏的表示 体验自顶向下的设计方法实现问题求解 使用伪代码表示算法 使用函数抽象过程 游戏要求与表示 玩法 贪吃蛇游戏是一款经典的益智游]]></description>
 </item></channel>
 </rss>

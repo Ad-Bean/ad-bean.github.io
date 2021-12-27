@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>3D游戏编程作业7-背包系统 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="3D游戏编程作业7-背包系统" />
+<meta property="og:description" content="九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/my-seventh-unity/" /><meta property="og:image" content="http://ad-bean.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-27T22:26:09+08:00" />
+<meta property="article:modified_time" content="2021-12-27T22:26:09+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/logo.png"/>
+
+<meta name="twitter:title" content="3D游戏编程作业7-背包系统"/>
+<meta name="twitter:description" content="九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/my-seventh-unity/" /><link rel="prev" href="http://ad-bean.github.io/posts/a-star-algorithm/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "3D游戏编程作业7-背包系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/my-seventh-unity\/"
+        },"genre": "posts","keywords": "3D游戏编程, 作业","wordcount":  1562 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/my-seventh-unity\/","datePublished": "2021-12-27T22:26:09+08:00","dateModified": "2021-12-27T22:26:09+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">3D游戏编程作业7-背包系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-12-27">2021-12-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1562 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#项目代码与项目视频演示">项目代码与项目视频演示</a></li>
+    <li><a href="#项目文档">项目文档</a>
+      <ul>
+        <li><a href="#项目配置过程">项目配置过程</a></li>
+        <li><a href="#操作规则">操作规则</a></li>
+        <li><a href="#项目架构">项目架构</a></li>
+        <li><a href="#canvas-画布">Canvas 画布</a></li>
+        <li><a href="#grid-layout-布局">Grid Layout 布局</a></li>
+        <li><a href="#inventory-system-背包系统">Inventory System 背包系统</a></li>
+        <li><a href="#follow-mouse-物品拖拽">Follow Mouse 物品拖拽</a></li>
+        <li><a href="#equippeditems-装备栏">EquippedItems 装备栏</a></li>
+        <li><a href="#成果预览">成果预览</a></li>
+        <li><a href="#项目心得">项目心得</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="九ui-系统">九、UI 系统</h1>
+<p>UI 效果制作（你仅需要实现以下效果之一）</p>
+<ul>
+<li>进入 <a href="http://www.tasharen.com/?page_id=140" target="_blank" rel="noopener noreffer">NGUI</a> 官方网站，使用 UGUI 实现以下效果
+<ul>
+<li><a href="http://www.tasharen.com/ngui/exampleX.html" target="_blank" rel="noopener noreffer">Inventory</a> 背包系统</li>
+<li><a href="http://www.tasharen.com/ngui/example9.html" target="_blank" rel="noopener noreffer">Quest Log</a> 公告牌</li>
+<li><a href="http://www.tasharen.com/ngui/example7.html" target="_blank" rel="noopener noreffer">Scroll View</a> 选择板</li>
+</ul>
+</li>
+</ul>
+<h2 id="项目代码与项目视频演示">项目代码与项目视频演示</h2>
+<blockquote>
+<p>博客地址：<a href="https://ad-bean.github.io/" target="_blank" rel="noopener noreffer">Github 博客</a></p>
+<p>项目地址：<a href="https://gitee.com/adbean/Unity-3DGameProgramming" target="_blank" rel="noopener noreffer">Gitee 博客</a></p>
+<p>作业 7： <a href="https://www.bilibili.com/video/BV1Bb4y1Y7b4/" target="_blank" rel="noopener noreffer">哔哩哔哩 Unity 背包系统</a></p>
+</blockquote>
+<h2 id="项目文档">项目文档</h2>
+<h3 id="项目配置过程">项目配置过程</h3>
+<p>将 <code>Assets</code> 文件夹下的文件全拖入新建项目后，点击新导入的 <code>Scene/</code> 中的 <code>Inventory</code> 场景，开始游戏后即可打开项目。</p>
+<h3 id="操作规则">操作规则</h3>
+<ul>
+<li>点击打开背包按钮，打开背包，再次点击关闭背包</li>
+<li>通过点击获得苹果、钥匙、长剑、帽子等按钮，获得相应的物品</li>
+<li>左键单击物品移动物品，右键单击物品拆分物品。</li>
+<li>移动装备到相应格子进行装备物品，但只能装备相同种类物品</li>
+</ul>
+<h3 id="项目架构">项目架构</h3>
+<p>本次项目使用 UGUI 实现，UGUI 是 Unity 推出全新的 UI 系统，更灵活，快捷，易用的可视化游戏 UI 开发工具。</p>
+<h3 id="canvas-画布">Canvas 画布</h3>
+<p>Canvas 画布是 UGUI 系统最基础的容器类控件，所有的 UI 控件必须位于 Canvas 画布控件之内，即必须是 Canvas 容器的子控件。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272019674.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272019674.png, https://gitee.com/AdBean/img/raw/master/images/202112272019674.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272019674.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272019674.png"
+        title="image-20211227201945628" /></p>
+<h3 id="grid-layout-布局">Grid Layout 布局</h3>
+<p>在 Canvas 新建一个 Canvas 子对象 Inventory，即仓库系统，添加 Grid Layout Group 布局，设置格子大小和间距：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272107557.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272107557.png, https://gitee.com/AdBean/img/raw/master/images/202112272107557.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272107557.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272107557.png"
+        title="image-20211227210706456" /></p>
+<h3 id="inventory-system-背包系统">Inventory System 背包系统</h3>
+<h4 id="物品物品数组类">物品、物品数组类</h4>
+<p>背包系统，需要实现物品添加、拖拽、拆分等等功能，首先先实现物品的基类抽象类，以及物品数组类 <code>DataComponentList</code>，（使用 <code>[Serializable]</code> 序列化使得其属性可以在 Inspector 中观察）：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272117528.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272117528.png, https://gitee.com/AdBean/img/raw/master/images/202112272117528.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272117528.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272117528.png"
+        title="image-20211227211742486" /></p>
+<p>同时为了使得 UI 快速渲染，使用 <code>ScriptableObject</code> <a href="https://docs.unity3d.com/cn/2020.3/Manual/class-ScriptableObject.html" target="_blank" rel="noopener noreffer">数据容器</a>，避免重复值来减少项目的内存使用量，对于其使用，可以在<a href="https://docs.unity3d.com/cn/2020.3/Manual/class-ScriptableObject.html" target="_blank" rel="noopener noreffer">官方文档</a>中查看。</p>
+<p>为了使得物品可以叠加、拆分，使用 Lambda 函数遍历物品数组，找到其种类相同、或是相同的物品：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272122837.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272122837.png, https://gitee.com/AdBean/img/raw/master/images/202112272122837.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272122837.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272122837.png"
+        title="image-20211227212220785" /></p>
+<h4 id="核心组件">核心组件</h4>
+<p>为了方便使用背包系统中的各类组件，使用一个域名 namespace Inventory System 构造背包系统：</p>
+<h4 id="inventory-item-type-背包物品种类">Inventory Item Type 背包物品种类</h4>
+<p>为了实现物品拖拽，并且实现装备的效果，使用两种不同类型的背包物品中嘞，一种普通物品、一种装备：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272131035.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272131035.png, https://gitee.com/AdBean/img/raw/master/images/202112272131035.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272131035.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272131035.png"
+        title="image-20211227213101004" /></p>
+<h4 id="inventory-item-背包物品">Inventory Item 背包物品</h4>
+<p>背包物品具有一个 2D Sprite 的图像属性，名字字符串，以及物品种类：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272132410.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272132410.png, https://gitee.com/AdBean/img/raw/master/images/202112272132410.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272132410.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272132410.png"
+        title="image-20211227213207377" /></p>
+<h4 id="inventory-slot-背包槽">Inventory Slot 背包槽</h4>
+<p>背包槽用于放物品 <code>m_item</code>，同时需要存储当前物品的种类<code> m_Item</code>、数量 <code>m_Quantity</code> 等等：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"> <span class="k">public</span> <span class="k">class</span> <span class="nc">InventorySlot</span>
+	<span class="p">{</span>
+        <span class="k">public</span> <span class="k">delegate</span> <span class="k">void</span> <span class="n">ItemChangeCallback</span><span class="p">(</span><span class="n">InventorySlot</span> <span class="n">slot</span><span class="p">);</span>
+        <span class="k">public</span> <span class="n">ItemChangeCallback</span> <span class="n">OnItemChange</span><span class="p">;</span>
+
+        <span class="k">private</span> <span class="n">InventoryItem</span> <span class="n">m_Item</span><span class="p">;</span>
+        <span class="k">private</span> <span class="kt">uint</span> <span class="n">m_Quantity</span><span class="p">;</span>
+        <span class="k">private</span> <span class="kt">uint</span> <span class="n">m_MaxQuantity</span> <span class="p">=</span> <span class="kt">uint</span><span class="p">.</span><span class="n">MaxValue</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">InventoryItemType</span><span class="p">&gt;</span> <span class="n">m_AllowedItemTypes</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">InventoryItemType</span><span class="p">&gt;();</span>
+
+        <span class="k">public</span> <span class="n">InventoryItem</span> <span class="n">Item</span> <span class="p">=&gt;</span> <span class="n">m_Item</span><span class="p">;</span>
+        <span class="k">public</span> <span class="kt">uint</span> <span class="n">Quantity</span> <span class="p">=&gt;</span> <span class="n">m_Quantity</span><span class="p">;</span>
+	<span class="p">}</span>
+</code></pre></div><p>为了实现物品拖拽移动，实现一系列判断函数：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272134703.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272134703.png, https://gitee.com/AdBean/img/raw/master/images/202112272134703.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272134703.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272134703.png"
+        title="image-20211227213451667" /></p>
+<p>判断当前背包槽是否为空，或具有相同种类的物品且小于最大容量，则可以添加物品。根据条件实现移动函数 <code>MoveTo()</code>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272136105.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272136105.png, https://gitee.com/AdBean/img/raw/master/images/202112272136105.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272136105.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272136105.png"
+        title="image-20211227213600052" /></p>
+<p>这里使用了事件代理，当物品可以移动时，触发回调事件 <code>ItemChangeCallback OnItemChange</code> 将物品移动到相应的槽位</p>
+<h4 id="inventory-背包">Inventory 背包</h4>
+<p>有了上述组件后，创建背包系统，构建一个背包槽数组，以及事件委托：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cadbean%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211227214007641.png"
+        data-srcset="C:%5cUsers%5cadbean%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211227214007641.png, C:%5cUsers%5cadbean%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211227214007641.png 1.5x, C:%5cUsers%5cadbean%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20211227214007641.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\adbean\AppData\Roaming\Typora\typora-user-images\image-20211227214007641.png"
+        title="image-20211227214007641" /></p>
+<p>至此，背包系统的核心组件和背包已经完成，下面实现物品拖拽。</p>
+<h3 id="follow-mouse-物品拖拽">Follow Mouse 物品拖拽</h3>
+<p>为了实现物品拖拽，首先需要捕获鼠标事件，在 <code>InventoryCursorController</code> 中，捕获鼠标左右键，左键实现物品移动，右键实现物品拆分和移动：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272143575.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272143575.png, https://gitee.com/AdBean/img/raw/master/images/202112272143575.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272143575.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272143575.png"
+        title="image-20211227214323533" /></p>
+<p>并且通过捕获动作，实现物品在 Canvas 上的移动：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272145801.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272145801.png, https://gitee.com/AdBean/img/raw/master/images/202112272145801.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272145801.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272145801.png"
+        title="image-20211227214522751" /></p>
+<h3 id="equippeditems-装备栏">EquippedItems 装备栏</h3>
+<p>为了区分普通物品和可装备的物品，实现 <code>EquippedItemsHolder</code> 类，构建装备栏，其中装备栏同样也使用了普通的背包槽，但不同的是其限定了能够存入的物品类型：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272147878.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272147878.png, https://gitee.com/AdBean/img/raw/master/images/202112272147878.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272147878.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272147878.png"
+        title="image-20211227214704838" /></p>
+<p>同时实现 <code>InventoryUIChannel</code> 类，表示物品不同的类型，并构建各类型的数据容器 <code>ScriptableObjects</code>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272150619.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272150619.png, https://gitee.com/AdBean/img/raw/master/images/202112272150619.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272150619.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272150619.png"
+        title="image-20211227215039587" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272150045.png"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272150045.png, https://gitee.com/AdBean/img/raw/master/images/202112272150045.png 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272150045.png 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272150045.png"
+        title="image-20211227215051016" /></p>
+<p>此时背包和物品栏已初步完成，通过再实现一个装备属性统计实时更新当前装备物品的属性值，并且实现装备可放置的物品槽高亮，整个物品系统就完成了，详见 <code>Stats/</code> 实现状态。</p>
+<h3 id="成果预览">成果预览</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272201625.gif"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272201625.gif, https://gitee.com/AdBean/img/raw/master/images/202112272201625.gif 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272201625.gif 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272201625.gif"
+        title="inventory1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272202705.gif"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272202705.gif, https://gitee.com/AdBean/img/raw/master/images/202112272202705.gif 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272202705.gif 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272202705.gif"
+        title="inventory1" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://gitee.com/AdBean/img/raw/master/images/202112272202255.gif"
+        data-srcset="https://gitee.com/AdBean/img/raw/master/images/202112272202255.gif, https://gitee.com/AdBean/img/raw/master/images/202112272202255.gif 1.5x, https://gitee.com/AdBean/img/raw/master/images/202112272202255.gif 2x"
+        data-sizes="auto"
+        alt="https://gitee.com/AdBean/img/raw/master/images/202112272202255.gif"
+        title="inventory111" /></p>
+<h3 id="项目心得">项目心得</h3>
+<p>本次项目加强了我对使用 <code>Unity</code> 进行 UI 设计的能力，使用 UGUI 构建出一个背包系统，并且在这之上实现更多的功能。背包系统是很多游戏设计中不可或缺的部分，但其最基本的功能就是拖拽、添加、删除等等，当自己亲自实现这些功能的时候才发现，原来背包系统的实现并不简单。</p>
+<p>除此之外，在本次项目中我也利用了面向对象编程，以及 Lambda 函数等高级写法，其中在查阅资料时，发现 <code>ScriptableObjects</code> 数据容器类型，在学习官方手册后，将我的背包系统更新成了数据容器版本，明显感受其效率与之前的提升。</p>
+<p>但在实现过程中，遇到了不少困难，尤其是数据容器和物品拖拽的相关功能，但好在互联网上有不少相关的参考，可见背包系统和 UI 系统在游戏开发中的重要性。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/a-star-algorithm/" class="prev" rel="prev" title="启发式搜索 A star 求解八数码问题"><i class="fas fa-angle-left fa-fw"></i>启发式搜索 A star 求解八数码问题</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
