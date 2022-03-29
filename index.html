@@ -1,164 +1,730 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-	<meta name="generator" content="Hugo 0.88.1" />
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="Adbean&#39;s Blog" />
-<meta property="og:description" content="Adbean&#39;s Blog" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://ad-bean.github.io/" /><meta property="og:image" content="http://ad-bean.github.io/logo.png"/>
+  <head>
+    <meta name="generator" content="Hugo 0.88.1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noodp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Adbean&#39;s Blog</title>
+    <meta name="Description" content="Adbean&#39;s Blog" />
+    <meta property="og:title" content="Adbean&#39;s Blog" />
+    <meta property="og:description" content="Adbean&#39;s Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://ad-bean.github.io/" />
+    <meta property="og:image" content="http://ad-bean.github.io/logo.png" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="http://ad-bean.github.io/logo.png"/>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="http://ad-bean.github.io/logo.png" />
 
-<meta name="twitter:title" content="Adbean&#39;s Blog"/>
-<meta name="twitter:description" content="Adbean&#39;s Blog"/>
-<meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="Adbean&#39;s Blog">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="Adbean&#39;s Blog"><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
-    {
+    <meta name="twitter:title" content="Adbean&#39;s Blog" />
+    <meta name="twitter:description" content="Adbean&#39;s Blog" />
+    <meta name="application-name" content="Adbean&#39;s Blog" />
+    <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <link rel="icon" href="/Owl.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="http://ad-bean.github.io/" />
+    <link
+      rel="alternate"
+      href="/index.xml"
+      type="application/rss+xml"
+      title="Adbean&#39;s Blog"
+    />
+    <link
+      rel="feed"
+      href="/index.xml"
+      type="application/rss+xml"
+      title="Adbean&#39;s Blog"
+    />
+    <link rel="stylesheet" href="/lib/normalize/normalize.min.css" />
+    <link rel="stylesheet" href="/css/style.min.css" />
+    <link rel="stylesheet" href="/lib/fontawesome-free/all.min.css" />
+    <link rel="stylesheet" href="/lib/animate/animate.min.css" />
+    <script type="application/ld+json">
+      {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "http:\/\/ad-bean.github.io\/","inLanguage": "zh-CN","author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": "Adbean's Blog","name": "Adbean's Blog"
-    }
-    </script></head>
-    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+        "url": "http:\/\/ad-bean.github.io\/",
+        "inLanguage": "zh-CN",
+        "author": {
+          "@type": "Person",
+          "name": "Adbean"
+        },
+        "description": "Adbean's Blog",
+        "name": "Adbean's Blog"
+      }
+    </script>
+  </head>
+  <body header-desktop="fixed" header-mobile="auto">
+    <script type="text/javascript">
+      (window.localStorage && localStorage.getItem("theme")
+        ? localStorage.getItem("theme") === "dark"
+        : "dark" === "auto"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        : "dark" === "dark") && document.body.setAttribute("theme", "dark");
+    </script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
-    <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/Owl.ico"
-        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
-        data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item active" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
+    <div id="mask"></div>
+    <div class="wrapper">
+      <header class="desktop" id="header-desktop">
         <div class="header-wrapper">
+          <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"
+              ><img
+                class="lazyload logo"
+                src="/svg/loading.min.svg"
+                data-src="/Owl.ico"
+                data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+                data-sizes="auto"
+                alt="/Owl.ico"
+                title="/Owl.ico"
+              />Adbean&#39;s Blog</a
+            >
+          </div>
+          <div class="menu">
+            <div class="menu-inner">
+              <a class="menu-item active" href="/"> 主页 </a
+              ><a class="menu-item" href="/posts/"> 文章 </a
+              ><a class="menu-item" href="/posts/my-index/"> 索引 </a
+              ><a class="menu-item" href="/tags/"> 标签 </a
+              ><a class="menu-item" href="/categories/"> 分类 </a
+              ><span class="menu-item delimiter"></span
+              ><a
+                href="javascript:void(0);"
+                class="menu-item theme-switch"
+                title="切换主题"
+              >
+                <i class="fas fa-adjust fa-fw"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <header class="mobile" id="header-mobile">
+        <div class="header-container">
+          <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/Owl.ico"
-        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
-        data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
+              <a href="/" title="Adbean&#39;s Blog"
+                ><img
+                  class="lazyload logo"
+                  src="/svg/loading.min.svg"
+                  data-src="/Owl.ico"
+                  data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+                  data-sizes="auto"
+                  alt="/Owl.ico"
+                  title="/Owl.ico"
+                />Adbean&#39;s Blog</a
+              >
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
             </div>
-        </div>
-        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw"></i>
-            </a></div>
-    </div>
-</header>
-<div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-</div>
-<div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-</div>
-<main class="main">
-                <div class="container"><div class="page home" posts><div class="home-profile"><div class="home-avatar"><a href="/" title="主页"><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/avatar.png"
-        data-srcset="/avatar.png, /avatar.png 1.5x, /avatar.png 2x"
-        data-sizes="auto"
-        alt="/avatar.png"
-        title="/avatar.png" /></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/Ad-Bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a></div></div>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-seventh-unity/">3D游戏编程作业7-背包系统</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-27">2021-12-27</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客</div><div class="post-footer">
-        <a href="/posts/my-seventh-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/a-star-algorithm/">启发式搜索 A star 求解八数码问题</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-12-08">2021-12-08</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E7%AE%97%E6%B3%95/"><i class="far fa-folder fa-fw"></i>算法</a></span></div><div class="content">问题：八数码问题 在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1 至 8 的某一数字。 棋盘中留有一个空格，空格用 0 来表示。空格周围的棋子可以移到空</div><div class="post-footer">
-        <a href="/posts/a-star-algorithm/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/">启发式搜索</a>,&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-sixth-unity/">3D游戏编程作业6-智能巡逻兵</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-30">2021-11-30</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">七、模型与动画：智能巡逻兵 提交要求： 游戏设计要求： 创建一个地图和若干巡逻兵（使用动画） 每个巡逻兵走一个 3~5 个边的凸多边型，位置数据是相对地址。</div><div class="post-footer">
-        <a href="/posts/my-sixth-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-fourth-unity/">3D游戏编程作业4-打飞碟</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-10-27">2021-10-27</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">与游戏世界交互 &amp;&amp; 物理系统与碰撞 编写一个简单的鼠标打飞碟（Hit UFO）游戏 游戏内容要求： 游戏有 n 个 round，每个 round 都包括10 次 trial；</div><div class="post-footer">
-        <a href="/posts/my-fourth-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-third-unity/">3D游戏编程作业3-牧师与恶魔动作分离版</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-10-19">2021-10-19</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">牧师与魔鬼：动作分离版 阅读以下游戏脚本 Priests and Devils Priests and Devils is a puzzle game in which you will help the Priests and Devils to cross the river within the time limit. There are 3 priests and 3 devils at one side of the river. They all want to get to the other side of this</div><div class="post-footer">
-        <a href="/posts/my-third-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-second-unity/">3D游戏编程作业2-牧师与恶魔</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-10-07">2021-10-07</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">编程实践：牧师与恶魔 阅读以下游戏脚本 Priests and Devils Priests and Devils is a puzzle game in which you will help the Priests and Devils to cross the river within the time limit. There are 3 priests and 3 devils at one side of the river. They all want to get to the other side of this river,</div><div class="post-footer">
-        <a href="/posts/my-second-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-first-unity/">3D游戏编程作业1-井字棋</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-09-22">2021-09-22</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">3D 游戏编程 Homework - 1：井字棋 技术限制： 仅允许使用 IMGUI 构建 UI 作业目的： 了解 OnGUI() 事件，提升 debug 能力 提升阅读 API 文档能力 使用说明与成果展示： 博客地址：Gith</div><div class="post-footer">
-        <a href="/posts/my-first-unity/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/">3D游戏编程</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-index/">18322043的软导作业索引页</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-01-01">2021-01-01</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E4%BD%9C%E4%B8%9A/"><i class="far fa-folder fa-fw"></i>作业</a></span></div><div class="content">课后作业 01-使用维基百科（Wikipedia）解释名词 02-使用维基百科解释名词和写出英文单词 03-判断溢出和精度误差和名词解释 04-名词</div><div class="post-footer">
-        <a href="/posts/my-index/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E7%B4%A2%E5%BC%95/">索引</a>,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-tenth-project/">流量为王的时代，拒绝虚假营销</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-01-01">2021-01-01</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div><div class="content">互联网时代背景下的热点与营销 互联网是一个信息量丰富聚集的载体，而在这大量的信息中，商家是如何利用这些信息去吸引网民、消费者的注意，如何制造热</div><div class="post-footer">
-        <a href="/posts/my-tenth-project/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a>,&nbsp;<a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/">互联网</a>,&nbsp;<a href="/tags/%E8%90%A5%E9%94%80/">营销</a>,&nbsp;<a href="/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/">热点领域</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/my-ninth-project/">项目9：字符游戏-智能蛇</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2020-12-27">2020-12-27</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%A1%B9%E7%9B%AE/"><i class="far fa-folder fa-fw"></i>项目</a></span></div><div class="content">本次项目的任务是让蛇有一定的智能，能通过算法具有 “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现 人控蛇 与 智能蛇 抢食大战。 实</div><div class="post-footer">
-        <a href="/posts/my-ninth-project/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%A1%B9%E7%9B%AE/">项目</a>,&nbsp;<a href="/tags/c%E8%AF%AD%E8%A8%80/">C语言</a>,&nbsp;<a href="/tags/%E6%B8%B8%E6%88%8F/">游戏</a>,&nbsp;<a href="/tags/%E8%B4%AA%E5%90%83%E8%9B%87/">贪吃蛇</a></div></div>
-</article><ul class="pagination"><li class="page-item active">
-                    <span class="page-link">
-                        <a href="/">1</a>
-                    </span>
-                </li><li class="page-item ">
-                    <span class="page-link">
-                        <a href="/page/2/">2</a>
-                    </span>
-                </li><li class="page-item ">
-                    <span class="page-link">
-                        <a href="/page/3/">3</a>
-                    </span>
-                </li></ul></div></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
-
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw"></i>
+          </div>
+          <div class="menu" id="menu-mobile">
+            <a class="menu-item" href="/" title="">主页</a
+            ><a class="menu-item" href="/posts/" title="">文章</a
+            ><a class="menu-item" href="/posts/my-index/" title="">索引</a
+            ><a class="menu-item" href="/tags/" title="">标签</a
+            ><a class="menu-item" href="/categories/" title="">分类</a
+            ><a
+              href="javascript:void(0);"
+              class="menu-item theme-switch"
+              title="切换主题"
+            >
+              <i class="fas fa-adjust fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"data":{"id-1":"Undergraduate of Software Engineering"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"typeit":{"cursorChar":null,"cursorSpeed":null,"data":{"id-1":["id-1"]},"duration":null,"speed":null}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+          </div>
+        </div>
+      </header>
+      <div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+      </div>
+      <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+      </div>
+      <main class="main">
+        <div class="container">
+          <div class="page home" posts>
+            <div class="home-profile">
+              <div class="home-avatar">
+                <a href="/" title="主页"
+                  ><img
+                    class="lazyload"
+                    src="/svg/loading.min.svg"
+                    data-src="/avatar.png"
+                    data-srcset="/avatar.png, /avatar.png 1.5x, /avatar.png 2x"
+                    data-sizes="auto"
+                    alt="/avatar.png"
+                    title="/avatar.png"
+                /></a>
+              </div>
+              <h2 class="home-subtitle">
+                <div id="id-1" class="typeit"></div>
+              </h2>
+              <div class="links">
+                <a
+                  href="https://github.com/Ad-Bean"
+                  title="GitHub"
+                  target="_blank"
+                  rel="noopener noreffer me"
+                  ><i class="fab fa-github-alt fa-fw"></i></a
+                ><a href="mailto:adbeanx@outlook.com" title="Email" rel=" me"
+                  ><i class="far fa-envelope fa-fw"></i
+                ></a>
+              </div>
+            </div>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-seventh-unity/">3D游戏编程作业7-背包系统</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-12-27">2021-12-27</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI
+                官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log
+                公告牌 Scroll View 选择板 项目代码与项目视频演示 博客
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-seventh-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/a-star-algorithm/"
+                  >启发式搜索 A star 求解八数码问题</a
+                >
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-12-08">2021-12-08</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E7%AE%97%E6%B3%95/"
+                    ><i class="far fa-folder fa-fw"></i>算法</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                问题：八数码问题 在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1
+                至 8 的某一数字。 棋盘中留有一个空格，空格用 0
+                来表示。空格周围的棋子可以移到空
+              </div>
+              <div class="post-footer">
+                <a href="/posts/a-star-algorithm/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/"
+                    >启发式搜索</a
+                  >,&nbsp;<a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-sixth-unity/">3D游戏编程作业6-智能巡逻兵</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-11-30">2021-11-30</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                七、模型与动画：智能巡逻兵 提交要求： 游戏设计要求：
+                创建一个地图和若干巡逻兵（使用动画） 每个巡逻兵走一个 3~5
+                个边的凸多边型，位置数据是相对地址。
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-sixth-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-fourth-unity/">3D游戏编程作业4-打飞碟</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-10-27">2021-10-27</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                与游戏世界交互 &amp;&amp; 物理系统与碰撞
+                编写一个简单的鼠标打飞碟（Hit UFO）游戏 游戏内容要求： 游戏有 n
+                个 round，每个 round 都包括10 次 trial；
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-fourth-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-third-unity/"
+                  >3D游戏编程作业3-牧师与恶魔动作分离版</a
+                >
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-10-19">2021-10-19</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                牧师与魔鬼：动作分离版 阅读以下游戏脚本 Priests and Devils
+                Priests and Devils is a puzzle game in which you will help the
+                Priests and Devils to cross the river within the time limit.
+                There are 3 priests and 3 devils at one side of the river. They
+                all want to get to the other side of this
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-third-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-second-unity/">3D游戏编程作业2-牧师与恶魔</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-10-07">2021-10-07</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                编程实践：牧师与恶魔 阅读以下游戏脚本 Priests and Devils Priests
+                and Devils is a puzzle game in which you will help the Priests
+                and Devils to cross the river within the time limit. There are 3
+                priests and 3 devils at one side of the river. They all want to
+                get to the other side of this river,
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-second-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-first-unity/">3D游戏编程作业1-井字棋</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-09-22">2021-09-22</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                3D 游戏编程 Homework - 1：井字棋 技术限制： 仅允许使用 IMGUI
+                构建 UI 作业目的： 了解 OnGUI() 事件，提升 debug 能力 提升阅读
+                API 文档能力 使用说明与成果展示： 博客地址：Gith
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-first-unity/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/"
+                    >3D游戏编程</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-index/">18322043的软导作业索引页</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-01-01">2021-01-01</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E4%BD%9C%E4%B8%9A/"
+                    ><i class="far fa-folder fa-fw"></i>作业</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                课后作业 01-使用维基百科（Wikipedia）解释名词
+                02-使用维基百科解释名词和写出英文单词
+                03-判断溢出和精度误差和名词解释 04-名词
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-index/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/%E7%B4%A2%E5%BC%95/"
+                    >索引</a
+                  >,&nbsp;<a href="/tags/%E4%BD%9C%E4%B8%9A/">作业</a>
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-tenth-project/"
+                  >流量为王的时代，拒绝虚假营销</a
+                >
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2021-01-01">2021-01-01</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/"
+                    ><i class="far fa-folder fa-fw"></i>项目</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                互联网时代背景下的热点与营销
+                互联网是一个信息量丰富聚集的载体，而在这大量的信息中，商家是如何利用这些信息去吸引网民、消费者的注意，如何制造热
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-tenth-project/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/%E9%A1%B9%E7%9B%AE/"
+                    >项目</a
+                  >,&nbsp;<a href="/tags/%E4%BA%92%E8%81%94%E7%BD%91/">互联网</a
+                  >,&nbsp;<a href="/tags/%E8%90%A5%E9%94%80/">营销</a>,&nbsp;<a
+                    href="/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/"
+                    >热点领域</a
+                  >
+                </div>
+              </div>
+            </article>
+            <article
+              class="single summary"
+              itemscope
+              itemtype="http://schema.org/Article"
+            >
+              <h1 class="single-title" itemprop="name headline">
+                <a href="/posts/my-ninth-project/">项目9：字符游戏-智能蛇</a>
+              </h1>
+              <div class="post-meta">
+                <span class="post-author"
+                  ><a
+                    href="https://adbean.gitee.io/"
+                    title="Author"
+                    target="_blank"
+                    rel="noopener noreffer author"
+                    class="author"
+                    ><i class="fas fa-user-circle fa-fw"></i>Adbean</a
+                  ></span
+                >&nbsp;<span class="post-publish"
+                  >发布于 <time datetime="2020-12-27">2020-12-27</time></span
+                >&nbsp;<span class="post-category"
+                  >收录于
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE/"
+                    ><i class="far fa-folder fa-fw"></i>项目</a
+                  ></span
+                >
+              </div>
+              <div class="content">
+                本次项目的任务是让蛇有一定的智能，能通过算法具有
+                “感知-决策-行动” 的能力。 近一步，你可以做出华丽的字符界面，实现
+                人控蛇 与 智能蛇 抢食大战。 实
+              </div>
+              <div class="post-footer">
+                <a href="/posts/my-ninth-project/">阅读全文</a>
+                <div class="post-tags">
+                  <i class="fas fa-tags fa-fw"></i>&nbsp;<a
+                    href="/tags/%E9%A1%B9%E7%9B%AE/"
+                    >项目</a
+                  >,&nbsp;<a href="/tags/c%E8%AF%AD%E8%A8%80/">C语言</a
+                  >,&nbsp;<a href="/tags/%E6%B8%B8%E6%88%8F/">游戏</a>,&nbsp;<a
+                    href="/tags/%E8%B4%AA%E5%90%83%E8%9B%87/"
+                    >贪吃蛇</a
+                  >
+                </div>
+              </div>
+            </article>
+            <ul class="pagination">
+              <li class="page-item active">
+                <span class="page-link">
+                  <a href="/">1</a>
+                </span>
+              </li>
+              <li class="page-item">
+                <span class="page-link">
+                  <a href="/page/2/">2</a>
+                </span>
+              </li>
+              <li class="page-item">
+                <span class="page-link">
+                  <a href="/page/3/">3</a>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+      <footer class="footer">
+        <div class="footer-container">
+          <div class="footer-line">
+            由
+            <a
+              href="https://gohugo.io/"
+              target="_blank"
+              rel="noopener noreffer"
+              title="Hugo 0.88.1"
+              >Hugo</a
+            >
+            强力驱动 | 主题 -
+            <a
+              href="https://github.com/dillonzq/LoveIt"
+              target="_blank"
+              rel="noopener noreffer"
+              title="LoveIt 0.2.10"
+              ><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a
+            >
+          </div>
+          <div class="footer-line">
+            <i class="far fa-copyright fa-fw"></i
+            ><span itemprop="copyrightYear">2020 - 2021</span
+            ><span class="author" itemprop="copyrightHolder"
+              >&nbsp;<a href="https://adbean.gitee.io/" target="_blank"
+                >Adbean</a
+              ></span
+            >&nbsp;|&nbsp;<span class="license"
+              ><a
+                rel="license external nofollow noopener noreffer"
+                href="https://creativecommons.org/licenses/by-nc/4.0/"
+                target="_blank"
+                >CC BY-NC 4.0</a
+              ></span
+            >
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div id="fixed-buttons">
+      <a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+        <i class="fas fa-arrow-up fa-fw"></i> </a
+      ><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+        <i class="fas fa-comment fa-fw"></i>
+      </a>
+    </div>
+    <link rel="stylesheet" href="/lib/katex/katex.min.css" /><link
+      rel="stylesheet"
+      href="/lib/katex/copy-tex.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="/lib/smooth-scroll/smooth-scroll.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/lib/lazysizes/lazysizes.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/lib/clipboard/clipboard.min.js"
+    ></script>
+    <script type="text/javascript" src="/lib/typeit/typeit.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/katex.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/auto-render.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script>
+    <script type="text/javascript" src="/lib/katex/mhchem.min.js"></script>
+    <script type="text/javascript">
+      window.config = {
+        code: { copyTitle: "复制到剪贴板", maxShownLines: 50 },
+        data: { "id-1": "Undergraduate of Software Engineering" },
+        math: {
+          delimiters: [
+            { display: true, left: "$$", right: "$$" },
+            { display: true, left: "\\[", right: "\\]" },
+            { display: false, left: "$", right: "$" },
+            { display: false, left: "\\(", right: "\\)" },
+          ],
+          strict: false,
+        },
+        typeit: {
+          cursorChar: null,
+          cursorSpeed: null,
+          data: { "id-1": ["id-1"] },
+          duration: null,
+          speed: null,
+        },
+      };
+    </script>
+    <script type="text/javascript" src="/js/theme.min.js"></script>
+  </body>
 </html>
