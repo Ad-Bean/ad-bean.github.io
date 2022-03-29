@@ -4,14 +4,7 @@
         <link>http://ad-bean.github.io/tags/construct3/</link>
         <description>Construct3 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 13 Oct 2020 20:29:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/construct3/" rel="self" type="application/rss+xml" /><item>
-    <title>硬件编程--电路与二进制运算</title>
-    <link>http://ad-bean.github.io/posts/my-third-project/</link>
-    <pubDate>Tue, 13 Oct 2020 20:29:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-third-project/</guid>
-    <description><![CDATA[实验目的 了解基本门电路 理解布尔代数、逻辑符号与电路之间关系 用门电路，实现简单的计算和存储功能 实验/学习工具 在线电路设计和仿真工具 EveryCircuit https://everycircuit.com/ 由于本机]]></description>
-</item><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 01 Oct 2020 23:21:49 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/construct3/" rel="self" type="application/rss+xml" /><item>
     <title>使用Construct3制作一个小游戏</title>
     <link>http://ad-bean.github.io/posts/my-second-project/</link>
     <pubDate>Thu, 01 Oct 2020 23:21:49 &#43;0800</pubDate>
