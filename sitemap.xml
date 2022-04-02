@@ -2,12 +2,16 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://ad-bean.github.io/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/react/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/react-overview/</loc><lastmod>2022-04-02T12:27:31&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/my-seventh-unity/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/%E4%BD%9C%E4%B8%9A/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/categories/%E4%BD%9C%E4%B8%9A/</loc><lastmod>2021-12-27T22:26:09&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/</loc><lastmod>2021-12-08T21:43:15&#43;08:00</lastmod></url><url>

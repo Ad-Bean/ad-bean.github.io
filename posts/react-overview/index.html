@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>翻译 React Docs - Overview - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="翻译 React Docs - Overview" />
+<meta property="og:description" content="写在前面： 最近 React 正式发布 React18，于是想尝试捡起博客，翻译一下 Beta 文档 但本系列并非是全文机翻，会存在很多本人的主观理解，如有错误，还请原" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/react-overview/" /><meta property="og:image" content="http://ad-bean.github.io/Owl.ico"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-02T12:27:31+08:00" />
+<meta property="article:modified_time" content="2022-04-02T12:27:31+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/Owl.ico"/>
+
+<meta name="twitter:title" content="翻译 React Docs - Overview"/>
+<meta name="twitter:description" content="写在前面： 最近 React 正式发布 React18，于是想尝试捡起博客，翻译一下 Beta 文档 但本系列并非是全文机翻，会存在很多本人的主观理解，如有错误，还请原"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/react-overview/" /><link rel="prev" href="http://ad-bean.github.io/posts/my-seventh-unity/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "翻译 React Docs - Overview",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/react-overview\/"
+        },"genre": "posts","keywords": "React, 文档","wordcount":  739 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/react-overview\/","datePublished": "2022-04-02T12:27:31+08:00","dateModified": "2022-04-02T12:27:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">翻译 React Docs - Overview</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%96%87%E6%A1%A3/"><i class="far fa-folder fa-fw"></i>文档</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-02">2022-04-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 739 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#react-docs">React docs</a>
+      <ul>
+        <li><a href="#为什么要有新的文档">为什么要有新的文档</a></li>
+        <li><a href="#如何提供反馈">如何提供反馈</a></li>
+        <li><a href="#beta-文档会最终替代主页的文档吗">Beta 文档会最终替代主页的文档吗</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p><strong>写在前面</strong>：</p>
+<p>最近 React 正式发布 React18，于是想尝试捡起博客，翻译一下 <a href="https://beta.reactjs.org/" target="_blank" rel="noopener noreffer">Beta 文档</a></p>
+<p>但本系列并非是全文机翻，会存在很多本人的主观理解，如有错误，还请原谅和指出</p>
+</blockquote>
+<h2 id="react-docs">React docs</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/React/ReactDocs.png"
+        data-srcset="/React/ReactDocs.png, /React/ReactDocs.png 1.5x, /React/ReactDocs.png 2x"
+        data-sizes="auto"
+        alt="/React/ReactDocs.png"
+        title="React Docs" /></p>
+<p>测试版本的 React 文档主要分为<strong>两部分</strong>：</p>
+<ul>
+<li><a href="https://beta.reactjs.org/learn" target="_blank" rel="noopener noreffer"><strong>Learn React</strong></a>：作为学习 React 的主要教程，旨在使用更多可互动的例子教会阅读者如何编写 React，更重要的是 React 思维即 Think in React</li>
+<li><a href="https://beta.reactjs.org/apis" target="_blank" rel="noopener noreffer"><strong>API Reference</strong></a>：API 接口文档，这部分完成度不是很高，但样例非常多。</li>
+</ul>
+<h3 id="为什么要有新的文档">为什么要有新的文档</h3>
+<p>既然已经有 <a href="https://zh-hans.reactjs.org/docs/getting-started.html" target="_blank" rel="noopener noreffer">React 官方文档</a>，为什么还要有一个 beta 版本的文档呢？</p>
+<ul>
+<li>beta 文档所有样例使用 Hooks 钩子，而不是使用 class</li>
+<li>更多的可交互的样例，和可视化的图表</li>
+<li>更多包含解决办法的挑战，帮助你更好地理解和阅读文档</li>
+</ul>
+<p>但 beta 文档仍在开发当中，目前 Learn React 学习部分已完成 70% 左右，而 API 接口部分只有 5%</p>
+<blockquote>
+<p><strong>题外话</strong>：</p>
+<p>根据 github 上的<a href="https://github.com/reactjs/reactjs.org/issues/3308" target="_blank" rel="noopener noreffer">讨论</a>，beta 文档的工作实际上早在 2020 年就已经开始，但由于各种原因，疫情影响、圣诞假期、团队规模较小、正式发布新版本 18 等等任务占据了大部分工作，React beta 文档的更新工作已经暂缓了很久。</p>
+<p>所以 beta 文档内容并不能涵盖所有使用 React 的场景，尤其是 <code>useEffect</code> 部分，更全面的内容还是需要回到 reactjs.org 和搜索其他人的文章去理解，后续我也会根据他人的文档来补充这一方面。</p>
+</blockquote>
+<h3 id="如何提供反馈">如何提供反馈</h3>
+<p>如题外话中所说，如果你对于 beta 文档中的任何地方存在疑问，可以到
+<a href="https://github.com/reactjs/reactjs.org/issues/3308" target="_blank" rel="noopener noreffer">Github issue</a> 中反馈，或是<a href="https://www.surveymonkey.co.uk/r/Y6GH986" target="_blank" rel="noopener noreffer">匿名信</a>。除此之外，文档每一页都有一个反馈按钮，如果你在阅读文档时，发现一些不合理的地方，可以及时反馈</p>
+<h3 id="beta-文档会最终替代主页的文档吗">Beta 文档会最终替代主页的文档吗</h3>
+<p>React 团队的目标就是，一旦 beta 文档的内容和官方主页文档一样丰富时，就替换掉主页文档，使主页文档成为一个子文档，依然可以阅读，但会注明那些内容已过时。</p>
+<blockquote>
+<p>结语：</p>
+<p>正如题外话所说，虽然 beta 文档的立意是好的，使用 function component 函数组件，以及 hooks 来取代 class component 的写法，但该文档的更新速度在一定程度上拖慢了这个进程。</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-02</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/react/">React</a>,&nbsp;<a href="/tags/%E6%96%87%E6%A1%A3/">文档</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/my-seventh-unity/" class="prev" rel="prev" title="3D游戏编程作业7-背包系统"><i class="fas fa-angle-left fa-fw"></i>3D游戏编程作业7-背包系统</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
