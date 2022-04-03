@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</link>
         <description>文档 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 02 Apr 2022 12:27:31 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Quick Start</title>
+    <link>http://ad-bean.github.io/posts/react-quick-start/</link>
+    <pubDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/react-quick-start/</guid>
+    <description><![CDATA[Quick Start 快速上手 这个页面将介绍 80% 你日常会用到的 React 概念，你会学习到： 如何创建和嵌套组件 Components 如何添加标记 Markup 和样式 Styles 如何展示数据 Data 如何使用条件渲染 Conditional Render 和]]></description>
+</item><item>
     <title>翻译 React Docs - Overview</title>
     <link>http://ad-bean.github.io/posts/react-overview/</link>
     <pubDate>Sat, 02 Apr 2022 12:27:31 &#43;0800</pubDate>
