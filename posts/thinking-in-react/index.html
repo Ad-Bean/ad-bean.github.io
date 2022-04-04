@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>翻译 React Docs - Thinking in React - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="翻译 React Docs - Thinking in React" />
+<meta property="og:description" content="Thinking in React 使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/thinking-in-react/" /><meta property="og:image" content="http://ad-bean.github.io/Owl.ico"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-04T15:26:05+08:00" />
+<meta property="article:modified_time" content="2022-04-04T15:26:05+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/Owl.ico"/>
+
+<meta name="twitter:title" content="翻译 React Docs - Thinking in React"/>
+<meta name="twitter:description" content="Thinking in React 使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/thinking-in-react/" /><link rel="prev" href="http://ad-bean.github.io/posts/react-quick-start/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "翻译 React Docs - Thinking in React",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/thinking-in-react\/"
+        },"genre": "posts","keywords": "React, 文档","wordcount":  3541 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/thinking-in-react\/","datePublished": "2022-04-04T15:26:05+08:00","dateModified": "2022-04-04T15:26:05+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">翻译 React Docs - Thinking in React</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%96%87%E6%A1%A3/"><i class="far fa-folder fa-fw"></i>文档</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-04">2022-04-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3541 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#thinking-in-react">Thinking in React</a>
+      <ul>
+        <li><a href="#从-markup-开始">从 Markup 开始</a></li>
+        <li><a href="#step-1-分解-ui-得到组件层次">Step 1: 分解 UI 得到组件层次</a></li>
+        <li><a href="#step-2-使用-react-构建静态组件">Step 2: 使用 React 构建静态组件</a></li>
+        <li><a href="#step-3-找到最小且具有完整形式的-ui-状态">Step 3: 找到最小且具有完整形式的 UI 状态</a></li>
+        <li><a href="#step-4-确定你的状态-state-在哪存活">Step 4: 确定你的状态 state 在哪存活</a></li>
+        <li><a href="#step-5-增加反向数据流">Step 5: 增加反向数据流</a></li>
+        <li><a href="#何去何从">何去何从</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="thinking-in-react">Thinking in React</h2>
+<p>使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣赏森林中每一棵树。React 帮助你更简单地去思考设计系统和 UI 状态。在<a href="https://beta.reactjs.org/learn/thinking-in-react" target="_blank" rel="noopener noreffer">这篇教程</a>中，将会通过构建一个带搜索功能的产品表来带你了解 React 思维。</p>
+<h3 id="从-markup-开始">从 Markup 开始</h3>
+<p>假设你已经有一个 JSON API 和设计者给你的初步模型 mockup，JSON API 的返回体如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSON" data-lang="JSON"><span class="p">[</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Fruits&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$1&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">true,</span> <span class="err">name:</span> <span class="nt">&#34;Apple&#34;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Fruits&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$1&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">true,</span> <span class="err">name:</span> <span class="nt">&#34;Dragonfruit&#34;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Fruits&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$2&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">false,</span> <span class="err">name:</span> <span class="nt">&#34;Passionfruit&#34;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Vegetables&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$2&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">true,</span> <span class="err">name:</span> <span class="nt">&#34;Spinach&#34;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Vegetables&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$4&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">false,</span> <span class="err">name:</span> <span class="nt">&#34;Pumpkin&#34;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="err">category:</span> <span class="nt">&#34;Vegetables&#34;</span><span class="p">,</span> <span class="err">price:</span> <span class="nt">&#34;$1&#34;</span><span class="p">,</span> <span class="err">stocked:</span> <span class="err">true,</span> <span class="err">name:</span> <span class="nt">&#34;Peas&#34;</span> <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div><p>初步的模型如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png"
+        data-srcset="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png, https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png 1.5x, https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png 2x"
+        data-sizes="auto"
+        alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui.png"
+        title="mockup" /></p>
+<p>为了在 React 中实现一个 UI 组件，我们通常进行如下五个步骤：</p>
+<h3 id="step-1-分解-ui-得到组件层次">Step 1: 分解 UI 得到组件层次</h3>
+<p>开始时，我们可以利用<strong>盒模型</strong>，即在设计模型 mockup 中用盒子框出所有组件和子组件，如果你和设计师一起合作，他们可能已经在设计师已经为各个组件命名了，可以使用他们的结构划分。</p>
+<p>根据你的背景，你可以考虑使用不同的方式将一个设计划分成各个组件：</p>
+<ul>
+<li>编程方法：使用编程技巧来决定你是否应该创建一个新函数或对象，这样的方法被称为<a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E4%B8%80%E5%8A%9F%E8%83%BD%E5%8E%9F%E5%88%99" target="_blank" rel="noopener noreffer"><strong>单一功能原则</strong></a>。也就是说，理想情况下组件应该只做一件事，如果它最终不断生长，那么它应该被拆解为更小的子组件。</li>
+<li>CSS 方法：思考你将要用到哪些类选择器（但是，组件的粒度应该还要更小一些）</li>
+<li>设计方法：思考你将如何组织设计的层次。</li>
+</ul>
+<p>如果你的 JSON 数据结构良好，你通常会发现 JSON 数据会自然地映射到 UI 中的组件。这是因为 UI 和数据模型 data models 通常具有相同的信息结构，换句话说也就是具有相同形状。请拆分你的 UI，使得组件可以和数据模型一一对应。</p>
+<p>于是我们可以划分出五个组件：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png"
+        data-srcset="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png, https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png 1.5x, https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png 2x"
+        data-sizes="auto"
+        alt="https://beta.reactjs.org/images/docs/s_thinking-in-react_ui_outline.png"
+        title="components" /></p>
+<ul>
+<li>FilterableProductTable (grey) 灰色盒子表示可搜索的产品表，即包含了整个应用。</li>
+<li>SearchBar (blue) 蓝色盒子表示搜索组件，接受用户的输入。</li>
+<li>ProductTable (lavender) 紫色盒子表示产品表，用于展示数据和根据用户输入过滤搜索结果。</li>
+<li>ProductCategoryRow (green) 绿色盒子表示产品类型标题，展示展品类型。</li>
+<li>ProductRow (yellow) 黄色盒表示产品，一个一行。</li>
+</ul>
+<p>可以发现紫色盒子（产品表 ProductTable）包含了绿色盒子（产品类型标题 ProductCategoryRow），这只是一种分解偏好，你可以做出不同的分解。对于这个例子来说，产品类型标题 ProductCategoryRow 是产品表 ProductTable 的一部分，如果产品类型标题变得更加复杂，比如你需要增加<strong>排序</strong>，则产品类型标题作为一个组件是更加合理的。</p>
+<p>现在你已经在 mockup 模型中确定了组件划分，将其重新排列成一个层次结构。出现在另一个组件中的的组件又称为子组件：</p>
+<ul>
+<li>FilterableProductTable
+<ul>
+<li>SearchBar</li>
+<li>ProductTable
+<ul>
+<li>ProductCategoryRow</li>
+<li>ProductRow</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="step-2-使用-react-构建静态组件">Step 2: 使用 React 构建静态组件</h3>
+<p>现在你已经有了组件层次结构，可以开始实现你的 React 应用了。最直接的方法是构建一个不具有任何交互功能的静态组件，直接使用你的数据模型渲染 UI。通常来说，直接创建静态版本然后再考虑增加交互性，要更简单些。静态组件需要大量的码量，无脑但是一旦涉及到交互性，就需要更多考虑而不是堆砌码量。</p>
+<p>要构建静态版本，你首先需要创建一个可以复用其他组件并且可以传输参数 props 的组件。 props 参数是一种父组件传递给子组件数据的方式（如果你熟悉 <a href="https://beta.reactjs.org/learn/state-a-components-memory" target="_blank" rel="noopener noreffer">state</a>，先不要使用 state 状态构建静态版本。状态一般用于创建互动功能，即随着时间改变而状态改变，而静态版本并不需要状态）。</p>
+<p>你可以按照层次结构自顶向下 &ldquo;top down&rdquo; 创建组件，如先构建 FilterableProductTable 整个产品表，或是选择自底向上 &ldquo;bottom up&rdquo; 从低层级的组件开始构建，如先构建 ProductRow 产品信息。</p>
+<p>在简单的样例中，我们一般选择自顶向下，但在大型的项目中，我们会选择自底向上。</p>
+<blockquote>
+<p>题外话：</p>
+<p>我个人认为 props 在组件中的定位应该是属性，或者资产，即 properties</p>
+</blockquote>
+<p>此时的代码如下，但由于篇幅问题展示不全，使用外部链接 <a href="https://codesandbox.io/s/vnh3eh?file=/App.js&amp;from-sandpack=true" target="_blank" rel="noopener noreffer">Codesandbox</a> 可以查看：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/React/productTable.png"
+        data-srcset="/React/productTable.png, /React/productTable.png 1.5x, /React/productTable.png 2x"
+        data-sizes="auto"
+        alt="/React/productTable.png"
+        title="productTable" /></p>
+<p>如果你在阅读源码时遇到了困难，请回到 Quick Start 了解基础的语法。</p>
+<p>在构建静态组件后，现在你有一个可以呈现数据 data model 的可重用组件 reusable components。因为现在还是静态的应用，组件只返回 JSX，位于顶层的 FilterableProductTable 组件将数据作为 props 属性传入子组件。这被称为单向数据流动 one-way data flow，因为数据只从上层组件向下层组件传递。</p>
+<blockquote>
+<p>陷阱</p>
+<p>此时你还不需要使用 state 状态</p>
+</blockquote>
+<h3 id="step-3-找到最小且具有完整形式的-ui-状态">Step 3: 找到最小且具有完整形式的 UI 状态</h3>
+<p>为了使得 UI 具有交互性，用户必须能改变、操作你的数据模型，你需要用到 state 状态。</p>
+<p>将状态 state 看作是应用程序需要记住的最小数据变化集，组织状态最重要的原则是 Keep it <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" target="_blank" rel="noopener noreffer">DRY</a> （一次且仅一次，即明确的、单一的，减少重复的信息）。</p>
+<p>找到应用中<strong>最小的状态表示形式</strong>，根据需要计算其他所有内容。比如，如果你在构建一个购物清单，你需要使用数组状态存储物品。如果你想展示清单的长度，不需要再使用状态存储长度，而是直接使用数组的长度属性。</p>
+<p>现在回到产品表例子，找到所有数据：</p>
+<ul>
+<li>原始的产品数组</li>
+<li>用户输入搜索文本</li>
+<li>复选框的值</li>
+<li>过滤的产品数组</li>
+</ul>
+<p>上述数据有哪些是状态 state 呢，根据以下准则判断：</p>
+<ul>
+<li>数据是否随着时间推移而<strong>不会改变</strong>，如果不会改变，则不是 state 状态</li>
+<li>数据是否是父组件通过 props 参数传入的？如果是，则不是 state 状态</li>
+<li>如果你能通过现有的状态计算出这些数据，则它并不是 state 状态</li>
+</ul>
+<p>剩下的则可能可以作为状态，对于本例子来说：</p>
+<ul>
+<li>原始的产品数组是从父组件从 props 传入的，所以并不是状态</li>
+<li>用户输入搜索文本似乎是状态，因为会随着时间变化，并且不能通过其他状态计算得到</li>
+<li>同样地，复选框似乎也是状态，随着时间变化，并且不能通过其他状态计算得到</li>
+<li>过滤后的产品数组也并不是状态，因为它可以通过原始产品数组，用户输入文本和复选框的值计算得到</li>
+</ul>
+<p>这意味着只有搜索文本和复选框的值是状态。</p>
+<blockquote>
+<p>Props vs State</p>
+<p>在 React 中有两种 &ldquo;model&rdquo; data 数据模型，即 props 和 state，它们之间的区别在于：</p>
+<ul>
+<li>
+<p><strong>props 就像函数传入的参数</strong>，props 允许父组件将数据传给子组件，并且自定义其外观，例如 <code>Form</code> 表单可以传一个 <code>color</code> 属性给 <code>Button</code></p>
+</li>
+<li>
+<p><strong>State 就像组件的内存</strong>，state 允许组件追踪某些信息，并且根据<strong>交互</strong>对其进行更改，例如，按钮 <code>Button</code> 可以追踪 <code>isHoverd</code> 状态</p>
+</li>
+</ul>
+<p>props 和 state 是不同的，但他们可以一起工作。父组件通常将一些信息存储为状态 state，这样就可以改变状态，然后使用 props 将其传给子组件。</p>
+</blockquote>
+<h3 id="step-4-确定你的状态-state-在哪存活">Step 4: 确定你的状态 state 在哪存活</h3>
+<p>在确定你的应用最小的状态数据后，你需要确定哪个组件负责改变状态，或拥有该组件。记住，React 使用单向数据流动，将数据通过组件层次结构，从父组件传给子组件。如果你还不了解哪些组件应该拥有什么状态，这可能是一个挑战，但你可以通过下面的步骤解决这个问题：</p>
+<p>对应用中每个状态：</p>
+<ol>
+<li>找出每个需要通过该状态来渲染的组件</li>
+<li>找到他们的<strong>最近公共父组件</strong></li>
+<li>决定该状态应该在哪：
+<ol>
+<li>通常来说，你可以直接把该状态放在最近公共父组件</li>
+<li>你也可以将状态放在公共父组件的父组件，即<strong>祖先组件</strong></li>
+<li>如果你找不到一个合适的组件存储状态，你可以新建一个组件单独管理整个状态，将其放到组件层次结构中，最近公共父组件的上面</li>
+</ol>
+</li>
+</ol>
+<p>通过上述步骤，你可以在本例子中发现两个状态：搜索输入文本和复选框的值。对于本例，他们总是一起出现，因此可以将他们看作是单个状态的一部分。</p>
+<p>现在，重新回顾一遍我们的策略：</p>
+<ol>
+<li>确定需要存储状态的组件：
+<ul>
+<li>ProductTable 产品表，它需要基于用户输入和复选框的值（状态 state）过滤产品列表</li>
+<li>SearchBar 搜素框，需要展示用户输入和复选框的值</li>
+</ul>
+</li>
+<li>找出他们最近的<strong>公共父组件</strong>，即 FilterableProductTable 最顶级的组件</li>
+<li>决定组件应该放在哪，对于本例，我们将搜索文本和复选框的值就放在顶级组件 FilterableProductTable 中</li>
+</ol>
+<p>使用 React Hooks 钩子 <a href="https://beta.reactjs.org/apis/usestate" target="_blank" rel="noopener noreffer"><code>useState()</code></a> 在组件中添加状态。Hooks 钩子可以让你钩入 hook into&quot; 一个组件的渲染周期 <a href="https://beta.reactjs.org/learn/render-and-commit" target="_blank" rel="noopener noreffer"><strong>render cycle</strong></a>。我们在顶层组件中添加两个状态，并且指定其初始值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="kr">const</span> <span class="p">[</span><span class="nx">filterText</span><span class="p">,</span> <span class="nx">setFilterText</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="p">[</span><span class="nx">inStockOnly</span><span class="p">,</span> <span class="nx">setInStockOnly</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+</code></pre></div><p>然后将 <code>filterText</code> 和 <code>inStockOnly</code> 作为 <code>props</code> 传给子组件 <code>ProductTable</code> 和 <code>SearchBar</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">SearchBar</span>
+    <span class="na">filterText</span><span class="o">=</span><span class="p">{</span><span class="nx">filterText</span><span class="p">}</span>
+    <span class="na">inStockOnly</span><span class="o">=</span><span class="p">{</span><span class="nx">inStockOnly</span><span class="p">}</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ProductTable</span>
+    <span class="na">products</span><span class="o">=</span><span class="p">{</span><span class="nx">products</span><span class="p">}</span>
+    <span class="na">filterText</span><span class="o">=</span><span class="p">{</span><span class="nx">filterText</span><span class="p">}</span>
+    <span class="na">inStockOnly</span><span class="o">=</span><span class="p">{</span><span class="nx">inStockOnly</span><span class="p">}</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>现在你可以通过改变 <code>useState()</code> 中的初始值来改变视图中搜索框和复选框的值（但此时你还不能改变视图中的值）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/React/productState.png"
+        data-srcset="/React/productState.png, /React/productState.png 1.5x, /React/productState.png 2x"
+        data-sizes="auto"
+        alt="/React/productState.png"
+        title="productState" /></p>
+<p>在 <code>input</code> 标签中我们使用 <code>value={filterText}</code> 展示传入的数据。</p>
+<p>参考 <a href="https://beta.reactjs.org/learn/managing-state" target="_blank" rel="noopener noreffer">Managing State</a> 更深入地了解 React 如何使用状态、如果使用状态组织你的应用程序。</p>
+<h3 id="step-5-增加反向数据流">Step 5: 增加反向数据流</h3>
+<p>目前你的应用程序通过 <code>props</code> 和 <code>state</code> 状态可以将数据正确地从上到下流动到子组件，但是为了让用户可以通过 UI 修改状态，你还需要支持数据的另一种流向：the form components deep in the hierarchy need to update the state in FilterableProductTable.</p>
+<blockquote>
+<p>最后一句话实在不知道怎么翻译</p>
+</blockquote>
+<p>React 可以清晰地表示这种数据流向，但它又和 <code>two-way data binding</code> <strong>数据双向绑定</strong>不太一样。如果此时你尝试输入或选中复选框，你可以看到 React 应用并没有变化，这是有意的。因为此时指定了 <code>&lt;input value={filterText} /&gt;</code> 即 <code>input</code> 标签的 <code>value</code> 属性和从父组件传下来的 <code>filterText</code> 值相等，而 <code>filterText</code> 状态并没有调用钩子修改状态，所以 <code>value</code> 的值也从未改变。</p>
+<p>你希望每当用户输入，更改 <code>input</code> 的内容时，状态 <code>state</code> 也反映这个改变。但此时状态在顶层组件 <code>FilterableProductTable</code> 中定义，只有它能直接调用 <code>setFilterText</code> 和 <code>setInStockOnly</code> 钩子。为了使得子组件 <code>SearchBar</code> 也可以更新父组件中的状态，你需要将 hooks 中的修改状态函数一同向下传入给子组件 <code>SearchBar</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="p">&lt;</span><span class="nt">SearchBar</span>
+  <span class="na">filterText</span><span class="o">=</span><span class="p">{</span><span class="nx">filterText</span><span class="p">}</span>
+  <span class="na">inStockOnly</span><span class="o">=</span><span class="p">{</span><span class="nx">inStockOnly</span><span class="p">}</span>
+  <span class="na">onFilterTextChange</span><span class="o">=</span><span class="p">{</span><span class="nx">setFilterText</span><span class="p">}</span>
+  <span class="na">onInStockOnlyChange</span><span class="o">=</span><span class="p">{</span><span class="nx">setInStockOnly</span><span class="p">}</span>
+   <span class="p">/&gt;</span>
+</code></pre></div><p>而在子组件 <code>SearchBar</code> 中，通过监听 <code>onChange</code> 时间，来调用钩子，从而修改父组件的状态：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="p">&lt;</span><span class="nt">input</span>
+  <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span>
+  <span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">filterText</span><span class="p">}</span>
+  <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Search...&#34;</span>
+  <span class="na">onChange</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">onFilterTextChange</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span>
+   <span class="p">/&gt;</span>
+</code></pre></div><p>此时，可以搜索的产品表完成了，你可以在 <a href="https://codesandbox.io/s/l8evv4?file=/App.js&amp;from-sandpack=true" target="_blank" rel="noopener noreffer">codesandbox</a> 中查看源代码：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/React/finalProduct.png"
+        data-srcset="/React/finalProduct.png, /React/finalProduct.png 1.5x, /React/finalProduct.png 2x"
+        data-sizes="auto"
+        alt="/React/finalProduct.png"
+        title="finalProduct" /></p>
+<p>你可以在 <a href="https://beta.reactjs.org/learn/adding-interactivity" target="_blank" rel="noopener noreffer"><strong>Adding Interactivity</strong></a> 增加交互功能一章中了解更多有关事件处理和更新状态的内容</p>
+<h3 id="何去何从">何去何从</h3>
+<p>本章节简短地介绍了如何使用 React 构建组件和应用程序，你现在就可以<a href="https://beta.reactjs.org/learn/installation" target="_blank" rel="noopener noreffer">创建你自己的 React 项目</a>，或者深入研究本章节中的<a href="https://beta.reactjs.org/learn/describing-the-ui" target="_blank" rel="noopener noreffer">更多语法</a>。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/react/">React</a>,&nbsp;<a href="/tags/%E6%96%87%E6%A1%A3/">文档</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/react-quick-start/" class="prev" rel="prev" title="翻译 React Docs - Quick Start"><i class="fas fa-angle-left fa-fw"></i>翻译 React Docs - Quick Start</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

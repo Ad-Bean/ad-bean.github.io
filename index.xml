@@ -4,9 +4,16 @@
         <link>http://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</lastBuildDate>
             <atom:link href="http://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>翻译 React Docs - Thinking in React</title>
+    <link>http://ad-bean.github.io/posts/thinking-in-react/</link>
+    <pubDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/thinking-in-react/</guid>
+    <description><![CDATA[Thinking in React 使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣]]></description>
+</item><item>
     <title>翻译 React Docs - Quick Start</title>
     <link>http://ad-bean.github.io/posts/react-quick-start/</link>
     <pubDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-first-unity/</guid>
     <description><![CDATA[3D 游戏编程 Homework - 1：井字棋 技术限制： 仅允许使用 IMGUI 构建 UI 作业目的： 了解 OnGUI() 事件，提升 debug 能力 提升阅读 API 文档能力 使用说明与成果展示： 博客地址：Gith]]></description>
-</item><item>
-    <title>18322043的软导作业索引页</title>
-    <link>http://ad-bean.github.io/posts/my-index/</link>
-    <pubDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-index/</guid>
-    <description><![CDATA[课后作业 01-使用维基百科（Wikipedia）解释名词 02-使用维基百科解释名词和写出英文单词 03-判断溢出和精度误差和名词解释 04-名词]]></description>
 </item></channel>
 </rss>

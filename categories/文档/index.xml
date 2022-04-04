@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</link>
         <description>文档 - 分类 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Thinking in React</title>
+    <link>http://ad-bean.github.io/posts/thinking-in-react/</link>
+    <pubDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/thinking-in-react/</guid>
+    <description><![CDATA[Thinking in React 使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣]]></description>
+</item><item>
     <title>翻译 React Docs - Quick Start</title>
     <link>http://ad-bean.github.io/posts/react-quick-start/</link>
     <pubDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</pubDate>
