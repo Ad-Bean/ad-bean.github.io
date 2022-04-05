@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</link>
         <description>文档 - 分类 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 05 Apr 2022 11:27:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Describing the UI</title>
+    <link>http://ad-bean.github.io/posts/describing-the-ui/</link>
+    <pubDate>Tue, 05 Apr 2022 11:27:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/describing-the-ui/</guid>
+    <description><![CDATA[Describing the UI 描述用户接口 React 是一个用于渲染用户界面 UI 的 Javascript 库。用户界面 UI 是由按钮、文本、图像等小单元构建的。React 可以让你组合这些小单元成为一个可]]></description>
+</item><item>
     <title>翻译 React Docs - Thinking in React</title>
     <link>http://ad-bean.github.io/posts/thinking-in-react/</link>
     <pubDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</pubDate>
