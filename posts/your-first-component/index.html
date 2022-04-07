@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>翻译 React Docs - Your First Component - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="翻译 React Docs - Your First Component" />
+<meta property="og:description" content="Your First Component 你的第一个组件 组件 Components 是 React 的核心概念之一，组件是构建用户界面 UI 的基础。学习如何创建组件将是学习 React 一个很好的开始。 在本章节你将会学到： 什么" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/your-first-component/" /><meta property="og:image" content="http://ad-bean.github.io/Owl.ico"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-07T13:46:18+08:00" />
+<meta property="article:modified_time" content="2022-04-07T13:46:18+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/Owl.ico"/>
+
+<meta name="twitter:title" content="翻译 React Docs - Your First Component"/>
+<meta name="twitter:description" content="Your First Component 你的第一个组件 组件 Components 是 React 的核心概念之一，组件是构建用户界面 UI 的基础。学习如何创建组件将是学习 React 一个很好的开始。 在本章节你将会学到： 什么"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/your-first-component/" /><link rel="prev" href="http://ad-bean.github.io/posts/describing-the-ui/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "翻译 React Docs - Your First Component",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/your-first-component\/"
+        },"genre": "posts","keywords": "React, 文档","wordcount":  2343 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/your-first-component\/","datePublished": "2022-04-07T13:46:18+08:00","dateModified": "2022-04-07T13:46:18+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">翻译 React Docs - Your First Component</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%96%87%E6%A1%A3/"><i class="far fa-folder fa-fw"></i>文档</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-07">2022-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2343 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#your-first-component-你的第一个组件">Your First Component 你的第一个组件</a>
+      <ul>
+        <li><a href="#组件组成-ui-的积木">组件：组成 UI 的积木</a></li>
+        <li><a href="#定义一个组件">定义一个组件</a></li>
+        <li><a href="#使用组件">使用组件</a></li>
+        <li><a href="#回顾">回顾</a></li>
+        <li><a href="#挑战">挑战</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="your-first-component-你的第一个组件">Your First Component 你的第一个组件</h2>
+<p>组件 Components 是 React 的核心概念之一，组件是构建用户界面 UI 的基础。学习如何创建组件将是学习 React 一个很好的开始。</p>
+<blockquote>
+<p>在<a href="https://beta.reactjs.org/learn/your-first-component" target="_blank" rel="noopener noreffer">本章节</a>你将会学到：</p>
+<ul>
+<li>什么是组件</li>
+<li>组件在 React 应用中的角色</li>
+<li>如何编写 React 组件</li>
+</ul>
+</blockquote>
+<h3 id="组件组成-ui-的积木">组件：组成 UI 的积木</h3>
+<blockquote>
+<p>原标题 Components: UI building blocks，不知道如何优雅翻译</p>
+</blockquote>
+<p>在 Web 应用/网页中，HTML 标记语言允许我们使用一系列内置标签创建富文本结构，如 <code>&lt;h1&gt;</code> 和 <code>&lt;li&gt;</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-HTML" data-lang="HTML"><span class="p">&lt;</span><span class="nt">article</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My First Component<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ol</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Components: UI Building Blocks<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Defining a Component<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Using a Component<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
+</code></pre></div><p>上述标记语言表示一个文本 <code>&lt;article&gt;</code>，使用标题标签 <code>&lt;h1&gt;</code> 和一个有序表格（缩写标签 ordered list）标签 <code>&lt;ol&gt;</code>。像这样的标记语言，结合 CSS 编写样式，以及 Javascript 实现交互性，就是你在 Web 上看到的所有 UI，不论是侧边栏，还是头像、模型或是下拉菜单。</p>
+<p>React 允许你在一个自定义的组件中，结合 HTML 标记语言 CSS 样式以及 Javascript 语言，形成可以在应用程序中复用的 UI 组件元素。比如上述的表格 table 中的内容可以转换成一个 <code>&lt;TableOfContents /&gt;</code> 组件，你可以在每个页面都渲染这个表格。<strong>Under the hood</strong> 本质来说，这其实就是 HTML 中的标签，比如 <code>&lt;article&gt;, &lt;h1&gt;</code>。</p>
+<p>和 HTML 标签一样，你可以自由组合、排序和嵌套各种组件来设计整个页面。举个例子，你当前正在阅读的文档就是 React 组件构成的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="p">&lt;</span><span class="nt">PageLayout</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">NavigationHeader</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">SearchBar</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">Link</span> <span class="na">to</span><span class="o">=</span><span class="s">&#34;/docs&#34;</span><span class="p">&gt;</span><span class="nx">Docs</span><span class="p">&lt;/</span><span class="nt">Link</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">NavigationHeader</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">Sidebar</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">PageContent</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">TableOfContents</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">DocumentationText</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">PageContent</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">PageLayout</span><span class="p">&gt;</span>
+</code></pre></div><p>当你的项目开始增长，你会注意到许多设计是可以将其编写成组件，以便后续重用和复用，从而加快开发过程。上述的表单 <code>&lt;TableOfContents /&gt;</code> 就可以添加到任何地方，你也可以使用许多 React 开源社区中的组件库比如 <a href="https://chakra-ui.com/" target="_blank" rel="noopener noreffer">Chakra UI</a> 和 <a href="https://chakra-ui.com/" target="_blank" rel="noopener noreffer">Material UI</a></p>
+<h3 id="定义一个组件">定义一个组件</h3>
+<p>当创建一个传统的网页时，网页开发者一般使用标记语言填充内容，然后使用 Javascript 为网页添加交互功能。当网页需要互动的时候，这样的流程是可以接受的。但现在，很多网站或应用程序需要更多。React 将交互性放在首位的同时，使用了同样的技术栈，即：一个 React 组件就是一个 Javascript 函数，你可以在这个函数中使用标记语言。下面是一个例子：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg, https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg 1.5x, https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg"
+        title="https://pic.imgdb.cn/item/624e8439239250f7c5880043.jpg" /></p>
+<p>下面是编写一个组件的过程：</p>
+<h4 id="step-1导出组件">Step 1：导出组件</h4>
+<p><code>export default</code> 前缀是一个<a href="https://developer.mozilla.org/zh-CN/docs/web/javascript/reference/statements/export" target="_blank" rel="noopener noreffer">标准的 Javascript 语法</a>（不是 React 特有的），它允许你在文件中标记处主要的函数，以便后续可以在其他文件中导入该函数（更多内容请查看<a href="https://beta.reactjs.org/learn/importing-and-exporting-components" target="_blank" rel="noopener noreffer">导出和导入组件</a>章节）</p>
+<h4 id="step-2定义函数">Step 2：定义函数</h4>
+<p>使用 <code>function Profile() { }</code> 定义一个 Javascript 函数，组件名称为 <code>Profile</code></p>
+<blockquote>
+<p>陷阱：</p>
+<p>React 组件就是常规的 Javascript 函数，但首字母必须大写，否则不会起作用</p>
+</blockquote>
+<h4 id="step-3添加标记语言">Step 3：添加标记语言</h4>
+<p>这个组件返回一个 <code>&lt;img /&gt;</code> 标签，带有 <code>src</code> 和 <code>alt</code> 属性，就像 HTML 一样，但他的本质上又是 Javascript。这种语法被称为 <code>JSX</code>，它可以让你在 Javascript 中嵌入标记语言。</p>
+<p>返回语句可以只写一行，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="k">return</span> <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://i.imgur.com/MK3eW3As.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Katherine Johnson&#34;</span> <span class="p">/&gt;;</span>
+</code></pre></div><p>但如果你的标记语言不止一行，即和 <code>return</code> 关键字不在同一行，则必须使用括号将其包起来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JSX" data-lang="JSX"><span class="k">return</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://i.imgur.com/MK3eW3As.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Katherine Johnson&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div><blockquote>
+<p>陷阱：</p>
+<p>如果没有括号，所有 <code>return</code> 后面的代码将会<a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi" target="_blank" rel="noopener noreffer">被忽略</a></p>
+<p>原因就是 Javascript 中自动分号的策略，详情查看 <a href="https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi" target="_blank" rel="noopener noreffer">stackoverflow</a> 的回答</p>
+</blockquote>
+<h3 id="使用组件">使用组件</h3>
+<p>现在你已经定义了 <code>Profile</code> 组件，你可以将其嵌套到其他组件中使用，比如你可以导出一个嵌套多个 <code>Profile</code> 信息组件的 <code>Gallery</code> 画廊组件，</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg, https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg 1.5x, https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg"
+        title="https://pic.imgdb.cn/item/624e8828239250f7c58fbd7d.jpg" /></p>
+<h4 id="浏览器看到的">浏览器看到的</h4>
+<p>可以发现 React 组件中的标记语言和 HTML 是有差异的：</p>
+<ul>
+<li><code>&lt;section&gt;</code> 为小写，所以 React 知道这是 HTML 标签</li>
+<li><code>&lt;Profile /&gt;</code> 首字母大写，所以 React 知道需要使用 <code>Profile</code> 组件而不是 HTML 标签</li>
+</ul>
+<p>并且 <code>Profile</code> 组件比 HTML 标签拥有更多内容，比如 <code>&lt;img/&gt;</code>，所以浏览器看的是其实是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-HTML" data-lang="HTML"><span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Amazing scientists<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://i.imgur.com/MK3eW3As.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Katherine Johnson&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://i.imgur.com/MK3eW3As.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Katherine Johnson&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://i.imgur.com/MK3eW3As.jpg&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;Katherine Johnson&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="嵌套和组织组件">嵌套和组织组件</h4>
+<p>正如我们之前所说，React 组件实际上就是 Javascript 函数，所以你可以在一个文件中实现多个组件。这很方便，尤其是当组件都比较小，而且都紧密联系时，但一旦当文件开始变得拥挤，你可以将 <code>Profile</code> 组件单独开一个文件。下一篇文章，即<a href="https://beta.reactjs.org/learn/importing-and-exporting-components" target="_blank" rel="noopener noreffer">导入和导出组件</a>会仔细讨论这个问题。</p>
+<p>因为 <code>Profile</code> 组件在 <code>Gallery</code> 组件中<strong>多次</strong>渲染，即画廊组件 <code>Gallery</code> 是一个<strong>父组件</strong>，而每个在父组件里渲染的 <code>Profile</code> 组件被称为<strong>子组件</strong>。</p>
+<p>这就是 React 的魔力之处，你可以一次声明定义一个组件，却可以在任何地方任意时间多次使用。</p>
+<blockquote>
+<p><strong>深入了解</strong>：Components All the Way Down</p>
+<p>你的 React 应用应该从<strong>根组件 root</strong> 开始。通常，当你创建一个新 React 项目时会自动创建一个根组件。比如，当你使用 <a href="https://codesandbox.io/" target="_blank" rel="noopener noreffer">CodeSandbox</a> 或 <a href="https://create-react-app.dev/" target="_blank" rel="noopener noreffer">Creat React App</a> 时，根组件就是 <code>src/App.js</code>。如果你使用其他框架比如 <code>Next.js</code>，则根组件是 <code>pages/index.js</code>。在这些例子中，已经自动导出了根组件。</p>
+<p>大部分 React 应用自始至终都使用组件，即 All the way down。这意味着，你不仅要使用可重用的小组件，比如按钮，还需要使用更大的组件比如侧边栏、列表甚至是整个页面。组件是组织 UI 代码和标记语言的便捷方式，哪怕其中一些组件只使用一次。</p>
+<p>一些框架比如 <code>Next.js</code> 则更进一步，不是使用一个单独的 HTML 文件和让 React 使用 Javascript 掌管整个页面，<code>Next.js</code> 是将 React 组件自动转换成 HTML，即允许在 Javascript 加载之前展示一些内容。</p>
+<p>尽管如此，许多网站只使用 React 来<a href="https://beta.reactjs.org/learn/add-react-to-a-website" target="_blank" rel="noopener noreffer">增加可交互性</a>。他们有许多<strong>根组件</strong>，而不是一个。你可以任意使用 React，全部或者很少。</p>
+</blockquote>
+<blockquote>
+<p><strong>题外话</strong>：</p>
+<p>这是我第一次听说 <code>Next.js</code>，还没有仔细了解，稍微看了下好像是用于生产环境的 React 框架</p>
+<p>包含路由、服务端渲染 SSR、Typescript 等，看了一些评价说要比 CRA (create-react-app) 快一些，不知道是为什么。如果翻译完 React docs 有时间可以学习一下 Next.js</p>
+</blockquote>
+<h3 id="回顾">回顾</h3>
+<p>通过这篇文章，我们对 React 有了一个初步的了解，回顾这篇文章：</p>
+<ul>
+<li>React 允许你为你的应用创建组件，可复用的 UI 元素。</li>
+<li>在一个 React 应用中，用户界面 UI 中的任意元素都可以是组件。</li>
+<li>React 组件实际上就是 Javascript 函数，但有以下不同：
+<ul>
+<li>React 组件通常以首字母大写开头</li>
+<li>React 组件返回的是 JSX 标记语言</li>
+</ul>
+</li>
+</ul>
+<h3 id="挑战">挑战</h3>
+<p>本篇文章有四个挑战，请在<a href="https://beta.reactjs.org/learn/your-first-component#challenges" target="_blank" rel="noopener noreffer">原文底部</a>实现：</p>
+<h4 id="挑战-14正确导出组件">挑战 1/4：正确导出组件</h4>
+<p>React 的编译报错还是很友善的，会提醒你是否是忘了导出组件，解法在第一行</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg, https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg 1.5x, https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg"
+        title="https://pic.imgdb.cn/item/624e912b239250f7c5a1ac2d.jpg" /></p>
+<h4 id="挑战-24正确返回-jsx-语句">挑战 2/4：正确返回 JSX 语句</h4>
+<p>React 编译报错提醒你该组件什么都没有返回，添加括号或将其放在同一行，并且要记得删掉 HTML 标签后面的分号</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg, https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg 1.5x, https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg"
+        title="https://pic.imgdb.cn/item/624e921c239250f7c5a37655.jpg" /></p>
+<h4 id="挑战-34找出错误">挑战 3/4：找出错误</h4>
+<p>这样的错误 React 并不会编译报错，所以需要记住<strong>组件一定是首字母大写</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg, https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg 1.5x, https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg"
+        title="https://pic.imgdb.cn/item/624e926e239250f7c5a41364.jpg" /></p>
+<h4 id="挑战-44编写你的组件">挑战 4/4：编写你的组件</h4>
+<p>任意编写一个 React 组件即可，注意前面三个问题即可，正确导出，正确返回，首字母大写</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg"
+        data-srcset="https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg, https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg 1.5x, https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg"
+        title="https://pic.imgdb.cn/item/624e92e4239250f7c5a4f873.jpg" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-07</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/react/">React</a>,&nbsp;<a href="/tags/%E6%96%87%E6%A1%A3/">文档</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/describing-the-ui/" class="prev" rel="prev" title="翻译 React Docs - Describing the UI"><i class="fas fa-angle-left fa-fw"></i>翻译 React Docs - Describing the UI</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

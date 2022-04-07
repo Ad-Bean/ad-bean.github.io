@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</link>
         <description>文档 - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 05 Apr 2022 11:27:05 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Apr 2022 13:46:18 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Your First Component</title>
+    <link>http://ad-bean.github.io/posts/your-first-component/</link>
+    <pubDate>Thu, 07 Apr 2022 13:46:18 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/your-first-component/</guid>
+    <description><![CDATA[Your First Component 你的第一个组件 组件 Components 是 React 的核心概念之一，组件是构建用户界面 UI 的基础。学习如何创建组件将是学习 React 一个很好的开始。 在本章节你将会学到： 什么]]></description>
+</item><item>
     <title>翻译 React Docs - Describing the UI</title>
     <link>http://ad-bean.github.io/posts/describing-the-ui/</link>
     <pubDate>Tue, 05 Apr 2022 11:27:05 &#43;0800</pubDate>
