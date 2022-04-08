@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Apr 2022 13:46:18 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 08 Apr 2022 16:00:23 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Importing and Exporting Components</title>
+    <link>http://ad-bean.github.io/posts/importing-and-exporting-components/</link>
+    <pubDate>Fri, 08 Apr 2022 16:00:23 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/importing-and-exporting-components/</guid>
+    <description><![CDATA[Importing and Exporting Components 导入和导出组件 组件的魅力之处在于它们是可重用的，你可以创建由其他组件组成的新组件。但当你嵌套足够多的组件时，你可能需要将不同组件拆分]]></description>
+</item><item>
     <title>翻译 React Docs - Your First Component</title>
     <link>http://ad-bean.github.io/posts/your-first-component/</link>
     <pubDate>Thu, 07 Apr 2022 13:46:18 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-fourth-unity/</guid>
     <description><![CDATA[与游戏世界交互 &amp;&amp; 物理系统与碰撞 编写一个简单的鼠标打飞碟（Hit UFO）游戏 游戏内容要求： 游戏有 n 个 round，每个 round 都包括10 次 trial；]]></description>
-</item><item>
-    <title>3D游戏编程作业3-牧师与恶魔动作分离版</title>
-    <link>http://ad-bean.github.io/posts/my-third-unity/</link>
-    <pubDate>Tue, 19 Oct 2021 20:36:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-third-unity/</guid>
-    <description><![CDATA[牧师与魔鬼：动作分离版 阅读以下游戏脚本 Priests and Devils Priests and Devils is a puzzle game in which you will help the Priests and Devils to cross the river within the time limit. There are 3 priests and 3 devils at one side of the river. They all want to get to the other side of this]]></description>
 </item></channel>
 </rss>
