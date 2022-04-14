@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</link>
         <description>文档 - 分类 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 08 Apr 2022 16:00:23 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 14 Apr 2022 15:07:41 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/" rel="self" type="application/rss+xml" /><item>
+    <title>翻译 React Docs - Writing Markup With JSX</title>
+    <link>http://ad-bean.github.io/posts/writing-markup-with-jsx/</link>
+    <pubDate>Thu, 14 Apr 2022 15:07:41 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/writing-markup-with-jsx/</guid>
+    <description><![CDATA[Writing Markup With JSX 使用 JSX 编写标记语言：JSX 是 Javascript 的扩展语法，JSX 可以让你在 Javascript 文件中编写类似 HTML 的标记语言。尽管还有其他方法来编写组件，但大部分 React 开发人]]></description>
+</item><item>
     <title>翻译 React Docs - Importing and Exporting Components</title>
     <link>http://ad-bean.github.io/posts/importing-and-exporting-components/</link>
     <pubDate>Fri, 08 Apr 2022 16:00:23 &#43;0800</pubDate>
