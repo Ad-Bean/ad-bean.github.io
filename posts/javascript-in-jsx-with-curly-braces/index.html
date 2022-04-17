@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>翻译 React Docs - Javascript in JSX With Curly Braces - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="翻译 React Docs - Javascript in JSX With Curly Braces" />
+<meta property="og:description" content="Javascript in JSX With Curly Braces JSX 允许你在 Javascript 中编写类似 HTML 标记语言的标签，将渲染逻辑和内容保存在同一个文件中。 有时你想增加一点 Javascript 逻辑或是在标记语言中引用一个动态变" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/" /><meta property="og:image" content="http://ad-bean.github.io/Owl.ico"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-17T19:29:14+08:00" />
+<meta property="article:modified_time" content="2022-04-17T19:29:14+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://ad-bean.github.io/Owl.ico"/>
+
+<meta name="twitter:title" content="翻译 React Docs - Javascript in JSX With Curly Braces"/>
+<meta name="twitter:description" content="Javascript in JSX With Curly Braces JSX 允许你在 Javascript 中编写类似 HTML 标记语言的标签，将渲染逻辑和内容保存在同一个文件中。 有时你想增加一点 Javascript 逻辑或是在标记语言中引用一个动态变"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/" /><link rel="prev" href="http://ad-bean.github.io/posts/writing-markup-with-jsx/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "翻译 React Docs - Javascript in JSX With Curly Braces",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/ad-bean.github.io\/posts\/javascript-in-jsx-with-curly-braces\/"
+        },"genre": "posts","keywords": "React, 文档","wordcount":  1710 ,
+        "url": "http:\/\/ad-bean.github.io\/posts\/javascript-in-jsx-with-curly-braces\/","datePublished": "2022-04-17T19:29:14+08:00","dateModified": "2022-04-17T19:29:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Adbean"},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/posts/my-index/"> 索引 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/Owl.ico"
+        data-srcset="/Owl.ico, /Owl.ico 1.5x, /Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/posts/my-index/" title="">索引</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">翻译 React Docs - Javascript in JSX With Curly Braces</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://adbean.gitee.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%96%87%E6%A1%A3/"><i class="far fa-folder fa-fw"></i>文档</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-04-17">2022-04-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1710 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#javascript-in-jsx-with-curly-braces">Javascript in JSX With Curly Braces</a></li>
+    <li><a href="#passing-strings-with-quotes">Passing strings with quotes</a></li>
+    <li><a href="#using-curly-braces-a-window-into-the-javascript-world">Using curly braces: A window into the JavaScript world</a>
+      <ul>
+        <li><a href="#where-to-use-curly-braces">Where to use curly braces</a></li>
+      </ul>
+    </li>
+    <li><a href="#using-double-curlies-css-and-other-objects-in-jsx">Using &ldquo;double curlies&rdquo;: CSS and other objects in JSX</a></li>
+    <li><a href="#more-fun-with-javascript-objects-and-curly-braces">More fun with JavaScript objects and curly braces</a></li>
+    <li><a href="#recap">Recap</a></li>
+    <li><a href="#challenges">Challenges</a>
+      <ul>
+        <li><a href="#challenge-1-of-3-fix-the-mistake">Challenge 1 of 3: Fix the mistake</a></li>
+        <li><a href="#challenge-2-of-3-extract-information-into-an-object">Challenge 2 of 3: Extract information into an object</a></li>
+        <li><a href="#challenge-3-of-3-write-an-expression-inside-jsx-curly-braces">Challenge 3 of 3: Write an expression inside JSX curly braces</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="javascript-in-jsx-with-curly-braces">Javascript in JSX With Curly Braces</h2>
+<p>JSX 允许你在 Javascript 中编写类似 HTML 标记语言的标签，将渲染逻辑和内容保存在同一个文件中。
+有时你想增加一点 Javascript 逻辑或是在标记语言中引用一个动态变量，你可以在 JSX 中使用花括号，通过打开一个窗口通向 Javascript (open a window to Javascript, 找不到信达雅的翻译)</p>
+<blockquote>
+<p>在<a href="https://beta.reactjs.org/learn/javascript-in-jsx-with-curly-braces" target="_blank" rel="noopener noreffer">本章节</a>你将会学到：</p>
+<ul>
+<li>如何使用引号传递字符串</li>
+<li>如何在 JSX 中使用花括号引用一个 Javascript 变量</li>
+<li>如何在 JSX 中使用花括号调用一个 Javascript 函数</li>
+<li>如何在 JSX 中使用花括号获取一个 Javascript 对象</li>
+</ul>
+</blockquote>
+<h2 id="passing-strings-with-quotes">Passing strings with quotes</h2>
+<p>当你想把一个字符串属性传给 JSX 时，你可以将其放入双引号或单引号中：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg, https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg 1.5x, https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg"
+        title="https://pic.imgdb.cn/item/625bfe24239250f7c5138194.jpg" /></p>
+<p>正如图上，<code>&quot;https://i.imgur.com/7vQD0fPs.jpg&quot;</code> 和 <code>&quot;Gregorio Y. Zara&quot;</code> 字符串被传入了属性</p>
+<p>但如果你想要动态地传入一个属性，比如指定 <code>src</code> 或 <code>alt</code> 的属性时，你就需要使用花括号 <code>{}</code> 来替换 <code>&quot;&quot;</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg, https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg 1.5x, https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg"
+        title="https://pic.imgdb.cn/item/625bfea0239250f7c5145f17.jpg" /></p>
+<p>当使用 <code>className=&quot;avatar&quot;</code> 时，确切指定了一个 CSS 类即 <code>avatar</code> 使得图片具有圆角，注意此时和 <code>src={avatar}</code> 的不同的地方，后者读取 Javascript 中的变量 <code>avatar</code> 的值。这是因为<strong>花括号</strong>可以让你在 JSX 和标记语言中访问 Javascript 变量。</p>
+<h2 id="using-curly-braces-a-window-into-the-javascript-world">Using curly braces: A window into the JavaScript world</h2>
+<p>JSX 是一种特殊的 Javascript 写法，这意味着它本质上是可以使用 Javascript 的，即通过花括号 <code>{}</code>。</p>
+<p>下面的例子声明了一个科学家的名字变量 <code>name</code>，然后使用花括号将其嵌入到 <code>&lt;h1&gt;</code> 标签中：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg, https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg 1.5x, https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg"
+        title="https://pic.imgdb.cn/item/625bffaf239250f7c51630a1.jpg" /></p>
+<p>尝试动态地改变 <code>name</code> 的值，比如从 <code>'Gregorio Y. Zara'</code> 到 <code>'Hedy Lamarr'</code>，观察其渲染是否发生变化。</p>
+<p>任何 Javascript 表达式都可以使用花括号来获取，甚至函数，比如 <code>formatDate()</code>：</p>
+<blockquote>
+<p>其中 <code>Intl</code> 对象是 ECMAScript 国际化 API 的一个命名空间，它提供了精确的字符串对比、数字格式化，和日期时间格式化</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg, https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg 1.5x, https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg"
+        title="https://pic.imgdb.cn/item/625c00e1239250f7c51832d9.jpg" /></p>
+<h3 id="where-to-use-curly-braces">Where to use curly braces</h3>
+<p>你只能在 JSX 中按照如下两种方式使用花括号：</p>
+<ol>
+<li>在 JSX 标签内部作为文本内容使用： <code>&lt;h1&gt;{name}'s To Do List&lt;/h1&gt;</code> 正常工作，但 <code>&lt;{tag}&gt;Gregorio Y. Zara's To Do List&lt;/{tag}&gt;</code> 则不会正常工作</li>
+<li>在 JSX 标签中作为属性传递，跟在 <code>=</code> 后面：<code>src={avatar}</code> 将会读取 <code>avatar</code> 变量，但 <code>src=&quot;{avatar}&quot;</code> 会传递字符串 <code>{avatar}</code></li>
+</ol>
+<h2 id="using-double-curlies-css-and-other-objects-in-jsx">Using &ldquo;double curlies&rdquo;: CSS and other objects in JSX</h2>
+<p>除了传递字符串，数字和其他 Javascript 表达式以外，你还可以在 JSX 中传递对象。由于对象同样使用花括号表示，比如 <code>{ name: 'Hedy Lamarr', inventions: 5}</code>。因此，为了传递一个 JS 对象，你必须再使用一个花括号来将其包起来：<code>person={{ name: &quot;Hedy Lamarr&quot;, inventions: 5 }}</code></p>
+<p>你可能需要在 JSX 中使用内联 CSS，但在 React 中这并不是必须的，因为大部分场景下，类选择器也能很好地工作。</p>
+<p>但如果你需要使用内联 CSS，你必须向 <code>style</code> 属性传递一个对象：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg, https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg 1.5x, https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg"
+        title="https://pic.imgdb.cn/item/625c04c2239250f7c51f04f0.jpg" /></p>
+<p>上面的例子传入了背景颜色和文本颜色，你可以在原文章中修改它们。</p>
+<p>为了更清晰地看到内联 CSS 传入的对象，你可以尝试如下的写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">style</span><span class="o">=</span><span class="p">{</span>
+  <span class="p">{</span>
+    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;pink&#39;</span>
+  <span class="p">}</span>
+<span class="p">}&gt;</span>
+</code></pre></div><p>总地来说，在 JSX 中如果遇到了两个花括号 <code>{{</code> 和 <code>}}</code>，不用担心，它本质其实就是一个在花括号中的对象！</p>
+<blockquote>
+<p>陷阱：</p>
+<p>内联 CSS 属性使用<strong>驼峰表示法</strong> camelCase</p>
+<p>比如 HTML 中的 <code>&lt;ul style=&quot;background-color: black&quot;&gt;</code>，</p>
+<p>在 JSX 中的表示为 <code>&lt;ul style={{ backgroundColor: 'black' }}&gt;</code></p>
+</blockquote>
+<h2 id="more-fun-with-javascript-objects-and-curly-braces">More fun with JavaScript objects and curly braces</h2>
+<p>你可以将多个表达式放到一个对象中，然后在 JSX 中使用花括号引用他们：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg, https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg 1.5x, https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg"
+        title="https://pic.imgdb.cn/item/625c06a2239250f7c5221c60.jpg" /></p>
+<p>在这个例子中，<code>person</code> 对象具有 <code>name</code> 字符串属性和 <code>theme</code> 对象：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">const</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Gregorio Y. Zara&#34;</span><span class="p">,</span>
+  <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s2">&#34;black&#34;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&#34;pink&#34;</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+</code></pre></div><p>在组件中可以点成员访问 <code>person</code> 的成员：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">person</span><span class="p">.</span><span class="nx">theme</span><span class="p">}&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;{</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="err">&#39;</span><span class="nx">s</span> <span class="nx">Todos</span><span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</code></pre></div><p>JSX 由于可以使用 Javascript 组织数据和逻辑，作为一种模板语言是非常 minimal 极小化的</p>
+<h2 id="recap">Recap</h2>
+<p>回顾<a href="https://beta.reactjs.org/learn/javascript-in-jsx-with-curly-braces" target="_blank" rel="noopener noreffer">本章</a>，你已经学到 JSX 中大部分语法了：</p>
+<ul>
+<li>使用引号来传递 JSX 字符串属性</li>
+<li>使用花括号在标记语言中访问 Javascript 的逻辑和变量</li>
+<li>花括号在 JSX 标记语言标签内和属性等号后作用</li>
+<li><code>{{</code> 和 <code>}}</code> 双重大括号并不是特殊语法，而是 Javascript 中的对象，被塞入了 JSX 花括号中</li>
+</ul>
+<h2 id="challenges">Challenges</h2>
+<h3 id="challenge-1-of-3-fix-the-mistake">Challenge 1 of 3: Fix the mistake</h3>
+<p>这段代码产生了报错：<code>Objects are not valid as a React child</code> 该对象不是有效的 React 子组件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg, https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg 1.5x, https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg"
+        title="https://pic.imgdb.cn/item/625c11ad239250f7c537ef34.jpg" /></p>
+<p>根据报错信息可以发现，12 行使用 <code>{person}</code> 访问对象，而 React 不知道要渲染哪一个属性，将其修改为 <code>{person.name}</code> 即可</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg, https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg 1.5x, https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg"
+        title="https://pic.imgdb.cn/item/625c1205239250f7c53886d3.jpg" /></p>
+<h3 id="challenge-2-of-3-extract-information-into-an-object">Challenge 2 of 3: Extract information into an object</h3>
+<p>将图像的 URL 提取到 <code>person</code> 对象中：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg, https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg 1.5x, https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg"
+        title="https://pic.imgdb.cn/item/625c1248239250f7c5390ab1.jpg" /></p>
+<p>直接在 <code>person</code> 对象中添加 <code>imageUrl</code> 属性，使用 <code>src={person.imageUrl}</code> 传入即可</p>
+<h3 id="challenge-3-of-3-write-an-expression-inside-jsx-curly-braces">Challenge 3 of 3: Write an expression inside JSX curly braces</h3>
+<p>在下面所示代码中，图像的 URL 使用了四个部分组成，<code>src=&quot;{baseUrl}{person.imageId}{person.imageSize}.jpg&quot;</code>，尝试将图像的 URL 属性进行结合，即 <code>baseUrl</code> 永远是 <code>'https://i.imgur.com/'</code>，<code>imageId </code> 为<code>'7vQD0fP'</code>, <code>imageSize</code> 为 <code>'s'</code>, 和文件扩展名永远是 <code>'.jpg'</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg, https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg 1.5x, https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg"
+        title="https://pic.imgdb.cn/item/625c133d239250f7c53ace91.jpg" /></p>
+<p>可以使用花括号表达式，将其组合起来 <code>{baseUrl + person.imageId + person.imageSize + '.jpg'}</code>：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg, https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg 1.5x, https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg"
+        title="https://pic.imgdb.cn/item/625c1361239250f7c53b0db4.jpg" /></p>
+<p>又或是使用一个函数 <code>getImageUrl</code>，在传入时调用 <code>src={getImageUrl(person)}</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="kr">export</span> <span class="kd">function</span> <span class="nx">getImageUrl</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="s2">&#34;https://i.imgur.com/&#34;</span> <span class="o">+</span> <span class="nx">person</span><span class="p">.</span><span class="nx">imageId</span> <span class="o">+</span> <span class="nx">person</span><span class="p">.</span><span class="nx">imageSize</span> <span class="o">+</span> <span class="s2">&#34;.jpg&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg"
+        data-srcset="https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg, https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg 1.5x, https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg 2x"
+        data-sizes="auto"
+        alt="https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg"
+        title="https://pic.imgdb.cn/item/625c1399239250f7c53b7963.jpg" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/react/">React</a>,&nbsp;<a href="/tags/%E6%96%87%E6%A1%A3/">文档</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/writing-markup-with-jsx/" class="prev" rel="prev" title="翻译 React Docs - Writing Markup With JSX"><i class="fas fa-angle-left fa-fw"></i>翻译 React Docs - Writing Markup With JSX</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://adbean.gitee.io/" target="_blank">Adbean</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

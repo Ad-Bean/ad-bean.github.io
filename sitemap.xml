@@ -2,13 +2,14 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://ad-bean.github.io/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/react/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
-            <loc>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/react/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/categories/%E6%96%87%E6%A1%A3/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
+            <loc>http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/</loc><lastmod>2022-04-17T19:29:14&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/writing-markup-with-jsx/</loc><lastmod>2022-04-14T15:07:41&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/importing-and-exporting-components/</loc><lastmod>2022-04-08T16:00:23&#43;08:00</lastmod></url><url>
             <loc>http://ad-bean.github.io/posts/your-first-component/</loc><lastmod>2022-04-07T13:46:18&#43;08:00</lastmod></url><url>
