@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>精读 React useEffect cleanup</title>
+    <link>http://ad-bean.github.io/posts/react-use-effect-cleanup/</link>
+    <pubDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/react-use-effect-cleanup/</guid>
+    <description><![CDATA[写在前面： 本文章翻译自 react-useeffect-cleanup，仅供学习 React useEffect cleanup React&rsquo;s useEffect hook is a super hook to run side effects. You might be wondering what kind of side effects we could be talking about? 在 React 中]]></description>
+</item><item>
     <title>翻译 React Docs - Javascript in JSX With Curly Braces</title>
     <link>http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/</link>
     <pubDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/my-seventh-unity/</guid>
     <description><![CDATA[九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客]]></description>
-</item><item>
-    <title>启发式搜索 A star 求解八数码问题</title>
-    <link>http://ad-bean.github.io/posts/a-star-algorithm/</link>
-    <pubDate>Wed, 08 Dec 2021 21:43:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/a-star-algorithm/</guid>
-    <description><![CDATA[问题：八数码问题 在 3×3 的棋盘上，摆有八个棋子，每个棋子上标有 1 至 8 的某一数字。 棋盘中留有一个空格，空格用 0 来表示。空格周围的棋子可以移到空]]></description>
 </item></channel>
 </rss>

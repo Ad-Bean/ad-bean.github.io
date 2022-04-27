@@ -4,7 +4,14 @@
         <link>http://ad-bean.github.io/tags/react/</link>
         <description>React - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/react/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/react/" rel="self" type="application/rss+xml" /><item>
+    <title>精读 React useEffect cleanup</title>
+    <link>http://ad-bean.github.io/posts/react-use-effect-cleanup/</link>
+    <pubDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/react-use-effect-cleanup/</guid>
+    <description><![CDATA[写在前面： 本文章翻译自 react-useeffect-cleanup，仅供学习 React useEffect cleanup React&rsquo;s useEffect hook is a super hook to run side effects. You might be wondering what kind of side effects we could be talking about? 在 React 中]]></description>
+</item><item>
     <title>翻译 React Docs - Javascript in JSX With Curly Braces</title>
     <link>http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/</link>
     <pubDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</pubDate>
