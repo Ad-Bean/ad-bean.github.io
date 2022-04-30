@@ -4,9 +4,16 @@
         <link>http://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</lastBuildDate>
             <atom:link href="http://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>精读 React use Effect Book</title>
+    <link>http://ad-bean.github.io/posts/use-effect-book/</link>
+    <pubDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://ad-bean.github.io/posts/use-effect-book/</guid>
+    <description><![CDATA[写在前面： 本文章翻译自 react basics: explaning the useEffect hook，仅供学习 React basics: explaining the useEffect hook 钩子 Hooks 是一种非常好用的工具，帮助你存储和管理 React 组件中的状态。 其中 useEffect 钩子提供了一]]></description>
+</item><item>
     <title>精读 React useEffect cleanup</title>
     <link>http://ad-bean.github.io/posts/react-use-effect-cleanup/</link>
     <pubDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>http://ad-bean.github.io/posts/react-overview/</guid>
     <description><![CDATA[写在前面： 最近 React 正式发布 React18，于是想尝试捡起博客，翻译一下 Beta 文档 但本系列并非是全文机翻，会存在很多本人的主观理解，如有错误，还请原]]></description>
-</item><item>
-    <title>3D游戏编程作业7-背包系统</title>
-    <link>http://ad-bean.github.io/posts/my-seventh-unity/</link>
-    <pubDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/my-seventh-unity/</guid>
-    <description><![CDATA[九、UI 系统 UI 效果制作（你仅需要实现以下效果之一） 进入 NGUI 官方网站，使用 UGUI 实现以下效果 Inventory 背包系统 Quest Log 公告牌 Scroll View 选择板 项目代码与项目视频演示 博客]]></description>
 </item></channel>
 </rss>
