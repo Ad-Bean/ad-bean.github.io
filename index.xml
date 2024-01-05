@@ -1,80 +1,18 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Adbean&#39;s Blog</title>
-        <link>http://ad-bean.github.io/</link>
+        <link>https://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</lastBuildDate>
-            <atom:link href="http://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 04 Jan 2024 11:26:22 -0500</lastBuildDate>
+            <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>精读 React use Effect Book</title>
-    <link>http://ad-bean.github.io/posts/use-effect-book/</link>
-    <pubDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/use-effect-book/</guid>
-    <description><![CDATA[写在前面： 本文章翻译自 react basics: explaning the useEffect hook，仅供学习 React basics: explaining the useEffect hook 钩子 Hooks 是一种非常好用的工具，帮助你存储和管理 React 组件中的状态。 其中 useEffect 钩子提供了一]]></description>
-</item><item>
-    <title>精读 React useEffect cleanup</title>
-    <link>http://ad-bean.github.io/posts/react-use-effect-cleanup/</link>
-    <pubDate>Wed, 27 Apr 2022 20:17:27 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/react-use-effect-cleanup/</guid>
-    <description><![CDATA[写在前面： 本文章翻译自 react-useeffect-cleanup，仅供学习 React useEffect cleanup React&rsquo;s useEffect hook is a super hook to run side effects. You might be wondering what kind of side effects we could be talking about? 在 React 中]]></description>
-</item><item>
-    <title>翻译 React Docs - Javascript in JSX With Curly Braces</title>
-    <link>http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/</link>
-    <pubDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/javascript-in-jsx-with-curly-braces/</guid>
-    <description><![CDATA[Javascript in JSX With Curly Braces JSX 允许你在 Javascript 中编写类似 HTML 标记语言的标签，将渲染逻辑和内容保存在同一个文件中。 有时你想增加一点 Javascript 逻辑或是在标记语言中引用一个动态变]]></description>
-</item><item>
-    <title>翻译 React Docs - Writing Markup With JSX</title>
-    <link>http://ad-bean.github.io/posts/writing-markup-with-jsx/</link>
-    <pubDate>Thu, 14 Apr 2022 15:07:41 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/writing-markup-with-jsx/</guid>
-    <description><![CDATA[Writing Markup With JSX 使用 JSX 编写标记语言：JSX 是 Javascript 的扩展语法，JSX 可以让你在 Javascript 文件中编写类似 HTML 的标记语言。尽管还有其他方法来编写组件，但大部分 React 开发人]]></description>
-</item><item>
-    <title>翻译 React Docs - Importing and Exporting Components</title>
-    <link>http://ad-bean.github.io/posts/importing-and-exporting-components/</link>
-    <pubDate>Fri, 08 Apr 2022 16:00:23 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/importing-and-exporting-components/</guid>
-    <description><![CDATA[Importing and Exporting Components 导入和导出组件 组件的魅力之处在于它们是可重用的，你可以创建由其他组件组成的新组件。但当你嵌套足够多的组件时，你可能需要将不同组件拆分]]></description>
-</item><item>
-    <title>翻译 React Docs - Your First Component</title>
-    <link>http://ad-bean.github.io/posts/your-first-component/</link>
-    <pubDate>Thu, 07 Apr 2022 13:46:18 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/your-first-component/</guid>
-    <description><![CDATA[Your First Component 你的第一个组件 组件 Components 是 React 的核心概念之一，组件是构建用户界面 UI 的基础。学习如何创建组件将是学习 React 一个很好的开始。 在本章节你将会学到： 什么]]></description>
-</item><item>
-    <title>翻译 React Docs - Describing the UI</title>
-    <link>http://ad-bean.github.io/posts/describing-the-ui/</link>
-    <pubDate>Tue, 05 Apr 2022 11:27:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/describing-the-ui/</guid>
-    <description><![CDATA[Describing the UI 描述用户界面 React 是一个用于渲染用户界面 UI 的 Javascript 库。用户界面 UI 是由按钮、文本、图像等小单元构建的。React 可以让你组合这些小单元成为一个可]]></description>
-</item><item>
-    <title>翻译 React Docs - Thinking in React</title>
-    <link>http://ad-bean.github.io/posts/thinking-in-react/</link>
-    <pubDate>Mon, 04 Apr 2022 15:26:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/thinking-in-react/</guid>
-    <description><![CDATA[Thinking in React 使用 React 思维，可以帮助你改变对设计和构建应用的想法。面对一片森林，可能你以前的想法是它就是一片森林，但通过 React 思维和使用过 React 之后，你就会欣]]></description>
-</item><item>
-    <title>翻译 React Docs - Quick Start</title>
-    <link>http://ad-bean.github.io/posts/react-quick-start/</link>
-    <pubDate>Sat, 02 Apr 2022 21:23:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/react-quick-start/</guid>
-    <description><![CDATA[Quick Start 快速上手 这个页面将介绍 80% 你日常会用到的 React 概念，你会学习到： 如何创建和嵌套组件 Components 如何添加标记 Markup 和样式 Styles 如何展示数据 Data 如何使用条件渲染 Conditional Render 和]]></description>
-</item><item>
-    <title>翻译 React Docs - Overview</title>
-    <link>http://ad-bean.github.io/posts/react-overview/</link>
-    <pubDate>Sat, 02 Apr 2022 12:27:31 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/posts/react-overview/</guid>
-    <description><![CDATA[写在前面： 最近 React 正式发布 React18，于是想尝试捡起博客，翻译一下 Beta 文档 但本系列并非是全文机翻，会存在很多本人的主观理解，如有错误，还请原]]></description>
-</item></channel>
+    <title>2024 的一些计划</title>
+    <link>https://ad-bean.github.io/posts/my-first-post/</link>
+    <pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/my-first-post/</guid>
+    <description><![CDATA[总结过去 其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么]]></description>
+</item>
+</channel>
 </rss>

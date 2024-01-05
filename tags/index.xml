@@ -1,78 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - 标签 - Adbean&#39;s Blog</title>
-        <link>http://ad-bean.github.io/tags/</link>
+        <link>https://ad-bean.github.io/tags/</link>
         <description>Tags - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</lastBuildDate><atom:link href="http://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>React</title>
-    <link>http://ad-bean.github.io/tags/react/</link>
-    <pubDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/react/</guid>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 04 Jan 2024 11:26:22 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>总结</title>
+    <link>https://ad-bean.github.io/tags/%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/tags/%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[]]></description>
-</item><item>
-    <title>文章</title>
-    <link>http://ad-bean.github.io/tags/%E6%96%87%E7%AB%A0/</link>
-    <pubDate>Sat, 30 Apr 2022 17:58:37 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E6%96%87%E7%AB%A0/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>文档</title>
-    <link>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Sun, 17 Apr 2022 19:29:14 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>3D游戏编程</title>
-    <link>http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/</link>
-    <pubDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/3d%E6%B8%B8%E6%88%8F%E7%BC%96%E7%A8%8B/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>作业</title>
-    <link>http://ad-bean.github.io/tags/%E4%BD%9C%E4%B8%9A/</link>
-    <pubDate>Mon, 27 Dec 2021 22:26:09 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E4%BD%9C%E4%B8%9A/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>启发式搜索</title>
-    <link>http://ad-bean.github.io/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/</link>
-    <pubDate>Wed, 08 Dec 2021 21:43:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E6%90%9C%E7%B4%A2/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>算法</title>
-    <link>http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/</link>
-    <pubDate>Wed, 08 Dec 2021 21:43:15 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>索引</title>
-    <link>http://ad-bean.github.io/tags/%E7%B4%A2%E5%BC%95/</link>
-    <pubDate>Fri, 01 Jan 2021 16:05:12 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E7%B4%A2%E5%BC%95/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>互联网</title>
-    <link>http://ad-bean.github.io/tags/%E4%BA%92%E8%81%94%E7%BD%91/</link>
-    <pubDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E4%BA%92%E8%81%94%E7%BD%91/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>热点领域</title>
-    <link>http://ad-bean.github.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/</link>
-    <pubDate>Fri, 01 Jan 2021 14:53:31 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://ad-bean.github.io/tags/%E7%83%AD%E7%82%B9%E9%A2%86%E5%9F%9F/</guid>
-    <description><![CDATA[]]></description>
-</item></channel>
+</item>
+</channel>
 </rss>
