@@ -4,15 +4,87 @@
         <link>https://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 04 Jan 2024 11:26:22 -0500</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 17 Mar 2024 00:14:24 -0400</lastBuildDate>
             <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>2024 的一些计划</title>
-    <link>https://ad-bean.github.io/posts/my-first-post/</link>
-    <pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate>
+    <title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</title>
+    <link>https://ad-bean.github.io/posts/bao-learned-query-opt/</link>
+    <pubDate>Sun, 17 Mar 2024 00:14:24 -0400</pubDate>
     <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/my-first-post/</guid>
-    <description><![CDATA[总结过去 其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么]]></description>
+    <guid>https://ad-bean.github.io/posts/bao-learned-query-opt/</guid>
+    <description><![CDATA[Bao: Making Learned Query Optimization Practical MLDB + query optimization ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance. 论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供]]></description>
+</item>
+<item>
+    <title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</title>
+    <link>https://ad-bean.github.io/posts/zero-shot-learned/</link>
+    <pubDate>Sat, 16 Mar 2024 09:58:30 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/zero-shot-learned/</guid>
+    <description><![CDATA[Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些]]></description>
+</item>
+<item>
+    <title>Mini-LSM 01</title>
+    <link>https://ad-bean.github.io/posts/minilsm-1/</link>
+    <pubDate>Thu, 14 Mar 2024 15:04:33 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/minilsm-1/</guid>
+    <description><![CDATA[Mini-LSM Day1 磨洋工，天天写作业摸鱼到了三月，找不到工作实在是焦虑和迷茫，但又什么都不想干。记录下 LSM 的学习过程 https://skyzh.github.io/mini-lsm/ 前言 使用 Rust 实现 LSM-Tree 存储结构 什么是 LSM，]]></description>
+</item>
+<item>
+    <title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</title>
+    <link>https://ad-bean.github.io/posts/spade-paper/</link>
+    <pubDate>Fri, 01 Mar 2024 20:26:39 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/spade-paper/</guid>
+    <description><![CDATA[SPADE: Synthesizing Assertions for Large Language Model Pipelines Synthesizing Assertions Pipelines 合成断言、流水线 ABSTRACT 将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其不可预测和潜在的灾难性故障]]></description>
+</item>
+<item>
+    <title>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</title>
+    <link>https://ad-bean.github.io/posts/seed-paper/</link>
+    <pubDate>Fri, 01 Mar 2024 10:42:53 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/seed-paper/</guid>
+    <description><![CDATA[SEED: Domain-Specific Data Curation With Large Language Models 使用大型语言模型的 领域特定 数据管理 ABSTRACT 准备分析数据的数据管理任务 Data Curation 对于将数据转换为可行的见解至关重要。但是，由于不同域中的应]]></description>
+</item>
+<item>
+    <title>Paper Reading: AnalyticDB-V</title>
+    <link>https://ad-bean.github.io/posts/analyticdb-paper/</link>
+    <pubDate>Sun, 25 Feb 2024 13:00:46 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/analyticdb-paper/</guid>
+    <description><![CDATA[AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data ABSTRACT 随着非结构化数据的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数]]></description>
+</item>
+<item>
+    <title>Paper Reading: Milvus A Purpose-Built Vector Data Management System</title>
+    <link>https://ad-bean.github.io/posts/milvus-paper/</link>
+    <pubDate>Sun, 25 Feb 2024 10:08:12 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/milvus-paper/</guid>
+    <description><![CDATA[Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型]]></description>
+</item>
+<item>
+    <title>Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</title>
+    <link>https://ad-bean.github.io/posts/vbase-paper/</link>
+    <pubDate>Sat, 17 Feb 2024 11:18:45 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/vbase-paper/</guid>
+    <description><![CDATA[VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询 Abstract 基于高维向量索引的近似相似度查询 approximate similarity queries已经成为]]></description>
+</item>
+<item>
+    <title>阅读：DDIA 第二章</title>
+    <link>https://ad-bean.github.io/posts/ddia-2/</link>
+    <pubDate>Sat, 10 Feb 2024 18:09:40 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ddia-2/</guid>
+    <description><![CDATA[第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思]]></description>
+</item>
+<item>
+    <title>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</title>
+    <link>https://ad-bean.github.io/posts/llm-capability/</link>
+    <pubDate>Sun, 04 Feb 2024 12:38:04 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/llm-capability/</guid>
+    <description><![CDATA[DB-BERT: a databse tuning tool that reads the manual DB-BERT，一个读了手册的数据库调优工具 https://arxiv.org/pdf/2112.10925.pdf Abstract DB-BERT 是一种数据库调优工具，可利用通过对手册和其他相关文本文档进行自然语言分析]]></description>
 </item>
 </channel>
 </rss>
