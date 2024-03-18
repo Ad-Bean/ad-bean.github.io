@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>阅读：Ryan Dahl: NodeJS - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="阅读：Ryan Dahl: NodeJS" />
+<meta property="og:description" content="NodeJS 这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识 NodeJS 简述： Server Side Javascript Built on Google&rsquo;s V8 Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted. CommonJS module system (用 ES6 Module 替代" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ad-bean.github.io/posts/node-js-io/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-30T13:23:51-05:00" />
+<meta property="article:modified_time" content="2024-01-30T13:23:51-05:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="阅读：Ryan Dahl: NodeJS"/>
+<meta name="twitter:description" content="NodeJS 这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识 NodeJS 简述： Server Side Javascript Built on Google&rsquo;s V8 Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted. CommonJS module system (用 ES6 Module 替代"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/node-js-io/" /><link rel="prev" href="https://ad-bean.github.io/posts/ddia-1/" /><link rel="next" href="https://ad-bean.github.io/posts/llm-capability/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "阅读：Ryan Dahl: NodeJS",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/node-js-io\/"
+        },"genre": "posts","keywords": "阅读","wordcount":  1155 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/node-js-io\/","datePublished": "2024-01-30T13:23:51-05:00","dateModified": "2024-01-30T13:23:51-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读：Ryan Dahl: NodeJS</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-30">2024-01-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1155 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#nodejs">NodeJS</a></li>
+    <li><a href="#io-needs-to-be-done-differently">IO needs to be done differently</a>
+      <ul>
+        <li><a href="#cultural-bias">Cultural Bias</a></li>
+        <li><a href="#missing-infrastructure">Missing Infrastructure</a></li>
+        <li><a href="#too-much-infrastructure">Too much Infrastructure</a></li>
+      </ul>
+    </li>
+    <li><a href="#javascript">Javascript</a></li>
+    <li><a href="#nodejs-1">NodeJS</a></li>
+    <li><a href="#design-goals">Design Goals</a>
+      <ul>
+        <li><a href="#low-level">Low level</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage-and-examples">Usage and Examples</a>
+      <ul>
+        <li><a href="#file-io-is-non-blocking">File I/O is non-blocking</a></li>
+        <li><a href="#http-server">HTTP Server</a></li>
+      </ul>
+    </li>
+    <li><a href="#irc-demo">IRC demo</a></li>
+    <li><a href="#internal-design">Internal Design</a></li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="nodejs">NodeJS</h2>
+<blockquote>
+<p>这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识</p>
+</blockquote>
+<p>NodeJS 简述：</p>
+<ul>
+<li>Server Side Javascript</li>
+<li>Built on Google&rsquo;s V8</li>
+<li>Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted.</li>
+<li><del>CommonJS module system</del> (用 ES6 Module 替代 CommonJS)</li>
+<li>8k lines of C/C++, 2k lines of JavaScript, 14 Contributes</li>
+</ul>
+<h2 id="io-needs-to-be-done-differently">IO needs to be done differently</h2>
+<blockquote>
+<p>事件驱动，单线程异步 IO 是否能理解为非阻塞的协程？</p>
+</blockquote>
+<p>许多 Web 应用使用类似 <code>var result = db.query(&quot;select * from T);</code> 的语句，当查询在运行时，框架在做什么呢？大部分时间下，它在一直等待。</p>
+<blockquote>
+<p>IO Latency 在硬盘、网络级别是较长的</p>
+</blockquote>
+<p>好的软件是可以处理多任务的，当前线程等待时，其他的线程可以执行其他任务</p>
+<blockquote>
+<p>Apache 和 NGINX 是如何处理 IO 的？</p>
+</blockquote>
+<p>从 Benchmark 来看，随着处理量增长，concurrency NGINX 是 Apache 的两倍，但内存占用上，Apache 显著大于 NGINX。</p>
+<ul>
+<li>Apache uses one thread per connection</li>
+<li>NGINX doesnot use threads, it uses an <strong>event loop</strong></li>
+</ul>
+<p>对于大量的并发操作，不能用 OS threads 处理每个连接：上下文切换是昂贵的，调用栈也非常占用空间。而是用单线程和事件循环。</p>
+<blockquote>
+<p>green threads / coroutines can improve 但还是可能是阻塞的</p>
+<p>threaded concurrency is a leaky abstraction</p>
+</blockquote>
+<p>使用事件循环，，不需要 machinery，query 结束之后执行相应的函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s1">&#39;select * from T&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{});</span>
+</span></span></code></pre></div><h3 id="cultural-bias">Cultural Bias</h3>
+<blockquote>
+<p>everybody is talking about threads</p>
+</blockquote>
+<p>学 IO 的时候大部分人都是先接触阻塞的 <code>puts()</code> 和 <code>gets()</code></p>
+<h3 id="missing-infrastructure">Missing Infrastructure</h3>
+<blockquote>
+<p>Why isn&rsquo;t everyone using event loops?</p>
+<p>Single threaded event loops require I/O to be non-blocking</p>
+</blockquote>
+<ul>
+<li>POSIX async</li>
+<li>closures and aynonymous functions</li>
+<li>async queries</li>
+<li>&hellip;</li>
+</ul>
+<h3 id="too-much-infrastructure">Too much Infrastructure</h3>
+<p>EventMachine, Twisted, AnyEvent</p>
+<p>easy to create efficient servers (Ruby)</p>
+<h2 id="javascript">Javascript</h2>
+<blockquote>
+<p>事件循环：微任务、宏任务</p>
+<p><a href="https://javascript.info/event-loop" target="_blank" rel="noopener noreffer ">https://javascript.info/event-loop</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop#queue" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop#queue</a></p>
+</blockquote>
+<p>Javascript designed specifically to be used with an event loop</p>
+<ul>
+<li>anonymous functions, closures</li>
+<li>only one callback at a time</li>
+<li>I/O through DOM event callbacks</li>
+</ul>
+<h2 id="nodejs-1">NodeJS</h2>
+<p>provide a purely <strong>evented</strong>, <strong>non-blocking</strong> infrastructure to script highly <strong>concurrent</strong> programs</p>
+<h2 id="design-goals">Design Goals</h2>
+<p>no functions should direct perform I/O, to receive info from disk/network/another process there must be a callback</p>
+<h3 id="low-level">Low level</h3>
+<blockquote>
+<p>这部分讨论了 Ryan Dahl 是怎么考虑和设计的</p>
+</blockquote>
+<p>stream everything, never force the buffering of data</p>
+<p>donot remove functionality present at the POSIX layer (support half-closed TCP connections)</p>
+<p>have built-in support for the most important protocols: TCP, DNS, HTTP</p>
+<p>support many HTTP features:</p>
+<ul>
+<li>chunked requests and responses</li>
+<li>keep-alive</li>
+<li>hang requests</li>
+</ul>
+<p>API should be both familiar to client-side JS programmers and old school UNIX hackers</p>
+<p>platform independent</p>
+<h2 id="usage-and-examples">Usage and Examples</h2>
+<blockquote>
+<p>一些事件循环的例子，由于都比较久而且 PPT 实在看不清，这里用 MDN 最新的</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Javascript" data-lang="Javascript"><span class="line"><span class="cl"><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;this is the start&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Callback 1: this is a msg from call back&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span> <span class="c1">// has a default time value of 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;this is just a message&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Callback 2: this is a msg from call back&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;this is the end&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">})();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;this is the start&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &#34;this is just a message&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &#34;this is the end&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &#34;Callback 1: this is a msg from call back&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// &#34;Callback 2: this is a msg from call back&#34;
+</span></span></span></code></pre></div><p>process object emits an <strong>event</strong> when it receives a signal. Like in the DOM, you need only add a listener to catch them.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">process</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">puts</span><span class="p">(</span><span class="s1">&#39;good bye&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>A TCP server emits a &ldquo;connection&rdquo; event each time someone connects</p>
+<p>HTTP upload emits a &ldquo;body&rdquo; event on each packet.</p>
+<p>All objects which emit events are instances of <code>process.EventEmitter</code></p>
+<h3 id="file-io-is-non-blocking">File I/O is non-blocking</h3>
+<blockquote>
+<p>something typically hard to do</p>
+<p>这部分主要读取文件，代码实在看不清</p>
+</blockquote>
+<p>A promise is a kind of EventEmitter which emits either &ldquo;success&rdquo; or &ldquo;error&rdquo;</p>
+<p>All file operations return a promise (API sugar)</p>
+<h3 id="http-server">HTTP Server</h3>
+<blockquote>
+<p>展示了 Simple HTTP server 和 Streaming HTTP server，后者可以 hang request</p>
+</blockquote>
+<p>此外还可以使用 <code>sys.exec('ls -l /').addCallback()</code></p>
+<blockquote>
+<p>这部分提到的 buffer 不太理解是什么意思，不知道是不是用于处理 TCP 流、文件系统操作、上下文之类的二进制流数据的 Buffer。</p>
+</blockquote>
+<h2 id="irc-demo">IRC demo</h2>
+<blockquote>
+<p>Ryan 展示了一个 Internet Relay Chat 聊天服务器 <a href="https://gist.github.com/ry/a3d0bbbff196af633995" target="_blank" rel="noopener noreffer ">https://gist.github.com/ry/a3d0bbbff196af633995</a></p>
+</blockquote>
+<h2 id="internal-design">Internal Design</h2>
+<ul>
+<li>V8 (Google)</li>
+<li>libuv / libev / libeio</li>
+<li>http-parser</li>
+<li>evocom</li>
+<li>udns</li>
+</ul>
+<p>Thread Pool underneath everything:</p>
+<ul>
+<li>Blocking (possibly blocking) system calls are executed in the thread pool</li>
+<li>Signal handlers and thread pool callbacks are marshaled back into to the main thread via a pipe</li>
+</ul>
+<p><code>STDIN_FILENO</code> will refer to a file, cannot <code>select()</code> on files: <code>read()</code> will <strong>block</strong></p>
+<p>Solution: start a pipe and pumping thread, pump data from blocking fd into pipe. Main thread can pool for data on the pipe.</p>
+<blockquote>
+<p>这一段源码 <a href="https://github.com/nodejs/node/blob/d52f63d9b29446b26ec831acd8ec6da9147896e5/deps/coupling/coupling.c" target="_blank" rel="noopener noreffer ">https://github.com/nodejs/node/blob/d52f63d9b29446b26ec831acd8ec6da9147896e5/deps/coupling/coupling.c</a></p>
+<p>不知道是不是已经被弃用了，最早的源代码很多都是 C 写的</p>
+</blockquote>
+<h2 id="结语">结语</h2>
+<blockquote>
+<p>09 年的时候提出这种单线程非阻塞的异步设计，是非常惊艳的。希望有时间可以看看 NodeJS 的源码。</p>
+<p>03/06/2024 补充，当时忽略了 libuv 的引入，只知道 NodeJS 是事件循环的，但是不知道他是怎么实现的。</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/node-js-io/" data-title="阅读：Ryan Dahl: NodeJS" data-hashtags="阅读"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/node-js-io/" data-hashtag="阅读"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/node-js-io/" data-title="阅读：Ryan Dahl: NodeJS"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/node-js-io/" data-title="阅读：Ryan Dahl: NodeJS"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/node-js-io/" data-title="阅读：Ryan Dahl: NodeJS"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/%E9%98%85%E8%AF%BB/">阅读</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/ddia-1/" class="prev" rel="prev" title="阅读：DDIA 序章以及第一章"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>阅读：DDIA 序章以及第一章</a>
+            <a href="../../posts/llm-capability/" class="next" rel="next" title="Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”">Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

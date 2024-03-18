@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>笔记 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/</link>
+        <description>笔记 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 10 Feb 2024 18:09:40 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
+    <title>阅读：DDIA 第二章</title>
+    <link>https://ad-bean.github.io/posts/ddia-2/</link>
+    <pubDate>Sat, 10 Feb 2024 18:09:40 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ddia-2/</guid>
+    <description><![CDATA[第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思]]></description>
+</item>
+<item>
+    <title>阅读：DDIA 序章以及第一章</title>
+    <link>https://ad-bean.github.io/posts/ddia-1/</link>
+    <pubDate>Fri, 05 Jan 2024 14:16:41 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ddia-1/</guid>
+    <description><![CDATA[DDIA 序章 http://ddia.vonng.com/#/ch1 数据密集型 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。 计算密集型，处理器速度是其瓶颈。 新型数据库系统（NoSQL）]]></description>
+</item>
+</channel>
+</rss>

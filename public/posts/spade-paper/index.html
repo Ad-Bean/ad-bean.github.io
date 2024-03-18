@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines" />
+<meta property="og:description" content="SPADE: Synthesizing Assertions for Large Language Model Pipelines Synthesizing Assertions Pipelines 合成断言、流水线 ABSTRACT 将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其不可预测和潜在的灾难性故障" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ad-bean.github.io/posts/spade-paper/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-01T20:26:39-05:00" />
+<meta property="article:modified_time" content="2024-03-01T20:26:39-05:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"/>
+<meta name="twitter:description" content="SPADE: Synthesizing Assertions for Large Language Model Pipelines Synthesizing Assertions Pipelines 合成断言、流水线 ABSTRACT 将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其不可预测和潜在的灾难性故障"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/spade-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/seed-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/minilsm-1/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/spade-paper\/"
+        },"genre": "posts","keywords": "Paper Reading","wordcount":  9956 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/spade-paper\/","datePublished": "2024-03-01T20:26:39-05:00","dateModified": "2024-03-01T20:26:39-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-01">2024-03-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 9956 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 20 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#spade-synthesizing-assertions-for-large-language-model-pipelines">SPADE: Synthesizing Assertions for Large Language Model Pipelines</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#identifying-candidate-assertions">IDENTIFYING CANDIDATE ASSERTIONS</a>
+      <ul>
+        <li><a href="#prompt-deltas">Prompt Deltas</a></li>
+        <li><a href="#prompt-delta-analysis">Prompt Delta Analysis</a></li>
+        <li><a href="#from-taxonomy-to-assertions">From Taxonomy to Assertions</a></li>
+        <li><a href="#langchain-deployment">LangChain Deployment</a></li>
+      </ul>
+    </li>
+    <li><a href="#filtering-candidate-assertions">FILTERING CANDIDATE ASSERTIONS</a>
+      <ul>
+        <li><a href="#definitions">Definitions</a></li>
+        <li><a href="#coverage-problem-formulation">Coverage Problem Formulation</a></li>
+        <li><a href="#subsumption-problem-formulation">Subsumption Problem Formulation</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">EVALUATION</a>
+      <ul>
+        <li><a href="#pipeline-and-dataset-descriptions">Pipeline and Dataset Descriptions</a></li>
+        <li><a href="#method-comparison-and-metrics">Method Comparison and Metrics</a></li>
+        <li><a href="#results-and-discussion">Results and Discussion</a></li>
+        <li><a href="#limitations-and-future-work">Limitations and Future Work</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+    <li><a href="#conclusion">CONCLUSION</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="spade-synthesizing-assertions-for-large-language-model-pipelines">SPADE: Synthesizing Assertions for Large Language Model Pipelines</h2>
+<p>Synthesizing Assertions</p>
+<p>Pipelines</p>
+<blockquote>
+<p>合成断言、流水线</p>
+</blockquote>
+<h2 id="abstract">ABSTRACT</h2>
+<p>将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其<strong>不可预测和潜在的灾难性故障</strong>。认识到这些错误的不可避免性，我们将重点放在识别 LLM 在作为数据生成 pipeline 的一部分重复使用时可能<strong>生成错误响应</strong>的情况。我们提出了 spade，一种自动合成断言的方法，可以识别不良的 LLM 输出。SPADE 分析提示版本历史，<strong>创建候选断言函数</strong>，然后<strong>选择满足覆盖率和准确性要求的最小集合</strong>。在对九种不同的实际 LLM pipeline 进行测试时，与简单的基线相比，spade 有效地<strong>减少了 14% 的断言数量</strong>，并将<strong>错误失败率降低了 21%。</strong></p>
+<h2 id="introduction">INTRODUCTION</h2>
+<p>在数据 pipeline 中使用大型语言模型（LLM）引起了广泛关注[17]。这种热情很大程度上归功于其简单性：无需大型标注数据集，只需用自然语言提示 LLM，就能轻松创建一个<strong>自动化的智能 pipeline <strong>，在数秒内执行任意数据生成任务。然而，将 LLM 用于无监督、重复或大规模的数据生成任务却面临着巨大的挑战[34]，例如</strong>潜在的错误、不恰当的反应或幻觉</strong>[44, 57]。</p>
+<blockquote>
+<p>Data Management For Large Language Models: A Survey，没太理解引用这篇论文的意思，是在预训练、微调时管理数据</p>
+<p>用 LLM 制作应用时，始终无法避免 potential errors, inappropriate responses, or hallucination</p>
+</blockquote>
+<p>考虑使用 LLM 生成个性化电影推荐说明的电影流媒体平台。开发人员可能会编写类似的提示模板： &ldquo;根据用户的以下信息，为用户应该观看 {movie_name} 的原因编写个性化说明： {personal_info}&ldquo;这样的提示模板，针对多个用户-电影配对执行。模板化变量代表的信息将在运行时注入 pipeline ，使 pipeline 能够为各种输入生成数据。从理论上讲，这种提示似乎足够了，但开发人员在对一些示例输入进行测试时可能会发现一些问题：LLM 可能会引用用户从未看过的电影，引用敏感属性（如种族或民族），甚至出现响应过短等基本问题。</p>
+<p>为了解决这些缺陷，有人提出了在 LLM pipeline 中加入断言 assertions 的框架，<strong>以便在到达最终用户之前过滤掉不良生成</strong>[37, 49]。鉴于 LLM 错误的不可避免性[23]，此类断言是成功部署生成数据的 LLM pipeline 的关键。然而，开发人员发现为自定义 LLM pipeline 编写断言非常困难 [35]。面临的挑战包括：<strong>预测所有可能的 LLM 故障模式</strong>；使用各种<strong>规范方法</strong>（如 Python 函数或 LLM 调用）编写断言耗时；断言（尤其是涉及 LLM 调用的断言）<strong>必须精确</strong>；以及许多 LLM pipeline 开发人员缺乏软件工程专业知识或编码经验 [26，57]。此外，如果断言过多或不具信息性，开发人员在监控其结果时可能会不知所措</p>
+<p>在本文中，我们发现了一个新问题，即如何为任何利用 LLM 的数据生成 pipeline <strong>自动生成一组好的断言</strong>。对于 LLM 响应，一个断言返回真（即成功）或假（即失败），而一组断言则返回单个断言的联结。一组 &ldquo;好 &ldquo;的断言具有最小的重叠，允许开发人员在错误的成功和错误的失败之间进行权衡。我们将问题分解为两个部分&ndash;候选断言生成和过滤 candidate assertion generation and filtering &ndash;并提出了 spade（ System for Prompt Analysis and Delta-Based Evaluation 图 1）。</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/03/lgh8FAURaXPZzoE.png"
+        data-srcset="https://s2.loli.net/2024/03/03/lgh8FAURaXPZzoE.png, https://s2.loli.net/2024/03/03/lgh8FAURaXPZzoE.png 1.5x, https://s2.loli.net/2024/03/03/lgh8FAURaXPZzoE.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/03/lgh8FAURaXPZzoE.png"
+        title="图 1" /></p>
+<blockquote>
+<p>delta 在这里是 diff 的意思？</p>
+<p>candidate assertion 和 filtering 都是怎么实现的？看上去还是 LLM 实现的</p>
+</blockquote>
+<p>对于候选断言的生成，我们可以考虑直接询问 LLM &ldquo;为 x 提示编写断言&rdquo;，但这可能无法满足开发人员的要求。我们建议从 prompt deltas（即两个连续提示符版本之间的差异）中生成<strong>候选断言</strong>，这通常表示 LLM 的特定故障模式。例如，开发人员可能会添加类似 &ldquo;避免花哨语言 &ldquo;的指令，从而促使断言检查响应语言。我们对来自 LangChain（一家帮助人们构建 LLM pipeline 的初创公司）用户的 19 个自定义数据生成 pipeline 和 pipeline 提示版本历史进行了分析，从而形成了一个 a taxonomy of prompt deltas。Spade 首先在分类法中自动对提示脱节进行分类，然后将 Python 函数（可能包括 LLM 调用）合成为可用断言。我们公开发布了 SPADE 的这一组件，展示了这些断言的潜力，它在金融、医药和 IT 等 10 多个领域有 1300 多个用途 [46] 。</p>
+<blockquote>
+<p>在 <a href="https://blog.langchain.dev/spade-automatically-digging-up-evals-based-on-prompt-refinements/" target="_blank" rel="noopener noreffer ">langchain</a> 上的 SPADE 例子</p>
+</blockquote>
+<p>我们对候选断言的分析发现了冗余、不准确和大量函数，仅几个 prompt deltas 就往往超过 50 个。冗余源于对提示相似部分的重复完善，或提示指令含糊不清（如 &ldquo;返回一个简洁的回复&rdquo;）。减少冗余并不简单，即使对工程师来说也是如此，因为断言可能涉及精确度不同的 LLM 调用，这就需要一个自动过滤组件。一种方法是使用<strong>开发人员标记</strong>的 LLM 响应来估算每个断言的<strong>错误失败率</strong>（false failure rate FFR），并剔除每个超过开发人员定义的 FFR 阈值的断言。然而，其余断言的 FFR 可能会累计超过这个阈值，冗余可能会持续存在。我们的研究表明，选择一小部分断言来满足故障覆盖率和 FFR 标准是 NP-hard 的。也就是说，我们可以用<strong>整数线性规划</strong>（ILP）来表达这个问题，并使用 ILP 求解器来找出解决方案。然而，我们发现标记的响应可能无法代表所有故障模式，从而导致遗漏有价值的断言。例如，在我们的电影推荐场景中，如果开发人员标注样本中的所有回复都低于 200 字，那么能够正确验证 LLM 生成的注释是否少于 200 字的断言就会被放弃。为了扩大覆盖范围，可以使用<strong>主动学习</strong>和<strong>弱监督</strong>方法为每个候选断言采样和标注新的 LLM 提示-响应对，但这可能很昂贵，或者非程序员无法使用。我们引入了断言子块（assertion subsump-tion）作为确保全面覆盖的一种方法：如果一个断言不包含另一个断言的故障模式，那么两个断言都会被选中。因此，SPADE 会选择一组最小的断言，并<strong>遵守故障覆盖率、准确性和子集约束</strong>。总的来说，我们做出了以下贡献：</p>
+<blockquote>
+<p>Today’s research release of ChatGPT is the latest step in OpenAI’s iterative deployment of increasingly safe and useful AI systems. Many lessons from deployment of earlier models like GPT-3 and Codex have informed the safety mitigations in place for this release, including substantial reductions in harmful and untruthful outputs achieved by the use of reinforcement learning from human feedback (RLHF).</p>
+<p><a href="https://openai.com/blog/chatgpt?ref=blog.cg-wire.com" target="_blank" rel="noopener noreffer ">https://openai.com/blog/chatgpt?ref=blog.cg-wire.com</a></p>
+<p>OpenAI 用 RL 和人工监督，来规避一些安全问题和减少不真实输出</p>
+</blockquote>
+<p><strong>Prompt Deltas</strong> for Candidate Assertion Generation：我们发现 <strong>prompt version history 是数据生成 LLM pipeline 正确性标准的丰富来源</strong>。我们根据 19 个具有版本历史的 LLM pipeline 的推断出了断言标准分类法，并将其公布于众。我们公开发布了一款工具，用于为任何 pipeline 生成候选断言，通过 1300 多次部署为自动生成断言的实用性提供了早期证据，同时也为筛选这些断言提供了机会。</p>
+<p><strong>Filtering Method</strong> that Requires Little Data: 我们证明，在覆盖故障模式和满足准确性要求的前提下，选择<strong>最小的断言集</strong>是一个 NP-Hard。我们将这一问题表述为 ILP。鉴于断言可能是冗余和不准确的，而且 LLM 开发人员可能不具备工程专业知识或足够的数据来使用现有的数据驱动方法进行 ML pipeline 测试（如训练模型），我们引入了断言归并作为在低数据量环境下覆盖率的<strong>新型替代方法</strong>。</p>
+<p>Empirical Study: 我们介绍了 spade，这是我们为数据生成 LLM pipeline 自动生成断言的系统。对于九个具有提示版本历史的 LLM pipeline ，我们收集了带标签的 prompt-response pairs（其中八个已开源）。</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="image.png"
+        data-srcset="image.png, image.png 1.5x, image.png 2x"
+        data-sizes="auto"
+        alt="image.png"
+        title="alt text" /></p>
+<blockquote>
+<p><a href="https://spade-beta.streamlit.app/" target="_blank" rel="noopener noreffer ">https://spade-beta.streamlit.app/</a></p>
+</blockquote>
+<p>在所有 pipelines 中，Spade 生成的断言都具有 good failure coverage 和 few false failures（即无法做出良好响应）。我们基于子假设的 ILP 优于不考虑断言间交互的简单基线，减少了 14% 的断言，降低了 21% 的错误失败率。</p>
+<h2 id="identifying-candidate-assertions">IDENTIFYING CANDIDATE ASSERTIONS</h2>
+<p>我们的第一个目标是生成一组 candidate assertions。我们将介绍 prompt deltas 如何为候选断言提供信息，并解释如何从中得出候选断言。</p>
+<h3 id="prompt-deltas">Prompt Deltas</h3>
+<p>单步 LLM 流水线由一个提示模板 P 组成，该模板通过对输入元组 𝑡 进行格式化，生成一个提示 𝑝，并返回一个响应 𝑟。P 可以<strong>有很多版本</strong>，这取决于开发者如何<strong>迭代他们的 prompt template</strong>。让 $P_0$ 表示空字符串，即第 0 个版本，让 $P_i$ 表示模板的第 i 个版本。在第 1 节的电影推荐示例中，假设有 7 个版本，其中 P7 如下：</p>
+<blockquote>
+<p>Write a personalized note for
+why a user should watch {movie_name} given the following informa-
+tion about the user: {personal_info}. Ensure the recommendation
+note is concise, not exceeding 100 words. Mention the movie’s genre
+and any shared cast members between the {movie_name} and other
+movies the user has watched. Mention any awards or critical acclaim
+received by {movie_name}. Do not mention anything related to the
+user’s race, ethnicity, or any other sensitive attributes</p>
+</blockquote>
+<p>我们将 prompt delta $ΔP_{𝑖+1}$ 定义为 $P_i$ 与 $P_{i+1}$ 之间的差值。具体来说，提示 ΔP 是一组句子，其中每个句子都标记为添加（即 &ldquo;+&quot;）或删除（即&rdquo;-&quot;）。例如，表 1 显示了多个版本的 ΔPs。ΔP𝑖 中的每个句子都由添加（即 P𝑖 中的新句子，P𝑖-1 中不存在）和删除（即 P𝑖-1 中的句子，P𝑖 中不存在）组成。对句子的修改由删除和添加表示&ndash;例如，表 1 中的 ΔP6 包含了从 P5 中添加到句子中的一些新指令。如表 1 最右边一栏所示，ΔP𝑖 中的每一个添加都表示可能的断言标准。</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png"
+        data-srcset="https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png, https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png 1.5x, https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png"
+        title="https://s2.loli.net/2024/03/03/PCyvBcO8q2YRGLn.png" /></p>
+<h3 id="prompt-delta-analysis">Prompt Delta Analysis</h3>
+<p>我们分析了从 LangChain 用户那里收集到的 19 个 LLM pipeline，每个 pipeline 由 3 到 11 个历史提示模板版本组成。这些 pipeline 涵盖各种任务，从生成工作总结到自定义问答聊天机器人。附录 B 中的表 6 显示了这些 pipeline 的摘要，包括每个 pipeline 的描述和提示版本的数量。对于每个 pipeline ，我们将提示符（即 ΔP𝑖）分为不同类型&ndash;例如，指示 LLM 在每个回复中包含一个新短语（即包含），或指示 LLM 以某种语气回复（即定性标准）。我们对分类进行了 4 次反复修改，最终形成了图 2 中的分类法。提示版本的分类注释数据集可在网上找到 3。大多数提示符都属于数据整合（即添加占位变量）和工作流程描述（即添加指示让 LLM 更准确地执行任务）。在表 2 中，我们使用引言中的电影推荐 pipeline 示例，展示了分类法中每个类别的提示分隔符示例</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png"
+        data-srcset="https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png, https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png 1.5x, https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png"
+        title="https://s2.loli.net/2024/03/03/gXvSiduVAmU8Y6x.png" /></p>
+<p>当从自动识别的提示分隔线中得出断言候选项时，断言质量显然取决于<strong>识别类别的准确性</strong>。因此，我们确认了 GPT-4 对提示分界点的正确分类（截至 2023 年 10 月）。我们为 19 个 pipeline 的所有提示版本分配了基本真实类别，GPT-4 的 F1 得分为 0.8135。用于从提示分段中提取类别的提示详见附录 C</p>
+<blockquote>
+<p>什么是 F1 score？ 在二进制分类和信息检索系统的统计分析中，F-SCORE 或 F-MEASIE 是对预测性能的量度。</p>
+</blockquote>
+<h3 id="from-taxonomy-to-assertions">From Taxonomy to Assertions</h3>
+<p>利用我们的分类法，SPADE 使用 LLM 为 prompt deltas 分类并生成断言，详见附录 C。对于每个 ΔP𝑖 ，SPADE 都会提示 LLM 为断言提出尽可能多的标准，每个标准都与分类标准的类别一致 (e.g., Figure 3) 标准 Criterion 被宽泛地定义为对示例进行操作并评估为 &ldquo;真 &ldquo;或 &ldquo;假 &ldquo;的一些自然语言表达式（例如，&ldquo;check for conciseness&rdquo;）。Spade 会<strong>分析每个 ΔP𝑖</strong> 而不是只分析最后一个提示版本，原因有以下几点：开发人员通常会删除提示中的指令以降低成本，同时期望获得相同的行为[35]；提示包含固有的歧义，并暗示了评估某些标准的多种方法；如果只分析一个版本，复杂的提示可能会<strong>导致遗漏断言</strong>。因此，<strong>分析每个 ΔP𝑖 会增加生成相关断言的可能性</strong></p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png"
+        data-srcset="https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png, https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png 1.5x, https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png"
+        title="https://s2.loli.net/2024/03/03/VImk3LJovBM4uAf.png" /></p>
+<p>对于每个 delta，spade 都会收集已识别的标准，并再次提示 LLM 创建 Python 断言函数。合成函数可以使用外部 Python 库，也可以针对复杂的标准向 LLM 提出二进制查询。在函数合成时，LLM 会被指示，如果标准指定得很模糊或可以解释，例如 &ldquo;check for conciseness&rdquo;，它就可以生成多个函数，每个函数都对标准进行评估。在这个简洁性示例中，LLM 可以返回多个函数&ndash;一个将回复分成句子并确保不超过（例如）3 个句子的函数，一个将回复分成单词并确保不超过（例如）25 个单词的函数，或者一个将回复发送给 LLM 并询问回复是否简洁的函数。这一步骤的总体结果是候选函数的多集合 𝐹 = {𝑓1, &hellip;, 𝑓𝑚} 。</p>
+<p>我们的方法采用了两步流程，因为事实证明，<strong>将任务分解为多个步骤可以提高 LLM 的准确性</strong> [21, 53, 55]。不过，值得注意的是，随着 LLM 日新月异的发展，<strong>一步式流程可能已经可行</strong>。此外，虽然我们的<strong>分类法</strong>现在可以指导 LLM 生成断言，但未来的 LLM 可能会通过<strong>人类反馈的强化学习来隐式地学习这些类别</strong>[12]。不过，了解与候选断言相关的基于分类学的类别可能有助于过滤它们</p>
+<blockquote>
+<p>Designing LLM Chains by Adapting Techniques from Crowdsourcing Workflows. arXiv preprint arXiv:2312.11681 (2023)</p>
+<p>Chain-of-thought prompting elicits reasoning in large language models. Advances in Neural Information Processing Systems</p>
+<p>任务分解为什么可以提高 LLM 的准确性？而且现在 ChatGPT 就是用的 Human Feedback RL 来增强的 Deep reinforcement learning from human preferences</p>
+</blockquote>
+<h3 id="langchain-deployment">LangChain Deployment</h3>
+<blockquote>
+<p>比较了早期版本和后期的区别，吹了一下自己生成的断言有多么好，涵盖了多少个领域，达到了 &ldquo;perfect&rdquo;</p>
+<p>提到了一个总结文章的例子，具有 14 个 prompt 版本，对他 SPADE 后，可以有一些断言，必须要有一些关键词等等</p>
+<p>但这些断言并不是正则匹配，而是字符串匹配，我觉得不太合理。</p>
+<p>文中也提到说许多断言可能是不正确的，怎么知道断言是正确的呢？本文的实验可能也不够，于是采用了自动化 filtering</p>
+</blockquote>
+<h2 id="filtering-candidate-assertions">FILTERING CANDIDATE ASSERTIONS</h2>
+<p>在这里，我们解决了第 2.4 节中确定的<strong>冗余和不正确断言</strong>的问题，特别是在具有大量 prompt 版本的 pipeline 中。 过滤此候选集不仅可以提高部署断言以在生产中运行时的效率，而且还可以减少开发人员的认知开销</p>
+<h3 id="definitions">Definitions</h3>
+<p>将 𝑒𝑖 视为 LLM pipeline 在某些输入上的端到端执行（即运行）的示例。 令 𝐸 为所有此类示例运行的集合（该集合未预先提供，我们将很快处理）。 我们定义一个断言函数 𝑓 : 𝐸 → {0,1}，其中 1 表示成功，0 表示失败。 令 𝐹′ ={𝑓1, 𝑓2, . 。 ., 𝑓𝑘} 是一组 𝑘 断言。 当且仅当一个例子 𝑒𝑖 <strong>满足 𝐹&rsquo; 中的所有断言</strong>时，该集合才认为它是成功的。 具体来说</p>
+<blockquote>
+<p>一些数学定义，定义了 Coverage 和 False Failure Rate</p>
+</blockquote>
+<h3 id="coverage-problem-formulation">Coverage Problem Formulation</h3>
+<blockquote>
+<p>目标是找到最小的集合 minimal set of assertions 满足所有例子？</p>
+<p>找到一个 Coverage(𝐹′) ≥𝛼, FFR(𝐹′) ≤𝜏</p>
+<p>找到限制，就变成了一个优化问题，集合覆盖问题</p>
+</blockquote>
+<p>我们将此 ILP 的解决方案称为 $spade_{cov}$。 简单地说，对于 𝜏 =0 和 𝛼 =1，这个问题是 NP-hard 的，通过简单地从集合覆盖归约，并且是 NP 问题，因为它可以用 ILP 形式表示</p>
+<h3 id="subsumption-problem-formulation">Subsumption Problem Formulation</h3>
+<p>到目前为止，我们<strong>假设开发人员愿意提供一组全面的标记示例运行</strong> 𝐸′，在开发人员不愿意这样做的设置中，并且 𝐸′不包括 𝐸 中的所有故障类型，spade_cov 可能会 忽略 𝐹 中的有用断言，这些断言只能捕获 𝐸 \𝐸′ 中的失败——如第 4 节中的经验所示。我们最初考虑使用主动学习 [6] 为每个断言采样更多的 LLM 响应，并使用弱监督来标记响应 [36 ]。 然而，这种方法对于最先进的 LLM 来说成本高昂，并且<strong>需要大量的手动工作来平衡每个断言的失败和成功示例</strong>，确保有意义的 FFR 并避免由于代表性不足的故障类型而排除断言。 对于这种设置，我们还引入了包含。 假设所有候选断言函数涵盖尽可能多的故障模式，我们的目标是选择 𝐹′ ⊆ 𝐹，使得 𝐹 \𝐹′ 中的断言包含在 𝐹′ 中。 形式上，如果 𝑆 中函数的合取逻辑上意味着 𝑆 和 𝑓 中函数的合取，则一组函数 𝑆 包含某个函数 𝑓 。</p>
+<blockquote>
+<p>太多定义了，可能主要是在解决这个集合覆盖吧</p>
+</blockquote>
+<h2 id="evaluation">EVALUATION</h2>
+<p>我们首先讨论 LLM pipelines 和数据集（即 𝐸′）； 然后，我们讨论方法和指标并展示我们的结果。 实验代码、数据集和 LLM 响应托管在 GitHub 上</p>
+<h3 id="pipeline-and-dataset-descriptions">Pipeline and Dataset Descriptions</h3>
+<p>我们对 9 个 LLM pipeline 进行了评估，其中 8 个来自 LangChain Hub（LLM pipeline 的开源集合），以及 1 个专有 pipeline 。 六个 LangChain Hub pipeline 帮助开发了 prompt delta taxonomy（第 2.2 节），但在创建分类法后，从 spade 的 Streamlit 部署（第 2.4 节）添加了两条 pipeline 。 专有 pipeline 是 fashion pipeline，它为活动提供服装建议。 之所以包含此 pipeline ，是因为它使用了 LLM 培训中未包含的数据及其实际部署，展示了 Spade 的 real-world 性。 虽然我们使用真实的用户提示模板和历史记录（3 到 16 个提示版本之间），但我们构建了自己的一组示例提示-响应对和标签 (𝐸′) 进行测试。 LangChain Hub pipeline 的两个数据集来自 Kaggle，而其他数据集是使用 Chat GPT Pro（基于 GPT-4）综合生成的。 例如，对于使用 LLM 审查拉取请求的 codereviews pipeline ，我们要求 Chat GPT 生成涵盖各种编程语言、应用程序类型和差异大小的占位符值。 我们对 8 个 LangChain pipeline 的 LLM 回复进行了标记，以评估他们是否符合提示说明。 响应分为 GPT-3.5-Turbo 和 GPT-4。 对于 fashion pipeline ，标签是由开发人员在相应的启动时完成的。 表 3 提供了每个 LLM 流程和数据集的详细信息。 我们已经开源了 LangChain Hub 8 个 pipeline 的所有数据</p>
+<h3 id="method-comparison-and-metrics">Method Comparison and Metrics</h3>
+<p>和之前一样，令 𝐸′ 为示例提示-响应对的数据集，以及响应是好（即 1）还是坏（即 0）的相应标签。 令 𝜏 为 FFR 阈值，𝐹 为 SPADE 第一步产生的候选断言集（第 2 节）。 如果候选函数 𝑓 导致某些示例 𝑒 出现运行时错误，我们表示 𝑓 (𝑒) =0（即失败）。 我们所有的代码都是用 Python 编写的，使用 PuLP Python 包来寻找 ILP 的解决方案。 我们使用默认的 PuLP 配置，它使用 CBC 求解器 [18]。 我们评估了 spade 的三个版本： • $spade_base$ 选择 𝐹 中的所有函数 𝑓，其中 FFR ({𝑓 }) ≤𝜏 • spade_cov 是第 3.2 节中定义的 ILP 的解 • spade_sub 是第 3.3.1 节中定义的 ILP 的解 让 𝐹′ 代表任何版本的 spade 所选择的断言集合。 我们测量四个指标：</p>
+<p>(1) 所选断言的分数（即 |𝐹′|/|𝐹|）</p>
+<p>(2) 排除的非包含函数的分数（即 |𝐺|/|𝐹|，其中 𝐺 ={𝑔 |𝑔 ε𝐹 \𝐹′ 和 𝐹′ ̸=⇒ 𝑔})</p>
+<p>(3) 错误失败率（定义 3.2）</p>
+<p>(4) 𝐸′ 的覆盖率（定义 3.1）</p>
+<p>此外，spade_sub 成功的一个重要方面是包含的有效性 所有断言对之间的评估。 由于我们<strong>没有包含的基本事实</strong>，因此我们关注<strong>精度</strong>，计算为正确识别的包含对在 LLM 识别的所有包含对中的比例。 <strong>我们不评估召回率</strong>（GPT-4 是否识别了每一个可能的包含），因为为每个管道标记可能数万个断言对是不切实际的。 此外，<strong>精确度</strong>比召回率或准确性更重要，因为即使识别一些包含，spade_sub 也能用比 $spade_base$ 更少的选定断言来实现解决方案。</p>
+<blockquote>
+<p>这里评估精确率，但却忽略召回率，感觉是论文不够全面的地方。</p>
+<p>精确率：TP/ (TP + FP)，我觉得有故障中的真故障 / （我觉得有故障且真故障 + 我觉得有故障但没故障）</p>
+<p>召回率：TP / (TP + FN), 我觉得有故障中的真故障 / （我觉得有故障且真故障 + 我觉得没故障但真故障）</p>
+<p>能否理解为，精确率区分真假正确，召回率针对样本中有多少正确的是你给出来的。所以一般两者都要一起考虑？</p>
+</blockquote>
+<h3 id="results-and-discussion">Results and Discussion</h3>
+<p>使用 GPT-4 评估所有 pipeline 的归并结果，<strong>平均精度为 0.82</strong>，如表 5 所示，证实了其有效性。 为简单起见，我们将所有管道的覆盖率和 FFR 阈值设置为相同（𝛼 =0.6，𝜏 =0.25）。 我们在表 4 中报告了三种方法的结果。例如，考虑 codereviews 管道，它使用 LLM 来审查任何代码存储库的拉取请求。 这里， $spade_base$ 选择 20 个断言， $spade_base$ 选择 2 个断言， spade_sub 选择 15 个断言。 通过选择更多函数，spade_sub 可确保包含所有未包含的函数。 所有三种方法都遵守 𝐸′ 覆盖约束，但 $spade_base$ 在 9 个管道中有 4 个违反了 FFR 约束。 平均而言，与 $spade_base$ 相比，spade_sub 选择的断言数量减少了约 14%，并且 FFR 显着降低，相对于 $spade_base$ 减少了约 21%。 spade_cov 平均排除了 44% 未包含在 𝐹′ 中的函数。 我们随后讨论不同 spade 实现之间的权衡</p>
+<blockquote>
+<p>结果和例子都显示了比较高的 precision，而且用的是 GPT-4</p>
+<p>其中 code review pipeline 的一些 assertion 会回去调用 LLM，询问是否包含代码修改的建议，review 是否精简，是否聚焦于该 PR</p>
+<p>剩下的没仔细看，很多结果并不是很令人信服，尤其是对三个不同的 SPADE (base 选择所有的 f，cov 选择最小的集合，sub 是 Subsumption Constraints 限制的)</p>
+</blockquote>
+<p>不同版本 SPADE 的结果，𝛼 =0.6 和 𝜏 =0.25。 勾号和 x 标记表示是否满足 𝛼 和 𝜏 约束。 每个条目都是该管道的候选断言总数的一部分（括号中是绝对数量）。 spade_cov 总体上选择最少的断言。 spade_sub 在优化包含时选择最少的断言</p>
+<p>𝜶 and 𝝉 Threshold Sensitivity：Spade 中 ILP 求解器的解决方案的可行性取决于所选的 𝛼 和 𝜏 阈值。 如果找不到可行的解决方案，开发人员可能需要以二分搜索的方式调整这些值。 在我们的例子中，所有 9 个 LLM 管道都产生了 𝛼 = 0.6 和 𝜏 = 0.25 的可行解决方案。 然而，𝐸′ 的小尺寸使得 spade_cov 对 𝛼 特别敏感。 在管道中，我们观察到 1 到 5 个断言覆盖了 60% 的失败。 例如，spade_cov 只为电子邮件管道选择了一个断言</p>
+<p>FFR Tradeoffs: 考虑到对于三个 LLM 管道，为 spade_base 和 spade_sub 选择的函数比例之间的差异小于 10%，人们可能想知道 spade_sub 的复杂性是否值得。 spade_sub 通常更可取，因为 spade_base 无法始终满足 FFR 阈值 𝜏。 我们观察到，随着提示版本的增加，断言的数量也会增加，从而对 spade_base 产生不利影响。 一组的最坏情况 FFR 是各个 FFR 的总和，如公式 (2) 所示。 因此，在存在大量独立断言的情况下，总 FFR 很可能会超过阈值。这个问题在 fashion 和 lecturesummaries 管道中很明显，尽管 67 和 32 个断言中的每一个都单独满足 FFR 约束，但 spade_base 的总 FFR 分别达到 0.88 和 0.53。 实际上，如果将 spade 部署在交互式系统中，其中 spade 可以实时观察每个 LLM 调用（例如，作为 OpenAI API 的包装器），则大量的提示版本进一步需要基于整体 FFR 过滤断言 。 这强调了对更复杂的 spade_cov 或 spade_sub 方法的需要</p>
+<h3 id="limitations-and-future-work">Limitations and Future Work</h3>
+<p>Improving Quality of LLMs: 虽然 LLM（封闭式和开源）正在迅速改进，并且我们没有明确研究 spade 的 prompt engineering strategies，但补充的研究想法是<strong>探索此类策略或微调小型开源模型以生成断言</strong>。 此外，我们提出将 subsumption 作为覆盖范围代理，但没有探索 prompt 工程甚至非 LLM 策略（例如，断言来源）来评估包含。 尽管 LLM 取得了进步，但 SPADE 的过滤阶段对于减少冗余和确保准确性仍然至关重要，特别是因为断言可能涉及 LLM。</p>
+<p>Collecting Labeled Examples: 获取标记数据（𝐸′）很困难。 我们的大多数数据集的提示版本很少（只有提交给 LangChain Hub 的版本），但实际上，开发人员可能会对其提示进行数十或数百次迭代。 未来的工作可能涉及通过 LLM API 包装器进行被动示例收集或收集开发人员对断言的反馈。 对不同类型的断言进行优先级排序并在 spade 中将这些优先级形式化是另一个需要探索的领域。 此外，在有限的 𝐸′ 下评估 FFR 估计的准确性，并探索在缺乏大型标记数据集的情况下提高 FFR 准确性的方法（例如，通过预测驱动的推理 [2]），为未来的工作提出了一个有趣的领域</p>
+<p>Supporting More Complex LLM Pipelines: 我们的研究重点是单提示 LLM pipeline，但更复杂的管道（例如涉及多个提示、外部资源和人工交互的管道）为每个管道组件自动生成断言提供了机会。 例如，在检索增强生成管道中[28]，甚至可以在生成 LLM 响应之前将断言应用于检索到的上下文。</p>
+<h2 id="related-work">RELATED WORK</h2>
+<p>Prompt Engineering: 对于非技术用户 [57] 和技术用户 [34, 47] 来说，Prompt 工程很困难，原因有几个：提示措辞 [4, 29] 或指令或上下文的顺序 [30] 的微小变化可能会显着影响输出。 此外，随着 LLM 在 API 下发生变化（即提示漂移），输出可能会在开发人员不知情的情况下发生变化 [9]。 帮助提示管理和实验的工具和论文不断出现，甚至使用 LLM 来编写提示 [3,11,54,55,59]。 此外，部署的提示引入了新的挑战，例如“用更少的标记平衡更多的上下文”和“争论提示输出”以满足用户定义的标准[35]。 我们的工作并不明确地专注于帮助开发人员创建更好的提示，但它可以通过推荐的断言间接支持开发人员改进提示。</p>
+<p>ML and LLM Evaluation: 众所周知，评估和监控已部署的机器学习模型具有挑战性 [33, 45]。 在部署环境中评估 LLM 更具挑战性，因为 LLM 通常用于生成任务，其输出是自由形式的[13]。 一些 LLM 管道类型，例如使用检索增强生成管道的问答 [28]，可以使用标准化的自动化指标 [14, 39]，但其他类型则因未知指标和缺乏标记数据集而面临挑战 [8, 35, 56]。 通常，组织依靠人类评估者来评估 LLM 的输出[19,35,52]，但最近的研究表明 LLM 可以通过详细的“记分卡”进行有效的自我评估[7,26,58]。 然而，编写这些记分卡可能具有挑战性 [35]，从而激励自动生成的评估者</p>
+<p>LLMs for Software Testing: LLM 越来越多地用于软件测试，主要用于生成单元测试和测试用例[27,40,48,50,51]。 研究探讨了 LLM 的激励策略、幻觉和不确定性如何影响代码或测试的准确性 [10,15,16,32]。 我们的工作是互补的，并利用 LLM 为 LLM 管道生成基于代码的断言</p>
+<p>Testing in ML Pipelines: <strong>ML pipelines 在生产中很难管理</strong>。 许多有关机器学习测试的文献都是通过分析数据质量 [5, 22, 42, 43] 或来源 [31, 41] 来验证结构化数据。 ML 测试平台通常提供自动实验跟踪和防止过度拟合 [1, 38]，以及数据分布调试工具 [20]。 特定于模型的断言通常需要人类规范[25]，或者至少需要大量数据来训练学习断言[24]。 <strong>LLM 链或管道是一类新型 ML 管道</strong>，LLM 本身可以用很少的数据生成断言。 最近的一项研究强调了测试“copilot”类产品的 LLM 管道的难度：开发人员希望确保准确性，同时避免过度使用资源，例如运行数百个断言 [35]——这激发了我们的断言过滤方法。</p>
+<h2 id="conclusion">CONCLUSION</h2>
+<p>我们的工作引入了自动生成断言以捕获 <strong>LLM 管道中的故障的新问题</strong>，以及包含两个组件的解决方案：首先，它 synthesizes candidate assertions； 然后，它会 filter 它们。 我们提出了断言合成的快速编辑分类法，通过与 LangChain 的集成和部署展示了其潜力。 我们将用于高精度覆盖故障的最佳断言集的选择表示为整数线性程序（ILP）。 我们提出了断言包含来涵盖数据稀缺场景中的故障，并将其纳入我们的 ILP 中。 我们的自动生成断言系统 Spade 在 9 个真实数据生成 LLM 管道上进行了评估。 我们已公开我们的代码和数据集以供进一步研究和分析</p>
+<blockquote>
+<p>没有理解 SPADE base, cov, sub 之间的区别，只是选择的集合不同吗</p>
+</blockquote>
+<blockquote>
+<p>The paper presents SPADE, which is a method to detect incorrect outputs from large language models (LLMs) by automatically synthesizing assertions when developing LLM pipelines (such as codereviews and lecturesummaries). SPADE analyses the prompt version histories and creating candidate assertion functions based on the prompt deltas. Then, SPADE selects a minimal set of assertions or a subset that satisfies the coverage and accuracy requirements, meaning that they can catch most of the errors without causing too many false failures. The paper also uses a pruning technique to remove redundant or contradictory assertions from the final set. Finally, The paper evaluates SPADE on 9 real-world LLM pipelines and shows that it can reduce the number of assertions by 14% and decrease false failures by 21% compared to simpler baselines.</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>The paper proposes a novel formulation of synthesizing assertions for LLM pipelines, which takes into account the prompt version histories, the coverage and accuracy requirements, and the trade-off between assertion complexity and number. It also provides an open-source implementation of SPADE and deploy it on the Langchain.</li>
+<li>The SPADE can effectively reduce the number of assertions and false failures compared to simpler baselines, and that spade-generated assertions can help developers improve their LLM pipelines. Spade reduces the number of assertions by 14% and the number of false failures by 21% compared to simpler baselines.</li>
+<li>It evaluates SPADE on nine real-world LLM pipelines, and demonstrates its effectiveness in reducing the number of assertions, increasing the coverage and accuracy of assertions, and identifying bad LLM outputs.</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol>
+<li>Like all the applications built on LLM, it relies on the quality of the language model, the ability of LLM correct classificationand the availability of prompt version histories. If the prompt is too large or the language model performs bad, the assertions (python code or string match) might not work.</li>
+<li>The paper does not compare SPADE with Reinforcement Learning from Human Feedback(ChatGPT is enhanced with RLHF to filter inaccurate text and harmful output). SPADE also ignored the very important metrics, recall rate, in the experiment.</li>
+<li>SPADE does not discuss the different effects brought by different assertion implementation methods. For example, most assertions are string matching and many of them might even not work, which may cause some assertions to fail and increase FFR.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>I would try to first compare SPADE with other existing methods for LLM quality control, such as RLHF. Then explore more appropriate assertion implementation methods instead of simple string matching, and discuss the impact of different assertions on FFR. And during the experiment, try to deeply explore the impact of different coverage rates on recall and precision. Finally, try to generalize SPADE to more language models, such as smaller models with less parameters, making the LLM pipeline construction cheaper</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-03-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/spade-paper/" data-title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/spade-paper/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/spade-paper/" data-title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/spade-paper/" data-title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/spade-paper/" data-title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/seed-paper/" class="prev" rel="prev" title="Paper Reading: SEED Domain-Specific Data Curation With Large Language Models"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</a>
+            <a href="../../posts/minilsm-1/" class="next" rel="next" title="Mini-LSM 01">Mini-LSM 01<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

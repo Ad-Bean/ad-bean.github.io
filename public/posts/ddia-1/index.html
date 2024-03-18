@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>阅读：DDIA 序章以及第一章 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="阅读：DDIA 序章以及第一章" />
+<meta property="og:description" content="DDIA 序章 http://ddia.vonng.com/#/ch1 数据密集型 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。 计算密集型，处理器速度是其瓶颈。 新型数据库系统（NoSQL）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ad-bean.github.io/posts/ddia-1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-05T14:16:41-05:00" />
+<meta property="article:modified_time" content="2024-01-05T14:16:41-05:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="阅读：DDIA 序章以及第一章"/>
+<meta name="twitter:description" content="DDIA 序章 http://ddia.vonng.com/#/ch1 数据密集型 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。 计算密集型，处理器速度是其瓶颈。 新型数据库系统（NoSQL）"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ddia-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/my-first-post/" /><link rel="next" href="https://ad-bean.github.io/posts/node-js-io/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "阅读：DDIA 序章以及第一章",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ddia-1\/"
+        },"genre": "posts","keywords": "DDIA, 笔记","wordcount":  7639 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ddia-1\/","datePublished": "2024-01-05T14:16:41-05:00","dateModified": "2024-01-05T14:16:41-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读：DDIA 序章以及第一章</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-05">2024-01-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 7639 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ddia-序章">DDIA 序章</a></li>
+    <li><a href="#大纲">大纲</a></li>
+    <li><a href="#第一部分数据系统基础">第一部分：数据系统基础</a>
+      <ul>
+        <li><a href="#第一章可靠性可伸缩性和可维护性">第一章：可靠性、可伸缩性和可维护性</a></li>
+        <li><a href="#可靠性">可靠性</a></li>
+        <li><a href="#可伸缩性">可伸缩性</a></li>
+        <li><a href="#可演化性拥抱变化">可演化性：拥抱变化</a></li>
+      </ul>
+    </li>
+    <li><a href="#本章总结">本章总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="ddia-序章">DDIA 序章</h2>
+<blockquote>
+<p><a href="http://ddia.vonng.com/#/ch1" target="_blank" rel="noopener noreffer ">http://ddia.vonng.com/#/ch1</a></p>
+</blockquote>
+<p><strong>数据密集型</strong> 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。</p>
+<p><strong>计算密集型</strong>，处理器速度是其瓶颈。</p>
+<p><strong>新型数据库系统</strong>（NoSQL），消息队列，缓存，搜索索引，<strong>批处理和流处理框架</strong> 以及相关技术也非常重要。</p>
+<h2 id="大纲">大纲</h2>
+<ul>
+<li>
+<p>第一部分：讨论设计<strong>数据密集型应用</strong>所赖的基本思想。目标：可靠性、可伸缩性和可维护性。方法：几种不同的数据模型和查询语言。存储引擎：数据库如何在磁盘上摆放数据，如何高效查找。数据编码（序列化），以及随时间演化的模式</p>
+</li>
+<li>
+<p>第二部分：存储在一台机器上的数据转向讨论分布在<strong>多台机器</strong>上的数据。复制（第五章）、分区 / 分片（第六章）和事务（第七章）、分布式系统问题的更多细节（第八章）、分布式系统中实现一致性与共识意味着什么（第九章）。</p>
+</li>
+<li>
+<p>第三部分：从其他数据集衍生出一些<strong>数据集的系统</strong>。第十章 批处理方法，第十一章 流处理，第十二章 中，讨论在将来构建可靠、可伸缩和可维护的应用程序的方法。</p>
+</li>
+</ul>
+<h2 id="第一部分数据系统基础">第一部分：数据系统基础</h2>
+<p>数据系统底层的基础概念：单机和多机分布式</p>
+<h3 id="第一章可靠性可伸缩性和可维护性">第一章：可靠性、可伸缩性和可维护性</h3>
+<p>现今很多应用程序都是 <strong>数据密集型</strong>的，而非计算密集型的。许多程序都需要：</p>
+<ul>
+<li><strong>存储数据</strong>：数据库</li>
+<li>加快读取速度：<strong>缓存</strong></li>
+<li><strong>搜索</strong>、过滤：搜索索引</li>
+<li>发送消息、<strong>异步</strong>处理：流处理</li>
+<li><strong>定期</strong>处理大批量数据：批处理</li>
+</ul>
+<h4 id="数据系统-data-system">数据系统 Data System</h4>
+<p>数据库、消息队列、缓存等工具分属于几个差异显著的类别，但类别之间的界限变得越来越模糊，例如：数据存储可以被当成消息队列用（Redis），消息队列则带有类似数据库的持久保证（Apache Kafka）</p>
+<blockquote>
+<p>数据库课上听到过一个说法：NoSQL 和关系型数据库并不对立，它们逐渐拥有对方的功能。</p>
+</blockquote>
+<p>越来越多的应用程序有着各种严格而广泛的要求，单个工具不足以满足所有的数据处理和存储需求。取而代之的是，总体工作被拆分成一系列能被单个工具高效完成的任务，并通过应用代码将它们缝合起来。</p>
+<blockquote>
+<p>如果一个工具能实现多种功能，它会有市场吗？是什么原因导致现在的架构设计需要用多种框架和组件？是低耦合的原则还是质量和效率限制？还是文中提到的可靠性、可伸缩性、可维护性？</p>
+</blockquote>
+<p>当系统出问题时，如何确保数据的<strong>正确性和完整性</strong>？当部分系统退化降级时，如何为客户提供始终如一的<strong>良好性能</strong>？当负载增加时，如何<strong>扩容</strong>应对？什么样的 API 才是好的 API？</p>
+<ul>
+<li>可靠性（Reliability）：系统在困境中仍可正常工作</li>
+<li>可伸缩性（Scalability）：有合理的办法应对系统的增长</li>
+<li>可维护性（Maintainability）：许多不同的人（工程师、运维）在不同的生命周期，都能高效地在系统上工作</li>
+</ul>
+<h3 id="可靠性">可靠性</h3>
+<p>即使出现问题，也能继续正确工作。造成错误的原因叫做 <strong>故障</strong>（fault），能预料并应对故障的系统特性可称为 <strong>容错</strong>（fault-tolerant） 或 韧性（resilient）</p>
+<p>反直觉的是，在这类容错系统中，通过<strong>故意触发</strong>来提高故障率是有意义的。尽管比起 阻止错误（prevent error），我们通常更倾向于 <strong>容忍错误</strong>。</p>
+<h4 id="硬件故障">硬件故障</h4>
+<p>硬盘的 <strong>平均无故障时间</strong>（MTTF, mean time to failure）：从数学期望上讲，在拥有 10000 个磁盘的存储集群上，平均每天会有 1 个磁盘出故障。</p>
+<p>为了减少系统的故障率，第一反应通常都是增加单个硬件的<strong>冗余度</strong>，例如：磁盘可以组建 RAID，服务器可能有双路电源和热插拔 CPU，数据中心可能有电池和柴油发电机作为后备电源，某个组件挂掉时冗余组件可以立刻接管。但大量使用机器，会相应地增加硬件故障率。</p>
+<p>云平台的设计就是优先考虑 <strong>灵活性</strong>（flexibility） 和 <strong>弹性</strong>（elasticity），而不是单机可靠性。</p>
+<h4 id="软件错误">软件错误</h4>
+<p>通常认为硬件故障是随机的、相互独立的</p>
+<p>另一类错误是内部的 <strong>系统性错误</strong>，因为是跨节点相关的，所以比起不相关的硬件故障往往可能造成更多的 <strong>系统失效</strong></p>
+<ul>
+<li>错误输入</li>
+<li>失控进程用尽一些共享资源，包括 CPU 时间、内存、磁盘空间或网络带宽。</li>
+<li>系统依赖的服务变慢，没有响应，错误响应</li>
+<li>级联故障</li>
+</ul>
+<p>办法：仔细考虑系统中的假设和交互；彻底的<strong>测试</strong>；进程隔离；允许进程<strong>崩溃并重启</strong>；测量、<strong>监控</strong>并分析生产环境中的系统行为。如果系统能够提供一些保证（例如在一个消息队列中，进入与发出的消息数量相等），那么系统就可以在运行时不断自检，并在出现 差异（discrepancy） 时报警</p>
+<blockquote>
+<p>测试是相当重要的一环</p>
+</blockquote>
+<h4 id="人为错误">人为错误</h4>
+<p>人类是不可靠的</p>
+<ul>
+<li>以最小化犯错机会的方式<strong>设计系统</strong>：精心设计的抽象、API 和管理后台</li>
+<li><strong>解耦</strong>（decouple），提供一个功能齐全的非生产环境 沙箱（sandbox）</li>
+<li>各个层次进行<strong>彻底的测试</strong>：单元测试、全系统集成测试到手动测试，覆盖正常情况中少见的 边缘场景 corner case</li>
+<li>快速地恢复：快速回滚配置变更，分批发布新代码，并提供数据重算工具</li>
+<li>配置详细和明确的<strong>监控</strong>，比如<strong>性能指标</strong>和<strong>错误率</strong></li>
+<li>良好的管理实践与充分的培训</li>
+</ul>
+<blockquote>
+<p>人类是不可靠的</p>
+</blockquote>
+<h5 id="可靠性有多重要">可靠性有多重要？</h5>
+<p>核电站和空中交通管制软件，商务应用，电商网站</p>
+<p>在某些情况下，我们可能会选择牺牲可靠性来降低开发成本，但我们偷工减料时，应该清楚意识到自己在做什么。</p>
+<blockquote>
+<p>可靠性和正确性是否相关？</p>
+</blockquote>
+<h3 id="可伸缩性">可伸缩性</h3>
+<p>系统今天能可靠运行，并不意味未来也能可靠运行。</p>
+<p>服务 <strong>降级</strong>（degradation） 的一个常见原因是<strong>负载增加</strong>，例如：系统负载已经从一万个并发用户增长到十万个并发用户。</p>
+<p><strong>可伸缩性</strong>（Scalability） 是用来描述系统应<strong>对负载增长能力</strong>的术语。讨论可伸缩性意味着考虑诸如 “如果系统以特定方式增长，<strong>有什么选项可以应对增长</strong>？” 和 “如何增加计算资源来处理额外的负载？” 等问题。</p>
+<blockquote>
+<p>遇到过一个单机 AWS DocDB 查询慢的问题，通过增加多个实例能解决。但还是需要添加索引或是分片。</p>
+</blockquote>
+<h4 id="描述负载">描述负载</h4>
+<p>在讨论增长问题（如果负载加倍会发生什么？）前，首先要能简要描述系统的<strong>当前负载</strong>：负载参数 load parameters，参数的最佳选择取决于系统架构，它可能是<strong>每秒向 Web 服务器发出的请求</strong> QPS、数据库中的读写比率、聊天室中同时活跃的用户数量、缓存命中率或其他东西。除此之外，也许平均情况对你很重要，也许你的瓶颈是少数极端场景。</p>
+<p>推特的两个主要业务是：发布推文（平均 4.6k 请求 / 秒，峰值超过 12k 请求 / 秒）、主页时间线（用户可以查阅他们关注的人发布的推文（300k 请求 / 秒））</p>
+<p>然而推特的伸缩性挑战并不是主要来自推特量，而是来自 <strong>扇出</strong>（fan-out）—— 每个用户关注了很多人，也被很多人关注。有两种实现方法：</p>
+<blockquote>
+<p>扇出：在事务处理系统中，使用它来描述为了<strong>服务一个传入请求</strong>而<strong>需要执行其他服务的请求数量</strong>。</p>
+</blockquote>
+<ol>
+<li>发布推文：将新推文<strong>插入全局推文集合</strong>，当一个用户请求自己的主页时间线时，首先<strong>查找他关注的所有人</strong>，查询这些被关注用户发布的推文<strong>并按时间顺序合并</strong>。在如 图 1-2 所示的关系型数据库中，可以编写这样的查询：</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">tweets</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="o">*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">tweets</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">users</span><span class="w">   </span><span class="k">ON</span><span class="w"> </span><span class="n">tweets</span><span class="p">.</span><span class="n">sender_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">JOIN</span><span class="w"> </span><span class="n">follows</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">follows</span><span class="p">.</span><span class="n">followee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">WHERE</span><span class="w"> </span><span class="n">follows</span><span class="p">.</span><span class="n">follower_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">current_user</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>如何设计这个表？follows 表存关注者和用户 ID；tweets 表存推文 id，发送者 id，推文，时间戳；users 表存 id，昵称，头像。符合最小化冗余和依赖，normalization。</p>
+</blockquote>
+<ol start="2">
+<li>为每个用户的主页时间线维护一个缓存，就像每个用户的推文收件箱。 当一个用户发布推文时，查找所有关注该用户的人，并将新的推文插入到每个主页时间线缓存中。 因此读取主页时间线的请求开销很小，因为结果已经提前计算好了。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="http://ddia.vonng.com/img/fig1-3.png"
+        data-srcset="http://ddia.vonng.com/img/fig1-3.png, http://ddia.vonng.com/img/fig1-3.png 1.5x, http://ddia.vonng.com/img/fig1-3.png 2x"
+        data-sizes="auto"
+        alt="http://ddia.vonng.com/img/fig1-3.png"
+        title="data pipeline" /></p>
+<p>方法一查询负载较高，而方法二效果更好，因为发推频率比查询主页时间线的频率几乎低了两个数量级，所以在这种情况下，最好在写入时做更多的工作，而在读取时做更少的工作。</p>
+<p>但方法二的缺点是，在发推时需要做大量额外工作。<strong>平均来说</strong>，一条推文会发往约 75 个关注者，所以每秒 4.6k 的发推写入，变成了对主页时间线缓存每秒 345k 的写入。但这个平均值隐藏了<strong>用户粉丝数差异巨大</strong>这一现实，一些用户有超过 3000 万的粉丝，这意味着一条推文就可能会导致主页时间线缓存的 3000 万次写入！及时完成这种操作是一个巨大的挑战 —— 推特尝试在 5 秒内向粉丝发送推文。</p>
+<p><strong>每个用户粉丝数的分布</strong>（可能按这些用户的发推频率来加权）是探讨<strong>可伸缩性的一个关键负载参数</strong>，因为它决定了<strong>扇出负载</strong>。</p>
+<p>推特采用混合方法，这种混合方法能始终如一地提供良好性能。</p>
+<blockquote>
+<p>这一章讨论了许多 system design 需要考虑的一些指标，推特的例子也非常好</p>
+</blockquote>
+<h4 id="描述性能">描述性能</h4>
+<p>当负载增加会发生什么？</p>
+<ul>
+<li>增加负载参数并保持系统资源（CPU、内存、网络带宽等）<strong>不变</strong>时，系统<strong>性能将受到什么影响</strong>？</li>
+<li>增加负载参数并希望保持<strong>性能不变</strong>时，需要<strong>增加多少系统资源</strong>？</li>
+</ul>
+<p>如何描述系统性能？</p>
+<p>对于 Hadoop 这样的<strong>批处理系统</strong>，通常关心的是 <strong>吞吐量</strong>（throughput），即每秒可以处理的记录数量，或者<strong>在特定规模数据集上运行作业的总时间</strong> 。对于在线系统，通常更重要的是服务的 <strong>响应时间</strong>（response time），即客户端发送请求到接收响应之间的时间。</p>
+<blockquote>
+<p>理想情况下，<strong>批量作业的运行时间</strong>是<strong>数据集的大小除以吞吐量</strong>。 在实践中由于数据倾斜（数据不是均匀分布在每个工作进程中），需要<strong>等待最慢的任务完成</strong>，所以运行时间往往更长。</p>
+</blockquote>
+<blockquote>
+<p>延迟和响应时间</p>
+<p><strong>延迟</strong>（latency） 和 <strong>响应时间</strong>（response time） 经常用作同义词，但实际上它们并不一样。<strong>响应时间是客户所看到的</strong>，除了实际处理请求的时间（ 服务时间（service time） ）之外，还包括网络延迟和排队延迟。<strong>延迟是某个请求等待处理的 持续时长</strong>，在此期间它处于 休眠（latent） 状态，并等待服务。</p>
+</blockquote>
+<p>即使不断重复发送同样的请求，每次得到的响应时间也都会略有不同。将响应时间视为一个可以测量的数值 <strong>分布</strong>（distribution），而不是单个数值。</p>
+<p>通常报表都会展示服务的<strong>平均响应时间</strong>。然而如果你想知道 “<strong>典型（typical）</strong>” 响应时间，那么平均值并不是一个非常好的指标，因为它不能告诉你有多少用户实际上经历了这个延迟。</p>
+<p>通常使用 百分位点（percentiles） 会更好。如果将响应时间列表按最快到最慢排序，那么 中位数（median）就在正中间，可以表示一半的请求少于中位数。</p>
+<p>如果想知道<strong>典型场景</strong>下用户需要等待多长时间，那么<strong>中位数</strong>是一个好的度量标准，一半用户请求的响应时间少于响应时间的中位数，另一半服务时间比中位数长。中位数也被称为<strong>第 50 百分位点</strong>，有时缩写为 <strong>p50</strong>。注意中位数是关于单个请求的；如果用户同时发出几个请求（在一个会话过程中，或者由于一个页面中包含了多个资源），则至少一个请求比中位数慢的概率远大于 50%。</p>
+<p>为了弄清异常值有多糟糕，可以看看更高的百分位点，例如<strong>第 95、99 和 99.9 百分位点</strong>（缩写为 p95，p99 和 p999）。它们意味着 95%、99% 或 99.9% 的请求响应时间要比该阈值快。</p>
+<p>响应时间的<strong>高百分位点</strong>（也称为 <strong>尾部延迟</strong>，即 tail latencies）非常重要，因为它们直接影响用户的服务体验。例如亚马逊在描述内部服务的响应时间要求时是以 99.9 百分位点为准，即使它只影响一千个请求中的一个。这是因为请求响应最慢的客户往往也是数据最多的客户，也可以说是最有价值的客户 —— <strong>因为他们掏钱了</strong>。保证网站响应迅速对于保持客户的满意度非常重要，亚马逊观察到：响应时间增加 100 毫秒，销售量就减少 1%；而另一些报告说：慢 1 秒钟会让客户满意度指标减少 16%。另一方面，优化第 99.99 百分位点（一万个请求中最慢的一个）被认为太昂贵了，不能为亚马逊的目标带来足够好处。减小高百分位点处的响应时间相当困难，因为它很容易受到随机事件的影响，这超出了控制范围，而且效益也很小。</p>
+<p>百分位点通常用于 <strong>服务级别目标（SLO, service level objectives）</strong> 和 <strong>服务级别协议（SLA, service level agreements）</strong>，即定义服务预期性能和可用性的合同。 SLA 可能会声明，如果服务响应时间的中位数小于 200 毫秒，且 99.9 百分位点低于 1 秒，则认为服务工作正常（如果响应时间更长，就认为服务不达标）。这些指标为客户设定了期望值，并允许客户在 SLA 未达标的情况下要求退款。</p>
+<p><strong>排队延迟（queueing delay）</strong> 通常占了高百分位点处响应时间的很大一部分。由于服务器只能并行处理少量的事务（如受其 CPU 核数的限制），所以只要有少量缓慢的请求就能阻碍后续请求的处理，这种效应有时被称为 <strong>头部阻塞（head-of-line blocking）</strong> 。即使后续请求在服务器上处理的非常迅速，由于需要等待先前请求完成，客户端最终看到的是缓慢的总体响应时间。因为存在这种效应，<strong>测量客户端的响应时间非常重要。</strong></p>
+<h4 id="实践中的百分位点">实践中的百分位点</h4>
+<p>在多重调用的后端服务里，高百分位数变得特别重要。即使<strong>并行调用</strong>，最终用户请求仍然需要等待<strong>最慢的并行调用完成</strong>。</p>
+<p>如果你想将<strong>响应时间百分点</strong>添加到你的服务的监视仪表板，则需要持续有效地计算它们。</p>
+<p>简单的实现是在时间窗口内保存所有请求的响应时间列表，并且<strong>每分钟对列表进行排序</strong>。如果对你来说效率太低，那么有一些算法能够以最小的 CPU 和内存成本（如前向衰减、t-digest 或 HdrHistogram）来计算百分位数的近似值。</p>
+<blockquote>
+<p>用于描述负载和性能的指标，这部分概念也太多了，经常听到 SLA 但不能直观理解。许多 Grafana 上的指标也没有深入去理解。</p>
+</blockquote>
+<h4 id="应对负载的方法">应对负载的方法</h4>
+<p>已经讨论了用于<strong>描述负载的参数</strong>和用于<strong>衡量性能的指标</strong>。可以开始认真讨论可伸缩性了：当负载参数增加时，如何保持良好的性能？</p>
+<p><strong>纵向伸缩</strong>（scaling up，也称为<strong>垂直伸缩</strong>，即 vertical scaling，转向更强大的机器）</p>
+<p><strong>横向伸缩</strong>（scaling out，也称为<strong>水平伸缩</strong>，即 horizontal scaling，将负载分布到多台小机器上）</p>
+<p><strong>跨多台机器分配负载</strong>也称为 “<strong>无共享（shared-nothing）</strong>” 架构。可以在单台机器上运行的系统通常更简单，但高端机器可能非常贵，所以<strong>非常密集的负载通常无法避免地需要横向伸缩</strong>。现实世界中的优秀架构需要将这两种方法务实地<strong>结合</strong>，因为使用几台足够强大的机器可能比使用大量的小型虚拟机更简单也更便宜。</p>
+<p>有些系统是 <strong>弹性（elastic）</strong> 的，这意味着可以在检测到负载增加时自动增加计算资源，而其他系统则是<strong>手动伸缩</strong>（人工分析容量并决定向系统添加更多的机器）。如果负载 <strong>极难预测</strong>（highly unpredictable），则弹性系统可能很有用，但手动伸缩系统更简单，并且意外操作可能会更少。</p>
+<p>跨多台机器部署 <strong>无状态服务（stateless services）</strong> 非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（纵向伸缩），直到伸缩成本或可用性需求迫使其改为<strong>分布式</strong>。</p>
+<p>随着分布式系统的工具和抽象越来越好，至少对于某些类型的应用而言，这种常识可能会改变。可以<strong>预见分布式数据系统将成为未来的默认设置</strong>，即使对不处理大量数据或流量的场景也如此。本书的其余部分将介绍多种分布式数据系统，不仅讨论它们在可伸缩性方面的表现，还包括易用性和可维护性。</p>
+<p>一个良好适配应用的可伸缩架构，是围绕着 <strong>假设（assumption）</strong> 建立的：哪些操作是常见的？哪些操作是罕见的？这就是所谓负载参数。如果假设最终是错误的，那么为伸缩所做的工程投入就白费了，最糟糕的是适得其反。在早期创业公司或非正式产品中，通常支持产品快速迭代的能力，要比可伸缩至未来的假想负载要重要的多。</p>
+<h4 id="可维护性">可维护性</h4>
+<p>众所周知，软件的大部分开销并不在最初的开发阶段，而是在<strong>持续的维护阶段</strong>，包括修复漏洞、保持系统正常运行、调查失效、适配新的平台、为新的场景进行修改、偿还技术债、添加新的功能等等。</p>
+<p>许多从事软件系统行业的人不喜欢维护所谓的 <strong>遗留（legacy） 系统</strong></p>
+<p>在设计之初就尽量考虑<strong>尽可能减少维护期间的痛苦</strong>，从而避免自己的软件系统变成遗留系统。为此，我们将特别关注软件系统的三个设计原则：</p>
+<ol>
+<li>
+<p>可操作性（Operability），便于运维团队保持系统平稳运行。</p>
+</li>
+<li>
+<p>简单性（Simplicity），从系统中消除尽可能多的 <strong>复杂度（complexity）</strong>，使新工程师也能轻松理解系统（注意这和用户接口的简单性不一样）。</p>
+</li>
+<li>
+<p>可演化性（evolvability），使工程师在<strong>未来能轻松地对系统进行更改</strong>，当需求变化时为新应用场景做适配。也称为 <strong>可扩展性（extensibility）</strong>、可修改性（modifiability） 或 可塑性（plasticity）。</p>
+</li>
+</ol>
+<h4 id="简单性管理复杂度">简单性：管理复杂度</h4>
+<p>一个陷入复杂泥潭的软件项目有时被描述为 <strong>烂泥潭（a big ball of mud）</strong></p>
+<p><strong>复杂度（complexity）</strong> 有各种可能的症状，例如：状态空间激增、<strong>模块间紧密耦合</strong>、纠结的依赖关系、不一致的命名和术语、解决性能问题的 Hack、需要绕开的特例等等，现在已经有很多关于这个话题的讨论</p>
+<p>因为复杂度导致维护困难时，预算和时间安排通常会超支。在复杂的软件中进行变更，引入错误的风险也更大：当开发人员难以理解系统时，隐藏的假设、无意的后果和意外的交互就更容易被忽略。相反，降低复杂度能极大地提高软件的可维护性，因此<strong>简单性应该是构建系统的一个关键目标</strong>。</p>
+<p>简化系统并不一定意味着减少功能；它也可以意味着消除 <strong>额外的（accidental） 的复杂度</strong>。 Moseley 和 Marks 把 额外复杂度 定义为：由具体实现中涌现，而非（从用户视角看，系统所解决的）问题本身固有的复杂度。</p>
+<p>用于消除 额外复杂度 的最好工具之一是 <strong>抽象（abstraction）</strong>。一个好的抽象可以将大量实现细节隐藏在一个干净，简单易懂的外观下面。一个好的抽象也可以广泛用于各类不同应用。比起重复造很多轮子，重用抽象不仅更有效率，而且有助于开发高质量的软件。抽象组件的质量改进将使所有使用它的应用受益。</p>
+<p>例如，<strong>高级编程语言是一种抽象</strong>，隐藏了机器码、CPU 寄存器和系统调用。 SQL 也是一种抽象，隐藏了复杂的磁盘 / 内存数据结构、来自其他客户端的并发请求、崩溃后的不一致性。当然在用高级语言编程时，我们仍然用到了机器码；只不过没有 直接（directly） 使用罢了，正是因为编程语言的抽象，我们才不必去考虑这些实现细节。</p>
+<p>抽象可以帮助我们将系统的复杂度控制在可管理的水平，不过，找到好的抽象是非常困难的。<strong>在分布式系统领域虽然有许多好的算法</strong>，但我们并不清楚它们应该打包成什么样抽象。</p>
+<h3 id="可演化性拥抱变化">可演化性：拥抱变化</h3>
+<p>系统的需求永远不变，基本是不可能的。更可能的情况是，它们处于<strong>常态的变化</strong>中，例如：你了解了新的事实、出现意想不到的应用场景、业务优先级发生变化、用户要求新功能、新平台取代旧平台、法律或监管要求发生变化、系统增长迫使架构变化等。</p>
+<p>在组织流程方面， <strong>敏捷（agile） 工作模式</strong>为适应变化提供了一个框架。敏捷社区还开发了对在频繁变化的环境中开发软件很有帮助的技术工具和模式，如 <strong>测试驱动开发（TDD, test-driven development）</strong> 和 <strong>重构（refactoring）</strong> 。</p>
+<blockquote>
+<p>重构 改善既有代码的设计第二版 也是一本没坚持看完的书</p>
+</blockquote>
+<p>修改数据系统并使其适应不断变化需求的容易程度，是与 <strong>简单性</strong> 和 <strong>抽象性</strong> 密切相关的：简单易懂的系统通常比复杂系统更容易修改。但由于这是一个非常重要的概念，我们将用一个不同的词来指代数据系统层面的敏捷性： <strong>可演化性（evolvability）</strong></p>
+<h2 id="本章总结">本章总结</h2>
+<p>本章探讨了一些关于数据密集型应用的基本思考方式</p>
+<p>一个应用必须满足各种需求才称得上有用：功能需求（它应该做什么，比如允许以各种方式存储，检索，搜索和处理数据）、非功能需求（通用属性，安全性、可靠性、合规性、可伸缩性、兼容性和可维护性）</p>
+<p>详细讨论了可靠性、可伸缩性、可维护性</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-01-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ddia-1/" data-title="阅读：DDIA 序章以及第一章" data-hashtags="DDIA,笔记"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ddia-1/" data-hashtag="DDIA"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ddia-1/" data-title="阅读：DDIA 序章以及第一章"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ddia-1/" data-title="阅读：DDIA 序章以及第一章"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ddia-1/" data-title="阅读：DDIA 序章以及第一章"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/ddia/">DDIA</a>,&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/my-first-post/" class="prev" rel="prev" title="2024 的一些计划"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>2024 的一些计划</a>
+            <a href="../../posts/node-js-io/" class="next" rel="next" title="阅读：Ryan Dahl: NodeJS">阅读：Ryan Dahl: NodeJS<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

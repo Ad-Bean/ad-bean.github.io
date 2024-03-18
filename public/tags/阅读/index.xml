@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>阅读 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/%E9%98%85%E8%AF%BB/</link>
+        <description>阅读 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 30 Jan 2024 13:23:51 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/%E9%98%85%E8%AF%BB/" rel="self" type="application/rss+xml" /><item>
+    <title>阅读：Ryan Dahl: NodeJS</title>
+    <link>https://ad-bean.github.io/posts/node-js-io/</link>
+    <pubDate>Tue, 30 Jan 2024 13:23:51 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/node-js-io/</guid>
+    <description><![CDATA[NodeJS 这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识 NodeJS 简述： Server Side Javascript Built on Google&rsquo;s V8 Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted. CommonJS module system (用 ES6 Module 替代]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>阅读：DDIA 第二章 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="阅读：DDIA 第二章" />
+<meta property="og:description" content="第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ad-bean.github.io/posts/ddia-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-10T18:09:40-05:00" />
+<meta property="article:modified_time" content="2024-02-10T18:09:40-05:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="阅读：DDIA 第二章"/>
+<meta name="twitter:description" content="第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ddia-2/" /><link rel="prev" href="https://ad-bean.github.io/posts/llm-capability/" /><link rel="next" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "阅读：DDIA 第二章",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ddia-2\/"
+        },"genre": "posts","keywords": "DDIA, 笔记","wordcount":  2976 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ddia-2\/","datePublished": "2024-02-10T18:09:40-05:00","dateModified": "2024-02-10T18:09:40-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读：DDIA 第二章</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-10">2024-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2976 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#第二章数据模型与查询语言">第二章：数据模型与查询语言</a></li>
+    <li><a href="#关系模型与文档模型">关系模型与文档模型</a></li>
+    <li><a href="#nosql-的诞生">NoSQL 的诞生</a></li>
+    <li><a href="#对象关系不匹配">对象关系不匹配</a></li>
+    <li><a href="#多对一和多对多的关系">多对一和多对多的关系</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="第二章数据模型与查询语言">第二章：数据模型与查询语言</h2>
+<p><strong>数据模型</strong>可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着<strong>软件的编写方式</strong>，而且影响着我们的 <strong>解题思路</strong>。</p>
+<p>多数应用使用<strong>层层叠加</strong>的数据模型构建。</p>
+<ol>
+<li>现实世界：采用对象或数据结构，以及操控那些数据结构的 API 来进行建模</li>
+<li>存储数据结构，通用数据模型如 JSON 或 XML 文档、关系数据库中的表或图模型。</li>
+<li><strong>内存、磁盘或网络上的字节</strong>来表示 JSON / XML/ 关系 / 图数据。这类表示形式使数据有可能以各种方式来查询，搜索，操纵和处理。</li>
+<li><strong>硬件</strong>工程师已经想出了使用电流、光脉冲、磁场或者其他东西来表示字节的方法</li>
+</ol>
+<p>一个复杂的应用程序可能会有更多的<strong>中间层次</strong>，比如基于 API 的 API，不过基本思想仍然是一样的：每个层都通过提供一个明确的数据模型来<strong>隐藏更低层次中的复杂性</strong>。这些<strong>抽象</strong>允许不同的人群有效地协作（例如数据库厂商的工程师和使用数据库的应用程序开发人员）。</p>
+<p>选择一个适合的数据模型是非常重要的。</p>
+<blockquote>
+<p>数据模型到底是什么？用来描述、组织、操作数据，对现实进行抽象？</p>
+<p>本章介绍用于数据存储和查询的通用数据模型（比较关系模型、文档模型、图数据模型）和查询语言，以及存储引擎和数据模型如何实现的</p>
+</blockquote>
+<h2 id="关系模型与文档模型">关系模型与文档模型</h2>
+<p>现在最著名的数据模型可能是 SQL。它基于 Edgar Codd 在 1970 年提出的<strong>关系模型</strong>：数据被组织成 <strong>关系</strong>（SQL 中称作 表），其中每个关系是 <strong>元组</strong>（SQL 中称作 行） 的无序集合。</p>
+<p>关系模型曾是一个理论性的提议，当时很多人都<strong>怀疑是否能够有效实现它</strong>。然而到了 20 世纪 80 年代中期，<strong>关系数据库管理系统（RDBMSes）和 SQL 已成为大多数人们存储和查询某些常规结构的数据的首选工具</strong>。</p>
+<p>关系数据库起源于·，在 20 世纪 60 年代和 70 年代用大型计算机来执行。从今天的角度来看，那些用例显得很平常：<strong>典型的 事务处理</strong>（将销售或银行交易，航空公司预订，库存管理信息记录在库）和 <strong>批处理</strong>（客户发票，工资单，报告）</p>
+<p>当时的其他数据库迫使应用程序开发人员必须<strong>考虑数据库内部的数据表示形式</strong>。关系模型致力于将上述实现细节<strong>隐藏在更简洁的接口</strong>之后</p>
+<p>多年来，在<strong>数据存储</strong>和<strong>查询方面</strong>存在着许多相互竞争的方法。在 20 世纪 70 年代和 80 年代初，<strong>网状模型</strong>（network model）和<strong>层次模型</strong>（hierarchical model）曾是主要的选择，但<strong>关系模型</strong>（relational model）随后占据了主导地位。对象数据库在 20 世纪 80 年代末和 90 年代初来了又去。XML 数据库在二十一世纪初出现，但只有小众采用过。<strong>关系模型的每个竞争者都在其时代产生了大量的炒作，但从来没有持续。</strong></p>
+<p>随着电脑越来越强大和互联，它们开始用于日益多样化的目的。<strong>关系数据库</strong>非常成功地被推广到业务数据处理的原始范围之外更为广泛的用例上。你今天在网上看到的大部分内容依旧是由关系数据库来提供支持，无论是在线发布，讨论，社交网络，电子商务，游戏，软件即服务生产力应用程序等等内容。</p>
+<h2 id="nosql-的诞生">NoSQL 的诞生</h2>
+<p>现在 - 2010 年代，NoSQL 开始了最新一轮尝试，试图<strong>推翻关系模型的统治地位</strong>。“NoSQL” 这个名字让人遗憾，因为实际上它并没有涉及到任何特定的技术。最初它只是作为一个醒目的 Twitter 标签，用在 2009 年一个关于分布式，非关系数据库上的开源聚会上。无论如何，这个术语触动了某些神经，并迅速在网络创业社区内外传播开来。好些有趣的数据库系统现在都与 #NoSQL 标签相关联，并且 <strong>NoSQL 被追溯性地重新解释为 不仅是 SQL（Not Only SQL）</strong></p>
+<p>采用 NoSQL 数据库的背后有几个驱动因素，其中包括：</p>
+<ul>
+<li>需要比关系数据库更好的<strong>可伸缩性</strong>，包括非常<strong>大的数据集</strong>或非常高的<strong>写入吞吐量</strong></li>
+<li>相比商业数据库产品，<strong>免费和开源</strong>软件更受偏爱</li>
+<li>关系模型不能很好地支持一些<strong>特殊的查询操作</strong></li>
+<li>受挫于关系模型的限制性，渴望一种更具多<strong>动态性与表现力</strong>的数据模型</li>
+</ul>
+<p>不同的应用程序有不同的需求，一个用例的最佳技术选择可能不同于另一个用例的最佳技术选择。因此，在可预见的未来，<strong>关系数据库似乎可能会继续与各种非关系数据库一起使用</strong> - 这种想法有时也被称为 <strong>混合持久化</strong>（polyglot persistence）。</p>
+<h2 id="对象关系不匹配">对象关系不匹配</h2>
+<p>目前大多数应用程序开发都使用<strong>面向对象的编程语言</strong>来开发，这导致了对 SQL 数据模型的普遍批评：如果数据存储在关系表中，那么需要一个笨拙的<strong>转换层</strong>，处于应用程序代码中的对象和表，行，列的数据库模型之间。<strong>模型之间的不连贯有时被称为 阻抗不匹配</strong>（impedance mismatch）。</p>
+<p>像 ActiveRecord 和 Hibernate 这样的 <strong>对象关系映射（ORM object-relational mapping） 框架</strong>可以减少这个转换层所需的样板代码的数量，但是它们不能完全隐藏这两个模型之间的差异。</p>
+<blockquote>
+<p>ORM 框架和手写 SQL 应该怎么选择？</p>
+</blockquote>
+<p>例如，图 2-1 展示了如何在关系模式中表示简历（一个 LinkedIn 简介）。整个简介可以通过一个唯一的标识符 user_id 来标识。像 first_name 和 last_name 这样的字段每个用户只出现一次，所以可以在 User 表上将其建模为列。但是，大多数人在职业生涯中拥有多于一份的工作，人们可能有不同样的教育阶段和任意数量的联系信息。从用户到这些项目之间存在<strong>一对多的关系</strong>，可以用多种方式来表示：</p>
+<ul>
+<li>传统 SQL 模型（SQL：1999 之前）中，最常见的规范化表示形式是将职位，教育和联系信息放在单独的表中，对 User 表<strong>提供外键引用</strong></li>
+<li>后续的 SQL 标准增加了对<strong>结构化数据类型和 XML 数据的支持</strong>；这允许将<strong>多值数据</strong>存储在单行内，并支持在这些文档内查询和索引。这些功能在 Oracle，IBM DB2，MS SQL Server 和 PostgreSQL 中都有不同程度的支持。<strong>JSON 数据类型</strong>也得到多个数据库的支持，包括 IBM DB2，MySQL 和 PostgreSQL。</li>
+<li>第三种选择是将职业，教育和联系信息编码为 <strong>JSON 或 XML 文档</strong>，将其存储在数据库的文本列中，并让应用程序解析其结构和内容。这种配置下，<strong>通常不能使用数据库来查询该编码列中的值。</strong></li>
+</ul>
+<p>对于一个像简历这样自包含文档的数据结构而言，<strong>JSON 表示是非常合适的</strong>，JSON 比 XML 更简单。面向文档的数据库（如 MongoDB，RethinkDB，CouchDB 和 Espresso）支持这种数据模型。</p>
+<p>有一些开发人员认为 JSON 模型<strong>减少了应用程序代码和存储层之间的阻抗不匹配</strong>。不过，正如我们将在 第四章 中看到的那样，<strong>JSON 作为数据编码格式也存在问题</strong>。</p>
+<p>JSON 表示比 图 2-1 中的多表模式具有更好的 <strong>局部性</strong>（locality）。如果在前面的关系型示例中获取简介，那需要<strong>执行多个查询</strong>（通过 user_id 查询每个表），或者在 User 表与其下属表之间混乱地<strong>执行多路连接</strong>。而在 JSON 表示中，所有相关信息都在同一个地方，一个查询就足够了。</p>
+<p>从用户简介文件到用户职位，教育历史和联系信息，这种一对多关系隐含了数据中的一个<strong>树状结构</strong>，而 JSON 表示使得这个<strong>树状结构变得明确</strong></p>
+<h2 id="多对一和多对多的关系">多对一和多对多的关系</h2>
+<p><code>region_id</code> 和 <code>industry_id</code> 是以 ID，而不是纯字符串 “Greater Seattle Area” 和 “Philanthropy” 的形式给出的。为什么？</p>
+<p>如果用户界面用一个<strong>自由文本字段</strong>来输入区域和行业，那么将他们存储为纯文本字符串是合理的。另一方式是给出地理区域和行业的标准化的列表，并让用户从下拉列表或自动填充器中进行选择，其优势如下：</p>
+<ul>
+<li>各个简介之间样式和拼写统一</li>
+<li>避免歧义（例如，如果有几个<strong>同名</strong>的城市）</li>
+<li>易于<strong>更新</strong> —— 名称只存储在一个地方，如果需要更改（例如，由于政治事件而改变城市名称），很容易进行全面更新。</li>
+<li>本地化支持 —— 当网站翻译成其他语言时，标准化的列表可以被本地化，使得地区和行业可以使用用户的语言来显示</li>
+<li>更好的<strong>搜索</strong> —— 例如，搜索华盛顿州的慈善家就会匹配这份简介，因为地区列表可以编码记录西雅图在华盛顿这一事实（从 “Greater Seattle Area” 这个字符串中看不出来）</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-02-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ddia-2/" data-title="阅读：DDIA 第二章" data-hashtags="DDIA,笔记"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ddia-2/" data-hashtag="DDIA"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ddia-2/" data-title="阅读：DDIA 第二章"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ddia-2/" data-title="阅读：DDIA 第二章"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ddia-2/" data-title="阅读：DDIA 第二章"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/ddia/">DDIA</a>,&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/llm-capability/" class="prev" rel="prev" title="Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</a>
+            <a href="../../posts/vbase-paper/" class="next" rel="next" title="Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity">Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>
