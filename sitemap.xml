@@ -2,15 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ad-bean.github.io/</loc><lastmod>2024-03-17T00:14:24-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/database/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/lsm/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/minilsm-1/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-03-22T14:04:33-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-03-17T00:14:24-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/bao-learned-query-opt/</loc><lastmod>2024-03-17T00:14:24-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-03-17T00:14:24-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-03-17T00:14:24-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/zero-shot-learned/</loc><lastmod>2024-03-16T09:58:30-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/database/</loc><lastmod>2024-03-14T15:04:33-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/lsm/</loc><lastmod>2024-03-14T15:04:33-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/posts/minilsm-1/</loc><lastmod>2024-03-14T15:04:33-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/spade-paper/</loc><lastmod>2024-03-01T20:26:39-05:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/seed-paper/</loc><lastmod>2024-03-01T10:42:53-05:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/analyticdb-paper/</loc><lastmod>2024-02-25T13:00:46-05:00</lastmod></url><url>
