@@ -25,7 +25,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ad-bean.github.io\/posts\/minilsm-2\/"
-        },"genre": "posts","keywords": "Database, LSM","wordcount":  4537 ,
+        },"genre": "posts","keywords": "Database, LSM","wordcount":  4589 ,
         "url": "https:\/\/ad-bean.github.io\/posts\/minilsm-2\/","datePublished": "2024-03-23T16:51:28-04:00","dateModified": "2024-03-23T16:51:28-04:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -113,7 +113,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mini-LSM Week 1 Da2</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-23">2024-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4537 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-23">2024-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4589 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -460,16 +460,16 @@ iter3: e-&gt;4
 <ol start="2">
 <li>
 <p>Why do we need a self-referential structure for memtable iterator?</p>
-<p>自引用，就像链表一样 <code>Node {Node* next}</code>，在 <code>mem_table.rs</code> 中有</p>
+<p>自引用, 指的是一个结构体中, 有一个字段需要引用自己的另一个 field, 在 <code>mem_table.rs</code> 中有</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="cp">#[self_referencing]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// Stores a skipmap iterator that refers to the lifetime of `MemTableIterator` itself.
 </span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="cp">#[borrows(map)]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[not_covariant]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;this</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>就是教程中说的，为了标记 <code>MemtableIterator</code> 的生命周期和 <code>map</code> 一致, 结合 <code>&lt;'this&gt;</code> 与 <code>self_referencing</code> 使得他们的生命周期一致.</p>
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;this</span><span class="o">&gt;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 需要引用 map 的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>就是教程中说的，为了标记 <code>MemtableIterator</code> 的生命周期和 <code>map</code> 一致, 结合 <code>&lt;'this&gt;</code> 与 <code>self_referencing</code> 使得他们的生命周期一致. 否则会出现 使用值 和 值的引用 同时出现, 最终所有权转移 和 借用一起发生</p>
 </li>
 <li>
 <p>If a key is removed (there is a delete tombstone), do you need to return it to the user? Where did you handle this logic?</p>
