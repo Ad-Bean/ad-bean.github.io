@@ -4,7 +4,15 @@
         <link>https://ad-bean.github.io/tags/lsm/</link>
         <description>LSM - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 22 Mar 2024 14:04:33 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/lsm/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 23 Mar 2024 16:51:28 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/lsm/" rel="self" type="application/rss+xml" /><item>
+    <title>Mini-LSM Week 1 Da2</title>
+    <link>https://ad-bean.github.io/posts/minilsm-2/</link>
+    <pubDate>Sat, 23 Mar 2024 16:51:28 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/minilsm-2/</guid>
+    <description><![CDATA[Mini-LSM Week 1 Day2 Week1 Day2 的内容，实现 Merge Iterator https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html Merge Iterator 本次需要实现： Memtable Iterator Merge Iterator LSM read path scan for memtables Task1: Memtable Iterator 修改 src/mem_table.rs，实现 scan 接口，在一组 key-value pairs 上创建]]></description>
+</item>
+<item>
     <title>Mini-LSM Week 1 Day1</title>
     <link>https://ad-bean.github.io/posts/minilsm-1/</link>
     <pubDate>Fri, 22 Mar 2024 14:04:33 -0400</pubDate>

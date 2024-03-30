@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mini-LSM Week 1 Da2 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:title" content="Mini-LSM Week 1 Da2" />
+<meta property="og:description" content="Mini-LSM Week 1 Day2 Week1 Day2 的内容，实现 Merge Iterator https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html Merge Iterator 本次需要实现： Memtable Iterator Merge Iterator LSM read path scan for memtables Task1: Memtable Iterator 修改 src/mem_table.rs，实现 scan 接口，在一组 key-value pairs 上创建" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ad-bean.github.io/posts/minilsm-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-23T16:51:28-04:00" />
+<meta property="article:modified_time" content="2024-03-23T16:51:28-04:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Mini-LSM Week 1 Da2"/>
+<meta name="twitter:description" content="Mini-LSM Week 1 Day2 Week1 Day2 的内容，实现 Merge Iterator https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html Merge Iterator 本次需要实现： Memtable Iterator Merge Iterator LSM read path scan for memtables Task1: Memtable Iterator 修改 src/mem_table.rs，实现 scan 接口，在一组 key-value pairs 上创建"/>
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/minilsm-2/" /><link rel="prev" href="https://ad-bean.github.io/posts/minilsm-1/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mini-LSM Week 1 Da2",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/minilsm-2\/"
+        },"genre": "posts","keywords": "Database, LSM","wordcount":  4537 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/minilsm-2\/","datePublished": "2024-03-23T16:51:28-04:00","dateModified": "2024-03-23T16:51:28-04:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mini-LSM Week 1 Da2</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-23">2024-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4537 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mini-lsm-week-1-day2">Mini-LSM Week 1 Day2</a></li>
+    <li><a href="#merge-iterator">Merge Iterator</a></li>
+    <li><a href="#task1-memtable-iterator">Task1: Memtable Iterator</a></li>
+    <li><a href="#task1-solution">Task1: Solution</a></li>
+    <li><a href="#task2-merge-iterator">Task2: Merge Iterator</a></li>
+    <li><a href="#task2-solution">Task2: Solution</a></li>
+    <li><a href="#task3-lsm-iterator--fused-iterator">Task3: LSM Iterator + Fused Iterator</a></li>
+    <li><a href="#task3-solution">Task3: Solution</a></li>
+    <li><a href="#task4-read-path---scan">Task4: Read Path - Scan</a></li>
+    <li><a href="#task4-solution">Task4: Solution</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="mini-lsm-week-1-day2">Mini-LSM Week 1 Day2</h2>
+<p>Week1 Day2 的内容，实现 Merge Iterator</p>
+<p><a href="https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html" target="_blank" rel="noopener noreffer ">https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html</a></p>
+<h2 id="merge-iterator">Merge Iterator</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png"
+        data-srcset="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png, https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png 1.5x, https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png"
+        title="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png" /></p>
+<p>本次需要实现：</p>
+<ul>
+<li>Memtable Iterator</li>
+<li>Merge Iterator</li>
+<li>LSM read path <code>scan</code> for memtables</li>
+</ul>
+<h2 id="task1-memtable-iterator">Task1: Memtable Iterator</h2>
+<p>修改 <code>src/mem_table.rs</code>，实现 <code>scan</code> 接口，在一组 key-value pairs 上创建 iterator API 来迭代。在上一节已经实现了 <code>get</code> 和创建 immutable memtable 的逻辑，此时 LSM state 有多个 memtables。所以 <code>scan</code> 需要在一个 memtable 上创建 iterator，然后在所有 memtables 上创建一个 merge iterator</p>
+<p>所有 LSM iterators 在 <code>lsm_iterator.rs</code> 中的 <code>StorageIterator</code> 特征，有四个函数 <code>key</code>, <code>value</code>, <code>next</code> 和 <code>is_valid</code>。当 iterator 创建后，cursor 会停在某些元素，<code>key/value</code> 会返回 memtable/block/SST 中的第一个满足 start condition 的 key，比如 start key。这两个接口会返回 <code>&amp;[u8]</code> 引用类型防止 copy。本节的 iterator interface 和 Rust iterator 不太一样。</p>
+<p><code>next</code> 将 cursor 移动到下一个元素，<code>is_valid</code> 检查 iterator 是否终止或者发生错误。可以假设 <code>next</code> 会在 <code>is_valid</code> 返回成功时才会被调用。<code>FusedIterator</code> 是一个 wrapper 包含了所有的 iterator，会防止不正确的 <code>next</code> 调用，比如 not valid。</p>
+<p>回到 memtable iterator, 这个结构体没有任何生命周期。如果你创建了一个 <code>Vec&lt;u64&gt;</code> 并且调用 <code>vec.iter()</code>，这个 iterator 类型会是 <code>VecIterator&lt;'a&gt;</code> 表示 vec 的生命周期。同样地，<code>SkipMap</code> 也是一样的，<code>iter</code> 接口返回一个带生命周期的 iterator。但是，在 Mini LSM 中，我们不希望这样的生命周期出现在迭代器中，使得整个系统变得过分复杂和难以编译。</p>
+<p>如果迭代器没有生命周期参数 lifetime generics parameter，我们应该保证不管什么时候用 iterator，底层的 skiplist 都不应该被释放。这样的唯一做法是将 <code>Arc&lt;SkipMap&gt;</code> 对象放到 iterator 本身：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MemetableIteraotr</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;</span><span class="o">???&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>题外话，为什么有些语言的 struct 用逗号分隔，有些用分号，有些用换行呢？写多了会不会混淆</p>
+</blockquote>
+<p>此时有新的问题：我们想表示 <code>iterator</code> 的生命周期和 <code>map</code> 是一样的，应该怎么做？</p>
+<p>这是 Mini LSM 中最 tricky 的 Rust 技巧：<code>self-referential</code> 结构：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MemtableIterator</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// &lt;- with lifetime &#39;this
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;this</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>这样就解决了问题，也可以用第三方库 <code>ouroboros</code> 来解决这个问题，它提供了一个简单的方法定义 <code>self-referential</code> 结构，也可以用 unsafe Rust 来解决（<code>ouroboros</code> 就是用 unsafe Rust 实现的）</p>
+<p>教程已经定义了 <code>self-referential</code> <code>MemtableIterator</code>，只需要实现 <code>MemtableIterator</code> 和 <code>Memtable::scan</code> 接口：</p>
+<h2 id="task1-solution">Task1: Solution</h2>
+<p>观察 <code>Memtable::scan</code> 函数，<code>pub fn scan(&amp;self, _lower: Bound&lt;&amp;[u8]&gt;, _upper: Bound&lt;&amp;[u8]&gt;) -&gt; MemTableIterator</code>，其中 <code>lower</code> 和 <code>upper</code> 属于 <code>Bound</code> 类型，表示一个范围的 keys（左闭右开），比如 <code>(1..12).start_bound(), Included(&amp;1)</code>, <code>(1..12).end_bound(), Excluded(&amp;12)</code>。<code>BTreeMap</code> 通过 <code>map.range((Excluded(3), Included(8)))</code> 来获取 <code>(3, 8]</code> 范围内的 key-value。所以对于 memtable 的 scan，应该获取 <code>[lower, upper]</code> 的起始迭代器：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="sd">/// Get an iterator over a range of keys.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">scan</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">lower</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">upper</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MemTableIterator</span>::<span class="n">new</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span><span class="w">                                      </span><span class="c1">// Arc&lt;SkipMap&lt;Bytes, Bytes&gt;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="o">|</span><span class="n">map</span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="n">range</span><span class="p">((</span><span class="n">map_bound</span><span class="p">(</span><span class="n">lower</span><span class="p">),</span><span class="w"> </span><span class="n">map_bound</span><span class="p">(</span><span class="n">upper</span><span class="p">))),</span><span class="w"> </span><span class="c1">// iter FnOnce
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="p">(</span><span class="n">Bytes</span>::<span class="n">new</span><span class="p">(),</span><span class="w"> </span><span class="n">Bytes</span>::<span class="n">new</span><span class="p">()),</span><span class="w">                          </span><span class="c1">// Stores the key-value pair.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>调用 <code>MemTableIterator::new</code> 新建一个 MemTableIterator，其结构体为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">crossbeam_skiplist</span>::<span class="n">map</span>::<span class="n">Range</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">Bound</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Bound</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;</span><span class="p">),</span><span class="w"> </span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[self_referencing]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// Stores a reference to the skipmap.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// Stores a skipmap iterator that refers to the lifetime of `MemTableIterator` itself.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="cp">#[borrows(map)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[not_covariant]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;this</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// Stores the current key-value pair.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="n">item</span>: <span class="p">(</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>这一个结构体令 Rust 初学的我非常懵，尤其是 <code>#[borrows(map)]</code> 找了很久没有找到在哪，而且 <code>iter</code> 我以为传入一个结构体，但实际上应该传入一个函数闭包，这个函数闭包的返回类型是 <code>Range</code>。所以第一个参数是一个 Arc 变量 <code>self.map.clone()</code> 返回当前的 map。第二个参数是 <code>|map| map.range((map_bound(lower), map_bound(upper)))</code>，本身其实是一个 iter，可以调用 next 等等，然后是 <code>item</code> 用于存当前的 key-value 对。创建完成后需要调用一次 <code>iter.next().unwrap()</code> 走到第一个 Range，然后返回。</p>
+<p>然后为 <code>MemTableIterator</code> 实现 <code>StorageIterator</code> 特征，具有 <code>value</code>, <code>key</code>, <code>is_valid</code> 和 <code>next</code> 接口：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">StorageIterator</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">type</span> <span class="nc">KeyType</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KeySlice</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">borrow_item</span><span class="p">().</span><span class="mf">1.</span><span class="n">chunk</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">key</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">KeySlice</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">KeySlice</span>::<span class="n">from_slice</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">borrow_item</span><span class="p">().</span><span class="mf">0.</span><span class="n">chunk</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="o">!&amp;</span><span class="bp">self</span><span class="p">.</span><span class="n">borrow_item</span><span class="p">().</span><span class="mf">0.</span><span class="n">is_empty</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">with_iter_mut</span><span class="p">(</span><span class="o">|</span><span class="n">iter</span><span class="o">|</span><span class="w"> </span><span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entry</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">en</span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">.</span><span class="n">key</span><span class="p">().</span><span class="n">clone</span><span class="p">(),</span><span class="w"> </span><span class="n">en</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">clone</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">with_mut</span><span class="p">(</span><span class="o">|</span><span class="n">iter</span><span class="o">|</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">.</span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">unwrap_or_default</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>这里的 <code>&amp;self.borrow_item()</code> 表示借用当前的 item，所以是引用，并且用 <code>.chunk()</code> 将 <code>Bytes</code> 转成 <code>&amp;[u8]</code> 类型，<code>value</code>, <code>key</code> 和 <code>is_valid</code> 接口实现都很类似。</p>
+<p>而 <code>next</code> 实现起来比较麻烦，大致思路是先通过 iter 得到下一个 Entry，然后将其值转成 <code>(Bytes, Bytes)</code> 类型然后赋给当前 <code>self.item</code>，同时修改本体所以需要用 <code>self.with_mut()</code></p>
+<p>此时调用 <code>cargo x scheck</code> 可以通过前两个测试</p>
+<h2 id="task2-merge-iterator">Task2: Merge Iterator</h2>
+<p>本节需要修改 <code>src/iterators/merge_iterator.rs</code>。</p>
+<p>现在你已经有多个 memtables，你需要创建多个 memtable iterators，并且需要 merge 所有 memtables 返回的结果，并且每个 key 对应最新的结果。</p>
+<p><code>MergeIterator</code> 维护一个 binary heap，你需要处理错误（比如当 iterator not valid 时），并且需要保证 key-value 对是最新的，比如：</p>
+<pre tabindex="0"><code>iter1: b-&gt;del, c-&gt;4, d-&gt;5
+iter2: a-&gt;1, b-&gt;2, c-&gt;3
+iter3: e-&gt;4
+</code></pre><p>merge iterator 返回的结果应该是：</p>
+<pre tabindex="0"><code>a-&gt;1, b-&gt;del, c-&gt;4, d-&gt;5, e-&gt;4
+</code></pre><p>MergeIterator 的构造器 constructor 接受一个 vector of iterators 参数，假设 index 小的是新的。</p>
+<p>但是错误处理有个陷阱，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">inner_iter</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iters</span><span class="p">.</span><span class="n">peek_mut</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">inner_iter</span><span class="p">.</span><span class="n">next</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>如果 <code>next</code> 返回了错误（disk failure, network failure, checksum error, etc），但是当跳出了 if 条件并且返回错误给调用者时，<code>PeekMut</code> 的结果会移动 heap 里的元素，导致访问到 invalid iterator。所以，需要额外的错误处理，而不是使用在 <code>PeekMut</code> 范围里用 <code>?</code>。</p>
+<p>我们想避免尽可能 <code>dynamic dispatch</code>，所以我们不使用 <code>Box&lt;dynStorageIterator&gt;</code>。反而使用静态的分发，使用泛型，并且 <code>StorageIterator</code> 使用了 <code>generic associated type (GAT)</code>，所以它可以支持 <code>KeySlice</code> 和 <code>&amp;[u8]</code> 同时作为 key 的类型。我们会在将来的作业改变 <code>KeySlice</code> 使其包含 timestamp。</p>
+<blockquote>
+<p>Rust 中的动态分发，比如 Trait Objects，类似虚继承？</p>
+<p>Generic Associated Type GAT 指的是通用关联类型，可以使得关联类型依赖于 trait 方法</p>
+<p>比如 <code>trait Processor{ type Output&lt;'a&gt;; fn process&lt;'a&gt;(&amp;self, data: &amp;a str) -&gt; Self::Output&lt;'a&gt;; }</code> 在 <code>impl</code> 时再指定 type 是什么。</p>
+</blockquote>
+<p>为了开始本节，我们会使用 <code>Key&lt;T&gt;</code> 表示 LSM key 的类型，并且区分它的值类型。你应该使用 <code>Key&lt;T&gt;</code> 提供的接口而不是直接访问其内部值。我们会为这个 key 添加时间戳，并用这个 key abstraction 过渡会比较顺利。所以目前 <code>KeySlice</code> 和 <code>&amp;[u8]</code> 是一样的，<code>KeyVec</code> 和 <code>Vec&lt;u8&gt;</code> 一样，<code>KeyBates</code> 和 <code>Bytes</code> 也是一样的。</p>
+<h2 id="task2-solution">Task2: Solution</h2>
+<p>这一节主要实现 <code>src/iterators/merge_iterators</code> 中的 <code>MergeIterator::key</code>,<code>MergeIterator::value</code>, <code>MergeIterator::is_valid</code> 和 <code>MergeIterator::next</code>，并且实现 <code>MergeIterator::create</code></p>
+<p>首先是 <code>MergeIterator::create</code>，接受一个 iters 数组，需要将 <code>iters: Vec&lt;Box&lt;I&gt;&gt;</code> 转换成 <code>BinaryHeap&lt;HeapWrapper&lt;I&gt;, Global&gt;</code>，即优先队列 / 堆 / 完全二叉树，教程已经实现了 <code>HeapWrapper</code> 的比较特征，所以只需要将 <code>iters</code> 遍历一遍，并且入堆。</p>
+<p>比如传入 <code>[[(&quot;a&quot;, 1), (&quot;b&quot;, 2), (&quot;c&quot;, 3)], [(&quot;a&quot;, 1.2), (&quot;d&quot;, 4)]]</code> 这样的数组，先实现 <code>MergeIterator::create</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span>: <span class="nc">StorageIterator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">MergeIterator</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">create</span><span class="p">(</span><span class="n">iters</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">heap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BinaryHeap</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">iters</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">iters</span>: <span class="nc">heap</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">current</span>: <span class="nb">None</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iter</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">iters</span><span class="p">.</span><span class="n">into_iter</span><span class="p">().</span><span class="n">enumerate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">iter</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">HeapWrapper</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">iter</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">iters</span>: <span class="nc">heap</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">current</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>先检查 <code>iters.is_empty()</code> 传入的数组是否为空，然后遍历 <code>iters</code> 数组，使用 <code>into_iter()</code> 消耗原数组，转移所有权，然后 <code>enumerate()</code> 遍历，需要检查 <code>iter.key()</code> 是否是空的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">key</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">KeySlice</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="mf">1.</span><span class="n">key</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="mf">1.</span><span class="n">value</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">current</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">as_ref</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="mf">1.</span><span class="n">is_valid</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">unwrap_or</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><code>key</code>, <code>value</code>, <code>is_valid</code> 接口不再重述，但需要注意用 <code>as_ref()</code> 取得引用。<code>next</code> 的实现比较绕，因为对于 <code>MergeIterator</code>，有时候前面的 key 会小于堆顶的 key，所以需要进行交换：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">as_mut</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">iter</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iters</span><span class="p">.</span><span class="n">peek_mut</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">iter</span><span class="p">.</span><span class="mf">1.</span><span class="n">key</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">current</span><span class="p">.</span><span class="mf">1.</span><span class="n">key</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter</span><span class="p">.</span><span class="mf">1.</span><span class="n">next</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">PeekMut</span>::<span class="n">pop</span><span class="p">(</span><span class="n">iter</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">iter</span><span class="p">.</span><span class="mf">1.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">PeekMut</span>::<span class="n">pop</span><span class="p">(</span><span class="n">iter</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">current</span><span class="p">.</span><span class="mf">1.</span><span class="n">next</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">current</span><span class="p">.</span><span class="mf">1.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iters</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="o">*</span><span class="n">current</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iter</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// if the current key is smaller, swap it with the top of the heap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="c1">// e.g. current &#34;e&#34; 101 &lt; heap top iter key &#34;d&#34; 100
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="c1">// PartialOrd for HeapWrapper will reverse the ordering
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="c1">// so that the top of the heap is the smallest key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">iter</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iters</span><span class="p">.</span><span class="n">peek_mut</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="n">iter</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">current</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="o">*</span><span class="n">iter</span><span class="p">,</span><span class="w"> </span><span class="n">current</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>首先是用 <code>while</code> 循环检查当前堆顶的 <code>iter.1.key()</code> 如果和当前的 <code>current.1.key()</code> 相同，则应该以 <code>current</code> 为准（最新版本），并且调用 <code>iter.1.next()</code> 走到下一个 <code>key</code>。</p>
+<p>然后使用 <code>current.1.next()</code> 走到下一个 <code>key</code>，但此时就要处理新版本中的 <code>key</code> 实际小于 <code>iters.peek_mut()</code> 时的情况，但由于为了实现堆，<code>HeapWrapper</code> 重载了 <code>PartialOrd</code> 并反转了结果，所以堆顶的 key 是小的，那么比较堆顶 <code>iter</code> 和 <code>current</code> 就需要反过来。</p>
+<h2 id="task3-lsm-iterator--fused-iterator">Task3: LSM Iterator + Fused Iterator</h2>
+<p>本节需要修改 <code>src/lsm_iterator.rs</code></p>
+<p>我们使用 <code>LsmIterator</code> 结构表示 LSM 内部的 iterators，在整个 LSM 教程中，会有多个 iterators 被加进系统，所以你需要多次修改这个结构。现在由于只有多个 memtables 所以定义为</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">type</span> <span class="nc">LsmIteratorInner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MergeIterator</span><span class="o">&lt;</span><span class="n">MemTableIterator</span><span class="o">&gt;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>你可以提前实现 <code>LsmIterator</code> 结构，调用 inner iterator 并且跳过 deleted keys.</p>
+<p>但本节不测试 <code>LsmIterator</code>，但会在下一节任务 Task4 有个 integration 整合。</p>
+<p>我们想提供额外的安全性，防止用户用错 iterators。在 iterator not valid 时用户不应该调用 <code>key</code> <code>value</code> 或 <code>next</code> 接口。同时，当 <code>next</code> 返回错误时，用户不应该再使用这个 iterator。<code>FusedIterator</code> 是一个 iterator wrapper 用于 normalize 规范化所有 iterators 的行为。</p>
+<h2 id="task3-solution">Task3: Solution</h2>
+<p>观察 <code>FusedIterator</code>，它包含了一个 iter 和一个 bool 字段表示是否是错误的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">FusedIterator</span><span class="o">&lt;</span><span class="n">I</span>: <span class="nc">StorageIterator</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">I</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">has_errored</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>本节需要实现 <code>FusedIterator::is_valid</code>, <code>FusedIterator::key</code>, <code>FusedIterator::value</code>, <code>FusedIterator::next</code>，同时保证如果 <code>!self.is_valid()</code> 就应该 <code>panic</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span>: <span class="nc">StorageIterator</span><span class="o">&gt;</span><span class="w"> </span><span class="n">StorageIterator</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">FusedIterator</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">type</span> <span class="nc">KeyType</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">I</span>::<span class="n">KeyType</span><span class="o">&lt;</span><span class="na">&#39;a</span><span class="o">&gt;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="bp">Self</span>: <span class="na">&#39;a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">is_valid</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// first check if the iterator has errored
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="c1">// iter.is_valid() may iter to next
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="o">!</span><span class="bp">self</span><span class="p">.</span><span class="n">has_errored</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iter</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">key</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Self</span>::<span class="n">KeyType</span><span class="o">&lt;</span><span class="nb">&#39;_</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="bp">self</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="fm">panic!</span><span class="p">(</span><span class="s">&#34;called key on invalid iterator&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">iter</span><span class="p">.</span><span class="n">key</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="bp">self</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="fm">panic!</span><span class="p">(</span><span class="s">&#34;called value on invalid iterator&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">iter</span><span class="p">.</span><span class="n">value</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">has_errored</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">anyhow</span>::<span class="fm">anyhow!</span><span class="p">(</span><span class="s">&#34;called next on invalid iterator&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iter</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">let</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="bp">self</span><span class="p">.</span><span class="n">has_errored</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>逻辑比较简单，但 <code>is_valid()</code> 最好是先检查 <code>self.has_errored</code>，不然先调用 <code>iter.is_valid()</code> 可能会走 <code>next</code> 导致 index 不对</p>
+<h2 id="task4-read-path---scan">Task4: Read Path - Scan</h2>
+<p>本节任务需要修改 <code>src/lsm_storage.rs</code></p>
+<p>当所有 iterators 实现后，你就可以实现 LSM 引擎 <code>scan</code> 接口了。你可以简单地创建一个 LSM iterator 和 memtable iterator（记得在 merge iterator 最前面放最新的 memtable ），此时你的 存储引擎就可以做 scan 扫描请求了。</p>
+<h2 id="task4-solution">Task4: Solution</h2>
+<p>结合 Day1 和 Day2，从实现 memtable 和 memtable iterator，到多个 memtables 和多个 iterators，现在需要将这些 memtable iterators 结合起来，实现一个扫描方法，回顾单个 <code>Memtable::scan</code>，接受一个 <code>lower</code> 和 <code>upper</code> 参数，返回一个 <code>MemtableIterator</code> 迭代器，包含满足 <code>(lower, upper)</code> 的键值对：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="sd">/// Get an iterator over a range of keys.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">scan</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">lower</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">upper</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MemTableIterator</span>::<span class="n">new</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span><span class="w">                                      </span><span class="c1">// Arc&lt;SkipMap&lt;Bytes, Bytes&gt;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="o">|</span><span class="n">map</span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="n">range</span><span class="p">((</span><span class="n">map_bound</span><span class="p">(</span><span class="n">lower</span><span class="p">),</span><span class="w"> </span><span class="n">map_bound</span><span class="p">(</span><span class="n">upper</span><span class="p">))),</span><span class="w"> </span><span class="c1">// iter FnOnce
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">        </span><span class="p">(</span><span class="n">Bytes</span>::<span class="n">new</span><span class="p">(),</span><span class="w"> </span><span class="n">Bytes</span>::<span class="n">new</span><span class="p">()),</span><span class="w">                          </span><span class="c1">// Stores the key-value pair.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span><span class="p">.</span><span class="n">next</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>同理，<code>LsmStorageInner</code> 也是接受一个 <code>lower</code> 和 <code>upper</code> 参数，返回一个 <code>FusedIterator&lt;LsmIterator&gt;</code> 融合的迭代器。</p>
+<p>具体地，需要先拿出所有 memtables iterators，创建一个数组存储这些 <code>MemtableIterator</code>，先存入最新的 <code>memtable</code> 然后推入后面的 <code>imm_memtables</code>，并使用 <code>MergeIterator::create()</code> 创建 MergeIterator 之后创建 FusedIterator</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">scan</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">lower</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">upper</span>: <span class="nc">Bound</span><span class="o">&lt;&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">]</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">FusedIterator</span><span class="o">&lt;</span><span class="n">LsmIterator</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">memtable_iters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Vec</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">memtable_iters</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="nb">Box</span>::<span class="n">new</span><span class="p">(</span><span class="n">guard</span><span class="p">.</span><span class="n">memtable</span><span class="p">.</span><span class="n">scan</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="n">upper</span><span class="p">)));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">memtable</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">guard</span><span class="p">.</span><span class="n">imm_memtables</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">memtable_iters</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="nb">Box</span>::<span class="n">new</span><span class="p">(</span><span class="n">memtable</span><span class="p">.</span><span class="n">scan</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="n">upper</span><span class="p">)));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">memtable_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MergeIterator</span>::<span class="n">create</span><span class="p">(</span><span class="n">memtable_iters</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">drop</span><span class="p">(</span><span class="n">guard</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">FusedIterator</span>::<span class="n">new</span><span class="p">(</span><span class="n">LsmIterator</span>::<span class="n">new</span><span class="p">(</span><span class="n">memtable_iter</span><span class="p">)</span><span class="o">?</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>但我的实现方法锁粒度大，checkpoint 使用了 <code>Arc::clone(&amp;guard)</code> 克隆了一个原子变量，这样临界区小，可以立刻释放锁还保证了每个线程都能读到一样的 snapshot：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">guard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Arc</span>::<span class="n">clone</span><span class="p">(</span><span class="o">&amp;</span><span class="n">guard</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">};</span><span class="w"> </span><span class="c1">// drop global lock here
+</span></span></span></code></pre></div><p>但此时还无法通过测试，观察测试可以发现，<code>LsmStorageInner</code> 在 <code>delete</code> 某个 key 后，我的实现方法无法将其忽略掉，所以要重新考虑得到一个 <code>LsmIterator</code> 迭代器后，如果 <code>next</code> 为空或者 deleted key，应该怎么做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="w"> </span><span class="n">LsmIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="p">(</span><span class="k">crate</span><span class="p">)</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">iter</span>: <span class="nc">LsmIteratorInner</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="bp">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">Self</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">inner</span>: <span class="nc">iter</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">iter</span><span class="p">.</span><span class="n">move_to_non_delete</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">LsmIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">fn</span> <span class="nf">move_to_non_delete</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">is_valid</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">next</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">StorageIterator</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">LsmIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">inner</span><span class="p">.</span><span class="n">next</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">move_to_non_delete</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>这里 <code>self.inner.next()</code> 逻辑不变，但新增一个函数判断经过 <code>next</code> 后当前 <code>self.is_empty</code>，如果是则继续迭代，同时还需要修改 <code>new()</code> 因为新建 <code>LsmIterator</code> 时候也可能传入带有删除键的 <code>LsmIteratorInner</code> （测试就是这样做的）</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>这次写下来比较吃力，一方面对 Rust 语法不太熟悉，尤其是类型不太懂。另一方面是对 MVCC 和多线程并发如何在 Rust 中实现还没有好的理解，需要看一下 Rust 多线程编程的一些例子。</p>
+<ul>
+<li>
+<p>What is the time/space complexity of using your merge iterator?</p>
+<p>Merge Iterator 时间复杂度看上去是 O(log N * M)，N 个 memtable，每个大小 M，空间复杂度则应该是 O(N * M)</p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>Why do we need a self-referential structure for memtable iterator?</p>
+<p>自引用，就像链表一样 <code>Node {Node* next}</code>，在 <code>mem_table.rs</code> 中有</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="cp">#[self_referencing]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MemTableIterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="n">map</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">SkipMap</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="p">,</span><span class="w"> </span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="sd">/// Stores a skipmap iterator that refers to the lifetime of `MemTableIterator` itself.
+</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w">    </span><span class="cp">#[borrows(map)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[not_covariant]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">iter</span>: <span class="nc">SkipMapRangeIter</span><span class="o">&lt;</span><span class="na">&#39;this</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>就是教程中说的，为了标记 <code>MemtableIterator</code> 的生命周期和 <code>map</code> 一致, 结合 <code>&lt;'this&gt;</code> 与 <code>self_referencing</code> 使得他们的生命周期一致.</p>
+</li>
+<li>
+<p>If a key is removed (there is a delete tombstone), do you need to return it to the user? Where did you handle this logic?</p>
+<p>这里参考了 checkpoint 的实现, 跳过了 deleted key, 没有返回给用户</p>
+</li>
+<li>
+<p>If we want to get rid of self-referential structure and have a lifetime on the memtable iterator (i.e., MemtableIterator&lt;&lsquo;a&gt;, where &lsquo;a = memtable or LsmStorageInner lifetime), is it still possible to implement the scan functionality?</p>
+</li>
+<li>
+<p>What happens if (1) we create an iterator on the skiplist memtable (2) someone inserts new keys into the memtable (3) will the iterator see the new key?</p>
+</li>
+<li>
+<p>What happens if your key comparator cannot give the binary heap implementation a stable order?</p>
+</li>
+<li>
+<p>Why do we need to ensure the merge iterator returns data in the iterator construction order?</p>
+</li>
+<li>
+<p>Is it possible to implement a Rust-style iterator (i.e., next(&amp;self) -&gt; (Key, Value)) for LSM iterators? What are the pros/cons?</p>
+</li>
+<li>
+<p>The scan interface is like fn scan(&amp;self, lower: Bound&lt;&amp;[u8]&gt;, upper: Bound&lt;&amp;[u8]&gt;). How to make this API compatible with Rust-style range (i.e., key_a..key_b)? If you implement this, try to pass a full range .. to the interface and see what will happen.</p>
+</li>
+<li>
+<p>The starter code provides the merge iterator interface to store Box<!-- raw HTML omitted --> instead of I. What might be the reason behind that?</p>
+</li>
+</ol>
+<blockquote>
+<p>剩下的还是等写完全部有个具体概念回来再来补充</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-03-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/minilsm-2/" data-title="Mini-LSM Week 1 Da2" data-hashtags="Database,LSM"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/minilsm-2/" data-hashtag="Database"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/minilsm-2/" data-title="Mini-LSM Week 1 Da2"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/minilsm-2/" data-title="Mini-LSM Week 1 Da2"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/minilsm-2/" data-title="Mini-LSM Week 1 Da2"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/database/">Database</a>,&nbsp;<a href="../../tags/lsm/">LSM</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/minilsm-1/" class="prev" rel="prev" title="Mini-LSM Week 1 Day1"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Mini-LSM Week 1 Day1</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.121.1">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>
