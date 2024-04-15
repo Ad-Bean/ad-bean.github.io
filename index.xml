@@ -7,7 +7,7 @@
             <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 14 Apr 2024 14:19:15 -0400</lastBuildDate>
             <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications</title>
+    <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
     <link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
     <pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate>
     <author>Adbean</author>
@@ -39,7 +39,7 @@
     <description><![CDATA[MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems ABSTRACT Database management systems (DBMSs) are notoriously difficult to deploy and administer.self-driving DBMS is to remove these impediments by managing itself automatically predict the DBMS’s runtime behavior and resource consumption. ModelBot2 e2e framework for constructing and maintaining prediction models using machine learning (ML) in self-driving DBMSs. decomposes a DBMS]]></description>
 </item>
 <item>
-    <title>Mini-LSM Week 1 Da2</title>
+    <title>Mini-LSM Week 1 Day2</title>
     <link>https://ad-bean.github.io/posts/minilsm-2/</link>
     <pubDate>Sat, 23 Mar 2024 16:51:28 -0400</pubDate>
     <author>Adbean</author>
