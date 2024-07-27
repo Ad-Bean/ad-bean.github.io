@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>并发编程 - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</link>
+        <description>并发编程 - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 22 May 2024 15:28:22 &#43;0800</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>阅读：Go 并发编程实战 1-4</title>
+    <link>https://ad-bean.github.io/posts/go-concurrent-1/</link>
+    <pubDate>Wed, 22 May 2024 15:28:22 &#43;0800</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/go-concurrent-1/</guid>
+    <description><![CDATA[Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共]]></description>
+</item>
+</channel>
+</rss>

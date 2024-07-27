@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>阅读：Go 并发编程实战 1-4 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/go-concurrent-1/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="阅读：Go 并发编程实战 1-4">
+  <meta property="og:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-22T15:28:22+08:00">
+    <meta property="article:modified_time" content="2024-05-22T15:28:22+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="并发编程">
+    <meta property="article:tag" content="笔记">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="阅读：Go 并发编程实战 1-4">
+  <meta name="twitter:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/go-concurrent-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/catsql-nlsql/" /><link rel="next" href="https://ad-bean.github.io/posts/duckdb-2019/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "阅读：Go 并发编程实战 1-4",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/go-concurrent-1\/"
+        },"genre": "posts","keywords": "Go, 并发编程, 笔记","wordcount":  1940 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/go-concurrent-1\/","datePublished": "2024-05-22T15:28:22+08:00","dateModified": "2024-05-22T15:28:22+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读：Go 并发编程实战 1-4</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-22">2024-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1940 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go-并发编程实战">Go 并发编程实战</a></li>
+    <li><a href="#资源并发访问问题">资源并发访问问题</a>
+      <ul>
+        <li><a href="#互斥锁">互斥锁</a></li>
+        <li><a href="#race-detector">Race Detector</a></li>
+      </ul>
+    </li>
+    <li><a href="#mutex-实现原理">Mutex 实现原理</a>
+      <ul>
+        <li><a href="#state-字段">State 字段</a></li>
+        <li><a href="#自旋">自旋</a></li>
+        <li><a href="#饥饿模式正常模式">饥饿模式、正常模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#mutex-易错场景">Mutex 易错场景</a>
+      <ul>
+        <li><a href="#go-实现可重入锁">Go 实现可重入锁</a></li>
+        <li><a href="#流行项目-issues">流行项目 issues</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="go-并发编程实战">Go 并发编程实战</h2>
+<p><a href="https://time.geekbang.org/column/intro/100061801" target="_blank" rel="noopener noreffer ">https://time.geekbang.org/column/intro/100061801</a> 挺好的实战教程</p>
+<h2 id="资源并发访问问题">资源并发访问问题</h2>
+<p>使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？</p>
+<h3 id="互斥锁">互斥锁</h3>
+<p>临界区就是一个被共享的资源。为了避免竞争导致并发结果不对，可以使用互斥锁，限定临界区只能同时由一个线程持有，比如 Mutex 锁。</p>
+<h3 id="race-detector">Race Detector</h3>
+<p>Go race detector 基于 Google 的 C/C++ sanitizers 技术实现，在编译期检测对共享变量的非同步访问。</p>
+<h2 id="mutex-实现原理">Mutex 实现原理</h2>
+<p>最初的 Mutex 使用信号量控制 goroutine 的阻塞休眠和唤醒 + flag 字段标记是否持有锁（CAS 进行判断，0 未持有，1 锁被持有且无等待，n 锁被持有且有 n-1 个等待）</p>
+<p>Go 可以使用 defer 来释放锁</p>
+<p>初期的 Mutex 存在几个问题：排队请求锁需要上下文切换，性能不好</p>
+<h3 id="state-字段">State 字段</h3>
+<p>2011 年调整 Mutex 的 state 字段为 int32，第一位表示锁是否被持有，第二位表示唤醒的 goroutine，第三部分是阻塞等待的数量。</p>
+<h4 id="获取锁">获取锁</h4>
+<ol>
+<li>CAS 检测 state 是否为 0，是则 Swap 成 mutexLocked 状态 <code>atomic.CompareAndSwapInt32(&amp;m.state, 0, mutexLocked)</code> &mdash;&gt; Fast Path 获取锁</li>
+<li>检测旧状态并且加锁 <code>old | mutexLocked</code>，如果加锁失败则进入等待 <code>new = old + 1 &lt;&lt; mutexWaiterShift</code></li>
+<li>如果被唤醒则消除 mutexWoken 状态 <code>new &amp;^= mutexWoken</code></li>
+<li>CAS 旧状态进入新状态，如果未被加锁则继续循环，否则请求信号量唤醒。</li>
+</ol>
+<p>用位运算来判断状态。</p>
+<h4 id="释放锁">释放锁</h4>
+<ol>
+<li><code>atomic.AddInt32(&amp;m.state, -mutexLocked)</code> 去掉锁标志</li>
+<li>检测旧状态，如果没有等待者，则退出</li>
+<li>如果有等待者，设置唤醒标志</li>
+</ol>
+<p>注：Unlock 方法可以被任意的 goroutine 调用释放锁，即使是没持有这个互斥锁的 goroutine，也可以进行这个操作。Mutex 本身并没有包含持有这把锁的 goroutine 的信息，所以，Unlock 也不会对此进行检查。Mutex 的这个设计一直保持至今。</p>
+<h3 id="自旋">自旋</h3>
+<p>在 2011 年的基础上，不论是新来的 goroutine 还是被唤醒的，都会尝试请求锁且可以自旋 <code>runtime.canSpin(iter)</code> 缓解了饥饿问题。</p>
+<p>目前的 Mutex 源码非常复杂 <a href="https://go.dev/src/sync/mutex.go" target="_blank" rel="noopener noreffer ">mutex.go</a> 分成了 LockFast 和 LockSlow，也加入了超时的一些判断，都在解决饥饿问题。</p>
+<h3 id="饥饿模式正常模式">饥饿模式、正常模式</h3>
+<p>被唤醒的 goroutine 和新来的 goroutine 需要竞争，会导致饥饿产生。如果 waiter 获取不到锁的时间超过了阈值（1ms），Mutex 进入饥饿模式。</p>
+<ul>
+<li>饥饿模式：Mutex 拥有者会直接把锁交给队列最前面的等待者，新来的 goroutine 不会尝试获取锁，不自旋，加入等待队列尾部。</li>
+<li>正常模式：如果 waiter 已经是队列最后一个，没有其他等待锁的 goroutine，或者 waiter 等待时间小于阈值（1ms）。</li>
+</ul>
+<p>正常模式具有更好的性能。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mutexLocked</span>           <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="kc">iota</span> <span class="c1">// iota 0, 1 &lt;&lt; 0 = 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexWoken</span>                        <span class="c1">// iota 1, 1 &lt;&lt; 1 = 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexStarving</span>                     <span class="c1">// iota 2, 1 &lt;&lt; 2 = 4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexWaiterShift</span>      <span class="p">=</span> <span class="kc">iota</span>      <span class="c1">// iota 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">starvationThresholdNs</span> <span class="p">=</span> <span class="mf">1e6</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div><p>这种用法是 Constant declarations</p>
+<h2 id="mutex-易错场景">Mutex 易错场景</h2>
+<ol>
+<li>Lock/Unlock 不是成对出现，会产生死锁，或 Unlock 一个未加锁的 Mutex 而导致 panic。（太多 if-else/重构/误写/&hellip;）</li>
+<li>重入，Java 中有 ReentrantLock 可重入锁，而 Mutex 是不可重入锁。 Lock() 之后不可以再 Lock()。</li>
+<li>死锁，避免死锁的四个条件：互斥、拥有和等待、不可剥夺、环路等待。Go 运行时有死锁检测功能</li>
+<li>Copy 已使用的 Mutex，sync 库的同步原语在使用后是不能复制的（Mutex 是有状态的对象，state 记录锁状态），复制使用后的 Mutex 会直接加锁。避免值拷贝传入函数参数，go vet 可以检测这种情况，使用 copylock 分析器静态分析。</li>
+</ol>
+<h3 id="go-实现可重入锁">Go 实现可重入锁</h3>
+<p>锁需要记住当前是哪个 goroutine 持有该锁</p>
+<h4 id="goroutine-id">goroutine id</h4>
+<p>通过 <code>runtime.Stack</code> 获取栈帧信息和 goroutine id，比如 <code>goroutine 1 [running]</code> 通过字符串处理得到 goroutine id。或者直接调用 <code>petermattis/goid</code> 等第三方库。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">RecursiveMutex</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">owner</span>     <span class="kt">int64</span> <span class="c1">// 当前持有锁的 goroutine id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">recursion</span> <span class="kt">int32</span> <span class="c1">// 这个 goroutine 重入的次数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gid</span> <span class="o">:=</span> <span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span>    <span class="c1">// 如果当前持有锁的goroutine就是这次调用的goroutine,说明是重入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span> <span class="o">==</span> <span class="nx">gid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>    <span class="c1">// 获得锁的goroutine第一次调用，记录下它的goroutine id,调用次数加1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">gid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">gid</span> <span class="o">:=</span> <span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span>    <span class="c1">// 非持有锁的goroutine尝试释放锁，错误的使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">gid</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">gid</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>    <span class="c1">// 调用次数减1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 如果这个goroutine还没有完全释放，则直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>    <span class="c1">// 此goroutine最后一次调用，需要释放锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="token">Token</h4>
+<p>Go 开发者没有暴露 goroutine id，开发者可以自己提供 token</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">RecursiveMutex</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">token</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">recursion</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">(</span><span class="nx">token</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="o">==</span> <span class="nx">token</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">(</span><span class="nx">token</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">token</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">token</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>    <span class="c1">// 调用次数减1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 如果这个goroutine还没有完全释放，则直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>    <span class="c1">// 此goroutine最后一次调用，需要释放锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="流行项目-issues">流行项目 issues</h3>
+<h4 id="docker-moby">Docker (Moby)</h4>
+<p><a href="https://github.com/moby/moby/pull/36114/files" target="_blank" rel="noopener noreffer ">Moby #36114</a></p>
+<p><code>hotAddVHDsAtStart</code> 方法对 serviceVM 进行 VHD 的添加，并且会对 svm 加锁，如果添加 VHS 失败会调用 <code>hotRemoveVHDsAtStart</code> 方法去掉 VHD，而这个方法也进行了 svm.Lock()</p>
+<p>因为 Mutex 不可重入，会导致死锁，所以改成了 <code>hotRemoveVHDsNoLock</code> 不用锁的方法来移除 VHD。</p>
+<p><a href="https://github.com/moby/moby/pull/34881/files" target="_blank" rel="noopener noreffer ">Moby #34881</a> 这个 PR 在 if 判断后 return 却没有释放锁</p>
+<p>其他还有 36840、37583、35517、35482、33305、32826、30696、29554、29191、28912、26507 等 issues。</p>
+<h4 id="kubernetes">Kubernetes</h4>
+<p><a href="https://github.com/kubernetes/kubernetes/pull/45192/files?diff=split&amp;w=0" target="_blank" rel="noopener noreffer ">Kubernetes #45192</a> 忘记 Unlock 导致死锁</p>
+<p><a href="https://github.com/kubernetes/kubernetes/pull/72361/files?diff=split&amp;w=0" target="_blank" rel="noopener noreffer ">Kubernetes #72361</a> 使用 mutex 解决竞争问题</p>
+<p><a href="https://github.com/kubernetes/kubernetes/pull/71617/files?diff=split&amp;w=0" target="_blank" rel="noopener noreffer ">Kubernetes #71617</a> 使用 mutex 解决竞争问题</p>
+<p><a href="https://github.com/kubernetes/kubernetes/pull/70605/files?diff=split&amp;w=0" target="_blank" rel="noopener noreffer ">Kubernetes #70605</a> 使用 mutex 解决竞争问题</p>
+<h4 id="grpc-go">gRPC-go</h4>
+<p><a href="https://github.com/grpc/grpc-go/pull/795/files" target="_blank" rel="noopener noreffer ">gRPC-go #795</a> Unlock() 写错了？所以还是 defer unlock 合理。</p>
+<p><a href="https://github.com/grpc/grpc-go/pull/1318/files" target="_blank" rel="noopener noreffer ">gRPC-go #1318</a> 添加 Lock 防止 data races</p>
+<p><a href="https://github.com/grpc/grpc-go/pull/2074/files" target="_blank" rel="noopener noreffer ">gRPC-go #2074</a> 添加 Lock 防止 data races</p>
+<h4 id="etcd">etcd</h4>
+<p>Distributed reliable key-value store for the most critical data of a distributed system</p>
+<p><a href="https://github.com/etcd-io/etcd/pull/10419/files?diff=split" target="_blank" rel="noopener noreffer ">etcd #10419</a> etcd Compact 方法调用的时候，使用了 mu.Lock() 而 Store 方法也会调用</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-05-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/go-concurrent-1/" data-title="阅读：Go 并发编程实战 1-4" data-hashtags="Go,并发编程,笔记"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/go-concurrent-1/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/go-concurrent-1/" data-title="阅读：Go 并发编程实战 1-4"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/go-concurrent-1/" data-title="阅读：Go 并发编程实战 1-4"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/go-concurrent-1/" data-title="阅读：Go 并发编程实战 1-4"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/go/">Go</a>,&nbsp;<a href="../../tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/catsql-nlsql/" class="prev" rel="prev" title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</a>
+            <a href="../../posts/duckdb-2019/" class="next" rel="next" title="Paper Reading: DuckDB: an Embeddable Analytical Database">Paper Reading: DuckDB: an Embeddable Analytical Database<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"OKDXG1V1ML","algoliaIndex":"blog","algoliaSearchKey":"d36cbd4755f8bf0c3fc49bb46f4b8f8a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

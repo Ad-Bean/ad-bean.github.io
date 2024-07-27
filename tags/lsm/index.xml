@@ -4,7 +4,15 @@
         <link>https://ad-bean.github.io/tags/lsm/</link>
         <description>LSM - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 23 Mar 2024 16:51:28 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/lsm/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 27 Jul 2024 22:10:57 &#43;0800</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/lsm/" rel="self" type="application/rss+xml" /><item>
+    <title>Minilsm 3</title>
+    <link>https://ad-bean.github.io/posts/minilsm-3/</link>
+    <pubDate>Sat, 27 Jul 2024 22:10:57 &#43;0800</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/minilsm-3/</guid>
+    <description><![CDATA[Mini-LSM Week 1 Day3 ]]></description>
+</item>
+<item>
     <title>Mini-LSM Week 1 Day2</title>
     <link>https://ad-bean.github.io/posts/minilsm-2/</link>
     <pubDate>Sat, 23 Mar 2024 16:51:28 -0400</pubDate>

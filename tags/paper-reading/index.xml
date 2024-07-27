@@ -4,7 +4,15 @@
         <link>https://ad-bean.github.io/tags/paper-reading/</link>
         <description>Paper Reading - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 14 Apr 2024 14:19:15 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Fri, 07 Jun 2024 15:37:41 &#43;0800</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: DuckDB: an Embeddable Analytical Database</title>
+    <link>https://ad-bean.github.io/posts/duckdb-2019/</link>
+    <pubDate>Fri, 07 Jun 2024 15:37:41 &#43;0800</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/duckdb-2019/</guid>
+    <description><![CDATA[DuckDB: an Embeddable Analytical Database 读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。 ABSTRACT SQLite 应用很广，unobtrusive in-process data management 是有必要的，但目前没有系统做 这样的]]></description>
+</item>
+<item>
     <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
     <link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
     <pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate>
@@ -75,14 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/analyticdb-paper/</guid>
     <description><![CDATA[AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data ABSTRACT 随着非结构化数据的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数]]></description>
-</item>
-<item>
-    <title>Paper Reading: Milvus A Purpose-Built Vector Data Management System</title>
-    <link>https://ad-bean.github.io/posts/milvus-paper/</link>
-    <pubDate>Sun, 25 Feb 2024 10:08:12 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/milvus-paper/</guid>
-    <description><![CDATA[Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型]]></description>
 </item>
 </channel>
 </rss>
