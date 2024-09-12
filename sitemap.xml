@@ -2,13 +2,17 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ad-bean.github.io/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/dune-paper/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/exokernel-paper/</loc><lastmod>2024-09-11T01:28:36-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/scalability-cost/</loc><lastmod>2024-09-08T20:25:59-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/multikernel-os/</loc><lastmod>2024-09-08T16:25:59-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/tags/database/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/tags/lsm/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/minilsm-3/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-07-27T22:10:57&#43;08:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-06-07T15:37:41&#43;08:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/duckdb-2019/</loc><lastmod>2024-06-07T15:37:41&#43;08:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/tags/go/</loc><lastmod>2024-05-22T15:28:22&#43;08:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/</loc><lastmod>2024-05-22T15:28:22&#43;08:00</lastmod></url><url>
