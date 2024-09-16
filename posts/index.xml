@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 11 Sep 2024 09:10:07 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 16 Sep 2024 00:22:05 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: Arrakis</title>
+    <link>https://ad-bean.github.io/posts/paper-arrakis/</link>
+    <pubDate>Mon, 16 Sep 2024 00:22:05 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-arrakis/</guid>
+    <description><![CDATA[Arrakis: The Operating System is the Control Plane 和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。 同样是用虚拟化技]]></description>
+</item>
+<item>
+    <title>Paper Reading: IX: A Protected Dataplane Operating System</title>
+    <link>https://ad-bean.github.io/posts/ix-paper/</link>
+    <pubDate>Sun, 15 Sep 2024 14:47:50 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ix-paper/</guid>
+    <description><![CDATA[IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。 不得不说这类型的论文阅读起来太费劲了。 Abstract 传统]]></description>
+</item>
+<item>
     <title>Paper Reading: Dune</title>
     <link>https://ad-bean.github.io/posts/dune-paper/</link>
     <pubDate>Wed, 11 Sep 2024 09:10:07 -0400</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
     <description><![CDATA[CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。 ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。 本文提]]></description>
-</item>
-<item>
-    <title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
-    <link>https://ad-bean.github.io/posts/learned-sorting/</link>
-    <pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
-    <description><![CDATA[The Case for a Learned Sorting Algorithm 除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？ 论文作者中的 Tim Kraska 以及其团队，是 SageDB, Bao: Learned Query Optimization, Neo 的作者，此外还有 FITing-Tree 索引结构。 看了一下 Tim]]></description>
-</item>
-<item>
-    <title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
-    <link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
-    <pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
-    <description><![CDATA[An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。 ABSTRACT Modern database management systems (DBMS) expose dozens of configurable knobs that control their runtime behavior 与专家 DBA 相比，使用机]]></description>
 </item>
 </channel>
 </rss>
