@@ -2,11 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ad-bean.github.io/</loc><lastmod>2024-09-16T00:22:05-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-09-16T00:22:05-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/</loc><lastmod>2024-09-22T16:12:51-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-09-22T16:12:51-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/paper-prism/</loc><lastmod>2024-09-22T16:12:51-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-09-22T16:12:51-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-09-22T16:12:51-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/paper-xdp/</loc><lastmod>2024-09-18T00:00:33-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/paper-arrakis/</loc><lastmod>2024-09-16T00:22:05-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-09-16T00:22:05-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-09-16T00:22:05-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/ix-paper/</loc><lastmod>2024-09-15T14:47:50-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/dune-paper/</loc><lastmod>2024-09-11T09:10:07-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/exokernel-paper/</loc><lastmod>2024-09-11T01:28:36-04:00</lastmod></url><url>

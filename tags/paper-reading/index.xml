@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/tags/paper-reading/</link>
         <description>Paper Reading - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 16 Sep 2024 00:22:05 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 22 Sep 2024 16:12:51 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: Rethinking the RDMA Interface for Distributed Systems</title>
+    <link>https://ad-bean.github.io/posts/paper-prism/</link>
+    <pubDate>Sun, 22 Sep 2024 16:12:51 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-prism/</guid>
+    <description><![CDATA[Rethinking the RDMA Interface for Distributed Systems 对 RDMA 没什么了解 Linux 高性能网络详解：从 DPDK、RDMA 到 XDP，这本书看评价很不错，有机会可以看看 DMA: IO 设备比如网卡，需要从内存拿]]></description>
+</item>
+<item>
+    <title>Paper Reading: The eXpress Data Path</title>
+    <link>https://ad-bean.github.io/posts/paper-xdp/</link>
+    <pubDate>Wed, 18 Sep 2024 00:00:33 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-xdp/</guid>
+    <description><![CDATA[The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈]]></description>
+</item>
+<item>
     <title>Paper Reading: Arrakis</title>
     <link>https://ad-bean.github.io/posts/paper-arrakis/</link>
     <pubDate>Mon, 16 Sep 2024 00:22:05 -0400</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
     <description><![CDATA[CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。 ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。 本文提]]></description>
-</item>
-<item>
-    <title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
-    <link>https://ad-bean.github.io/posts/learned-sorting/</link>
-    <pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
-    <description><![CDATA[The Case for a Learned Sorting Algorithm 除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？ 论文作者中的 Tim Kraska 以及其团队，是 SageDB, Bao: Learned Query Optimization, Neo 的作者，此外还有 FITing-Tree 索引结构。 看了一下 Tim]]></description>
-</item>
-<item>
-    <title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
-    <link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
-    <pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
-    <description><![CDATA[An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。 ABSTRACT Modern database management systems (DBMS) expose dozens of configurable knobs that control their runtime behavior 与专家 DBA 相比，使用机]]></description>
 </item>
 </channel>
 </rss>

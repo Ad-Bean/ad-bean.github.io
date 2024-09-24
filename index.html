@@ -112,6 +112,16 @@
         alt="/avatar.png"
         title="/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/ad-bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yuxuan-liao-adbean" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="./posts/paper-prism/">Paper Reading: Rethinking the RDMA Interface for Distributed Systems</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-22">2024-09-22</time></span></div><div class="content">Rethinking the RDMA Interface for Distributed Systems 对 RDMA 没什么了解 Linux 高性能网络详解：从 DPDK、RDMA 到 XDP，这本书看评价很不错，有机会可以看看 DMA: IO 设备比如网卡，需要从内存拿</div><div class="post-footer">
+        <a href="./posts/paper-prism/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="./posts/paper-xdp/">Paper Reading: The eXpress Data Path</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-18">2024-09-18</time></span></div><div class="content">The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈</div><div class="post-footer">
+        <a href="./posts/paper-xdp/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="./posts/paper-arrakis/">Paper Reading: Arrakis</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-16">2024-09-16</time></span></div><div class="content">Arrakis: The Operating System is the Control Plane 和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。 同样是用虚拟化技</div><div class="post-footer">
         <a href="./posts/paper-arrakis/">阅读全文</a><div class="post-tags">
@@ -150,16 +160,6 @@
         <a href="./posts/duckdb-2019/">Paper Reading: DuckDB: an Embeddable Analytical Database</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-06-07">2024-06-07</time></span></div><div class="content">DuckDB: an Embeddable Analytical Database 读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。 ABSTRACT SQLite 应用很广，unobtrusive in-process data management 是有必要的，但目前没有系统做 这样的</div><div class="post-footer">
         <a href="./posts/duckdb-2019/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="./posts/go-concurrent-1/">阅读：Go 并发编程实战 1-4</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-05-22">2024-05-22</time></span></div><div class="content">Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共</div><div class="post-footer">
-        <a href="./posts/go-concurrent-1/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/go/">Go</a>,&nbsp;<a href="./tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="./tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="./posts/catsql-nlsql/">Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-14">2024-04-14</time></span></div><div class="content">CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。 ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。 本文提</div><div class="post-footer">
-        <a href="./posts/catsql-nlsql/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
