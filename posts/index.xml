@@ -4,7 +4,15 @@
         <link>https://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 22 Sep 2024 16:12:51 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 24 Sep 2024 23:02:58 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems</title>
+    <link>https://ad-bean.github.io/posts/paper-demikernel/</link>
+    <pubDate>Tue, 24 Sep 2024 23:02:58 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-demikernel/</guid>
+    <description><![CDATA[The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems Datacenter system 指的是 MPP 吗？ Github DemiKernel 好像最近还在更新 Abstract 数据中心系统和 I/O 设备现在以单位微秒的延迟运行，需要 ns 级别的操作系统。传统的基于内核的]]></description>
+</item>
+<item>
     <title>Paper Reading: Rethinking the RDMA Interface for Distributed Systems</title>
     <link>https://ad-bean.github.io/posts/paper-prism/</link>
     <pubDate>Sun, 22 Sep 2024 16:12:51 -0400</pubDate>
@@ -75,14 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/minilsm-3/</guid>
     <description><![CDATA[Mini-LSM Week 1 Day3 Week1 Day3 的内容，实现 SST block 编解码和 iterator Task 1: Block Builder 前两章实现了 LSM 在内存中的结构，现在实现 on-disk 的结构，即 Block 块。 Blocks 一般 4-KB 大小（可能因存储介质不同），和]]></description>
-</item>
-<item>
-    <title>Paper Reading: DuckDB: an Embeddable Analytical Database</title>
-    <link>https://ad-bean.github.io/posts/duckdb-2019/</link>
-    <pubDate>Fri, 07 Jun 2024 15:37:41 &#43;0800</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/duckdb-2019/</guid>
-    <description><![CDATA[DuckDB: an Embeddable Analytical Database 读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。 ABSTRACT SQLite 应用很广，unobtrusive in-process data management 是有必要的，但目前没有系统做 这样的]]></description>
 </item>
 </channel>
 </rss>
