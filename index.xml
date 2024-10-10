@@ -4,9 +4,25 @@
         <link>https://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 30 Sep 2024 09:33:11 -0400</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 09 Oct 2024 10:35:26 -0400</lastBuildDate>
             <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Paper Caladan</title>
+    <link>https://ad-bean.github.io/posts/paper-caladan/</link>
+    <pubDate>Wed, 09 Oct 2024 10:35:26 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-caladan/</guid>
+    <description><![CDATA[Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath Abstract 传统观点认为，CP]]></description>
+</item>
+<item>
+    <title>Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling</title>
+    <link>https://ad-bean.github.io/posts/paper-ghost/</link>
+    <pubDate>Mon, 07 Oct 2024 00:51:29 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-ghost/</guid>
+    <description><![CDATA[ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling Google 的 ghOSt，在这之前还有 Snap MicroKernel Approach to Host Networking，是一个用户网络协议栈，支持 RDMA 等等。 ghOSt 更进一步，可以兼容 Linu]]></description>
+</item>
+<item>
     <title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</title>
     <link>https://ad-bean.github.io/posts/paper-enso/</link>
     <pubDate>Mon, 30 Sep 2024 09:33:11 -0400</pubDate>
@@ -69,22 +85,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/dune-paper/</guid>
     <description><![CDATA[Dune: Safe User-level Access to Privileged CPU Features 是 MIT OS 课上的讲座，也是一篇很有意思的论文，很类似 exokernel，不过更像是内核上的功能，利用虚拟化使得进程可以访问一些内]]></description>
-</item>
-<item>
-    <title>Paper Reading: Exokernel</title>
-    <link>https://ad-bean.github.io/posts/exokernel-paper/</link>
-    <pubDate>Wed, 11 Sep 2024 01:28:36 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/exokernel-paper/</guid>
-    <description><![CDATA[Exokernel: An Operating System Architecture for Application-Level Resource Management 微内核？搜了一下发现上交的操作系统课甚至会讲这篇论文，但这篇论文也太早了 1995 年的，MIT 6828 (现 6.1810) 应该也会讲 Abstract operating system abstractions such as interprocess com- munication]]></description>
-</item>
-<item>
-    <title>Paper Reading: Scalability! But at what COST</title>
-    <link>https://ad-bean.github.io/posts/scalability-cost/</link>
-    <pubDate>Sun, 08 Sep 2024 20:25:59 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/scalability-cost/</guid>
-    <description><![CDATA[Scalability! But at what COST? 比较短的 paper，之前也略有看过，主要讲主流分布式框架在多机器上存在 COST(不是成本) 问题，并不一定能比单机更好。是很有意思的]]></description>
 </item>
 </channel>
 </rss>
