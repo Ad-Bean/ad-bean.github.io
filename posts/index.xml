@@ -4,8 +4,24 @@
         <link>https://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 09 Oct 2024 10:35:26 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Paper Caladan</title>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 16 Oct 2024 09:52:03 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: Firecracker </title>
+    <link>https://ad-bean.github.io/posts/paper-firecracker/</link>
+    <pubDate>Wed, 16 Oct 2024 09:52:03 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-firecracker/</guid>
+    <description><![CDATA[Firecracker: Lightweight Virtualization for Serverless Applications 开源的 VMM 不太感兴趣，看一眼 presentation 和实现细节就过了 比 QEMU 轻量级，更注重几个专用场景 比如没有 BIOS 没有 PCI 和容器化结合比较好 motivation 来自 EC2 太大，lam]]></description>
+</item>
+<item>
+    <title>Paper Reading: Xen and the Art of Virtualization</title>
+    <link>https://ad-bean.github.io/posts/paper-xen-vir/</link>
+    <pubDate>Sat, 12 Oct 2024 14:32:07 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-xen-vir/</guid>
+    <description><![CDATA[Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/ 本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区]]></description>
+</item>
+<item>
+    <title>Paper Reading: Caladan</title>
     <link>https://ad-bean.github.io/posts/paper-caladan/</link>
     <pubDate>Wed, 09 Oct 2024 10:35:26 -0400</pubDate>
     <author>Adbean</author>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-arrakis/</guid>
     <description><![CDATA[Arrakis: The Operating System is the Control Plane 和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。 同样是用虚拟化技]]></description>
-</item>
-<item>
-    <title>Paper Reading: IX: A Protected Dataplane Operating System</title>
-    <link>https://ad-bean.github.io/posts/ix-paper/</link>
-    <pubDate>Sun, 15 Sep 2024 14:47:50 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/ix-paper/</guid>
-    <description><![CDATA[IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。 不得不说这类型的论文阅读起来太费劲了。 Abstract 传统]]></description>
-</item>
-<item>
-    <title>Paper Reading: Dune</title>
-    <link>https://ad-bean.github.io/posts/dune-paper/</link>
-    <pubDate>Wed, 11 Sep 2024 09:10:07 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/dune-paper/</guid>
-    <description><![CDATA[Dune: Safe User-level Access to Privileged CPU Features 是 MIT OS 课上的讲座，也是一篇很有意思的论文，很类似 exokernel，不过更像是内核上的功能，利用虚拟化使得进程可以访问一些内]]></description>
 </item>
 </channel>
 </rss>

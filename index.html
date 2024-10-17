@@ -112,7 +112,17 @@
         alt="/avatar.png"
         title="/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/ad-bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yuxuan-liao-adbean" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="./posts/paper-caladan/">Paper Caladan</a>
+        <a href="./posts/paper-firecracker/">Paper Reading: Firecracker </a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-10-16">2024-10-16</time></span></div><div class="content">Firecracker: Lightweight Virtualization for Serverless Applications 开源的 VMM 不太感兴趣，看一眼 presentation 和实现细节就过了 比 QEMU 轻量级，更注重几个专用场景 比如没有 BIOS 没有 PCI 和容器化结合比较好 motivation 来自 EC2 太大，lam</div><div class="post-footer">
+        <a href="./posts/paper-firecracker/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="./posts/paper-xen-vir/">Paper Reading: Xen and the Art of Virtualization</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-10-12">2024-10-12</time></span></div><div class="content">Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/ 本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区</div><div class="post-footer">
+        <a href="./posts/paper-xen-vir/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="./posts/paper-caladan/">Paper Reading: Caladan</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-10-09">2024-10-09</time></span></div><div class="content">Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath Abstract 传统观点认为，CP</div><div class="post-footer">
         <a href="./posts/paper-caladan/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
@@ -150,16 +160,6 @@
         <a href="./posts/paper-arrakis/">Paper Reading: Arrakis</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-16">2024-09-16</time></span></div><div class="content">Arrakis: The Operating System is the Control Plane 和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。 同样是用虚拟化技</div><div class="post-footer">
         <a href="./posts/paper-arrakis/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="./posts/ix-paper/">Paper Reading: IX: A Protected Dataplane Operating System</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-15">2024-09-15</time></span></div><div class="content">IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。 不得不说这类型的论文阅读起来太费劲了。 Abstract 传统</div><div class="post-footer">
-        <a href="./posts/ix-paper/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="./posts/dune-paper/">Paper Reading: Dune</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-09-11">2024-09-11</time></span></div><div class="content">Dune: Safe User-level Access to Privileged CPU Features 是 MIT OS 课上的讲座，也是一篇很有意思的论文，很类似 exokernel，不过更像是内核上的功能，利用虚拟化使得进程可以访问一些内</div><div class="post-footer">
-        <a href="./posts/dune-paper/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="./tags/paper-reading/">Paper Reading</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
