@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 16 Oct 2024 09:52:03 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 27 Oct 2024 13:30:30 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: Temeraire, Hugepage aware memory allocator</title>
+    <link>https://ad-bean.github.io/posts/paper-hugepage/</link>
+    <pubDate>Sun, 27 Oct 2024 13:30:30 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-hugepage/</guid>
+    <description><![CDATA[Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator tcmalloc 是 google 开发的高性能内存分配器 thread-caching malloc，而 temeraire 是本文提出的，改进 tcmalloc，改进大页分配减少内存碎片。https]]></description>
+</item>
+<item>
+    <title>Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction</title>
+    <link>https://ad-bean.github.io/posts/paper-junction/</link>
+    <pubDate>Mon, 21 Oct 2024 10:02:59 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-junction/</guid>
+    <description><![CDATA[Making Kernel Bypass Practical for the Cloud with Junction NSDI 24 的论文 motivation 还是和以前的类似，OS kernel 比如 TCP 栈带来了 IO overheads，在 cloud/datacenter 有很多 OS bypass 技术，但目前 cloud 很难实现 原因主要是 density 和]]></description>
+</item>
+<item>
     <title>Paper Reading: Firecracker </title>
     <link>https://ad-bean.github.io/posts/paper-firecracker/</link>
     <pubDate>Wed, 16 Oct 2024 09:52:03 -0400</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-prism/</guid>
     <description><![CDATA[Rethinking the RDMA Interface for Distributed Systems 对 RDMA 没什么了解 Linux 高性能网络详解：从 DPDK、RDMA 到 XDP，这本书看评价很不错，有机会可以看看 DMA: IO 设备比如网卡，需要从内存拿]]></description>
-</item>
-<item>
-    <title>Paper Reading: The eXpress Data Path</title>
-    <link>https://ad-bean.github.io/posts/paper-xdp/</link>
-    <pubDate>Wed, 18 Sep 2024 00:00:33 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-xdp/</guid>
-    <description><![CDATA[The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈]]></description>
-</item>
-<item>
-    <title>Paper Reading: Arrakis</title>
-    <link>https://ad-bean.github.io/posts/paper-arrakis/</link>
-    <pubDate>Mon, 16 Sep 2024 00:22:05 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-arrakis/</guid>
-    <description><![CDATA[Arrakis: The Operating System is the Control Plane 和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。 同样是用虚拟化技]]></description>
 </item>
 </channel>
 </rss>
