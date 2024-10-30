@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Paper Reading: Temeraire, Hugepage aware memory allocator">
   <meta name="twitter:description" content="Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator tcmalloc 是 google 开发的高性能内存分配器 thread-caching malloc，而 temeraire 是本文提出的，改进 tcmalloc，改进大页分配减少内存碎片。https">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-hugepage/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-junction/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-hugepage/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-junction/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-far-memory/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -474,7 +474,8 @@ cache</strong>（包含该 sizeclass 的扁平数组对象）和一个大的、�
         </section>
     </div>
 
-    <div class="post-nav"><a href="../../posts/paper-junction/" class="prev" rel="prev" title="Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction</a></div>
+    <div class="post-nav"><a href="../../posts/paper-junction/" class="prev" rel="prev" title="Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction</a>
+            <a href="../../posts/paper-far-memory/" class="next" rel="next" title="Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers">Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

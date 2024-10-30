@@ -4,9 +4,17 @@
         <link>https://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sun, 27 Oct 2024 13:30:30 -0400</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 30 Oct 2024 12:01:04 -0400</lastBuildDate>
             <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</title>
+    <link>https://ad-bean.github.io/posts/paper-far-memory/</link>
+    <pubDate>Wed, 30 Oct 2024 12:01:04 -0400</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-far-memory/</guid>
+    <description><![CDATA[Software-Defined Far Memory in Warehouse-Scale Computers zswap 压缩内存的一篇论文，使用远端内存来降低成本 需要理解什么是 cold memoery，什么是 zswap 怎么做压缩 zswap linux manual, https://www.kernel.org/doc/html/v4.18/vm/zswap.html 使用了 ML 做 Autotunner 有意思的是，A]]></description>
+</item>
+<item>
     <title>Paper Reading: Temeraire, Hugepage aware memory allocator</title>
     <link>https://ad-bean.github.io/posts/paper-hugepage/</link>
     <pubDate>Sun, 27 Oct 2024 13:30:30 -0400</pubDate>
@@ -77,14 +85,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-demikernel/</guid>
     <description><![CDATA[The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems Datacenter system 指的是 MPP 吗？ Github DemiKernel 好像最近还在更新 Abstract 数据中心系统和 I/O 设备现在以单位微秒的延迟运行，需要 ns 级别的操作系统。传统的基于内核的]]></description>
-</item>
-<item>
-    <title>Paper Reading: Rethinking the RDMA Interface for Distributed Systems</title>
-    <link>https://ad-bean.github.io/posts/paper-prism/</link>
-    <pubDate>Sun, 22 Sep 2024 16:12:51 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-prism/</guid>
-    <description><![CDATA[Rethinking the RDMA Interface for Distributed Systems 对 RDMA 没什么了解 Linux 高性能网络详解：从 DPDK、RDMA 到 XDP，这本书看评价很不错，有机会可以看看 DMA: IO 设备比如网卡，需要从内存拿]]></description>
 </item>
 </channel>
 </rss>
