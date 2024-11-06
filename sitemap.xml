@@ -2,11 +2,13 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://ad-bean.github.io/</loc><lastmod>2024-10-30T12:01:04-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-10-30T12:01:04-04:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/</loc><lastmod>2024-11-06T11:28:34-05:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/paper-reading/</loc><lastmod>2024-11-06T11:28:34-05:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/paper-aifm/</loc><lastmod>2024-11-06T11:28:34-05:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-11-06T11:28:34-05:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-11-06T11:28:34-05:00</lastmod></url><url>
+            <loc>https://ad-bean.github.io/posts/paper-fastswap/</loc><lastmod>2024-11-05T23:12:01-05:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/paper-far-memory/</loc><lastmod>2024-10-30T12:01:04-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/posts/</loc><lastmod>2024-10-30T12:01:04-04:00</lastmod></url><url>
-            <loc>https://ad-bean.github.io/tags/</loc><lastmod>2024-10-30T12:01:04-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/paper-hugepage/</loc><lastmod>2024-10-27T13:30:30-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/paper-junction/</loc><lastmod>2024-10-21T10:02:59-04:00</lastmod></url><url>
             <loc>https://ad-bean.github.io/posts/paper-firecracker/</loc><lastmod>2024-10-16T09:52:03-04:00</lastmod></url><url>

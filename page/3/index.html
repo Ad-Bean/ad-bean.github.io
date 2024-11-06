@@ -112,6 +112,16 @@
         alt="/avatar.png"
         title="/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/ad-bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yuxuan-liao-adbean" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="../../posts/minilsm-3/">Mini-LSM Week 1 Day3</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-07-27">2024-07-27</time></span></div><div class="content">Mini-LSM Week 1 Day3 Week1 Day3 的内容，实现 SST block 编解码和 iterator Task 1: Block Builder 前两章实现了 LSM 在内存中的结构，现在实现 on-disk 的结构，即 Block 块。 Blocks 一般 4-KB 大小（可能因存储介质不同），和</div><div class="post-footer">
+        <a href="../../posts/minilsm-3/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/database/">Database</a>,&nbsp;<a href="../../tags/lsm/">LSM</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="../../posts/duckdb-2019/">Paper Reading: DuckDB: an Embeddable Analytical Database</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-06-07">2024-06-07</time></span></div><div class="content">DuckDB: an Embeddable Analytical Database 读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。 ABSTRACT SQLite 应用很广，unobtrusive in-process data management 是有必要的，但目前没有系统做 这样的</div><div class="post-footer">
+        <a href="../../posts/duckdb-2019/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/go-concurrent-1/">阅读：Go 并发编程实战 1-4</a>
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-05-22">2024-05-22</time></span></div><div class="content">Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共</div><div class="post-footer">
         <a href="../../posts/go-concurrent-1/">阅读全文</a><div class="post-tags">
@@ -151,16 +161,6 @@
     </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-17">2024-03-17</time></span></div><div class="content">Bao: Making Learned Query Optimization Practical MLDB + query optimization ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance. 论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供</div><div class="post-footer">
         <a href="../../posts/bao-learned-query-opt/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="../../posts/zero-shot-learned/">Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-16">2024-03-16</time></span></div><div class="content">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些</div><div class="post-footer">
-        <a href="../../posts/zero-shot-learned/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="../../posts/spade-paper/">Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-01">2024-03-01</time></span></div><div class="content">SPADE: Synthesizing Assertions for Large Language Model Pipelines Synthesizing Assertions Pipelines 合成断言、流水线 ABSTRACT 将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其不可预测和潜在的灾难性故障</div><div class="post-footer">
-        <a href="../../posts/spade-paper/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="../../">1</a>
@@ -176,6 +176,10 @@
                 </li><li class="page-item ">
                     <span class="page-link">
                         <a href="../../page/4/">4</a>
+                    </span>
+                </li><li class="page-item ">
+                    <span class="page-link">
+                        <a href="../../page/5/">5</a>
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">

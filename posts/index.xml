@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/posts/</link>
         <description>所有文章 | Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 30 Oct 2024 12:01:04 -0400</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 06 Nov 2024 11:28:34 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</title>
+    <link>https://ad-bean.github.io/posts/paper-aifm/</link>
+    <pubDate>Wed, 06 Nov 2024 11:28:34 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-aifm/</guid>
+    <description><![CDATA[AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存 Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不少论文，很多都]]></description>
+</item>
+<item>
+    <title>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</title>
+    <link>https://ad-bean.github.io/posts/paper-fastswap/</link>
+    <pubDate>Tue, 05 Nov 2024 23:12:01 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-fastswap/</guid>
+    <description><![CDATA[Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看 Abstract 随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。 种解决方案是内]]></description>
+</item>
+<item>
     <title>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</title>
     <link>https://ad-bean.github.io/posts/paper-far-memory/</link>
     <pubDate>Wed, 30 Oct 2024 12:01:04 -0400</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-enso/</guid>
     <description><![CDATA[Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface 2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应]]></description>
-</item>
-<item>
-    <title>Paper Reading: Shenango</title>
-    <link>https://ad-bean.github.io/posts/paper-shenango/</link>
-    <pubDate>Mon, 30 Sep 2024 00:41:37 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-shenango/</guid>
-    <description><![CDATA[Shenango: Achieving High CPU Efficiency for Latency-sensitive Datacenter Workloads 蛮知名的一篇文章，引用很高，后续论文也有 ghOSt，和 Efficient Scheduling Policies for Microsecond-scale Tasks presentation 也很不错，看论文看到现在反而更喜欢看作者的 pre，有图]]></description>
-</item>
-<item>
-    <title>Paper Reading: The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems</title>
-    <link>https://ad-bean.github.io/posts/paper-demikernel/</link>
-    <pubDate>Tue, 24 Sep 2024 23:02:58 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-demikernel/</guid>
-    <description><![CDATA[The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems Datacenter system 指的是 MPP 吗？ Github DemiKernel 好像最近还在更新 Abstract 数据中心系统和 I/O 设备现在以单位微秒的延迟运行，需要 ns 级别的操作系统。传统的基于内核的]]></description>
 </item>
 </channel>
 </rss>
