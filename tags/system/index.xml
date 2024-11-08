@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>System - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/system/</link>
+        <description>System - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Nov 2024 21:08:55 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/system/" rel="self" type="application/rss+xml" /><item>
+    <title>阅读笔记：编程高手必学的内存知识 01</title>
+    <link>https://ad-bean.github.io/posts/memo-class-1/</link>
+    <pubDate>Thu, 07 Nov 2024 21:08:55 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/memo-class-1/</guid>
+    <description><![CDATA[为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看 https://www.cnblogs.com/binlovetech/p/17571929.html 为什么要从操作物理内存转向操作虚拟内存？ 保护内存，每个进程使用的内存独立、隔离 多进]]></description>
+</item>
+</channel>
+</rss>

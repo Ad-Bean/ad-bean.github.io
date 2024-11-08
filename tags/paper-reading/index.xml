@@ -4,7 +4,15 @@
         <link>https://ad-bean.github.io/tags/paper-reading/</link>
         <description>Paper Reading - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 06 Nov 2024 11:28:34 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Nov 2024 00:02:10 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: SigmaOS</title>
+    <link>https://ad-bean.github.io/posts/paper-sigmaos/</link>
+    <pubDate>Thu, 07 Nov 2024 00:02:10 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-sigmaos/</guid>
+    <description><![CDATA[Unifying serverless and microservice tasks with SigmaOS 同样来自 Adam Belay 团队的论文，Serverless 方向，很可惜前几天没去参加线下 presentation，忘记看邮件了]]></description>
+</item>
+<item>
     <title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</title>
     <link>https://ad-bean.github.io/posts/paper-aifm/</link>
     <pubDate>Wed, 06 Nov 2024 11:28:34 -0500</pubDate>
@@ -75,14 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-ghost/</guid>
     <description><![CDATA[ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling Google 的 ghOSt，在这之前还有 Snap MicroKernel Approach to Host Networking，是一个用户网络协议栈，支持 RDMA 等等。 ghOSt 更进一步，可以兼容 Linu]]></description>
-</item>
-<item>
-    <title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</title>
-    <link>https://ad-bean.github.io/posts/paper-enso/</link>
-    <pubDate>Mon, 30 Sep 2024 09:33:11 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-enso/</guid>
-    <description><![CDATA[Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface 2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应]]></description>
 </item>
 </channel>
 </rss>

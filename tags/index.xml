@@ -4,10 +4,26 @@
         <link>https://ad-bean.github.io/tags/</link>
         <description>Tags - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 06 Nov 2024 11:28:34 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Nov 2024 21:08:55 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Memory</title>
+    <link>https://ad-bean.github.io/tags/memory/</link>
+    <pubDate>Thu, 07 Nov 2024 21:08:55 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/tags/memory/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>System</title>
+    <link>https://ad-bean.github.io/tags/system/</link>
+    <pubDate>Thu, 07 Nov 2024 21:08:55 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/tags/system/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>Paper Reading</title>
     <link>https://ad-bean.github.io/tags/paper-reading/</link>
-    <pubDate>Wed, 06 Nov 2024 11:28:34 -0500</pubDate>
+    <pubDate>Thu, 07 Nov 2024 00:02:10 -0500</pubDate>
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/tags/paper-reading/</guid>
     <description><![CDATA[]]></description>
@@ -66,14 +82,6 @@
     <pubDate>Tue, 30 Jan 2024 13:23:51 -0500</pubDate>
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/tags/%E9%98%85%E8%AF%BB/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>总结</title>
-    <link>https://ad-bean.github.io/tags/%E6%80%BB%E7%BB%93/</link>
-    <pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/tags/%E6%80%BB%E7%BB%93/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
