@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/tags/paper-reading/</link>
         <description>Paper Reading - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Thu, 07 Nov 2024 00:02:10 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 11 Nov 2024 11:24:58 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores</title>
+    <link>https://ad-bean.github.io/posts/paper-delta-lake/</link>
+    <pubDate>Mon, 11 Nov 2024 11:24:58 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-delta-lake/</guid>
+    <description><![CDATA[Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores https://github.com/delta-io/delta data lake? delta lake? data warehouse? databricks 的论文 DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon 其他论文笔记 https://www.cnblogs.com/Aitozi/p/17552466.html 大数据技术换代也太快了，但底层原理我还是一问三不知，还得练 Towards Multi-Table]]></description>
+</item>
+<item>
+    <title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</title>
+    <link>https://ad-bean.github.io/posts/paper-ownership/</link>
+    <pubDate>Sun, 10 Nov 2024 16:27:22 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-ownership/</guid>
+    <description><![CDATA[Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架） Ownership 我一开始还以为是 Rust 里的所有权概念，]]></description>
+</item>
+<item>
     <title>Paper Reading: SigmaOS</title>
     <link>https://ad-bean.github.io/posts/paper-sigmaos/</link>
     <pubDate>Thu, 07 Nov 2024 00:02:10 -0500</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-xen-vir/</guid>
     <description><![CDATA[Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/ 本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区]]></description>
-</item>
-<item>
-    <title>Paper Reading: Caladan</title>
-    <link>https://ad-bean.github.io/posts/paper-caladan/</link>
-    <pubDate>Wed, 09 Oct 2024 10:35:26 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-caladan/</guid>
-    <description><![CDATA[Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath Abstract 传统观点认为，CP]]></description>
-</item>
-<item>
-    <title>Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling</title>
-    <link>https://ad-bean.github.io/posts/paper-ghost/</link>
-    <pubDate>Mon, 07 Oct 2024 00:51:29 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-ghost/</guid>
-    <description><![CDATA[ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling Google 的 ghOSt，在这之前还有 Snap MicroKernel Approach to Host Networking，是一个用户网络协议栈，支持 RDMA 等等。 ghOSt 更进一步，可以兼容 Linu]]></description>
 </item>
 </channel>
 </rss>
