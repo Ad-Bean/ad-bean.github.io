@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/tags/paper-reading/</link>
         <description>Paper Reading - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 11 Nov 2024 11:24:58 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 20 Nov 2024 01:09:31 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/paper-reading/" rel="self" type="application/rss+xml" /><item>
+    <title>Paper Reading: From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers</title>
+    <link>https://ad-bean.github.io/posts/paper-gg/</link>
+    <pubDate>Wed, 20 Nov 2024 01:09:31 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-gg/</guid>
+    <description><![CDATA[From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers 同样是 standford DBOS 组关于 serverless 的论文，作者还有一篇 R2E2 很厉害，用 serverless 做 ray tracing 实现很高的加速，但 cost 估计控制不住 Abstract gg framework users might push a button that spawns 10,000 parallel]]></description>
+</item>
+<item>
+    <title>Paper Reading: Apiary: A DBMS-Integrated Transactional Function-as-a-Service Framework</title>
+    <link>https://ad-bean.github.io/posts/paper-apiary/</link>
+    <pubDate>Sat, 16 Nov 2024 16:08:33 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/paper-apiary/</guid>
+    <description><![CDATA[Apiary: A DBMS-Backed Transactional Function-as-a-Service Framework 来自 DBOS 的一个很有意思的项目，DBOS 这个项目去年关注过，txn + serverless 很有趣的思路 传统 FaaS 客户端调用函数去连接 DB 查询 DBOS 直接 DB as OS，提]]></description>
+</item>
+<item>
     <title>Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores</title>
     <link>https://ad-bean.github.io/posts/paper-delta-lake/</link>
     <pubDate>Mon, 11 Nov 2024 11:24:58 -0500</pubDate>
@@ -67,22 +83,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-junction/</guid>
     <description><![CDATA[Making Kernel Bypass Practical for the Cloud with Junction NSDI 24 的论文 motivation 还是和以前的类似，OS kernel 比如 TCP 栈带来了 IO overheads，在 cloud/datacenter 有很多 OS bypass 技术，但目前 cloud 很难实现 原因主要是 density 和]]></description>
-</item>
-<item>
-    <title>Paper Reading: Firecracker </title>
-    <link>https://ad-bean.github.io/posts/paper-firecracker/</link>
-    <pubDate>Wed, 16 Oct 2024 09:52:03 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-firecracker/</guid>
-    <description><![CDATA[Firecracker: Lightweight Virtualization for Serverless Applications 开源的 VMM 不太感兴趣，看一眼 presentation 和实现细节就过了 比 QEMU 轻量级，更注重几个专用场景 比如没有 BIOS 没有 PCI 和容器化结合比较好 motivation 来自 EC2 太大，lam]]></description>
-</item>
-<item>
-    <title>Paper Reading: Xen and the Art of Virtualization</title>
-    <link>https://ad-bean.github.io/posts/paper-xen-vir/</link>
-    <pubDate>Sat, 12 Oct 2024 14:32:07 -0400</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-xen-vir/</guid>
-    <description><![CDATA[Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/ 本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区]]></description>
 </item>
 </channel>
 </rss>
