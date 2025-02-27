@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-megatron-lm/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism">
+  <meta property="og:description" content="Megatron-LM Nvidia 开源的 Megatron-LM 大模型训练框架 结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism 基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章 论文比较短，细节很少，需要结">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-26T13:19:30-05:00">
+    <meta property="article:modified_time" content="2025-02-26T13:19:30-05:00">
+    <meta property="article:tag" content="Paper Reading">
+    <meta property="article:tag" content="Deep Learning">
+    <meta property="article:tag" content="Language Models">
+    <meta property="article:tag" content="Training">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism">
+  <meta name="twitter:description" content="Megatron-LM Nvidia 开源的 Megatron-LM 大模型训练框架 结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism 基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章 论文比较短，细节很少，需要结">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-megatron-lm/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-pipedream/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm\/"
+        },"genre": "posts","keywords": "Paper Reading, Deep Learning, Language Models, Training","wordcount":  2456 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm\/","datePublished": "2025-02-26T13:19:30-05:00","dateModified": "2025-02-26T13:19:30-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-26">2025-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2456 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#megatron-lm">Megatron-LM</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#background-and-challenges">Background and Challenges</a>
+      <ul>
+        <li><a href="#neural-language-model-pretraining">Neural Language Model Pretraining</a></li>
+        <li><a href="#transformer-language-models-and-multi-head-attention">Transformer Language Models and Multi-Head Attention</a></li>
+        <li><a href="#data-and-model-parallelism-in-deep-learning">Data and Model Parallelism in Deep Learning</a></li>
+      </ul>
+    </li>
+    <li><a href="#model-parallel-transformers">Model Parallel Transformers</a>
+      <ul>
+        <li><a href="#mlp-块的并行化">MLP 块的并行化</a></li>
+        <li><a href="#自注意力块的并行化">自注意力块的并行化</a></li>
+      </ul>
+    </li>
+    <li><a href="#setup">Setup</a>
+      <ul>
+        <li><a href="#training-dataset">Training Dataset</a></li>
+        <li><a href="#training-optimization-and-hyperparameters">Training Optimization and Hyperparameters</a></li>
+      </ul>
+    </li>
+    <li><a href="#experiments">Experiments</a>
+      <ul>
+        <li><a href="#scaling-analysis">Scaling Analysis</a></li>
+        <li><a href="#model-and-data-parallelism">MODEL AND DATA PARALLELISM</a></li>
+        <li><a href="#language-modeling-results-using-gpt-2">Language Modeling Results Using GPT-2</a></li>
+        <li><a href="#bi-directional-transformer-results-using-bert">Bi-directional Transformer Results Using BERT</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion-and-future-work">Conclusion and Future Work</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="megatron-lm">Megatron-LM</h2>
+<p>Nvidia 开源的 <a href="https://github.com/NVIDIA/Megatron-LM" target="_blank" rel="noopener noreffer ">Megatron-LM</a> 大模型训练框架</p>
+<p>结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism</p>
+<p>基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章</p>
+<blockquote>
+<p>论文比较短，细节很少，需要结合李沐大神的精读视频阅读，关于 AI 的东西还是得多看多动手，不然一知半解</p>
+<p>柳浩“罗西的思考” 大神的 <a href="https://www.cnblogs.com/rossiXYZ/p/15840803.html" target="_blank" rel="noopener noreffer ">MegatronLM 源码分析</a></p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>训练大型 Transformer 模型，由于内存限制，训练非常大的模型可能会非常困难</p>
+<p>本文介绍了训练超大型 Transformer 模型的技术，并实现了一种简单高效的层内模型并行方法，使得训练具有数十亿参数的 Transformer 模型成为可能</p>
+<p>orthogonal and complimentary to pipeline model parallelism, 可以通过在原生 PyTorch 中插入少量通信操作来完全实现</p>
+<p>通过使用 512 个 GPU 收敛了高达 83 亿参数的基于 Transformer 的模型来展示这种方法</p>
+<h2 id="introduction">Introduction</h2>
+<p>随着这些模型变得越来越大，它们超出了现代处理器的内存限制，需要额外的内存管理技术，例如激活检查点</p>
+<blockquote>
+<p>activation checkpointing 减小内存占用，丢弃大部分中间激活值</p>
+</blockquote>
+<p>可扩展性：单 GPU 到 512 GPU</p>
+<p>准确性：SOTA</p>
+<h2 id="background-and-challenges">Background and Challenges</h2>
+<h3 id="neural-language-model-pretraining">Neural Language Model Pretraining</h3>
+<h3 id="transformer-language-models-and-multi-head-attention">Transformer Language Models and Multi-Head Attention</h3>
+<p>当前 NLP 的研究趋势倾向于使用 Transformer 模型，最初的 Transformer 设计是一种机器翻译架构，通过编码器（Encoder）和解码器（Decoder）两部分将输入序列转换为输出序列。然而，最近利用 Transformer 进行语言建模的工作，如 BERT（Devlin 等，2018）和 GPT-2（Radford 等，2019），根据需求仅使用编码器或解码器。</p>
+<p>值得注意的是，GPT-2 和 BERT 都使用了 GeLU（Hendrycks &amp; Gimpel，2016）非线性和层归一化（Ba 等，2016）应用于多头注意力和前馈层的输入，而原始 Transformer（Vaswani 等，2017）使用 ReLU 非线性并将层归一化应用于输出。</p>
+<h3 id="data-and-model-parallelism-in-deep-learning">Data and Model Parallelism in Deep Learning</h3>
+<p>将深度神经网络训练扩展到多个硬件加速器时，有两种核心范式：</p>
+<ul>
+<li>data parallelism(Valiant, 1990): 将训练小批量数据拆分到多个工作节点上；</li>
+<li>model parallelism: 将模型的内存使用和计算分布到多个工作节点上。</li>
+</ul>
+<p>然而，这些技术在可处理的问题规模上存在一个根本性限制：模型必须完全适合单个工作节点。随着 BERT 和 GPT-2 等语言模型的规模和复杂性不断增加，神经网络已接近现代硬件加速器的内存容量。</p>
+<p>Within model parallelism, there are two further paradigms:</p>
+<ul>
+<li>layer-wise pipeline parallelism: TensorFlow GPipe 然而，这种方法需要额外的逻辑来高效处理通信和计算操作的流水线，并且存在管道气泡（pipeline bubbles）问题，降低了效率，或者需要修改优化器本身，从而影响准确性。</li>
+<li>distributed tensor computation: 正交且更通用的方法，FlexFlow，Mesh-TensorFlow 等等</li>
+</ul>
+<p>我们利用了与 Mesh-TensorFlow 类似的思路，并通过并行计算 Transformer 的注意力头来实现 Transformer 模型的并行化，仅对现有的 PyTorch Transformer 实现进行了一些有针对性的修改。不需要任何新的编译器或代码重写，只需插入一些简单的原语即可完全实现。</p>
+<h2 id="model-parallel-transformers">Model Parallel Transformers</h2>
+<p>利用 Transformer 网络的结构，通过添加少量同步原语，实现了一种简单的模型并行方法。</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/02/27/FN24ADnyuprMU3g.png"
+        data-srcset="https://s2.loli.net/2025/02/27/FN24ADnyuprMU3g.png, https://s2.loli.net/2025/02/27/FN24ADnyuprMU3g.png 1.5x, https://s2.loli.net/2025/02/27/FN24ADnyuprMU3g.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/02/27/FN24ADnyuprMU3g.png"
+        title="Transformer Architecture" /></p>
+<p>Transformer 层由一个自注意力块和一个两层的多层感知机（MLP）</p>
+<h3 id="mlp-块的并行化">MLP 块的并行化</h3>
+<p>MLP 块的第一部分是一个 GEMM（通用矩阵乘法）操作，后接一个 GeLU 非线性激活函数</p>
+<p>$$
+Y=GeLU(XA)
+$$</p>
+<p>并行化 GEMM 的一种选择是将权重矩阵 A 沿其行 rows 分割输入 X 沿其列 columns 分割</p>
+<p>$$
+X = [X_1 \ X_2], \quad A = \begin{bmatrix} A_1 \ A_2 \end{bmatrix}
+$$</p>
+<p>这种分区会导致 $Y = \text{GeLU}(X_1A_1 + X_2A_2)$，由于 GeLU 是一个非线性函数（$\text{GeLU}(X_1A_1 + X_2A_2) \neq \text{GeLU}(X_1A_1) + \text{GeLU}(X_2A_2)$ ，需要在 GeLU 函数之前添加一个同步点。</p>
+<p>另一种选择是将 $A$ 沿其列 column 分割 $A = [A_1 \ A_2]$。这种分区允许 GeLU 非线性独立应用于每个分区 GEMM 的输出：</p>
+<p>$$
+[Y_1 \ Y_2] = [\text{GeLU}(XA_1) \ \text{GeLU}(XA_2)]
+$$</p>
+<p>这种方法的优势在于它移除了一个同步点。因此，我们以这种列并行 column parallel 的方式对第一个 GEMM 进行分区，并将第二个 GEMM 沿其行 rows 分割，使其直接接收 GeLU 层的输出，而无需任何通信，</p>
+<blockquote>
+<p>GEMM（General Matrix Multiply）</p>
+</blockquote>
+<p>在前向传播中只需要一次 all-reduce 操作（g 操作符），在反向传播中也只需要一次 all-reduce 操作（f 操作符）。这两个操作符互为共轭，可以在 PyTorch 中用几行代码实现。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">f</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">gradient</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">all_reduce</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gradient</span>
+</span></span></code></pre></div><h3 id="自注意力块的并行化">自注意力块的并行化</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/02/27/e2Hz5xPXAqaSMtU.png"
+        data-srcset="https://s2.loli.net/2025/02/27/e2Hz5xPXAqaSMtU.png, https://s2.loli.net/2025/02/27/e2Hz5xPXAqaSMtU.png 1.5x, https://s2.loli.net/2025/02/27/e2Hz5xPXAqaSMtU.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/02/27/e2Hz5xPXAqaSMtU.png"
+        title="Blocks of Transformer with Model Parallelism" /></p>
+<p>对于自注意力块，我们利用了多头注意力操作中的固有并行性，将键（K）、查询（Q）和值（V）相关的 GEMM 以列 column parallel 并行的方式分区，使得每个注意力头对应的矩阵乘法在单个 GPU 上本地完成</p>
+<p>The transformer language model has an <strong>output embedding</strong> with the dimension of hidden-size (H) times vocabulary size (v)</p>
+<p>由于现代语言模型的词汇表大小通常在数万个词（例如，GPT-2 使用了 50,257 的词汇表大小），因此并行化输出嵌入的 GEMM 操作是有益的。然而，在 Transformer 语言模型中，输出嵌入层与输入嵌入共享权重，因此需要对两者进行修改。</p>
+<p>输入嵌入权重矩阵 $E_{H\times v}$ 沿词汇表维度并行化，按列分割</p>
+<blockquote>
+<p>这里省略 embedding 没太看懂</p>
+</blockquote>
+<p>我们的模型并行方法主要通过减少通信并保持 GPU 的计算负载来实现优化。与其让一个 GPU 计算部分 dropout、层归一化或残差连接并将结果广播到其他 GPU，我们选择在 GPU 之间<strong>复制计算</strong>。</p>
+<p>附录 B 中提供了关于混合模型和数据并行以及随机数生成处理的更多细节以供参考。总之，我们上述的方法实现简单，只需在前向和反向传播中添加少量额外的 all-reduce 操作。它不需要编译器，并且与管道模型并行是正交且互补的。</p>
+<h2 id="setup">Setup</h2>
+<p>GPT-2, BERT</p>
+<h3 id="training-dataset">Training Dataset</h3>
+<p>聚合了几个最大的语言建模数据集</p>
+<h3 id="training-optimization-and-hyperparameters">Training Optimization and Hyperparameters</h3>
+<p>混合精度训练和动态损失缩放</p>
+<blockquote>
+<p>好奇为什么论文没提到 FP16 FP32 等等</p>
+</blockquote>
+<h2 id="experiments">Experiments</h2>
+<p>32 台 DGX-2H 服务器（共 512 个 Tesla V100 SXM3 32GB GPU）</p>
+<h3 id="scaling-analysis">Scaling Analysis</h3>
+<p>GPT-2 models with four sets of parameters detailed in Table1</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/02/27/ROUJks4GYzfcMte.png"
+        data-srcset="https://s2.loli.net/2025/02/27/ROUJks4GYzfcMte.png, https://s2.loli.net/2025/02/27/ROUJks4GYzfcMte.png 1.5x, https://s2.loli.net/2025/02/27/ROUJks4GYzfcMte.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/02/27/ROUJks4GYzfcMte.png"
+        title="GPT model size &amp;amp;&amp;amp; Model and model &#43; data parallel" /></p>
+<h3 id="model-and-data-parallelism">MODEL AND DATA PARALLELISM</h3>
+<p>展示模型并行和模型+数据并行情况下关于模型参数的弱扩展性</p>
+<blockquote>
+<p>弱扩展性 weak scaling 代表了什么？怎么计算？</p>
+<p>是否应该稳定或者轻微下降才表示扩展良好</p>
+</blockquote>
+<h3 id="language-modeling-results-using-gpt-2">Language Modeling Results Using GPT-2</h3>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/02/27/TvF5tNPSKdwulEn.png"
+        data-srcset="https://s2.loli.net/2025/02/27/TvF5tNPSKdwulEn.png, https://s2.loli.net/2025/02/27/TvF5tNPSKdwulEn.png 1.5x, https://s2.loli.net/2025/02/27/TvF5tNPSKdwulEn.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/02/27/TvF5tNPSKdwulEn.png"
+        title="Model configurations used for GPT-2" /></p>
+<p>表 2 还列出了完成一个 epoch 所需的时间，相当于 68,507 次迭代。例如，对于在 512 个 GPU 上训练的 8.3B 模型，每个 epoch 大约需要两天时间。与表 1 中用于扩展性研究的配置相比，2.5B 模型相同，8.3B 模型有 24 个注意力头而不是 32 个，而 355M 模型比之前看到的任何模型都小得多，但仍然使用 64 个 GPU 进行训练，因此每个 epoch 的时间大大减少。</p>
+<p>验证困惑度（perplexity）随迭代次数的变化，随着模型规模的增加，验证困惑度下降，8.3B 模型的验证困惑度达到 9.27</p>
+<p>微软的研究人员与 NVIDIA 合作，使用 Megatron 训练了一个 170 亿参数的 GPT-2 模型，称为 Turing-NLG（Microsoft，2020），并展示了随着模型规模的扩大，准确率进一步提高，凸显了大型模型的价值。</p>
+<h3 id="bi-directional-transformer-results-using-bert">Bi-directional Transformer Results Using BERT</h3>
+<p>略</p>
+<h2 id="conclusion-and-future-work">Conclusion and Future Work</h2>
+<blockquote>
+<p>比较短的一篇论文，方法很粗暴简单，但也很有效</p>
+<p>对于 DL/LLM Training 我其实很难想象这些并行/分布式训练是几年前才热门，还需要阅读更多</p>
+<p>尤其是 Megatron 的源码</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-02-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-megatron-lm/" data-title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism" data-hashtags="Paper Reading,Deep Learning,Language Models,Training"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-megatron-lm/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-megatron-lm/" data-title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-megatron-lm/" data-title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-megatron-lm/" data-title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a>,&nbsp;<a href="../../tags/language-models/">Language Models</a>,&nbsp;<a href="../../tags/training/">Training</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/paper-pipedream/" class="prev" rel="prev" title="Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]</a>
+            <a href="../../posts/paper-megatron-lm-v2/" class="next" rel="next" title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM">Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"OKDXG1V1ML","algoliaIndex":"blog","algoliaSearchKey":"d36cbd4755f8bf0c3fc49bb46f4b8f8a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

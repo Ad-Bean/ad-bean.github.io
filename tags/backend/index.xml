@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Backend - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/backend/</link>
+        <description>Backend - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 25 Dec 2024 15:27:29 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/backend/" rel="self" type="application/rss+xml" /><item>
+    <title>阅读笔记：微服务架构</title>
+    <link>https://ad-bean.github.io/posts/backend-microservice/</link>
+    <pubDate>Wed, 25 Dec 2024 15:27:29 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/backend-microservice/</guid>
+    <description><![CDATA[微服务架构 回顾下微服务架构的一些知识，包括服务发现、负载均衡、可用性，很多东西没有实操过所以难以记住，需要多多回顾。 来自极客时间的课程 https://time.geekbang.org/column/intro/100551601 后端]]></description>
+</item>
+</channel>
+</rss>

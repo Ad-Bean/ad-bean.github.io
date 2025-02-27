@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-02/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks">
+  <meta property="og:description" content="“Manual” Neural Networks / Backprop 还是复习 ML 的内容 From linear to nonlinear hypothesis classes Neural networks Backpropagation (i.e., computiing gradients) hypothesis classes 是用于模型训练的函数类型 线性假设类、非线性假设类 多项式回归或神经网络等模型都属于非线性">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-10T14:58:18-05:00">
+    <meta property="article:modified_time" content="2025-02-10T14:58:18-05:00">
+    <meta property="article:tag" content="Learning Notes">
+    <meta property="article:tag" content="Deep Learning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks">
+  <meta name="twitter:description" content="“Manual” Neural Networks / Backprop 还是复习 ML 的内容 From linear to nonlinear hypothesis classes Neural networks Backpropagation (i.e., computiing gradients) hypothesis classes 是用于模型训练的函数类型 线性假设类、非线性假设类 多项式回归或神经网络等模型都属于非线性">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-sys-02/" /><link rel="prev" href="https://ad-bean.github.io/posts/ml-sys-01/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-pipedream/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ml-sys-02\/"
+        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  447 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ml-sys-02\/","datePublished": "2025-02-10T14:58:18-05:00","dateModified": "2025-02-10T14:58:18-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-10">2025-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 447 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#manual-neural-networks--backprop">&ldquo;Manual&rdquo; Neural Networks / Backprop</a></li>
+    <li><a href="#nonlinear-hypothesis-classes">nonlinear hypothesis classes</a>
+      <ul>
+        <li><a href="#how-do-we-create-features">How do we create features?</a></li>
+        <li><a href="#neural-networks--deep-learning">Neural networks / deep learning</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="manual-neural-networks--backprop">&ldquo;Manual&rdquo; Neural Networks / Backprop</h2>
+<blockquote>
+<p>还是复习 ML 的内容</p>
+</blockquote>
+<ul>
+<li>From linear to nonlinear hypothesis classes</li>
+<li>Neural networks</li>
+<li>Backpropagation (i.e., computiing gradients)</li>
+</ul>
+<blockquote>
+<p>hypothesis classes 是用于模型训练的函数类型</p>
+<p>线性假设类、非线性假设类</p>
+<p>多项式回归或神经网络等模型都属于非线性假设类，能捕捉更复杂的关系</p>
+<p>以下是一个两层神经网络的简化表示：</p>
+<p>$$h_\theta(x) = \theta_2^T \sigma(W_1^T x)$$</p>
+<p>其中，$W_1$ 和 $W_2$ 是权重矩阵，$\sigma$是非线性激活函数，如 ReLU 或 sigmoid。</p>
+</blockquote>
+<h2 id="nonlinear-hypothesis-classes">nonlinear hypothesis classes</h2>
+<p>linear hypothesis classes: $h_\theta(x) = \theta^T x$</p>
+<blockquote>
+<p>线性的分类可能可以 fit 一些情况，但如果类型是分散的圆圈等等情况，可能难以拟合？</p>
+</blockquote>
+<p>One idea: apply a linear classifier to some (potentially higher-dimensional) features of the data: $h_\theta(x) = \theta^T \phi(x), \theta \in R^{d\times k}, \phi: R^n \rightarrow R^d$</p>
+<blockquote>
+<p>phi 把 n 维的输入变成 d 维的</p>
+<p>隐藏层节点的激活函数（如 ReLU）可以视为一种非线性特征映射，这使得神经网络能够捕捉到数据中的复杂非线性关系。</p>
+</blockquote>
+<h3 id="how-do-we-create-features">How do we create features?</h3>
+<ol>
+<li>manual engineering, the “old” way of doing machine learning</li>
+<li>In a way that itself is learned from data, the “new” way of doing ML</li>
+</ol>
+<blockquote>
+<p>传统机器学习，手动提取特征比如房价预测里的面积、房间特征</p>
+</blockquote>
+<h3 id="neural-networks--deep-learning">Neural networks / deep learning</h3>
+<p>Neural Network, a particular type of hypothesis class, multiple, parameterized differentiable functions (a.k.a. “layers”) composed together</p>
+<p>Deep Network, synonym for &ldquo;neural network&rdquo;, composing together a lot of functions, so “deep” is typically an appropriate qualifier</p>
+<blockquote>
+<p>深度学习，指的就是用神经网络的机器学习？</p>
+</blockquote>
+<p>two layer neural network</p>
+<p>$h_\theta(x) = W^T_2\sigma(W_1^Tx)$</p>
+<p>where $\sigma: R \rightarrow R$ is nonlinear function like ReLU or sigmoid</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-02-10</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/learning-notes/">Learning Notes</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/ml-sys-01/" class="prev" rel="prev" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax</a>
+            <a href="../../posts/paper-pipedream/" class="next" rel="next" title="Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]">Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"OKDXG1V1ML","algoliaIndex":"blog","algoliaSearchKey":"d36cbd4755f8bf0c3fc49bb46f4b8f8a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

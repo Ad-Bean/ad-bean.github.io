@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-01/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax">
+  <meta property="og:description" content="Deep Learning Systems https://dlsyscourse.org/ 10-414/714: Deep Learning Systems 这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课 Introduction AlexNet: Image Classification AlphaGo, StyleGAN, GPT-3, stable diffusion … DL 是深度神经网络，越深越好吗？ transformer 和 GAN">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-05T11:04:50-05:00">
+    <meta property="article:modified_time" content="2025-02-05T11:04:50-05:00">
+    <meta property="article:tag" content="Learning Notes">
+    <meta property="article:tag" content="Deep Learning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax">
+  <meta name="twitter:description" content="Deep Learning Systems https://dlsyscourse.org/ 10-414/714: Deep Learning Systems 这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课 Introduction AlexNet: Image Classification AlphaGo, StyleGAN, GPT-3, stable diffusion … DL 是深度神经网络，越深越好吗？ transformer 和 GAN">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-sys-01/" /><link rel="prev" href="https://ad-bean.github.io/posts/reading-manmonth-1/" /><link rel="next" href="https://ad-bean.github.io/posts/ml-sys-02/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ml-sys-01\/"
+        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  1947 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ml-sys-01\/","datePublished": "2025-02-05T11:04:50-05:00","dateModified": "2025-02-05T11:04:50-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-05">2025-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1947 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#deep-learning-systems">Deep Learning Systems</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#ml-refresher--softmax-regression">ML Refresher / Softmax Regression</a>
+      <ul>
+        <li><a href="#3-ingredients">3 ingredients</a></li>
+        <li><a href="#softmax-regression">softmax regression</a></li>
+        <li><a href="#matrix-batch-notation">Matrix batch notation</a></li>
+        <li><a href="#loss-function">Loss Function</a></li>
+        <li><a href="#optimization-gradient-descent">Optimization: gradient descent</a></li>
+        <li><a href="#stochastic-gradient-descent">Stochastic Gradient Descent</a></li>
+        <li><a href="#the-gradient-of-the-softmax-objective">The gradient of the softmax objective</a></li>
+        <li><a href="#softmax-regression-algorithm">softmax regression algorithm</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="deep-learning-systems">Deep Learning Systems</h2>
+<p><a href="https://dlsyscourse.org/" target="_blank" rel="noopener noreffer ">https://dlsyscourse.org/</a></p>
+<p>10-414/714: Deep Learning Systems</p>
+<blockquote>
+<p>这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p>AlexNet: Image Classification</p>
+<p>AlphaGo, StyleGAN, GPT-3, stable diffusion &hellip;</p>
+<blockquote>
+<p>DL 是深度神经网络，越深越好吗？</p>
+<p>transformer 和 GAN 也都是深度学习</p>
+<p>CNN：卷积层、池化、全连接</p>
+<p>RNN, LSTM, GAN, Transformer&hellip;</p>
+</blockquote>
+<p>Pytorch, Tensorflow, &hellip;</p>
+<blockquote>
+<p>深度学习和传统机器学习的区别是自动微分吗？</p>
+</blockquote>
+<h2 id="ml-refresher--softmax-regression">ML Refresher / Softmax Regression</h2>
+<blockquote>
+<p>回顾 ML 里的图像识别任务</p>
+<p>其实不知道要不要先看看 ML 的基础课，很多 ML 的基础也不太记得了</p>
+</blockquote>
+<p>Machine Learning as data-driven programming</p>
+<p>classify handwritten drawing of digits</p>
+<blockquote>
+<p>computers dont see pics like us</p>
+</blockquote>
+<p>(supervised) ML approach: train with known labels -&gt; ML algo -&gt; Model h</p>
+<h3 id="3-ingredients">3 ingredients</h3>
+<ol>
+<li>hypothesis class: program structure, a set of parameters, how we map inputs (images of digits) to ouputs (labels, probabilities)</li>
+<li>loss function: a function specifies how well a given hypothesis performs</li>
+<li>optimization method: a procedure for determining a set of params that minimize the sum of losses over the training set</li>
+</ol>
+<blockquote>
+<p>框架都是一样的</p>
+</blockquote>
+<h3 id="softmax-regression">softmax regression</h3>
+<p>$$ \begin{align} x^{(i)} &amp; \in \mathbb{R}^n \ y^{(i)} &amp; \in {1, \ldots, k} \quad \text{for} \quad i = 1, \ldots, m \end{align} $$</p>
+<blockquote>
+<p>$\mathbb{R}$ 表示实数集（Real numbers）。因此，公式中的 $x^{(i)} \in \mathbb{R}^n $ 意思是每个数据点 $x^{(i)}$ 是一个 $n$ 维的实数向量。也就是说，$x^{(i)}$ 是一个包含 $n$ 个实数的向量，每个数据点的特征向量。</p>
+<p>比如 $x^{(i)} = \begin{pmatrix} 2.5 \ -1.0 \ 3.7 \end{pmatrix} \in \mathbb{R}^3$</p>
+<p>$y^{(i)}$ 是每个数据点对应的标签</p>
+<p>$n$ 输入数据的维度（特征数量）</p>
+<p>$k$ 类别的数量，也就是 0 到 9 的数字</p>
+<p>$m$ 训练集中的数据点数量</p>
+</blockquote>
+<p>Our hypothesis function maps inputs $x^{(i)} \in \mathbb{R}^n$ to $k$-dimensional vectors</p>
+<p>$$ h: \mathbb{R}^𝑛 \rightarrow \mathbb{R}^k $$</p>
+<p>$h_i(x)$ indicates some measure of “belief” in how much likely the label is to be class $i$</p>
+<blockquote>
+<p>h_i 表示是 class i 的“可能性”，但目前不一定是概率？</p>
+</blockquote>
+<p>A linear hypothesis function uses a linear operator (i.e. matrix multiplication) for this transformation</p>
+<blockquote>
+<p>线性假设函数，将输入 n 维输入 x 映射到 k 维</p>
+<p>线性假设函数使用线性算子（即矩阵乘法）进行这种变换</p>
+</blockquote>
+<p>$$
+h_\theta(x) = \theta^T x
+$$</p>
+<blockquote>
+<p>其中 $\theta$ 是 $n\times k$ 维度的，一个权重矩阵，最后输出一个 k 维向量，每个元素对应每个类别的置信度</p>
+</blockquote>
+<h3 id="matrix-batch-notation">Matrix batch notation</h3>
+<blockquote>
+<p>矩阵运算更加高效，GPU/CPU</p>
+</blockquote>
+<h3 id="loss-function">Loss Function</h3>
+<h4 id="classification-error">classification error</h4>
+<p>$$
+\ell_{\text{err}}(h(x), y) =
+\begin{cases}
+0 &amp; \text{if } \arg\max_i h_i(x) = y \
+1 &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<blockquote>
+<p>分类错误损失函数，只检查分类是否失败</p>
+<p>argmax 就是取最大的可能性，是否等于标签 y</p>
+<p>分类错误损失函数不适合作为优化过程中选择最佳参数的损失函数，因为它不可微分</p>
+<p>在优化算法中，我们通常需要用到梯度信息，而分类错误损失函数由于其离散的性质，无法提供连续的梯度。</p>
+</blockquote>
+<h4 id="softmax--cross-entropy-loss">softmax / cross-entropy loss</h4>
+<p>$$
+z_i = p(\text{label} = i | x) = \frac{\exp(h_i(x))}{\sum_{j=1}^k \exp(h_j(x))}
+$$</p>
+<ul>
+<li>$h_i(x)$ 是假设函数的第 $i$ 个输出。</li>
+<li>$k$ 是类别的总数。</li>
+<li>$p(\text{label} = i | x)$ 是输入 $x$ 属于类别 $i$ 的概率。</li>
+</ul>
+<p>$$
+\ell_{ce}(h(x), y) = -\log(p(\text{label} = y | x)) = -h_y(x) + \log \left( \sum*{j=1}^k \exp(h_j(x)) \right)
+$$</p>
+<blockquote>
+<p>交叉熵损失衡量的是预测概率与实际类别之间的差异。当模型对正确类别的预测概率较高时，损失较低；反之，当模型对错误类别的预测概率较高时，损失较高。通过最小化交叉熵损失，我们可以训练模型，使其对正确类别的预测概率最大化。</p>
+<p>最小化的是<strong>负的对数概率</strong>，这意味着我们希望增加正确类别的预测概率。通过最小化这个损失函数，我们可以训练模型，使其对正确类别的预测概率最大化。</p>
+<p>也就是上面将其转成了概率，输入为 x 且 label 为 i 的概率，除所有 j 将其归一化，就变成了错误概率。</p>
+<p>交叉熵与信息论：https://zhuanlan.zhihu.com/p/149186719</p>
+<p>在 Softmax 回归（或多分类逻辑回归）中，假设函数是线性的？那 ReLU 呢</p>
+</blockquote>
+<p>The softmax regression optimization problem</p>
+<p>$$
+\min_{\theta} \frac{1}{m} \sum_{i=1}^{m} \ell_{\text{ce}}(h_{\theta}(x_i), y_i)
+$$</p>
+<ul>
+<li>$\theta$ 是模型参数</li>
+<li>$m$ 是训练集中样本的数量。</li>
+<li>$x_i$ 和 $y_i$ 分别是第 $i$ 个样本的输入和真实标签。</li>
+<li>$\ell_{\text{ce}}$ 是交叉熵损失函数。</li>
+</ul>
+<p>在软最大值回归中，假设函数是线性的，并且使用软最大值损失：</p>
+<p>$$
+\min*{\theta} \frac{1}{m} \sum*{i=1}^{m} \ell_{\text{ce}}(\theta^T x_i, y_i)
+$$</p>
+<blockquote>
+<p>就是找到这个 theta 参数，计算梯度。在实际应用中，通常使用一种称为随机梯度下降（Stochastic Gradient Descent, SGD）</p>
+</blockquote>
+<h3 id="optimization-gradient-descent">Optimization: gradient descent</h3>
+<p>the gradient is defined as the matrix of partial derivatives</p>
+<blockquote>
+<p>梯度是向量函数的一个重要概念，用于描述函数在特定点的变化率</p>
+<p>梯度下降是一种优化算法，用于最小化目标函数 $f(\theta)$ 的值。这个算法的核心思想是通过迭代地沿着负梯度方向更新参数，使得目标函数的值逐渐减小。</p>
+<p><a href="https://dlsyscourse.org/slides/2-softmax_regression.pdf" target="_blank" rel="noopener noreffer ">https://dlsyscourse.org/slides/2-softmax_regression.pdf</a></p>
+<p>图解可以看出 $\alpha$ 是 step size 或 learning rate 大于 0 的时候</p>
+<p>$\theta$ 发生变化</p>
+</blockquote>
+<p>$$
+\theta \leftarrow \theta - \alpha \nabla_{\theta} f
+$$</p>
+<h3 id="stochastic-gradient-descent">Stochastic Gradient Descent</h3>
+<blockquote>
+<p>随机梯度下降</p>
+<p>用于在机器学习模型的训练过程中最小化损失函数。与传统的梯度下降不同，SGD 不是在每次更新时使用整个训练集的数据，而是使用一个<strong>小的随机数据子集</strong>（即小批量 mini batch）</p>
+<p><a href="http://zh.gluon.ai/chapter_optimization/gd-sgd.html" target="_blank" rel="noopener noreffer ">http://zh.gluon.ai/chapter_optimization/gd-sgd.html</a></p>
+<p>小批量随机梯度下降（SGD）引入了一定的随机性，使得模型可以更快跳出局部最优，朝全局最优收敛。这种随机性有助于在复杂的损失函数空间中进行更有效的搜索。</p>
+</blockquote>
+<p>$$
+\mathbf{\theta} \leftarrow \mathbf{\theta} - \frac{\alpha}{B} \sum_{i=1}^B \nabla_{\mathbf{\theta}} \ell_i(h_{\mathbf{\theta}}(\mathbf{x}_i), \mathbf{y}_i)
+$$</p>
+<h3 id="the-gradient-of-the-softmax-objective">The gradient of the softmax objective</h3>
+<blockquote>
+<p>auto grad?</p>
+<p>如果手动求导，需要链式法则，会很复杂</p>
+<p>大部分人当成了标量 scalar</p>
+<p>正式的方法：使用矩阵微积分、雅可比矩阵、克罗内克积和向量化 vector 技术。这种方法是“正确的方式”，更加严谨和系统，但也更加复杂和费时。</p>
+<p>大家实际使用的捷径方法：假装所有变量都是标量，使用典型的链式法则，然后在计算结果后重新排列/转置矩阵和向量，使其维度匹配。虽然这种方法不那么严谨，但在实际操作中更加快捷和方便。</p>
+</blockquote>
+<h3 id="softmax-regression-algorithm">softmax regression algorithm</h3>
+<blockquote>
+<p>尽管推导过程相当复杂，但最终的算法非常简单。</p>
+<p>Softmax 回归是多分类问题的线性模型，通过交叉熵损失函数和梯度下降优化参数</p>
+</blockquote>
+<p>MNIST 数据集：手写数字分类（10 类，28x28 像素）。</p>
+<p>结果：错误率&lt;8%，训练时间仅数秒。</p>
+<blockquote>
+<p>Softmax 回归是线性分类器，而神经网络通过非线性层（激活函数）和隐藏层构建更复杂的假设空间。</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-02-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-01/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-01/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-01/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-01/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-01/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/learning-notes/">Learning Notes</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/reading-manmonth-1/" class="prev" rel="prev" title="阅读笔记：人月神话"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>阅读笔记：人月神话</a>
+            <a href="../../posts/ml-sys-02/" class="next" rel="next" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"OKDXG1V1ML","algoliaIndex":"blog","algoliaSearchKey":"d36cbd4755f8bf0c3fc49bb46f4b8f8a","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Learning Notes - 标签 - Adbean&#39;s Blog</title>
+        <link>https://ad-bean.github.io/tags/learning-notes/</link>
+        <description>Learning Notes - 标签 - Adbean&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Mon, 10 Feb 2025 14:58:18 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/learning-notes/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-02/</link>
+    <pubDate>Mon, 10 Feb 2025 14:58:18 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-02/</guid>
+    <description><![CDATA[&ldquo;Manual&rdquo; Neural Networks / Backprop 还是复习 ML 的内容 From linear to nonlinear hypothesis classes Neural networks Backpropagation (i.e., computiing gradients) hypothesis classes 是用于模型训练的函数类型 线性假设类、非线性假设类 多项式回归或神经网络等模型都属于非线性]]></description>
+</item>
+<item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-01/</link>
+    <pubDate>Wed, 05 Feb 2025 11:04:50 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-01/</guid>
+    <description><![CDATA[Deep Learning Systems https://dlsyscourse.org/ 10-414/714: Deep Learning Systems 这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课 Introduction AlexNet: Image Classification AlphaGo, StyleGAN, GPT-3, stable diffusion &hellip; DL 是深度神经网络，越深越好吗？ transformer 和 GAN]]></description>
+</item>
+</channel>
+</rss>
