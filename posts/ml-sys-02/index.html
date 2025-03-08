@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-02/">
+        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-02/">
   <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks">
+  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks">
   <meta property="og:description" content="“Manual” Neural Networks / Backprop 还是复习 ML 的内容 From linear to nonlinear hypothesis classes Neural networks Backpropagation (i.e., computiing gradients) hypothesis classes 是用于模型训练的函数类型 线性假设类、非线性假设类 多项式回归或神经网络等模型都属于非线性">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
@@ -17,7 +17,7 @@
     <meta property="article:tag" content="Deep Learning">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks">
+  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks">
   <meta name="twitter:description" content="“Manual” Neural Networks / Backprop 还是复习 ML 的内容 From linear to nonlinear hypothesis classes Neural networks Backpropagation (i.e., computiing gradients) hypothesis classes 是用于模型训练的函数类型 线性假设类、非线性假设类 多项式回归或神经网络等模型都属于非线性">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-sys-02/" /><link rel="prev" href="https://ad-bean.github.io/posts/ml-sys-01/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-pipedream/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -26,12 +26,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks",
+        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/ad-bean.github.io\/posts\/ml-sys-02\/"
-        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  447 ,
+        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  1393 ,
         "url": "https:\/\/ad-bean.github.io\/posts\/ml-sys-02\/","datePublished": "2025-02-10T14:58:18-05:00","dateModified": "2025-02-10T14:58:18-05:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -117,10 +117,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-10">2025-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 447 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-10">2025-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1393 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -133,6 +133,19 @@
       <ul>
         <li><a href="#how-do-we-create-features">How do we create features?</a></li>
         <li><a href="#neural-networks--deep-learning">Neural networks / deep learning</a></li>
+      </ul>
+    </li>
+    <li><a href="#fully-connected-deep-networks">Fully-connected deep networks</a></li>
+    <li><a href="#why-deep-networks">why deep networks?</a></li>
+    <li><a href="#backpropagation">Backpropagation</a>
+      <ul>
+        <li><a href="#the-gradients-of-a-two-layer-network">The gradient(s) of a two-layer network</a></li>
+      </ul>
+    </li>
+    <li><a href="#backpropagation-in-general">Backpropagation “in general”</a>
+      <ul>
+        <li><a href="#computing-the-real-gradients">Computing the real gradients</a></li>
+        <li><a href="#backpropagation-forward-and-backward-passes">Backpropagation: Forward and backward passes</a></li>
       </ul>
     </li>
   </ul>
@@ -181,6 +194,96 @@
 <p>two layer neural network</p>
 <p>$h_\theta(x) = W^T_2\sigma(W_1^Tx)$</p>
 <p>where $\sigma: R \rightarrow R$ is nonlinear function like ReLU or sigmoid</p>
+<blockquote>
+<p>$\sigma$ 非线性函数, 比如 ReLU，sigmod</p>
+<p>$\theta$ 可以看作是参数</p>
+</blockquote>
+<p>batch matrix form:</p>
+<p>$$
+h_\theta(X) = \sigma(X W_1) W_2
+$$</p>
+<blockquote>
+<p>为什么加一个 non linear 就可以表示这么多结果？</p>
+<p>数学上：神经网络已经被证明为通用函数逼近器（Universal Function Approximators）</p>
+<p>理论上，只要网络结构足够复杂（隐藏单元和层数足够多），它就能近似任何连续函数。</p>
+<p>之前学过一点数值计算，当时还没接触到非线性函数可以拟合的函数，基本都是线性/指数或者分段/平滑等等，应该继续学一下非线性拟合的</p>
+</blockquote>
+<h2 id="fully-connected-deep-networks">Fully-connected deep networks</h2>
+<p>𝐿-layer neural network – a.k.a. &ldquo;Multi-layer perceptron&rdquo; (MLP)</p>
+<p>$$Z_{i+1} = \sigma_i(Z_i W_i), \quad i = 1, \dots, L$$</p>
+<p>$$h_\theta(X) = Z_{L+1}$$</p>
+<blockquote>
+<p>每一层的输入都是上一层的 非线性函数 (输出 x 权重矩阵)</p>
+</blockquote>
+<h2 id="why-deep-networks">why deep networks?</h2>
+<p>work like the brain?</p>
+<p>parity</p>
+<blockquote>
+<p>奇偶性无法学习？</p>
+</blockquote>
+<p>empirically it seems like they work better for a fixed parameter count</p>
+<blockquote>
+<p>多层结构/深层网络能更均匀地分布参数</p>
+</blockquote>
+<h2 id="backpropagation">Backpropagation</h2>
+<p>neural networks:</p>
+<ul>
+<li>Hypothesis Class: MLP</li>
+<li>Loss function: cross-entropy loss</li>
+<li>Optimization procedure: SGD</li>
+</ul>
+<p>$$\min_\theta \frac{1}{m} \sum_{i=1}^m \ell_{ce}(h_\theta(x_i), y_i) $$</p>
+<blockquote>
+<p>我知道这些组件，但具体如何运作？</p>
+</blockquote>
+<h3 id="the-gradients-of-a-two-layer-network">The gradient(s) of a two-layer network</h3>
+<p>$$
+\nabla_{{W_1, W_2}} \ell_{ce}(\sigma((XW_1)W_2), y) = \sigma(XW_1)^T \cdot (S - I_y)
+$$</p>
+<blockquote>
+<p>链式法则（chain rule）计算偏导数</p>
+<p>偏导数是多变量函数对其中一个变量的变化率，而保持其他变量固定不变</p>
+<p>梯度是多变量函数所有偏导数组成的向量，梯度的方向用于描述函数值增长最快的路径，负方向是函数值下降最快的路径</p>
+<p>对多元函数，假设有个初始点 $(x_0, y_0)$ 可以求出梯度，更新其值 $x_1 = x_0 - \eta \cdot \frac{\partial f}{\partial x}$ 其中 $\eta$ 是学习率，一旦梯度足够小，就可以减少原函数的值，也就是损失函数的值减少</p>
+</blockquote>
+<h2 id="backpropagation-in-general">Backpropagation “in general”</h2>
+<p>consider our fully-connected network</p>
+<p>$$
+Z_{i+1} = \sigma_i(Z_i W_i), i = 1, &hellip;, L \
+\frac{\partial \ell}{\partial W_i} = \frac{\partial \ell}{\partial Z_{L+1}} \cdot \frac{\partial Z_{L+1}}{\partial Z_L} \cdot \frac{\partial Z_L}{\partial Z_{L-1}} \cdot \ldots \cdot \frac{\partial Z_{i+2}}{\partial Z_{i+1}} \cdot G_{i+1}
+$$</p>
+<p>Then we have a simple ”backward” iteration to compute the $G_i$’s</p>
+<p>$$
+G_i = G_{i+1} \cdot \frac{\partial \ell}{\partial Z_{i+1}}
+$$</p>
+<h3 id="computing-the-real-gradients">Computing the real gradients</h3>
+<p>$$
+\nabla_{W_i} \ell = Z_i^T \cdot (G_{i+1} \circ \sigma_i&rsquo;(Z_i W_i))
+$$</p>
+<blockquote>
+<p>链式法则矩阵计算是反向传播（Backpropagation）的核心思想。它利用链式法则（Chain Rule）和矩阵计算，逐层向后传递误差</p>
+<p>其中 $Z_i$ 是可以复用的</p>
+</blockquote>
+<h3 id="backpropagation-forward-and-backward-passes">Backpropagation: Forward and backward passes</h3>
+<blockquote>
+<p>为什么这些计算是“同时”发生的？</p>
+<ul>
+<li>前向传播的过程中，我们已经缓存了每一层的输出 $Z_i$ 和激活函数的导数 $\sigma&rsquo;(Z_i W_i)$</li>
+<li>后向传播时，利用这些缓存值直接进行梯度计算，避免重复计算中间值。</li>
+</ul>
+</blockquote>
+<p>What is really happening with the backward iteration?</p>
+<p>$$
+\frac{\partial \ell}{\partial W_i} = \frac{\partial Z_{i+1}}{\partial W_i} \cdot \frac{\partial \ell}{\partial Z_{L+1}} \cdot \frac{\partial Z_{L+1}}{\partial Z_L} \cdot \ldots \cdot \frac{\partial Z_{i+2}}{\partial Z_{i+1}}
+$$</p>
+<p>Each layer needs to be able to multiply the “incoming backward” gradient $G_{i+1}$ by
+its derivatives $\frac{\partial Z_{i+1}}{\partial W_i}$ an operation called the “vector Jacobian product”</p>
+<p>automatic differentiation</p>
+<blockquote>
+<p>每一层的梯度 $G_i$ 是从后一层的梯度 $G_{i+1}$ 递归计算得到。</p>
+<p>向量雅可比乘积</p>
+<p>反向传播可以推广到任意计算图，成为实现自动微分的基础</p>
+</blockquote>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -190,7 +293,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-02/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>

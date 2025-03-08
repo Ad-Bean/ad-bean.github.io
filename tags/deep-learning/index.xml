@@ -4,7 +4,23 @@
         <link>https://ad-bean.github.io/tags/deep-learning/</link>
         <description>Deep Learning - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/deep-learning/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 04 Mar 2025 16:46:50 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/deep-learning/" rel="self" type="application/rss+xml" /><item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-hw0/</link>
+    <pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-hw0/</guid>
+    <description><![CDATA[10-714: Homework 0 build a basic softmax regression algorithm, plus a simple two-layer neural network github hw0 Question 1: A basic add function, and testing/autograding basics plement simple_ml.add() function in src/simple_ml.py testing: !python3 -m pytest -k &quot;add&quot; 根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x + y 没有]]></description>
+</item>
+<item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-03/</link>
+    <pubDate>Mon, 03 Mar 2025 00:49:41 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-03/</guid>
+    <description><![CDATA[Automatic Differentiation hypothesis class: $x \rightarrow h_\theta(x)$, MLP loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) + \log \sum_{j=1}^n \exp(h_j(x))$ optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$ 机器学习/深度学习是否就是在学习参数集合 $\theta$? 除了 SGD 随机梯度下降，还有 Adam 等优化方法 计算 gradient]]></description>
+</item>
+<item>
     <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
     <link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
     <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate>
@@ -29,7 +45,7 @@
     <description><![CDATA[PipeDream: Generalized Pipeline Parallelism for DNN Training 第一次看 ML/DL (distributed) training 框架相关的论文，有很多地方不理解。 对 Evaluation 与数学证明更是浅尝辄止，许多指标和算法难以理解，关于大模型、分布式训练等等]]></description>
 </item>
 <item>
-    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks</title>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks</title>
     <link>https://ad-bean.github.io/posts/ml-sys-02/</link>
     <pubDate>Mon, 10 Feb 2025 14:58:18 -0500</pubDate>
     <author>Adbean</author>

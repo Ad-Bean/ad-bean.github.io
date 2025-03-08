@@ -4,9 +4,25 @@
         <link>https://ad-bean.github.io/</link>
         <description>Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Sat, 08 Mar 2025 15:13:36 -0500</lastBuildDate>
             <atom:link href="https://ad-bean.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-hw0/</link>
+    <pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-hw0/</guid>
+    <description><![CDATA[10-714: Homework 0 build a basic softmax regression algorithm, plus a simple two-layer neural network github hw0 Question 1: A basic add function, and testing/autograding basics plement simple_ml.add() function in src/simple_ml.py testing: !python3 -m pytest -k &quot;add&quot; 根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x + y 没有]]></description>
+</item>
+<item>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation</title>
+    <link>https://ad-bean.github.io/posts/ml-sys-03/</link>
+    <pubDate>Mon, 03 Mar 2025 00:49:41 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/posts/ml-sys-03/</guid>
+    <description><![CDATA[Automatic Differentiation hypothesis class: $x \rightarrow h_\theta(x)$, MLP loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) + \log \sum_{j=1}^n \exp(h_j(x))$ optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$ 机器学习/深度学习是否就是在学习参数集合 $\theta$? 除了 SGD 随机梯度下降，还有 Adam 等优化方法 计算 gradient]]></description>
+</item>
+<item>
     <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
     <link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
     <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate>
@@ -31,7 +47,7 @@
     <description><![CDATA[PipeDream: Generalized Pipeline Parallelism for DNN Training 第一次看 ML/DL (distributed) training 框架相关的论文，有很多地方不理解。 对 Evaluation 与数学证明更是浅尝辄止，许多指标和算法难以理解，关于大模型、分布式训练等等]]></description>
 </item>
 <item>
-    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02 Neural Networks</title>
+    <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks</title>
     <link>https://ad-bean.github.io/posts/ml-sys-02/</link>
     <pubDate>Mon, 10 Feb 2025 14:58:18 -0500</pubDate>
     <author>Adbean</author>
@@ -45,14 +61,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/ml-sys-01/</guid>
     <description><![CDATA[Deep Learning Systems https://dlsyscourse.org/ 10-414/714: Deep Learning Systems 这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课 Introduction AlexNet: Image Classification AlphaGo, StyleGAN, GPT-3, stable diffusion &hellip; DL 是深度神经网络，越深越好吗？ transformer 和 GAN]]></description>
-</item>
-<item>
-    <title>阅读笔记：人月神话</title>
-    <link>https://ad-bean.github.io/posts/reading-manmonth-1/</link>
-    <pubDate>Mon, 13 Jan 2025 21:10:08 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/reading-manmonth-1/</guid>
-    <description><![CDATA[人月神话 很老的书了，本科时期就想看的，但当时只看了 No Silver Bullet，没有太多经验所以感触不深，现在重新完整看一下。 The Tar pit 焦油坑 开发大型系统可]]></description>
 </item>
 <item>
     <title>阅读笔记：微服务架构</title>
@@ -77,14 +85,6 @@
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/posts/paper-servicerouter/</guid>
     <description><![CDATA[ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta Meta 的全球服务网格 ServiceRouter（SR） 服务网格（Service Mesh）是一种用于处理微服务架构中服务之间通信]]></description>
-</item>
-<item>
-    <title>Paper Reading: From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers</title>
-    <link>https://ad-bean.github.io/posts/paper-gg/</link>
-    <pubDate>Wed, 20 Nov 2024 01:09:31 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-gg/</guid>
-    <description><![CDATA[From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers 同样是 standford DBOS 组关于 serverless 的论文，作者还有一篇 R2E2 很厉害，用 serverless 做 ray tracing 实现很高的加速，但 cost 估计控制不住 Abstract gg framework users might push a button that spawns 10,000 parallel]]></description>
 </item>
 </channel>
 </rss>

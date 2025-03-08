@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-03/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation">
+  <meta property="og:description" content="Automatic Differentiation hypothesis class: $x \rightarrow h_\theta(x)$, MLP loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) &#43; \log \sum_{j=1}^n \exp(h_j(x))$ optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$ 机器学习/深度学习是否就是在学习参数集合 $\theta$? 除了 SGD 随机梯度下降，还有 Adam 等优化方法 计算 gradient">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-03T00:49:41-05:00">
+    <meta property="article:modified_time" content="2025-03-03T00:49:41-05:00">
+    <meta property="article:tag" content="Learning Notes">
+    <meta property="article:tag" content="Deep Learning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation">
+  <meta name="twitter:description" content="Automatic Differentiation hypothesis class: $x \rightarrow h_\theta(x)$, MLP loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) &#43; \log \sum_{j=1}^n \exp(h_j(x))$ optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$ 机器学习/深度学习是否就是在学习参数集合 $\theta$? 除了 SGD 随机梯度下降，还有 Adam 等优化方法 计算 gradient">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-sys-03/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" /><link rel="next" href="https://ad-bean.github.io/posts/ml-sys-hw0/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ml-sys-03\/"
+        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  1052 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ml-sys-03\/","datePublished": "2025-03-03T00:49:41-05:00","dateModified": "2025-03-03T00:49:41-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-03">2025-03-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1052 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#automatic-differentiation">Automatic Differentiation</a></li>
+    <li><a href="#numerical-differentiation">Numerical differentiation</a></li>
+    <li><a href="#numerical-gradient-checking">Numerical gradient checking</a></li>
+    <li><a href="#symbolic-differentiation">Symbolic differentiation</a></li>
+    <li><a href="#computational-graph">Computational graph</a></li>
+    <li><a href="#forward-mode-automatic-differentiation-ad">Forward mode automatic differentiation (AD)</a></li>
+    <li><a href="#limitation-of-forward-mode-ad">Limitation of forward mode AD</a></li>
+    <li><a href="#reverse-mode-automatic-differentiationad">Reverse mode automatic differentiation(AD)</a></li>
+    <li><a href="#derivation-for-the-multiple-pathway-case">Derivation for the multiple pathway case</a></li>
+    <li><a href="#reverse-ad-algorithm">Reverse AD algorithm</a></li>
+    <li><a href="#reverse-mode-ad-by-extending-computational-graph">Reverse mode AD by extending computational graph</a></li>
+    <li><a href="#reverse-mode-ad-vs-backprop">Reverse mode AD vs Backprop</a>
+      <ul>
+        <li><a href="#backprop">Backprop</a></li>
+        <li><a href="#reverse-mode-ad-by-extending-computational-graph-1">Reverse mode AD by extending computational graph</a></li>
+      </ul>
+    </li>
+    <li><a href="#reverse-mode-ad-on-tensors">Reverse mode AD on Tensors</a></li>
+    <li><a href="#handling-gradient-of-gradient">Handling gradient of gradient</a></li>
+    <li><a href="#reverse-mode-ad-on-data-structures">Reverse mode AD on data structures</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="automatic-differentiation">Automatic Differentiation</h2>
+<ol>
+<li>hypothesis class: $x \rightarrow h_\theta(x)$, MLP</li>
+<li>loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) + \log \sum_{j=1}^n \exp(h_j(x))$</li>
+<li>optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$</li>
+</ol>
+<blockquote>
+<p>机器学习/深度学习是否就是在学习参数集合 $\theta$?</p>
+<p>除了 SGD 随机梯度下降，还有 Adam 等优化方法</p>
+<p>计算 gradient 是一个很复杂的问题，但是现在有自动微分</p>
+</blockquote>
+<h2 id="numerical-differentiation">Numerical differentiation</h2>
+<p>$$
+\frac{\partial f(\theta)}{\partial \theta_i} = \lim_{\epsilon \to 0} \frac{f(\theta + \epsilon e_i) - f(\theta)}{\epsilon} \</p>
+<p>\frac{\partial f(\theta)}{\partial \theta_i} \approx \frac{f(\theta + \epsilon e_i) - f(\theta - \epsilon e_i)}{2\epsilon} + o(\epsilon^2)
+$$</p>
+<p>numerical error, less efficient to compute</p>
+<blockquote>
+<p>一般用来做 checking？</p>
+</blockquote>
+<h2 id="numerical-gradient-checking">Numerical gradient checking</h2>
+<p>$$
+\frac{\partial f(\theta)}{\partial \theta_i} \approx \frac{f(\theta + \epsilon \delta) - f(\theta - \epsilon \delta)}{2\epsilon}
+$$</p>
+<blockquote>
+<p>检查 auto differentiation algo 是否正确</p>
+</blockquote>
+<h2 id="symbolic-differentiation">Symbolic differentiation</h2>
+<p>$$
+\frac{\partial (f(\theta) + g(\theta))}{\partial \theta}  = \frac{\partial f}{\partial \theta} + \frac{\partial g}{\partial \theta}
+$$</p>
+<p>$$
+\frac{\partial (f(\theta) g(\theta))}{\partial \theta}  = g(\theta) \frac{\partial f}{\partial \theta} + f(\theta) \frac{\partial g}{\partial \theta}
+$$</p>
+<p>$$
+\frac{\partial f(g(\theta))}{\partial \theta} = \frac{\partial f(g)}{\partial g(\theta)} \cdot \frac{\partial g(\theta)}{\partial \theta}
+$$</p>
+<blockquote>
+<p>回顾偏微分法则</p>
+</blockquote>
+<p>wasted computation:</p>
+<p>$$
+f(\theta) = \prod_{i=1}^n \theta_i
+$$</p>
+<blockquote>
+<p>为了避免冗余，现代机器学习和计算工具使用了自动微分（Automatic Differentiation）</p>
+<p>这个函数求偏导，会有很多重复的乘积，可以用自动微分和计算图缓存中间结果</p>
+</blockquote>
+<h2 id="computational-graph">Computational graph</h2>
+<p>$$
+y = \ln(x_1) + x_1 \cdot x_2 - \sin(x_2)
+$$</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/04/N42RenY3CyaGAdQ.png"
+        data-srcset="https://s2.loli.net/2025/03/04/N42RenY3CyaGAdQ.png, https://s2.loli.net/2025/03/04/N42RenY3CyaGAdQ.png 1.5x, https://s2.loli.net/2025/03/04/N42RenY3CyaGAdQ.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/04/N42RenY3CyaGAdQ.png"
+        title="example" /></p>
+<blockquote>
+<p>中间结果</p>
+</blockquote>
+<h2 id="forward-mode-automatic-differentiation-ad">Forward mode automatic differentiation (AD)</h2>
+<blockquote>
+<p>it automatically propagates gradients through a computational graph based on the mathematical operations involved.</p>
+<p>不需要手动计算梯度 计算了很多中间值</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/04/LEeXckvCJfijVDu.png"
+        data-srcset="https://s2.loli.net/2025/03/04/LEeXckvCJfijVDu.png, https://s2.loli.net/2025/03/04/LEeXckvCJfijVDu.png 1.5x, https://s2.loli.net/2025/03/04/LEeXckvCJfijVDu.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/04/LEeXckvCJfijVDu.png"
+        title="Auto FD" /></p>
+<h2 id="limitation-of-forward-mode-ad">Limitation of forward mode AD</h2>
+<blockquote>
+<p>对于函数 $f: \mathbb{R}^n \to \mathbb{R}^k$ ，前向模式自动微分需要 <strong>n 次传递</strong> 来计算输出对所有 n 个输入变量的梯度。</p>
+<p>也就是说，对于每个输入变量 $(x_1, x_2, \ldots, x_n )$，需要单独进行一次计算，以追踪输出随着该输入的变化。</p>
+<p>在大多数情况下，当 $k = 1$ （标量输出，例如机器学习中的损失函数）且 $n$ 很大时（如神经网络的权重数量庞大），前向模式会显得 <strong>计算成本较高且效率低下</strong>，因为它的计算成本随着输入数量 $n$ 的增加线性增长。</p>
+</blockquote>
+<p>We mostly care about the cases where $k = 1$ and large $n$ .</p>
+<p>In order to resolve the problem efficiently, we need to use another kind of AD</p>
+<h2 id="reverse-mode-automatic-differentiationad">Reverse mode automatic differentiation(AD)</h2>
+<p>Adjoint: $\bar{v}_i = \frac{\partial y}{\partial v_i}$</p>
+<blockquote>
+<p>每个变量的导数，但是反向计算</p>
+<p>Reverse Mode 一次反向传递即可计算出 <strong>标量输出对所有输入的梯度</strong>，适用于 $f: \mathbb{R}^n \to \mathbb{R}^1$ 的情况（例如机器学习中的损失函数）。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/04/5aXTWZSC7oYfm9b.png"
+        data-srcset="https://s2.loli.net/2025/03/04/5aXTWZSC7oYfm9b.png, https://s2.loli.net/2025/03/04/5aXTWZSC7oYfm9b.png 1.5x, https://s2.loli.net/2025/03/04/5aXTWZSC7oYfm9b.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/04/5aXTWZSC7oYfm9b.png"
+        title="Reverse AD" /></p>
+<h2 id="derivation-for-the-multiple-pathway-case">Derivation for the multiple pathway case</h2>
+<p>multiple pathways</p>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/05/DZNw4Mo9rQHhaxe.png"
+        data-srcset="https://s2.loli.net/2025/03/05/DZNw4Mo9rQHhaxe.png, https://s2.loli.net/2025/03/05/DZNw4Mo9rQHhaxe.png 1.5x, https://s2.loli.net/2025/03/05/DZNw4Mo9rQHhaxe.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/05/DZNw4Mo9rQHhaxe.png"
+        title="AD graph" /></p>
+<p>$$
+v_1 \</p>
+<p>y = f(v_2, v_3) \</p>
+<p>\frac{\partial y}{\partial v_1} = \frac{\partial f(v_2, v_3)}{\partial v_2} \cdot \frac{\partial v_2}{\partial v_1} + \frac{\partial f(v_2, v_3)}{\partial v_3} \cdot \frac{\partial v_3}{\partial v_1}
+$$</p>
+<p>partial adjoint: $v_i \rightarrow v_j = \bar{v}_j \cdot \frac{\partial v_j}{\partial v_i}$</p>
+<p>$$
+\bar{v}<em>i = \sum</em>{j \in \text{next}(i)} v_i \rightarrow v_j
+$$</p>
+<p>We can compute partial adjoints separately then sum them together</p>
+<blockquote>
+<p>自动微分（automatic differentiation）的背景下，针对多路径计算场景的偏导数的推导</p>
+<p>用于表示 Reverse AD 算法</p>
+</blockquote>
+<h2 id="reverse-ad-algorithm">Reverse AD algorithm</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/05/OcvBqM12aYlnetx.png"
+        data-srcset="https://s2.loli.net/2025/03/05/OcvBqM12aYlnetx.png, https://s2.loli.net/2025/03/05/OcvBqM12aYlnetx.png 1.5x, https://s2.loli.net/2025/03/05/OcvBqM12aYlnetx.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/05/OcvBqM12aYlnetx.png"
+        title="Reverse AD algorithm" /></p>
+<blockquote>
+<p><code>node_to_grad</code> 记录 partial adjoint 用于缓存</p>
+</blockquote>
+<h2 id="reverse-mode-ad-by-extending-computational-graph">Reverse mode AD by extending computational graph</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/05/vd6tJCMYU9Qmgor.png"
+        data-srcset="https://s2.loli.net/2025/03/05/vd6tJCMYU9Qmgor.png, https://s2.loli.net/2025/03/05/vd6tJCMYU9Qmgor.png 1.5x, https://s2.loli.net/2025/03/05/vd6tJCMYU9Qmgor.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/05/vd6tJCMYU9Qmgor.png"
+        title="Reverse AD computational graph" /></p>
+<blockquote>
+<p>computational graph 拓展</p>
+</blockquote>
+<h2 id="reverse-mode-ad-vs-backprop">Reverse mode AD vs Backprop</h2>
+<h3 id="backprop">Backprop</h3>
+<ul>
+<li>Run backward operations the same forward graph</li>
+<li>Used in first generation deep learning frameworks (caffe, cuda-convnet)</li>
+</ul>
+<h3 id="reverse-mode-ad-by-extending-computational-graph-1">Reverse mode AD by extending computational graph</h3>
+<ul>
+<li>Construct separate graph nodes for adjoints</li>
+<li>Used by modern deep learning frameworks</li>
+</ul>
+<blockquote>
+<p>所以 reverse mode AD 自动微分就是缓存了一些其中的结果，用 adjoints 来表示</p>
+<p>每次计算就不需要完全重新计算梯度、扩展的图</p>
+</blockquote>
+<h2 id="reverse-mode-ad-on-tensors">Reverse mode AD on Tensors</h2>
+<p>Define adjoint for tensor values</p>
+<p>$$
+\bar{Z} = \frac{\partial y}{\partial Z} =
+\begin{bmatrix}
+\frac{\partial y}{\partial Z_{1,1}} &amp; \cdots &amp; \frac{\partial y}{\partial Z_{1,n}} \
+\vdots &amp; \ddots &amp; \vdots \
+\frac{\partial y}{\partial Z_{m,1}} &amp; \cdots &amp; \frac{\partial y}{\partial Z_{m,n}}
+\end{bmatrix}
+$$</p>
+<blockquote>
+<p>Tensor 计算，reverse mode AD 的向量表达</p>
+<p>下一张将讨论实现</p>
+</blockquote>
+<p>pros/cons of backprop and reverse mode AD:</p>
+<h2 id="handling-gradient-of-gradient">Handling gradient of gradient</h2>
+<p>The result of reverse mode AD is still a computational graph</p>
+<p>We can extend that graph further by composing more operations and run reverse mode AD again on the gradient</p>
+<h2 id="reverse-mode-ad-on-data-structures">Reverse mode AD on data structures</h2>
+<p>Key take away: Define “adjoint value” usually in the same data type as the forward value and
+adjoint propagation rule. Then the sample algorithm works</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-03-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-03/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-03/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-03/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-03/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-03/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/learning-notes/">Learning Notes</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/paper-megatron-lm-v2/" class="prev" rel="prev" title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</a>
+            <a href="../../posts/ml-sys-hw0/" class="next" rel="next" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>

@@ -4,12 +4,20 @@
         <link>https://ad-bean.github.io/tags/</link>
         <description>Tags - 标签 - Adbean&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Tue, 04 Mar 2025 16:46:50 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>Deep Learning</title>
     <link>https://ad-bean.github.io/tags/deep-learning/</link>
-    <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate>
+    <pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate>
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/tags/deep-learning/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Learning Notes</title>
+    <link>https://ad-bean.github.io/tags/learning-notes/</link>
+    <pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/tags/learning-notes/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -34,22 +42,6 @@
     <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate>
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/tags/training/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Learning Notes</title>
-    <link>https://ad-bean.github.io/tags/learning-notes/</link>
-    <pubDate>Mon, 10 Feb 2025 14:58:18 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/tags/learning-notes/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>阅读笔记</title>
-    <link>https://ad-bean.github.io/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</link>
-    <pubDate>Mon, 13 Jan 2025 21:10:08 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/tags/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -82,6 +74,14 @@
     <pubDate>Sat, 27 Jul 2024 22:10:57 &#43;0800</pubDate>
     <author>Adbean</author>
     <guid>https://ad-bean.github.io/tags/database/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>LSM</title>
+    <link>https://ad-bean.github.io/tags/lsm/</link>
+    <pubDate>Sat, 27 Jul 2024 22:10:57 &#43;0800</pubDate>
+    <author>Adbean</author>
+    <guid>https://ad-bean.github.io/tags/lsm/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

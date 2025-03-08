@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-sys-hw0/">
+  <meta property="og:site_name" content="Adbean&#39;s Blog">
+  <meta property="og:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0">
+  <meta property="og:description" content="10-714: Homework 0 build a basic softmax regression algorithm, plus a simple two-layer neural network github hw0 Question 1: A basic add function, and testing/autograding basics plement simple_ml.add() function in src/simple_ml.py testing: !python3 -m pytest -k &#34;add&#34; 根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x &#43; y 没有">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-04T16:46:50-05:00">
+    <meta property="article:modified_time" content="2025-03-04T16:46:50-05:00">
+    <meta property="article:tag" content="Learning Notes">
+    <meta property="article:tag" content="Deep Learning">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0">
+  <meta name="twitter:description" content="10-714: Homework 0 build a basic softmax regression algorithm, plus a simple two-layer neural network github hw0 Question 1: A basic add function, and testing/autograding basics plement simple_ml.add() function in src/simple_ml.py testing: !python3 -m pytest -k &#34;add&#34; 根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x &#43; y 没有">
+<meta name="application-name" content="Adbean&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-sys-hw0/" /><link rel="prev" href="https://ad-bean.github.io/posts/ml-sys-03/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/ad-bean.github.io\/posts\/ml-sys-hw0\/"
+        },"genre": "posts","keywords": "Learning Notes, Deep Learning","wordcount":  2483 ,
+        "url": "https:\/\/ad-bean.github.io\/posts\/ml-sys-hw0\/","datePublished": "2025-03-04T16:46:50-05:00","dateModified": "2025-03-04T16:46:50-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Adbean"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="../../" title="Adbean&#39;s Blog"><img
+        class="lazyload logo"
+        src="../../svg/loading.min.svg"
+        data-src="../../Owl.ico"
+        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-sizes="auto"
+        alt="/Owl.ico"
+        title="/Owl.ico" />Adbean&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-04">2025-03-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2483 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#10-714-homework-0">10-714: Homework 0</a>
+      <ul>
+        <li><a href="#question-1-a-basic-add-function-and-testingautograding-basics">Question 1: A basic <code>add</code> function, and testing/autograding basics</a></li>
+        <li><a href="#question-2-loading-mnist-data">Question 2: Loading MNIST data</a></li>
+        <li><a href="#question-3-softmax-loss">Question 3: Softmax loss</a></li>
+        <li><a href="#question-4-stochastic-gradient-descent-for-softmax-regression">Question 4: Stochastic gradient descent for softmax regression</a></li>
+        <li><a href="#question-5-sgd-for-a-two-layer-neural-network">Question 5: SGD for a two-layer neural network</a></li>
+        <li><a href="#question-6-softmax-regression-in-c">Question 6: Softmax regression in C++</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="10-714-homework-0">10-714: Homework 0</h2>
+<p>build a basic softmax regression algorithm, plus a simple two-layer neural network</p>
+<blockquote>
+<p><a href="https://github.com/dlsyscourse/hw0.git" target="_blank" rel="noopener noreffer ">github hw0</a></p>
+</blockquote>
+<h3 id="question-1-a-basic-add-function-and-testingautograding-basics">Question 1: A basic <code>add</code> function, and testing/autograding basics</h3>
+<p>plement <code>simple_ml.add()</code> function in <code>src/simple_ml.py</code></p>
+<p>testing: <code>!python3 -m pytest -k &quot;add&quot;</code></p>
+<blockquote>
+<p>根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x + y</p>
+<p>没有注册 mugrade 等 autograde system，所以就基本跑本地的测试了</p>
+</blockquote>
+<h3 id="question-2-loading-mnist-data">Question 2: Loading MNIST data</h3>
+<p><code>parse_mnist_data()</code> function</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">parse_mnist</span><span class="p">(</span><span class="n">image_filename</span><span class="p">,</span> <span class="n">label_filename</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34; Read an images and labels file in MNIST format.  See this page:
+</span></span></span><span class="line"><span class="cl"><span class="s2">    http://yann.lecun.com/exdb/mnist/ for a description of the file format.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        image_filename (str): name of gzipped images file in MNIST format
+</span></span></span><span class="line"><span class="cl"><span class="s2">        label_filename (str): name of gzipped labels file in MNIST format
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Tuple (X,y):
+</span></span></span><span class="line"><span class="cl"><span class="s2">            X (numpy.ndarray[np.float32]): 2D numpy array containing the loaded
+</span></span></span><span class="line"><span class="cl"><span class="s2">                data.  The dimensionality of the data should be
+</span></span></span><span class="line"><span class="cl"><span class="s2">                (num_examples x input_dim) where &#39;input_dim&#39; is the full
+</span></span></span><span class="line"><span class="cl"><span class="s2">                dimension of the data, e.g., since MNIST images are 28x28, it
+</span></span></span><span class="line"><span class="cl"><span class="s2">                will be 784.  Values should be of type np.float32, and the data
+</span></span></span><span class="line"><span class="cl"><span class="s2">                should be normalized to have a minimum value of 0.0 and a
+</span></span></span><span class="line"><span class="cl"><span class="s2">                maximum value of 1.0 (i.e., scale original values of 0 to 0.0
+</span></span></span><span class="line"><span class="cl"><span class="s2">                and 255 to 1.0).
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">            y (numpy.ndarray[dtype=np.uint8]): 1D numpy array containing the
+</span></span></span><span class="line"><span class="cl"><span class="s2">                labels of the examples.  Values should be of type np.uint8 and
+</span></span></span><span class="line"><span class="cl"><span class="s2">                for MNIST will contain the values 0-9.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span></code></pre></div><blockquote>
+<p>注意返回的是 Tuple</p>
+<p>使用 gzip 打开文件 <code>gzip.open(image_filename, 'rb')</code> 和 <code>gzip.open(label_filename, 'rb')</code></p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png"
+        data-srcset="https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png, https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png 1.5x, https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png"
+        title="https://s2.loli.net/2025/03/08/MxOdNoDwmC4Xl7s.png" /></p>
+<p>MNIST <code>image_filename</code> 的格式为 <code>[magic number 32bits] [number of images 32bits] [number of rows 32bits] [number of columns 32bits] [... pixel]</code></p>
+<p>MNIST <code>label_filename</code> 的格式为 <code>[magic number 32bits] [number of items 32bits] [...label]</code></p>
+<ol>
+<li>
+<p>利用 <code>struct.unpack('&gt;IIII', f.read(16))</code> 读取 <code>image_file</code> 表示 <code>big-endian</code> 大端读 <code>16 bytes</code> 获取 <code>magic, num_images, rows, cols</code></p>
+<ol>
+<li>然后使用 <code>img_data = np.frombuffer(f.read(), dtype=np.uint8)</code> 获取剩下的图像数据（一维），进行 <code>img_data.reshape(num_images, rows * cols) / 255.0</code> 转成二维</li>
+</ol>
+</li>
+<li>
+<p>利用 <code>struct.unpack('&gt;II', f.read(8))</code> 读取 <code>image_file</code> 表示 <code>big-endian</code> 大端读 <code>8 bytes</code> 获取 <code>magic, num_items</code></p>
+<ol>
+<li>然后用 <code>y = np.frombuffer(f.read(), dtype=np.uint8)</code> 获取剩下的标签数据</li>
+</ol>
+</li>
+</ol>
+<h3 id="question-3-softmax-loss">Question 3: Softmax loss</h3>
+<p>Implement the softmax (a.k.a. cross-entropy) loss as defined in <code>softmax_loss()</code> function in <code>src/simple_ml.py</code>.</p>
+<p>$$
+\begin{equation}
+\ell_{\mathrm{softmax}}(z, y) = \log\sum_{i=1}^k \exp z_i - z_y.
+\end{equation}
+$$</p>
+<p><code>softmax_loss()</code> takes a <em>2D array</em> of logits (i.e., the $k$ dimensional logits for a batch of different samples), plus a corresponding 1D array of true labels, and should output the <em>average</em> softmax loss over the entire batch. Note that to do this correctly, you should <em>not</em> use any loops, but do all the computation natively with numpy vectorized operations (to set expectations here, we should note for instance that our reference solution consists of a single line of code).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">softmax_loss</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34; Return softmax loss.  Note that for the purposes of this assignment,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    you don&#39;t need to worry about &#34;nicely&#34; scaling the numerical properties
+</span></span></span><span class="line"><span class="cl"><span class="s2">    of the log-sum-exp computation, but can just compute this directly.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Z (np.ndarray[np.float32]): 2D numpy array of shape
+</span></span></span><span class="line"><span class="cl"><span class="s2">            (batch_size, num_classes), containing the logit predictions for
+</span></span></span><span class="line"><span class="cl"><span class="s2">            each class.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        y (np.ndarray[np.uint8]): 1D numpy array of shape (batch_size, )
+</span></span></span><span class="line"><span class="cl"><span class="s2">            containing the true label of each example.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Average softmax loss over the sample.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>按照公式完成即可，注意输入是 <code>Z (np.ndarray[np.float32]) (batch_size, num_classes)</code> 每一行代表一个样本的 logits（预测分数），<code>y (np.ndarray[np.uint8])</code> 是对应的 label</p>
+<p>拿出 <code>batch_size = Z.shape[0]</code>，根据公式写出 <code>np.log(np.sum(np.exp(Z), axis=1)) - Z[np.arange(batch_size), y]</code> 最后返回 <code>np.mean(loss)</code></p>
+<blockquote>
+<p><code>np.arange(batch_size)</code> 生成一个从 0 到 batch_size-1 的数组，这样可以和 y 配合从 Z 中提取每个样本真实类别对应的 logit。</p>
+</blockquote>
+<h3 id="question-4-stochastic-gradient-descent-for-softmax-regression">Question 4: Stochastic gradient descent for softmax regression</h3>
+<p>implement stochastic gradient descent (SGD) for (linear) softmax regression.</p>
+<p>consider a hypothesis function that makes $n$-dimensional inputs to $k$-dimensional logits via the function</p>
+<p>$$
+\begin{equation}
+h(x) = \Theta^T x
+\end{equation}
+$$</p>
+<p>where $x \in \mathbb{R}^n$ is the input, and $\Theta \in \mathbb{R}^{n \times k}$ are the model parameters</p>
+<p>the gradient of the linear softmax objective is given by</p>
+<p>$$
+\begin{equation}
+\nabla_\Theta \ell_{\mathrm{softmax}}(\Theta^T x, y) = x (z - e_y)^T
+\end{equation} \</p>
+<p>\begin{equation}
+z = \frac{\exp(\Theta^T x)}{1^T \exp(\Theta^T x)} \equiv normalize(\exp(\Theta^T x))
+\end{equation} \
+$$</p>
+<p>Using these gradients, implement the <code>softmax_regression_epoch()</code> function, which runs a single epoch of SGD (one pass over a data set) using the specified learning rate / step size <code>lr</code> and minibatch size <code>batch</code>. As described in the docstring, your function should modify the <code>Theta</code> array in-place.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">softmax_regression_epoch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34; Run a single epoch of SGD for softmax regression on the data, using
+</span></span></span><span class="line"><span class="cl"><span class="s2">    the step size lr and specified batch size.  This function should modify the
+</span></span></span><span class="line"><span class="cl"><span class="s2">    theta matrix in place, and you should iterate through batches in X _without_
+</span></span></span><span class="line"><span class="cl"><span class="s2">    randomizing the order.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        X (np.ndarray[np.float32]): 2D input array of size
+</span></span></span><span class="line"><span class="cl"><span class="s2">            (num_examples x input_dim).
+</span></span></span><span class="line"><span class="cl"><span class="s2">        y (np.ndarray[np.uint8]): 1D class label array of size (num_examples,)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        theta (np.ndarrray[np.float32]): 2D array of softmax regression
+</span></span></span><span class="line"><span class="cl"><span class="s2">            parameters, of shape (input_dim, num_classes)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        lr (float): step size (learning rate) for SGD
+</span></span></span><span class="line"><span class="cl"><span class="s2">        batch (int): size of SGD minibatch
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        None
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>按照 <code>batch</code> 大小遍历数据集，其中 <code>X.shape[0]</code> 是 <code>num_examples</code></p>
+<p>每次获得 <code>X[i : i+batch]</code> 输入和 <code>y[i : i+batch]</code> 相应的 label</p>
+<p><code>theta</code> 是参数矩阵，在 <code>numpy</code> 里用 <code>@</code> 进行矩阵乘法 <code>X_batch @ theta</code> 计算 minibatch logits 也就是预测分数</p>
+<p>根据公式计算 <code>np.exp(logits)</code> 求和并且进行 <code>normalize</code> 归一化</p>
+<p>One-hot 编码：归一化结果 <code>one_hot = [np.arange(X_batch.shape[0]), y_batch] = 1.0</code> 就得到了标签的的编码。</p>
+<blockquote>
+<p>这里是 python 的语法，<code>np.arange(X_batch.shape[0])</code> 创建一个大小为参数的数组，并且从 0 开始，也就是行索引，而 <code>y_batch</code> 则是标签的索引，列索引。</p>
+</blockquote>
+<p>梯度计算：<code>grad = (X_batch.T @ (probs - one_hot)) / X_batch.shape[0]</code></p>
+<blockquote>
+<p>梯度公式 $\frac{1}{m} X^T (Z - I_y)$</p>
+</blockquote>
+<p>modify the <code>Theta</code> array in-place: <code>theta -= lr * grad</code> 其中 lr 就是学习率</p>
+<blockquote>
+<p>$\theta_{\text{new}} = \theta - \eta \cdot \text{grad}$</p>
+</blockquote>
+<p>Training MNIST with softmax regression:</p>
+<p>For reference, as seen below, our implementation runs in ~3 seconds on Colab, and achieves 7.97% error.</p>
+<h3 id="question-5-sgd-for-a-two-layer-neural-network">Question 5: SGD for a two-layer neural network</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">nn_epoch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">W1</span><span class="p">,</span> <span class="n">W2</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34; Run a single epoch of SGD for a two-layer neural network defined by the
+</span></span></span><span class="line"><span class="cl"><span class="s2">    weights W1 and W2 (with no bias terms):
+</span></span></span><span class="line"><span class="cl"><span class="s2">        logits = ReLU(X * W1) * W2
+</span></span></span><span class="line"><span class="cl"><span class="s2">    The function should use the step size lr, and the specified batch size (and
+</span></span></span><span class="line"><span class="cl"><span class="s2">    again, without randomizing the order of X).  It should modify the
+</span></span></span><span class="line"><span class="cl"><span class="s2">    W1 and W2 matrices in place.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Args:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        X (np.ndarray[np.float32]): 2D input array of size
+</span></span></span><span class="line"><span class="cl"><span class="s2">            (num_examples x input_dim).
+</span></span></span><span class="line"><span class="cl"><span class="s2">        y (np.ndarray[np.uint8]): 1D class label array of size (num_examples,)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        W1 (np.ndarray[np.float32]): 2D array of first layer weights, of shape
+</span></span></span><span class="line"><span class="cl"><span class="s2">            (input_dim, hidden_dim)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        W2 (np.ndarray[np.float32]): 2D array of second layer weights, of shape
+</span></span></span><span class="line"><span class="cl"><span class="s2">            (hidden_dim, num_classes)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        lr (float): step size (learning rate) for SGD
+</span></span></span><span class="line"><span class="cl"><span class="s2">        batch (int): size of SGD minibatch
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
+</span></span></span><span class="line"><span class="cl"><span class="s2">        None
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>consider a two-layer neural network (without bias terms) of the form</p>
+<p>$$ z = W_2^T \mathrm{ReLU}(W_1^T x) $$</p>
+<p>where $W_1 \in \mathbb{R}^{n \times d}$ and $W_2 \in \mathbb{R}^{d \times k}$ represent the weights of the network (which has a $d$-dimensional hidden unit), and where $z \in \mathbb{R}^k$ represents the logits output by the network.</p>
+<p>again use the softmax / cross-entropy loss, meaning that we want to solve the optimization problem</p>
+<p>$$
+minimize_{W_1, W_2} ;; \frac{1}{m} sum_{i=1}^m \ell_{\mathrm{softmax}}(W_2^T \mathrm{ReLU}(W_1^T x^{(i)}), y^{(i)})
+$$</p>
+<p>Using the chain rule, we can derive the <strong>backpropagation</strong> updates for this network</p>
+<p>$$
+\begin{equation}
+\begin{split}
+Z_1 \in \mathbb{R}^{m \times d} &amp; = \mathrm{ReLU}(X W_1) \
+G_2 \in \mathbb{R}^{m \times k} &amp; = normalize(\exp(Z_1 W_2)) - I_y \
+G_1 \in \mathbb{R}^{m \times d} &amp; = \mathrm{1}{Z_1 &gt; 0} \circ (G_2 W_2^T)
+\end{split}
+\end{equation}
+$$</p>
+<blockquote>
+<p>相比 SGD，2 layer 的实现也很类似，但需要实现 forward 和 backprop，以及链式法则</p>
+</blockquote>
+<p>$$ \text{softmax}(z<em>i) = \frac{\exp(z_i)}{\sum</em>{j=1}^{k} \exp(z_j)} $$</p>
+<p>ReLU 的误差计算：</p>
+<p>$$
+\nabla_{W_1} \ell_{\mathrm{softmax}}(\mathrm{ReLU}(X W_1) W_2, y) = \frac{1}{m} X^T G_1  \
+G_1 \in \mathbb{R}^{m \times d} = \mathrm{1}{Z_1 &gt; 0} \circ (G_2 W_2^T)
+$$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">nn_epoch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">W1</span><span class="p">,</span> <span class="n">W2</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">batch</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">X_batch</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">batch</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">batch</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m_batch</span> <span class="o">=</span> <span class="n">X_batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># forward, ReLU(XW1)W2, np.maximum(0, ...) 是 ReLU 的实现形式</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">X_batch</span> <span class="o">@</span> <span class="n">W1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logits</span> <span class="o">=</span> <span class="n">Z1</span> <span class="o">@</span> <span class="n">W2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 计算 softmax 输出</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exp_logits</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">exp_logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">probs</span> <span class="o">=</span> <span class="n">exp_logits</span> <span class="o">/</span> <span class="n">sums</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 编码</span>
+</span></span><span class="line"><span class="cl">        <span class="n">one_hot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">one_hot</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">m_batch</span><span class="p">),</span> <span class="n">y_batch</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># backprop</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># G2: 编码后的 softmax - label</span>
+</span></span><span class="line"><span class="cl">        <span class="n">G2</span> <span class="o">=</span> <span class="n">probs</span> <span class="o">-</span> <span class="n">one_hot</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># W2梯度: (Z1^T @ G2) / m_batch.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gradW2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Z1</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G2</span><span class="p">)</span> <span class="o">/</span> <span class="n">m_batch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Propagate the gradients back through the ReLU nonlinearity.</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># (Z1 &gt; 0) is the indicator of activated neurons.</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># ReLU 反向传播，Z1 大于 0 表示激活</span>
+</span></span><span class="line"><span class="cl">        <span class="n">G1</span> <span class="o">=</span> <span class="p">(</span><span class="n">G2</span> <span class="o">@</span> <span class="n">W2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">Z1</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Gradient for W1: (X_batch^T @ G1) / m_batch.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gradW1</span> <span class="o">=</span> <span class="p">(</span><span class="n">X_batch</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">G1</span><span class="p">)</span> <span class="o">/</span> <span class="n">m_batch</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># inplace 原地更新</span>
+</span></span><span class="line"><span class="cl">        <span class="n">W1</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">gradW1</span>
+</span></span><span class="line"><span class="cl">        <span class="n">W2</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">gradW2</span>
+</span></span></code></pre></div><p>Training a full neural network:</p>
+<p>trains a two-layer network with 400 hidden units.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Reload the simple_ml module which has been cached from the earlier experiment</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">importlib</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">simple_ml</span>
+</span></span><span class="line"><span class="cl"><span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">simple_ml</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&#34;src/&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">simple_ml</span> <span class="kn">import</span> <span class="n">train_nn</span><span class="p">,</span> <span class="n">parse_mnist</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span> <span class="o">=</span> <span class="n">parse_mnist</span><span class="p">(</span><span class="s2">&#34;data/train-images-idx3-ubyte.gz&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="s2">&#34;data/train-labels-idx1-ubyte.gz&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span> <span class="o">=</span> <span class="n">parse_mnist</span><span class="p">(</span><span class="s2">&#34;data/t10k-images-idx3-ubyte.gz&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                         <span class="s2">&#34;data/t10k-labels-idx1-ubyte.gz&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">train_nn</span><span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">,</span> <span class="n">X_te</span><span class="p">,</span> <span class="n">y_te</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</span></span></code></pre></div><p>it achieve an error of 1.89% on MNIST.</p>
+<h3 id="question-6-softmax-regression-in-c">Question 6: Softmax regression in C++</h3>
+<p>pybind11, a header-only library, which allows you to implement the entire Python/C++ interface within a single C++ source library</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">softmax_regression_epoch_cpp</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">X</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">								  <span class="kt">float</span> <span class="o">*</span><span class="n">theta</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">m</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">k</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">								  <span class="kt">float</span> <span class="n">lr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">batch</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>it requires passing some additional arguments because we are operating on raw pointers to the array data rather than any sort of higher-level &ldquo;matrix&rdquo; data structure.</p>
+<p>Specifically, <code>X</code>, <code>y</code>, and <code>theta</code> are <strong>pointers</strong> to the raw data of the corresponding numpy arrays from the previous section; for 2D arrays, these are stored in C-style (row-major) format, meaning that the first row of $X$ is stored sequentially as the first bytes in <code>X</code>, then the second row, etc (this contrasts with <em>column major</em> ordering, which stores the first <em>column</em> of the matrirx sequentially, then the second column, etc).</p>
+<blockquote>
+<p>row major 行存储</p>
+</blockquote>
+<p>As an illustration of how to access the data, note that because <code>X</code> represents a row-major, $m \times n$ matrix, if we want to access the $(i,j)$ element of $X$ (the element in the $i$th row and the $j$th column), we would use the index <code>X[i*n + j]</code></p>
+<p>pybind11 code that actually provides the Python interface, this code essentially just extracts the raw pointers from the provided inputs (using pybinds numpy interface), and then calls the corresponding <code>softmax_regression_epoch_cpp</code> function.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">PYBIND11_MODULE</span><span class="p">(</span><span class="n">simple_ml_ext</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">m</span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">&#34;softmax_regression_epoch_cpp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[](</span><span class="n">py</span><span class="o">::</span><span class="n">array_t</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span><span class="o">::</span><span class="n">c_style</span><span class="o">&gt;</span> <span class="n">X</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="n">py</span><span class="o">::</span><span class="n">array_t</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">,</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span><span class="o">::</span><span class="n">c_style</span><span class="o">&gt;</span> <span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="n">py</span><span class="o">::</span><span class="n">array_t</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="n">py</span><span class="o">::</span><span class="n">array</span><span class="o">::</span><span class="n">c_style</span><span class="o">&gt;</span> <span class="n">theta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">float</span> <span class="n">lr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">           <span class="kt">int</span> <span class="n">batch</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">softmax_regression_epoch_cpp</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">ptr</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">ptr</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">theta</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">ptr</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">X</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">X</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">theta</span><span class="p">.</span><span class="n">request</span><span class="p">().</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">lr</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">batch</span>
+</span></span><span class="line"><span class="cl">           <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&#34;X&#34;</span><span class="p">),</span> <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&#34;y&#34;</span><span class="p">),</span> <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&#34;theta&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&#34;lr&#34;</span><span class="p">),</span> <span class="n">py</span><span class="o">::</span><span class="n">arg</span><span class="p">(</span><span class="s">&#34;batch&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>相比 python，用 cpp 实现 softmax regression 的难点在于矩阵大小和下标访问：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">softmax_regression_epoch_cpp</span><span class="p">(</span><span class="k">const</span> <span class="kt">float</span> <span class="o">*</span><span class="n">X</span><span class="p">,</span> <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                  <span class="kt">float</span> <span class="o">*</span><span class="n">theta</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">m</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">k</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                  <span class="kt">float</span> <span class="n">lr</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">batch</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="n">batch</span><span class="p">)</span> <span class="p">{</span>             <span class="c1">// m 个样本，每次 batch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">size_t</span> <span class="n">currentBatch</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">min</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="n">i</span><span class="p">);</span>   <span class="c1">// 当前 batch 数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// Allocate a gradient buffer for theta (size n*k) and initialize to 0.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">float</span> <span class="o">*</span><span class="n">grad</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="n">n</span> <span class="o">*</span> <span class="n">k</span><span class="p">];</span>                 <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">std</span><span class="o">::</span><span class="n">memset</span><span class="p">(</span><span class="n">grad</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// process the minibatch
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">currentBatch</span><span class="p">;</span> <span class="n">s</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// forward: X_batch @ theta
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">size_t</span> <span class="n">exampleIdx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// logits = \theta^T X,  x \in R^n, \theta \in R^{n x k}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// logits \in k dimension
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">float</span> <span class="o">*</span><span class="n">logits</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// matrix multiplication
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// Compute logits = X[exampleIdx] dot theta, for each class j.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">float</span> <span class="n">dot</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// X is row-major: element (exampleIdx, l)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// theta is row-major: element (l, j)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="n">dot</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">exampleIdx</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">theta</span><span class="p">[</span><span class="n">l</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="n">logits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dot</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// exp(logits) / np.sum(exp(logtis))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">float</span> <span class="n">sumExp</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">logits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">exp</span><span class="p">(</span><span class="n">logits</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">sumExp</span> <span class="o">+=</span> <span class="n">logits</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// one-hot encoding
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// compute the probability and the difference (error)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// compared to the one-hot label indicator.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">float</span> <span class="n">prob</span> <span class="o">=</span> <span class="n">logits</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">sumExp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// If j equals the true label then indicator is 1, else 0.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kt">float</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">prob</span> <span class="o">-</span> <span class="p">(</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">size_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">exampleIdx</span><span class="p">]))</span> <span class="o">?</span> <span class="mf">1.0f</span> <span class="o">:</span> <span class="mf">0.0f</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// Accumulate gradients for each feature.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">grad</span><span class="p">[</span><span class="n">l</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">exampleIdx</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">delta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">delete</span><span class="p">[]</span> <span class="n">logits</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// update theta in-place
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// mean gradients over the mini-batch and update theta
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// divide by float(currentBatch) to avoid integer division issues
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">theta</span><span class="p">[</span><span class="n">l</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">l</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">currentBatch</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">grad</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-03-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-sys-hw0/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0" data-hashtags="Learning Notes,Deep Learning"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-sys-hw0/" data-hashtag="Learning Notes"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-sys-hw0/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-sys-hw0/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-sys-hw0/" data-title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/learning-notes/">Learning Notes</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="../../posts/ml-sys-03/" class="prev" rel="prev" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+</html>
