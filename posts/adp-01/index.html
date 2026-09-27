@@ -11,7 +11,7 @@
 	<meta itemprop="description" content="Agentic Design Patterns AI Agent 这几个月被吹得神乎其神，让我看看到底怎么个事！">
 	<meta itemprop="datePublished" content="2025-12-31T23:53:34-08:00">
 	<meta itemprop="dateModified" content="2025-12-31T23:53:34-08:00">
-	<meta itemprop="wordCount" content="793">
+	<meta itemprop="wordCount" content="1885">
 	<meta itemprop="keywords" content="Agent,笔记"><meta property="og:url" content="https://ad-bean.github.io/posts/adp-01/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Agentic Design Patterns 第一章笔记">
@@ -39,7 +39,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/ad-bean.github.io\/posts\/adp-01\/"
-    },"genre": "posts","keywords": "Agent, 笔记","wordcount":  793 ,
+    },"genre": "posts","keywords": "Agent, 笔记","wordcount":  1885 ,
     "url": "https:\/\/ad-bean.github.io\/posts\/adp-01\/","datePublished": "2025-12-31T23:53:34-08:00","dateModified": "2025-12-31T23:53:34-08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -114,7 +114,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Agentic Design Patterns 第一章笔记</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/notes/" class="post-category" title="分类 - Notes"><i class="fa-regular fa-folder" aria-hidden="true"></i> Notes</a></span></div><div class="post-meta-line"><span title="发布于 2025-12-31 23:53:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-12-31">2025-12-31</time></span>&nbsp;<span title="793 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/notes/" class="post-category" title="分类 - Notes"><i class="fa-regular fa-folder" aria-hidden="true"></i> Notes</a></span></div><div class="post-meta-line"><span title="发布于 2025-12-31 23:53:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-12-31">2025-12-31</time></span>&nbsp;<span title="1885 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -124,8 +124,17 @@
   <ul>
     <li><a href="#agentic-design-patterns">Agentic Design Patterns</a>
       <ul>
-        <li><a href="#prompt-chaining">Prompt Chaining</a></li>
+        <li><a href="#prompt-chaining">Prompt Chaining</a>
+          <ul>
+            <li><a href="#单-prompt-为什么不行">单 prompt 为什么不行</a></li>
+            <li><a href="#拆成链">拆成链</a></li>
+            <li><a href="#结构化输出">结构化输出</a></li>
+            <li><a href="#书里点出但容易被忽略的一点">书里点出、但容易被忽略的一点</a></li>
+            <li><a href="#应用场景">应用场景</a></li>
+          </ul>
+        </li>
         <li><a href="#上下文工程和提示工程">上下文工程和提示工程</a></li>
+        <li><a href="#小结">小结</a></li>
       </ul>
     </li>
   </ul>
@@ -135,47 +144,124 @@
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
 </h2><p>AI Agent 这几个月被吹得神乎其神，让我看看到底怎么个事！</p>
+<p>书是 Antonio Gulli 的 <em>Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems</em>，21 章 + 7 个附录。配套代码在 <a href="https://github.com/evoiz/Agentic-Design-Patterns" target="_blank" rel="external nofollow noopener noreferrer">evoiz/Agentic-Design-Patterns</a>。</p>
 <h3 class="heading-element" id="prompt-chaining"><span>Prompt Chaining</span>
   <a href="#prompt-chaining" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><p>通过顺序分解增强可靠性</p>
+</h3><p>又名 Pipeline pattern。核心一句话：<strong>把复杂任务拆成顺序步骤，每步一个聚焦的 prompt，上一步的输出喂给下一步</strong>。</p>
+<h4 class="heading-element" id="单-prompt-为什么不行"><span>单 prompt 为什么不行</span>
+  <a href="#%e5%8d%95-prompt-%e4%b8%ba%e4%bb%80%e4%b9%88%e4%b8%8d%e8%a1%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>书里列了五种失效模式：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>失效模式</th>
+            <th>含义</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Instruction neglect</td>
+            <td>指令被漏执行</td>
+        </tr>
+        <tr>
+            <td>Contextual drift</td>
+            <td>丢掉最初上下文，跑偏</td>
+        </tr>
+        <tr>
+            <td>Error propagation</td>
+            <td>早期错误在后续被放大</td>
+        </tr>
+        <tr>
+            <td>上下文窗口不够</td>
+            <td>信息塞不下</td>
+        </tr>
+        <tr>
+            <td>Hallucination</td>
+            <td>认知负载升高，编造概率上升</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>例子：一个 prompt 里同时要求「分析市场报告 + 总结 + 提取趋势和数据点 + 起草邮件」，模型可能总结得不错，但数据没提、邮件写砸。</p>
+<h4 class="heading-element" id="拆成链"><span>拆成链</span>
+  <a href="#%e6%8b%86%e6%88%90%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>① 总结关键发现 → ② 基于摘要找前三趋势 + 支撑数据点 → ③ 基于趋势起草邮件。每步可赋予不同角色（Market Analyst / Trade Analyst / Writer）。</p>
+<p>每步更简单、更少歧义，模型认知负载下降 —— 这是书的说法。</p>
 <blockquote>
 <p>其实我不理解 prompt 里主动要求任务分解 + 拆解，和不要求有什么区别，如果都是通过 LM 注意力机制，有没有又有什么区别呢，prompt 的质量确实能影响结果的好坏，但到底是怎么影响的呢？</p>
 </blockquote>
-<p>结构化输出的作用，是构建健壮的多步骤 LLM 系统的关键组件。</p>
+<p>区别不在「prompt 里写不写拆解」—— 在同一个 prompt 里让模型自己分步，和干脆不写，效果差别不大。真正的区别是<strong>拆成多次独立的调用</strong>：每次调用的上下文更短、约束更单一，模型不必同时兼顾五件事。书的例子其实是后者，但它没有把这个区别讲透。</p>
+<h4 class="heading-element" id="结构化输出"><span>结构化输出</span>
+  <a href="#%e7%bb%93%e6%9e%84%e5%8c%96%e8%be%93%e5%87%ba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>步骤之间用 JSON/XML 传递，保证下游能精确解析。</p>
+<p>注意书的原话是 &ldquo;minimizes errors that arise from <em>interpreting natural language</em>&rdquo; —— 它管的是<strong>传输格式</strong>，不是<strong>内容真假</strong>。</p>
 <blockquote>
 <p>让 LLM 生成结构化输出，确实对构建自动化/Agent 系统是有帮助的，但能保障结果的正确性吗？Agent 系统会因为幻觉而失败吗？MCP 的提出能保证完全避免幻觉导致非结构化的输出吗？</p>
 </blockquote>
-<p>顺序处理方法是开发能够进行多步推理和信息综合的 AI 系统的核心。当查询无法从单个数据点回答，而是需要一系列逻辑步骤或来自不同来源的信息集成时，需要这样的系统。</p>
-<p>设计用于生成关于特定主题的综合报告的自动化研究 Agent 执行混合计算工作流。</p>
-<ol>
-<li>系统检索大量相关文章。</li>
-<li>从每篇文章中提取关键信息的后续任务可以为每个来源并发执行。此阶段非常适合并行处理，其中独立的子任务同时运行以最大化效率。</li>
-<li>过程转为顺序执行：先整合提取数据，再综合成连贯草稿，最后审查完善生成报告。</li>
+<p>不能。JSON 格式合法 ≠ 内容正确，字段里照样可以是编的。MCP 是工具调用协议，跟幻觉没有关系。</p>
+<h4 class="heading-element" id="书里点出但容易被忽略的一点"><span>书里点出、但容易被忽略的一点</span>
+  <a href="#%e4%b9%a6%e9%87%8c%e7%82%b9%e5%87%ba%e4%bd%86%e5%ae%b9%e6%98%93%e8%a2%ab%e5%bf%bd%e7%95%a5%e7%9a%84%e4%b8%80%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>链真正的价值之一，是能在模型调用之间<strong>插入确定性逻辑</strong> —— 校验输出、条件分支、调外部工具。比如精确算术交给计算器，而不是让 LLM 自己算。</p>
+<h4 class="heading-element" id="应用场景"><span>应用场景</span>
+  <a href="#%e5%ba%94%e7%94%a8%e5%9c%ba%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><ol>
+<li><strong>信息处理工作流</strong>：抓取 → 总结 → 抽实体 → 查知识库 → 出报告</li>
+<li><strong>复杂问答</strong>：拆子问题 → 分别检索 → 综合</li>
+<li><strong>数据抽取转换</strong>：发票字段抽取，缺字段就条件性再补一轮</li>
+<li><strong>内容生成</strong>：选题 → 大纲 → 逐节起草 → 润色</li>
+<li><strong>有状态对话</strong>：把累积的实体/状态构造进新 prompt</li>
+<li><strong>代码生成精修</strong>：伪码 → 草稿 → 检错 → 重写 → 文档/测试</li>
+<li><strong>多模态多步推理</strong>：图里文字 → 关联标签 → 查表得结论</li>
 </ol>
-<p>数据提取和转换、内容生成工作流、代码生成和完善、多模态和多步推理&hellip;</p>
+<p>书里的自动化研究 Agent 是混合的：<strong>检索 + 抽取并发跑，整合 → 综合 → 审查串行跑</strong>。</p>
 <blockquote>
 <p>好像都是计划和执行的结合，抛开 LLM Agent，传统编程/人去做这些任务也几乎是这样做的，有什么区别呢？LM 是速度更快还是处理能力更强？目前的 Agent 系统真的发挥了其<strong>智能</strong>的优势吗？</p>
 </blockquote>
+<p>这一章没有回答。拆步骤、传结构化数据、插确定性逻辑 —— 这些传统工程早就在做。LLM 带来的增量是<strong>每步可以做模糊的语义操作</strong>（总结、抽取、判断），而不是「会规划」。书把这些包装成「智能」，但本章讲的其实是<strong>工程约束</strong>，不是智能。</p>
 <h3 class="heading-element" id="上下文工程和提示工程"><span>上下文工程和提示工程</span>
   <a href="#%e4%b8%8a%e4%b8%8b%e6%96%87%e5%b7%a5%e7%a8%8b%e5%92%8c%e6%8f%90%e7%a4%ba%e5%b7%a5%e7%a8%8b" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
   </a>
-</h3><ul>
-<li>系统提示词：定义 AI 操作参数的基础指令（如“你是一名技术作家，语气需正式精确”）</li>
-<li>外部数据集成：
+</h3><p>（本章最后一节。）</p>
+<p><strong>Context Engineering</strong> 的定义：在生成 token 之前，系统性地设计、构造、投递一个完整的信息环境给模型。它断言：<strong>输出质量更少取决于模型架构本身，更多取决于所提供上下文的丰富度</strong>。</p>
+<ul>
+<li><strong>系统提示词</strong>：定义 AI 操作参数的基础指令（如「你是一名技术作家，语气需正式精确」）</li>
+<li><strong>外部数据集成</strong>
 <ul>
 <li>检索文档：AI 主动从知识库获取信息（如提取项目技术规格）</li>
 <li>工具输出：通过 API 获取实时数据（如查询日历确定用户空闲时间）</li>
 </ul>
 </li>
-<li>隐式数据融合：结合用户身份、交互历史和环境状态等关键信息</li>
+<li><strong>隐式数据融合</strong>：结合用户身份、交互历史和环境状态等关键信息</li>
 </ul>
-<p>核心原则表明：即使高级模型在有限或不良构建的操作环境下也会表现不佳。</p>
+<p>核心原则：<strong>即使高级模型，在有限或不良构建的操作环境下也会表现不佳。</strong></p>
 <blockquote>
 <p>表现不佳，LM 参数够大，训练的数据够好，表现会差到哪里去呢？在我看来</p>
 </blockquote>
+<p>参数大 ≠ 知道你的上下文。模型再强，也看不到你的代码库、你的历史决策、你此刻的环境。上下文工程解决的正是这个：<strong>不是让模型变聪明，而是把模型不知道的东西喂给它</strong>。「提示工程」管怎么说，「上下文工程」管给什么 —— 书里说后者的工程部分在于「运行时抓取、转换数据的健壮管道 + 持续改善上下文质量的反馈回路」。</p>
+<h3 class="heading-element" id="小结"><span>小结</span>
+  <a href="#%e5%b0%8f%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li><strong>是什么</strong>：单 prompt 处理复杂任务会压垮模型（漏指令、丢上下文、编造）</li>
+<li><strong>为什么</strong>：拆成互相连接的小步骤，每步聚焦一个操作，更可靠、更好调试</li>
+<li><strong>什么时候用</strong>：任务对一个 prompt 太复杂 / 有多个独立处理阶段 / 步骤间要调外部工具 / 要多步推理并维护状态</li>
+<li>LangChain/LangGraph、Google ADK 提供现成的链式编排工具</li>
+</ul>
+<p><strong>一句话</strong>：第一、三章之前的这个模式，本质是「分而治之 + 步骤间接确定性逻辑」。它不神秘，但确实是把 LLM 塞进可靠系统的基本手段。</p>
 </div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
@@ -208,8 +294,17 @@
   <ul>
     <li><a href="#agentic-design-patterns">Agentic Design Patterns</a>
       <ul>
-        <li><a href="#prompt-chaining">Prompt Chaining</a></li>
+        <li><a href="#prompt-chaining">Prompt Chaining</a>
+          <ul>
+            <li><a href="#单-prompt-为什么不行">单 prompt 为什么不行</a></li>
+            <li><a href="#拆成链">拆成链</a></li>
+            <li><a href="#结构化输出">结构化输出</a></li>
+            <li><a href="#书里点出但容易被忽略的一点">书里点出、但容易被忽略的一点</a></li>
+            <li><a href="#应用场景">应用场景</a></li>
+          </ul>
+        </li>
         <li><a href="#上下文工程和提示工程">上下文工程和提示工程</a></li>
+        <li><a href="#小结">小结</a></li>
       </ul>
     </li>
   </ul>
