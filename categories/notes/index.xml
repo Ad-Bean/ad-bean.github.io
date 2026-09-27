@@ -25,6 +25,13 @@
 				<description>&lt;h2 id=&#34;这是什么&#34;&gt;这是什么&lt;/h2&gt;&#xA;&lt;p&gt;这个博客的知识索引。所有文章按 &lt;strong&gt;6 条轨道&lt;/strong&gt;归类，每条轨道标出&lt;strong&gt;读到哪里、断在哪&lt;/strong&gt;。以后再写新的，挂到对应轨道下面即可。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;总览&lt;/strong&gt;：61 篇，跨 2024-01 → 2025-12。最大的两块是 &lt;strong&gt;OS/Kernel（22）&lt;/strong&gt; 和 &lt;strong&gt;Database（11）&lt;/strong&gt;——论文读得很多，但&lt;strong&gt;动手只到 Mini-LSM 第一周&lt;/strong&gt;。这是目前最大的缺口。&lt;/p&gt;</description>
 			</item>
 			<item>
+				<title>关于</title>
+				<link>https://ad-bean.github.io/about/</link>
+				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/about/</guid>
+				<description>&lt;p&gt;做流式数据库（&lt;a href=&#34;https://risingwave.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;RisingWave&lt;/a&gt;）。这里是系统方向的学习笔记，索引见 &lt;a href=&#34;../../reading-map/&#34; rel=&#34;&#34;&gt;阅读地图&lt;/a&gt;。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/ad-bean&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;@ad-bean&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Email: &lt;a href=&#34;mailto:adbeanx@outlook.com&#34; rel=&#34;&#34;&gt;adbeanx@outlook.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+			<item>
 				<title>Agentic Design Patterns 第一章笔记</title>
 				<link>https://ad-bean.github.io/posts/adp-01/</link>
 				<pubDate>Wed, 31 Dec 2025 23:53:34 -0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>

@@ -21,7 +21,7 @@ Abstract 基于高维向量索引的近似相似度查询 approximate similarity
 	<meta name="twitter:description" content="VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询
 Abstract 基于高维向量索引的近似相似度查询 approximate similarity queries已经成为许多关键在线服务的基础。对更复杂的向量查询的日益增长的需求要求将向量搜索系统与关系数据库集成在一起。然而，高维向量盘不表现单调性，而单调性是常规指标的一个重要性质。缺乏单调性迫使现有的向量系统依赖于 monotonicity-preserving tentative indices（为目标矢量的 TopK 近邻临时设置）来方便查询，由于难以预测最优 K，这将导致次优性能。本文介绍的 VBASE 系统能有效支持近似相似性搜索和关系运算符的复杂查询。VBASE 发现了一个共同属性 relaxed monotonicity 松弛单调性，从而将两个看似不兼容的系统统一起来。这一共同属性使 VBASE 能够规避仅 TopK 的限制，从而显著提高效率，同时证明它保留了基于 TopK 的语义。评估结果表明，在复杂的在线向量查询中，VBASE 的性能比最先进的向量系统高出三个数量级。VBASE 还能进行分析性相似性查询 analytical similarity queries，而以往的向量系统则无法做到这一点，而且在精确查询方面，VBASE 提高了 7000x speedup 的同时准确率达到 99.9%。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/ddia-2/" /><link rel="next" href="https://ad-bean.github.io/posts/milvus-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/ddia-2/" /><link rel="next" href="https://ad-bean.github.io/posts/milvus-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -49,14 +49,14 @@ Abstract 基于高维向量索引的近似相似度查询 approximate similarity
             <a href="../../" title="Adbean&#39;s Blog"><img
         class="lazyload logo"
         src="../../svg/loading.min.svg"
-        data-src="../../Owl.ico"
-        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-src="../../favicon.ico"
+        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
         data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        alt="/favicon.ico"
+        title="/favicon.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -79,11 +79,11 @@ Abstract 基于高维向量索引的近似相似度查询 approximate similarity
                 <a href="../../" title="Adbean&#39;s Blog"><img
         class="lazyload logo"
         src="../../svg/loading.min.svg"
-        data-src="../../Owl.ico"
-        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-src="../../favicon.ico"
+        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
         data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        alt="/favicon.ico"
+        title="/favicon.ico" />Adbean&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -105,7 +105,7 @@ Abstract 基于高维向量索引的近似相似度查询 approximate similarity
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>

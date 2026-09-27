@@ -19,7 +19,7 @@
 	<meta name="twitter:title" content="Paper Reading: Milvus A Purpose-Built Vector Data Management System">
 	<meta name="twitter:description" content="Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理大规模动态向量数据时会出现严重的性能问题； (2)它们提供的功能有限，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； 针对具有现代 CPU 和 GPU 的异构计算平台进行优化； 实现超越简单向量相似性搜索的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 https://github.com/milvus-io/milvus。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/milvus-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/analyticdb-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/milvus-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/analyticdb-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -47,14 +47,14 @@
             <a href="../../" title="Adbean&#39;s Blog"><img
         class="lazyload logo"
         src="../../svg/loading.min.svg"
-        data-src="../../Owl.ico"
-        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-src="../../favicon.ico"
+        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
         data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        alt="/favicon.ico"
+        title="/favicon.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -77,11 +77,11 @@
                 <a href="../../" title="Adbean&#39;s Blog"><img
         class="lazyload logo"
         src="../../svg/loading.min.svg"
-        data-src="../../Owl.ico"
-        data-srcset="../../Owl.ico, ../../Owl.ico 1.5x, ../../Owl.ico 2x"
+        data-src="../../favicon.ico"
+        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
         data-sizes="auto"
-        alt="/Owl.ico"
-        title="/Owl.ico" />Adbean&#39;s Blog</a>
+        alt="/favicon.ico"
+        title="/favicon.ico" />Adbean&#39;s Blog</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -103,7 +103,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
