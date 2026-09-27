@@ -5,20 +5,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Mini-LSM Week 1 Day1 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/minilsm-1/">
-  <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="Mini-LSM Week 1 Day1">
-  <meta property="og:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/ 前言 使用 Rust 实现 LSM-Tree 存储结构 什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-03-22T14:04:33-04:00">
-    <meta property="article:modified_time" content="2024-03-22T14:04:33-04:00">
-    <meta property="article:tag" content="Database">
-    <meta property="article:tag" content="LSM">
+	<meta property="og:site_name" content="Adbean&#39;s Blog">
+	<meta property="og:title" content="Mini-LSM Week 1 Day1">
+	<meta property="og:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/
+前言 使用 Rust 实现 LSM-Tree 存储结构
+什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-03-22T14:04:33-04:00">
+		<meta property="article:modified_time" content="2024-03-22T14:04:33-04:00">
+		<meta property="article:tag" content="Database">
+		<meta property="article:tag" content="LSM">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Mini-LSM Week 1 Day1">
-  <meta name="twitter:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/ 前言 使用 Rust 实现 LSM-Tree 存储结构 什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Mini-LSM Week 1 Day1">
+	<meta name="twitter:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/
+前言 使用 Rust 实现 LSM-Tree 存储结构
+什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/minilsm-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" /><link rel="next" href="https://ad-bean.github.io/posts/minilsm-2/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -55,7 +59,7 @@
         title="/Owl.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -104,7 +108,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -118,7 +122,7 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mini-LSM Week 1 Day1</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-22">2024-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4516 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -292,16 +296,16 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">v</span><span class="o">|</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">clone</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// v: Entry&lt;&#39;_, Bytes, Bytes&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>
 <p>再实现 <code>Memtable::put</code>，存入 <code>key: &amp;[u8]</code> 和 <code>value: &amp;[u8]</code> 并且返回 <code>Result&lt;()&gt;</code>。由于 task1 不需要关心跳表的实现，也不需要关心 WAL 日志，直接使用 <code>self.map.insert()</code>。但是该函数的签名是 <code>insert(&amp;self, key: K, value: V) -&gt; Entry&lt;'_, K, V&gt;</code>，此时 K 和 V 都是 <code>Bytes</code> 所以需要将 <code>key</code> 和 <code>value</code> 转换成 <code>Bytes</code> (使用 bytes 库提供的 <code>Bytes::copy_from_slice</code> 方法。)</p>
 <p>然后将 <code>insert()</code> 的返回值转成 <code>Result&lt;()&gt;</code> （这里参照其他函数直接返回 <code>OK(())</code>）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">key</span><span class="p">),</span><span class="w"> </span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">value</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 </ol>
 <p>实现 <code>MemTable::create</code> 后，可以通过 <code>mini-lsm-starter tests::week1_day1::test_task1_memtable_overwrite</code> 和 <code>mini-lsm-starter tests::week1_day1::test_task1_memtable_get</code> 两个测试</p>
@@ -316,7 +320,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">flush_thread</span>: <span class="nc">Mutex</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">JoinHandle</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">compaction_notifier</span>: <span class="nc">crossbeam_channel</span>::<span class="n">Sender</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">compaction_thread</span>: <span class="nc">Mutex</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">JoinHandle</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>需要实现的方法大部分在 <code>LsmStorageInner</code> 直到 Week2 Compaction，这个结构包含了当前的 LSM storage engine 结构。Week 1 只用到 <code>memtable</code> 结构，并且是 <strong>mutable memtable</strong>。</p>
 <p>Task2 需要实现 <code>LsmStorageInner::get</code>, <code>LsmStorageInner::put</code> 和 <code>LsmStorageInner::delete</code>，这些接口会分发请求到 <code>memtable</code></p>
 <p>考虑 <code>delete</code> 函数，应该是简单的将 <code>key</code> 对应的 <code>value</code> 修改为空，称为 <code>delete tombstone</code> 标记删除而不是真的直接删除。实现 <code>get</code> 时应该注意这点。</p>
@@ -336,9 +340,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="sd">/// Remove a key from the storage by writing an empty value.
-</span></span></span><span class="line"><span class="cl"><span class="sd"></span><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">delete</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">delete</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">().</span><span class="n">memtable</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="sa">b</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="c1">// handle empty value in get
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>
 <p><code>get</code> 实现需要额外判断取出来的 <code>Bytes</code> 是不是空值</p>
@@ -362,30 +366,30 @@
 <p>可以将 IO 操作放在锁区域外，来解决这种问题（创建 Memtable 实际上不需要锁）：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MemTable</span>::<span class="n">create_with_wal</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;- could take several milliseconds
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">write</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">state</span><span class="p">.</span><span class="n">immutable_memtable</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="cm">/* something */</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">state</span><span class="p">.</span><span class="n">memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memtable</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>但这引起了另一种情况：memtable 快要达到容量限制，并且两个线程成功 <code>put</code> 了两个 keys 到 memtable，并且都发现了 memtable 达到了容量限制。两个线程都会检查 size 然后决定调用 freeze，于是两个空的 memtable 都被创建了。</p>
 <p>为了解决这种情况，所有的 state 修改操作都需要通过 state lock 同步：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// put things into the memtable, checks capacity, and drop the read lock on LSM state
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">memtable_reaches_capacity_on_put</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">memtable_reaches_capacity_on_put</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">state_lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state_lock</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="cm">/* check again current memtable reaches capacity */</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="n">freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state_lock</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>这种模式非常常见，比如 L0 flush 也是这样：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">force_flush_next_imm_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">state_lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state_lock</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// get the oldest memtable and drop the read lock on LSM state
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="c1">// write the contents to the disk
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="c1">// get the write lock on LSM state and update the state
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// write the contents to the disk
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// get the write lock on LSM state and update the state
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>在这个 Task，需要修改 <code>put</code> 和 <code>delete</code> 满足 memtable 的 soft capacity limit，当到达限制时调用 <code>force_freeze_memtable</code> 冻结 memtable。测试文件并没有测试并发场景，所以需要自己考虑多种 race condition 竞争情况。并且，时刻记住检查锁的区域，保证 critical section 临界区是最小的。</p>
 <p>可以简单地赋给下一个 memtable id 为 <code>self.next_ssd_id()</code>, 注意 <code>imm_memtables</code> 存储了最新到最旧的 memtables，<code>imm_memtables.first()</code> 是最后一个被冻结的。</p>
 <ol>
@@ -412,16 +416,16 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">Arc</span>::<span class="n">new</span><span class="p">(</span><span class="n">MemTable</span>::<span class="n">create</span><span class="p">(</span><span class="n">memtable_id</span><span class="p">))</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="p">};</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">write</span><span class="p">();</span><span class="w"> </span><span class="c1">// acquire the lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="c1">// first use as_ref() to convert Arc to &amp;Arc and then clone() to make it mutable
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">as_ref</span><span class="p">().</span><span class="n">clone</span><span class="p">();</span><span class="w"> </span><span class="c1">// first use as_ref() to convert Arc to &amp;Arc and then clone() to make it mutable
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="n">old_memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">replace</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">snapshot</span><span class="p">.</span><span class="n">memtable</span><span class="p">,</span><span class="w"> </span><span class="n">memtable</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="n">snapshot</span><span class="p">.</span><span class="n">imm_memtables</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">old_memtable</span><span class="p">.</span><span class="n">clone</span><span class="p">());</span><span class="w"> </span><span class="c1">// insert to the front
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="o">*</span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arc</span>::<span class="n">new</span><span class="p">(</span><span class="n">snapshot</span><span class="p">);</span><span class="w"> </span><span class="c1">// update the state
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">     </span><span class="nb">drop</span><span class="p">(</span><span class="n">state</span><span class="p">);</span><span class="w"> </span><span class="c1">// release the lock
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nb">drop</span><span class="p">(</span><span class="n">state</span><span class="p">);</span><span class="w"> </span><span class="c1">// release the lock
+</span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="c1">// old_memtable.sync_wal()?;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">     </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><p>获取新的 <code>memtable_id</code> 后根据 option 创建新的 Memtable，随后获取写锁，获取 <code>state</code> 的 mut 状态得到旧的 memtable，使用 <code>std::mem::replace</code> 替换成新的，随后释放写锁并且更新 <code>*state = Arc::new(snapshot)</code>。</p>
 </li>
@@ -445,7 +449,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">None</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></div><h3 id="conclusion">Conclusion</h3>
 <p>第一次写 Rust 项目，有很多不熟悉，写了蛮久。</p>
 <p>通过 <code>cargo x copy-test --week 1 --day 1</code> 和 <code>cargo x scheck</code> 可以通过第一天的所有测试</p>
@@ -519,8 +523,8 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
         </div>
     </footer></div>
 

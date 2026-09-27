@@ -1,8 +1,63 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Categories - 分类 - Adbean&#39;s Blog</title>
-        <link>https://ad-bean.github.io/categories/</link>
-        <description>Categories - 分类 - Adbean&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><atom:link href="https://ad-bean.github.io/categories/" rel="self" type="application/rss+xml" /></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Categories on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/categories/</link>
+		<description>Recent content in Categories on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Sat, 26 Sep 2026 00:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Notes</title>
+				<link>https://ad-bean.github.io/categories/notes/</link>
+				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/notes/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>ML Systems</title>
+				<link>https://ad-bean.github.io/categories/ml-systems/</link>
+				<pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/ml-systems/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Distributed</title>
+				<link>https://ad-bean.github.io/categories/distributed/</link>
+				<pubDate>Wed, 04 Dec 2024 11:25:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/distributed/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Database</title>
+				<link>https://ad-bean.github.io/categories/database/</link>
+				<pubDate>Sat, 16 Nov 2024 16:08:33 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/database/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>OS</title>
+				<link>https://ad-bean.github.io/categories/os/</link>
+				<pubDate>Thu, 07 Nov 2024 21:08:55 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/os/</guid>
+				<description></description>
+			</item>
+			<item>
+				<title>Learned Data Systems</title>
+				<link>https://ad-bean.github.io/categories/learned-data-systems/</link>
+				<pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/categories/learned-data-systems/</guid>
+				<description></description>
+			</item>
+	</channel>
 </rss>

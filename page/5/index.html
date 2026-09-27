@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.129.0">
+	<meta name="generator" content="Hugo 0.166.0">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/">
-  <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="Adbean&#39;s Blog">
-  <meta property="og:description" content="Adbean&#39;s Blog">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="website">
+	<meta property="og:site_name" content="Adbean&#39;s Blog">
+	<meta property="og:title" content="Adbean&#39;s Blog">
+	<meta property="og:description" content="Adbean&#39;s Blog">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="website">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Adbean&#39;s Blog">
-  <meta name="twitter:description" content="Adbean&#39;s Blog">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Adbean&#39;s Blog">
+	<meta name="twitter:description" content="Adbean&#39;s Blog">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/" /><link rel="alternate" href="../../index.xml" type="application/rss+xml" title="Adbean&#39;s Blog">
     <link rel="feed" href="../../index.xml" type="application/rss+xml" title="Adbean&#39;s Blog"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -44,7 +44,7 @@
         title="/Owl.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item active" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item active" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -93,7 +93,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -112,54 +112,113 @@
         alt="/avatar.png"
         title="/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/ad-bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yuxuan-liao-adbean" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="../../posts/learned-sorting/">Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-12">2024-04-12</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="the-case-for-a-learned-sorting-algorithm">The Case for a Learned Sorting Algorithm</h2>
+<p>除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？</p>
+<p>论文作者中的 Tim Kraska 以及其团队，是 SageDB, Bao: Learned Query Optimization, Neo 的作者，此外还有 FITing-Tree 索引结构。</p>
+<p>看了一下 Tim 除了在 MIT 当 AP，还在一家叫 Einblick 的公司创业（看了下好像是 text2SQL 类型的，应该已经被 Databricks 收购了），然后在 Amazon 研究 Data Science 和 AI 的结合？最近也有一些比如 2023 的 BRAD: simplifying cloud data processing with learned automated data meshes 和之前看的 SEED: Domain-specific data curation with large language models 也是 Tim 团队的，他们做了很多 AI 与数据库、数据、数据结构、数据处理结合的事情。</p></div><div class="post-footer">
+        <a href="../../posts/learned-sorting/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/ml-based-autotunning/">Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-07">2024-04-07</time></span></div><div class="content">An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。 ABSTRACT Modern database management systems (DBMS) expose dozens of configurable knobs that control their runtime behavior 与专家 DBA 相比，使用机</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-07">2024-04-07</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems">An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</h2>
+<p>CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。</p>
+<h2 id="abstract">ABSTRACT</h2>
+<p>Modern database management systems (DBMS) expose dozens of <strong>configurable knobs</strong> that control their runtime behavior</p>
+<p>与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有<strong>有限调优机会</strong>的<strong>合成</strong>工作负载上进行评估的，因此尚不清楚它们是否在<strong>生产环境</strong>中提供相同的好处</p></div><div class="post-footer">
         <a href="../../posts/ml-based-autotunning/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/mb2-self-driving-db/">Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-05">2024-04-05</time></span></div><div class="content">MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems ABSTRACT Database management systems (DBMSs) are notoriously difficult to deploy and administer.self-driving DBMS is to remove these impediments by managing itself automatically predict the DBMS’s runtime behavior and resource consumption. ModelBot2 e2e framework for constructing and maintaining prediction models using machine learning (ML) in self-driving DBMSs. decomposes a DBMS</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-04-05">2024-04-05</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems">MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</h2>
+<p>self-driving database management systems</p>
+<h2 id="abstract">ABSTRACT</h2>
+<p>Database management systems (DBMSs) are notoriously difficult to deploy and administer.<strong>self-driving DBMS</strong> is to remove these impediments by <strong>managing itself automatically</strong></p>
+<p>predict the DBMS’s runtime behavior and resource consumption.</p>
+<p>ModelBot2 e2e framework for constructing and maintaining prediction models using <strong>machine learning</strong> (ML) in self-driving DBMSs.</p>
+<ol>
+<li>decomposes a DBMS’s architecture into fine-grained operating units that make it easier to <strong>estimate the system’s behavior</strong> for configurations</li>
+<li>ModelBot2 then provides an offline execution environment to exercise the system to produce the training data used to train its models.</li>
+</ol>
+<p>We integrated ModelBot2 in an in-memory DBMS and measured its ability to predict its performance for OLTP and OLAP workloads running in dynamic environments. We also compare ModelBot2 against state-of-the-art ML models and show that our models are up to 25×more accurate in multiple scenarios</p></div><div class="post-footer">
         <a href="../../posts/mb2-self-driving-db/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/minilsm-2/">Mini-LSM Week 1 Day2</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-23">2024-03-23</time></span></div><div class="content">Mini-LSM Week 1 Day2 Week1 Day2 的内容，实现 Merge Iterator https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html Merge Iterator 本次需要实现： Memtable Iterator Merge Iterator LSM read path scan for memtables Task1: Memtable Iterator 修改 src/mem_table.rs，实现 scan 接口，在一组 key-value pairs 上创建</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-23">2024-03-23</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="mini-lsm-week-1-day2">Mini-LSM Week 1 Day2</h2>
+<p>Week1 Day2 的内容，实现 Merge Iterator</p>
+<p><a href="https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html" target="_blank" rel="noopener noreffer ">https://skyzh.github.io/mini-lsm/week1-02-merge-iterator.html</a></p>
+<h2 id="merge-iterator">Merge Iterator</h2>
+<p><img
+        class="lazyload"
+        src="../../svg/loading.min.svg"
+        data-src="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png"
+        data-srcset="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png, https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png 1.5x, https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png"
+        title="https://s2.loli.net/2024/03/24/ZBOrfH1gUo54Cnp.png" /></p>
+<p>本次需要实现：</p>
+<ul>
+<li>Memtable Iterator</li>
+<li>Merge Iterator</li>
+<li>LSM read path <code>scan</code> for memtables</li>
+</ul>
+<h2 id="task1-memtable-iterator">Task1: Memtable Iterator</h2>
+<p>修改 <code>src/mem_table.rs</code>，实现 <code>scan</code> 接口，在一组 key-value pairs 上创建 iterator API 来迭代。在上一节已经实现了 <code>get</code> 和创建 immutable memtable 的逻辑，此时 LSM state 有多个 memtables。所以 <code>scan</code> 需要在一个 memtable 上创建 iterator，然后在所有 memtables 上创建一个 merge iterator</p></div><div class="post-footer">
         <a href="../../posts/minilsm-2/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/database/">Database</a>,&nbsp;<a href="../../tags/lsm/">LSM</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/minilsm-1/">Mini-LSM Week 1 Day1</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-22">2024-03-22</time></span></div><div class="content">Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/ 前言 使用 Rust 实现 LSM-Tree 存储结构 什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-22">2024-03-22</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="mini-lsm-week-1-day1">Mini-LSM Week 1 Day1</h2>
+<p>记录下 LSM 的学习过程，感谢迟先生的教程 <a href="https://skyzh.github.io/mini-lsm/" target="_blank" rel="noopener noreffer ">https://skyzh.github.io/mini-lsm/</a></p>
+<h2 id="前言">前言</h2>
+<p>使用 Rust 实现 LSM-Tree 存储结构</p>
+<h3 id="什么是-lsm为什么-lsm">什么是 LSM，为什么 LSM</h3>
+<p>LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。</p></div><div class="post-footer">
         <a href="../../posts/minilsm-1/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/database/">Database</a>,&nbsp;<a href="../../tags/lsm/">LSM</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/bao-learned-query-opt/">Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-17">2024-03-17</time></span></div><div class="content">Bao: Making Learned Query Optimization Practical MLDB + query optimization ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance. 论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-17">2024-03-17</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="bao-making-learned-query-optimization-practical">Bao: Making Learned Query Optimization Practical</h2>
+<p>MLDB + query optimization</p>
+<h2 id="abstract">ABSTRACT</h2>
+<p>最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.</p>
+<p>论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。</p></div><div class="post-footer">
         <a href="../../posts/bao-learned-query-opt/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/zero-shot-learned/">Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-16">2024-03-16</time></span></div><div class="content">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-16">2024-03-16</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</h2>
+<h2 id="abstract">Abstract</h2>
+<p>本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box <strong>without expensive training data collection</strong>。为了 zero-shot cost models，本文提出 a new learning paradigm based on <strong>pre-trained cost models</strong>。As core contributions to support the transfer of such a <strong>pre-trained cost model</strong> to <strong>unseen databases</strong>, we introduce a new model architecture and <strong>representation technique for encoding query workloads as input</strong> to those models. As we will show in our evaluation, zero-shot cost estimation can <strong>provide more accurate cost estimates</strong> than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on <strong>unseen databases</strong>. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.</p></div><div class="post-footer">
         <a href="../../posts/zero-shot-learned/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/spade-paper/">Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-01">2024-03-01</time></span></div><div class="content">SPADE: Synthesizing Assertions for Large Language Model Pipelines Synthesizing Assertions Pipelines 合成断言、流水线 ABSTRACT 将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其不可预测和潜在的灾难性故障</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-01">2024-03-01</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="spade-synthesizing-assertions-for-large-language-model-pipelines">SPADE: Synthesizing Assertions for Large Language Model Pipelines</h2>
+<p>Synthesizing Assertions</p>
+<p>Pipelines</p>
+<blockquote>
+<p>合成断言、流水线</p>
+</blockquote>
+<h2 id="abstract">ABSTRACT</h2>
+<p>将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其<strong>不可预测和潜在的灾难性故障</strong>。认识到这些错误的不可避免性，我们将重点放在识别 LLM 在作为数据生成 pipeline 的一部分重复使用时可能<strong>生成错误响应</strong>的情况。我们提出了 spade，一种自动合成断言的方法，可以识别不良的 LLM 输出。SPADE 分析提示版本历史，<strong>创建候选断言函数</strong>，然后<strong>选择满足覆盖率和准确性要求的最小集合</strong>。在对九种不同的实际 LLM pipeline 进行测试时，与简单的基线相比，spade 有效地<strong>减少了 14% 的断言数量</strong>，并将<strong>错误失败率降低了 21%。</strong></p></div><div class="post-footer">
         <a href="../../posts/spade-paper/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/seed-paper/">Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-01">2024-03-01</time></span></div><div class="content">SEED: Domain-Specific Data Curation With Large Language Models 使用大型语言模型的 领域特定 数据管理 ABSTRACT 准备分析数据的数据管理任务 Data Curation 对于将数据转换为可行的见解至关重要。但是，由于不同域中的应</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-03-01">2024-03-01</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="seed-domain-specific-data-curation-with-large-language-models">SEED: Domain-Specific Data Curation With Large Language Models</h2>
+<p>使用大型语言模型的 领域特定 数据管理</p>
+<h2 id="abstract">ABSTRACT</h2>
+<p>准备分析数据的数据管理任务 Data Curation 对于将数据转换为可行的见解至关重要。但是，由于不同域中的应用程序的不同要求，通用的现成工具通常不足。结果，数据科学家通常必须开发针对数据集和任务量身定制的特定领域 domain-specific 解决方案，例如在足够数量的带注释的示例上编写特定于域的代码或培训机器学习模型。众所周知，这个过程很困难且耗时。我们提出了 SEED ，这是一种 LLM-as-compiler 方法，该方法自动通过大语言模型（LLMS）自动生成特定于域的数据策划解决方案。用户描述了一个任务，输入数据和预期的量后，SEED compiler 编译器就会生产由 LLM 生成的代码，小型模型和数据访问模块组成的可执行管道。SEED 使用这些生成的模块来处理大部分数据记录，并动态决定 LLM 何时应该介入直接处理一些单独的记录，可能使用数据访问模块从数据源检索相关信息，以协助 LLM 解决任务。为了验证这种新的、革命性的方法，我们在跨越 5 个数据管理任务的 9 个数据集上进行了实验。结果表明，SEED 生成的特定领域的解决方案显著优于它们的通用对应方案，通常接近使用数千个标记训练示例的手动管理解决方案的性能。此外，与在每个数据记录上使用 LLM 的解决方案相比，SEED 实现了最先进的或相当少的性能，<strong>同时显着减少了 LLM 调用的数量</strong></p></div><div class="post-footer">
         <a href="../../posts/seed-paper/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/analyticdb-paper/">Paper Reading: AnalyticDB-V</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-25">2024-02-25</time></span></div><div class="content">AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data ABSTRACT 随着非结构化数据的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-25">2024-02-25</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="analyticdb-v-a-hybrid-analytical-engine-towards-query-fusion-for-structured-and-unstructured-data">AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data</h2>
+<h2 id="abstract">ABSTRACT</h2>
+<p>随着<strong>非结构化数据</strong>的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数据库系统开始合并非结构化数据分析以满足此类需求。但是，在大多数系统中，对<strong>非结构化和结构化数据</strong>的查询通常被视为 disjoint tasks，在大多数系统中，<strong>混合查询</strong>（即涉及两种数据类型）尚未得到充分支持。</p></div><div class="post-footer">
         <a href="../../posts/analyticdb-paper/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="../../posts/milvus-paper/">Paper Reading: Milvus A Purpose-Built Vector Data Management System</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-25">2024-02-25</time></span></div><div class="content">Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型</div><div class="post-footer">
-        <a href="../../posts/milvus-paper/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
@@ -185,8 +244,8 @@
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
         </div>
     </footer></div>
 

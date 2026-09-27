@@ -5,21 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>阅读：Go 并发编程实战 1-4 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/go-concurrent-1/">
-  <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="阅读：Go 并发编程实战 1-4">
-  <meta property="og:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-05-22T15:28:22+08:00">
-    <meta property="article:modified_time" content="2024-05-22T15:28:22+08:00">
-    <meta property="article:tag" content="Go">
-    <meta property="article:tag" content="并发编程">
-    <meta property="article:tag" content="笔记">
+	<meta property="og:site_name" content="Adbean&#39;s Blog">
+	<meta property="og:title" content="阅读：Go 并发编程实战 1-4">
+	<meta property="og:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程
+资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？
+互斥锁 临界区就是一个被共享的资源。为了避免竞争导致并发结果不对，可以使用互斥锁，限定临界区只能同时由一个线程持有，比如 Mutex 锁。">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-05-22T15:28:22+08:00">
+		<meta property="article:modified_time" content="2024-05-22T15:28:22+08:00">
+		<meta property="article:tag" content="Go">
+		<meta property="article:tag" content="并发编程">
+		<meta property="article:tag" content="笔记">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="阅读：Go 并发编程实战 1-4">
-  <meta name="twitter:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="阅读：Go 并发编程实战 1-4">
+	<meta name="twitter:description" content="Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程
+资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？
+互斥锁 临界区就是一个被共享的资源。为了避免竞争导致并发结果不对，可以使用互斥锁，限定临界区只能同时由一个线程持有，比如 Mutex 锁。">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/go-concurrent-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/catsql-nlsql/" /><link rel="next" href="https://ad-bean.github.io/posts/duckdb-2019/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -56,7 +60,7 @@
         title="/Owl.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -105,7 +109,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -119,7 +123,7 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读：Go 并发编程实战 1-4</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/notes/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Notes</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-05-22">2024-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1940 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -190,14 +194,14 @@
 <li>正常模式：如果 waiter 已经是队列最后一个，没有其他等待锁的 goroutine，或者 waiter 等待时间小于阈值（1ms）。</li>
 </ul>
 <p>正常模式具有更好的性能。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">mutexLocked</span>           <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="kc">iota</span> <span class="c1">// iota 0, 1 &lt;&lt; 0 = 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexWoken</span>                        <span class="c1">// iota 1, 1 &lt;&lt; 1 = 2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexStarving</span>                     <span class="c1">// iota 2, 1 &lt;&lt; 2 = 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">mutexWaiterShift</span>      <span class="p">=</span> <span class="kc">iota</span>      <span class="c1">// iota 3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">starvationThresholdNs</span> <span class="p">=</span> <span class="mf">1e6</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></div><p>这种用法是 Constant declarations</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">mutexLocked</span><span class="w">           </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kc">iota</span><span class="w"> </span><span class="c1">// iota 0, 1 &lt;&lt; 0 = 1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">mutexWoken</span><span class="w">                        </span><span class="c1">// iota 1, 1 &lt;&lt; 1 = 2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">mutexStarving</span><span class="w">                     </span><span class="c1">// iota 2, 1 &lt;&lt; 2 = 4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">mutexWaiterShift</span><span class="w">      </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">      </span><span class="c1">// iota 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">starvationThresholdNs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1e6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><p>这种用法是 Constant declarations</p>
 <h2 id="mutex-易错场景">Mutex 易错场景</h2>
 <ol>
 <li>Lock/Unlock 不是成对出现，会产生死锁，或 Unlock 一个未加锁的 Mutex 而导致 panic。（太多 if-else/重构/误写/&hellip;）</li>
@@ -209,64 +213,64 @@
 <p>锁需要记住当前是哪个 goroutine 持有该锁</p>
 <h4 id="goroutine-id">goroutine id</h4>
 <p>通过 <code>runtime.Stack</code> 获取栈帧信息和 goroutine id，比如 <code>goroutine 1 [running]</code> 通过字符串处理得到 goroutine id。或者直接调用 <code>petermattis/goid</code> 等第三方库。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">RecursiveMutex</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">owner</span>     <span class="kt">int64</span> <span class="c1">// 当前持有锁的 goroutine id
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">recursion</span> <span class="kt">int32</span> <span class="c1">// 这个 goroutine 重入的次数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">gid</span> <span class="o">:=</span> <span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span>    <span class="c1">// 如果当前持有锁的goroutine就是这次调用的goroutine,说明是重入
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span> <span class="o">==</span> <span class="nx">gid</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>    <span class="c1">// 获得锁的goroutine第一次调用，记录下它的goroutine id,调用次数加1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">gid</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="p">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">gid</span> <span class="o">:=</span> <span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span>    <span class="c1">// 非持有锁的goroutine尝试释放锁，错误的使用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">gid</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="nx">gid</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>    <span class="c1">// 调用次数减1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 如果这个goroutine还没有完全释放，则直接返回
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>    <span class="c1">// 此goroutine最后一次调用，需要释放锁
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h4 id="token">Token</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">RecursiveMutex</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">owner</span><span class="w">     </span><span class="kt">int64</span><span class="w"> </span><span class="c1">// 当前持有锁的 goroutine id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">recursion</span><span class="w"> </span><span class="kt">int32</span><span class="w"> </span><span class="c1">// 这个 goroutine 重入的次数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span><span class="w"> </span><span class="nf">Lock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">gid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span><span class="w">    </span><span class="c1">// 如果当前持有锁的goroutine就是这次调用的goroutine,说明是重入</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span><span class="w">    </span><span class="c1">// 获得锁的goroutine第一次调用，记录下它的goroutine id,调用次数加1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span><span class="w"> </span><span class="nx">gid</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span><span class="w"> </span><span class="nf">Unlock</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">gid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">goid</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span><span class="w">    </span><span class="c1">// 非持有锁的goroutine尝试释放锁，错误的使用</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span><span class="w"> </span><span class="nx">gid</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">    </span><span class="c1">// 调用次数减1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 如果这个goroutine还没有完全释放，则直接返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">    </span><span class="c1">// 此goroutine最后一次调用，需要释放锁</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">owner</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h4 id="token">Token</h4>
 <p>Go 开发者没有暴露 goroutine id，开发者可以自己提供 token</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">RecursiveMutex</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">token</span> <span class="kt">int64</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">recursion</span> <span class="kt">int32</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">(</span><span class="nx">token</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="o">==</span> <span class="nx">token</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">token</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="p">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">(</span><span class="nx">token</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">token</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span> <span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="nx">token</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>    <span class="c1">// 调用次数减1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 如果这个goroutine还没有完全释放，则直接返回
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>    <span class="c1">// 此goroutine最后一次调用，需要释放锁
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h3 id="流行项目-issues">流行项目 issues</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">RecursiveMutex</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">token</span><span class="w"> </span><span class="kt">int64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">recursion</span><span class="w"> </span><span class="kt">int32</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span><span class="w"> </span><span class="nf">Lock</span><span class="p">(</span><span class="nx">token</span><span class="w"> </span><span class="kt">int64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">++</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="p">(</span><span class="nx">m</span><span class="w"> </span><span class="o">*</span><span class="nx">RecursiveMutex</span><span class="p">)</span><span class="w"> </span><span class="nf">Unlock</span><span class="p">(</span><span class="nx">token</span><span class="w"> </span><span class="kt">int64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nb">panic</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;wrong the owner(%d): %d!&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">    </span><span class="c1">// 调用次数减1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="o">--</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">recursion</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 如果这个goroutine还没有完全释放，则直接返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">    </span><span class="c1">// 此goroutine最后一次调用，需要释放锁</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">m</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="流行项目-issues">流行项目 issues</h3>
 <h4 id="docker-moby">Docker (Moby)</h4>
 <p><a href="https://github.com/moby/moby/pull/36114/files" target="_blank" rel="noopener noreffer ">Moby #36114</a></p>
 <p><code>hotAddVHDsAtStart</code> 方法对 serviceVM 进行 VHD 的添加，并且会对 svm 加锁，如果添加 VHS 失败会调用 <code>hotRemoveVHDsAtStart</code> 方法去掉 VHD，而这个方法也进行了 svm.Lock()</p>
@@ -311,8 +315,8 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
         </div>
     </footer></div>
 

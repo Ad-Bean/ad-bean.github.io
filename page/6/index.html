@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
     <head>
-	<meta name="generator" content="Hugo 0.129.0">
+	<meta name="generator" content="Hugo 0.166.0">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/">
-  <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="Adbean&#39;s Blog">
-  <meta property="og:description" content="Adbean&#39;s Blog">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="website">
+	<meta property="og:site_name" content="Adbean&#39;s Blog">
+	<meta property="og:title" content="Adbean&#39;s Blog">
+	<meta property="og:description" content="Adbean&#39;s Blog">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="website">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Adbean&#39;s Blog">
-  <meta name="twitter:description" content="Adbean&#39;s Blog">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Adbean&#39;s Blog">
+	<meta name="twitter:description" content="Adbean&#39;s Blog">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/" /><link rel="alternate" href="../../index.xml" type="application/rss+xml" title="Adbean&#39;s Blog">
     <link rel="feed" href="../../index.xml" type="application/rss+xml" title="Adbean&#39;s Blog"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -44,7 +44,7 @@
         title="/Owl.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item active" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item active" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -93,7 +93,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -112,35 +112,75 @@
         alt="/avatar.png"
         title="/avatar.png" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/ad-bean" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://linkedin.com/in/yuxuan-liao-adbean" title="LinkedIn" target="_blank" rel="noopener noreffer me"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="mailto:adbeanx@outlook.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="../../posts/milvus-paper/">Paper Reading: Milvus A Purpose-Built Vector Data Management System</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-25">2024-02-25</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="milvusa-purpose-built-vector-data-management-system">Milvus：A Purpose-Built Vector Data Management System</h2>
+<h2 id="abstract">ABSTRACT</h2>
+<p>最近，数据科学和人工智能应用中迫切需要管理<strong>高维向量数据</strong>。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理<strong>大规模动态向量</strong>数据时会出现严重的<strong>性能问题</strong>； (2)它们提供的<strong>功能有限</strong>，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； <strong>针对具有现代 CPU 和 GPU 的异构计算平台进行优化</strong>； 实现超越简单向量<strong>相似性搜索</strong>的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 <a href="https://github.com/milvus-io/milvus" target="_blank" rel="noopener noreffer ">https://github.com/milvus-io/milvus</a>。</p></div><div class="post-footer">
+        <a href="../../posts/milvus-paper/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/vbase-paper/">Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-17">2024-02-17</time></span></div><div class="content">VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询 Abstract 基于高维向量索引的近似相似度查询 approximate similarity queries已经成为</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-17">2024-02-17</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="vbase-unifying-online-vector-similarity-search-and-relational-queries-via-relaxed-monotonicity">VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</h2>
+<p>VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询</p>
+<h2 id="abstract">Abstract</h2>
+<p>基于高维向量索引的<strong>近似相似度查询 approximate similarity queries</strong>已经成为许多关键在线服务的基础。对更复杂的向量查询的日益增长的需求要求将向量搜索系统与<strong>关系数据库</strong>集成在一起。然而，高维向量盘不表现单调性，而单调性是常规指标的一个重要性质。缺乏单调性迫使现有的向量系统依赖于 monotonicity-preserving <strong>tentative</strong> indices（为目标矢量的 TopK 近邻临时设置）来方便查询，由于难以预测最优 K，这将导致次优性能。本文介绍的 VBASE 系统能有效支持<strong>近似相似性搜索</strong>和<strong>关系运算符的复杂查询</strong>。VBASE 发现了一个共同属性 <strong>relaxed monotonicity 松弛单调性</strong>，从而将两个看似不兼容的系统统一起来。这一共同属性使 VBASE 能够规避仅 TopK 的限制，从而显著提高效率，同时证明它保留了基于 TopK 的语义。评估结果表明，在复杂的<strong>在线向量查询</strong>中，VBASE 的性能比最先进的向量系统高出三个数量级。VBASE 还能进行<strong>分析性相似性查询 analytical similarity queries</strong>，而以往的向量系统则无法做到这一点，而且在精确查询方面，VBASE 提高了 7000x speedup 的同时准确率达到 99.9%。</p></div><div class="post-footer">
         <a href="../../posts/vbase-paper/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/ddia-2/">阅读：DDIA 第二章</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-10">2024-02-10</time></span></div><div class="content">第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-10">2024-02-10</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="第二章数据模型与查询语言">第二章：数据模型与查询语言</h2>
+<p><strong>数据模型</strong>可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着<strong>软件的编写方式</strong>，而且影响着我们的 <strong>解题思路</strong>。</p>
+<p>多数应用使用<strong>层层叠加</strong>的数据模型构建。</p></div><div class="post-footer">
         <a href="../../posts/ddia-2/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/ddia/">DDIA</a>,&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/llm-capability/">Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-04">2024-02-04</time></span></div><div class="content">DB-BERT: a databse tuning tool that reads the manual DB-BERT，一个读了手册的数据库调优工具 https://arxiv.org/pdf/2112.10925.pdf Abstract DB-BERT 是一种数据库调优工具，可利用通过对手册和其他相关文本文档进行自然语言分析</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-02-04">2024-02-04</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div><div class="content"><h2 id="db-bert-a-databse-tuning-tool-that-reads-the-manual">DB-BERT: a databse tuning tool that reads the manual</h2>
+<p>DB-BERT，一个读了手册的数据库调优工具</p>
+<blockquote>
+<p><a href="https://arxiv.org/pdf/2112.10925.pdf" target="_blank" rel="noopener noreffer ">https://arxiv.org/pdf/2112.10925.pdf</a></p>
+</blockquote>
+<h2 id="abstract">Abstract</h2>
+<p>DB-BERT 是一种<strong>数据库调优工具</strong>，可利用通过对手册和其他相关文本文档进行<strong>自然语言分析</strong>而获得的信息。它利用文本来识别需要调整的数据库系统参数以及推荐的参数值。DB-BERT 应用预先训练好的大型语言模型（特别是 <strong>BERT 模型</strong>）进行文本分析。在初始训练阶段，它会<strong>微调模型权重</strong>，以便将自然语言提示转化为推荐设置。在运行时，DB-BERT 会学习汇总、调整和优先处理提示，以<strong>实现特定数据库系统和基准的最佳性能</strong>。这两个阶段都是<strong>迭代式</strong>的，并使用<strong>强化学习</strong>来指导选择要评估的调整设置（惩罚数据库系统拒绝接受的设置，同时奖励提高性能的设置）。在实验中，我们利用数百篇有关数据基础调整的文本文档作为 DB-BERT 的输入。我们将 DB-BERT 与不同的基准（TPC-C 和 TPC-H）、指标（吞吐量和运行时间）以及数据库系统（Postgres 和 MySQL）进行了比较。在所有情况下，DB-BERT 都能在所有比较方法中找到<strong>最佳参数设置</strong>。源码：https://itrummer.github.io/dbbert/</p></div><div class="post-footer">
         <a href="../../posts/llm-capability/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/node-js-io/">阅读：Ryan Dahl: NodeJS</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-30">2024-01-30</time></span></div><div class="content">NodeJS 这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识 NodeJS 简述： Server Side Javascript Built on Google&rsquo;s V8 Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted. CommonJS module system (用 ES6 Module 替代</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-30">2024-01-30</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/notes/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Notes</a></span></div><div class="content"><h2 id="nodejs">NodeJS</h2>
+<blockquote>
+<p>这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识</p>
+</blockquote>
+<p>NodeJS 简述：</p>
+<ul>
+<li>Server Side Javascript</li>
+<li>Built on Google&rsquo;s V8</li>
+<li>Evented, non-blocking IO, similar to EventMachine or Python&rsquo;s Twisted.</li>
+<li><del>CommonJS module system</del> (用 ES6 Module 替代 CommonJS)</li>
+<li>8k lines of C/C++, 2k lines of JavaScript, 14 Contributes</li>
+</ul>
+<h2 id="io-needs-to-be-done-differently">IO needs to be done differently</h2>
+<blockquote>
+<p>事件驱动，单线程异步 IO 是否能理解为非阻塞的协程？</p></div><div class="post-footer">
         <a href="../../posts/node-js-io/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/%E9%98%85%E8%AF%BB/">阅读</a></div></div>
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/ddia-1/">阅读：DDIA 序章以及第一章</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-05">2024-01-05</time></span></div><div class="content">DDIA 序章 http://ddia.vonng.com/#/ch1 数据密集型 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。 计算密集型，处理器速度是其瓶颈。 新型数据库系统（NoSQL）</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-05">2024-01-05</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div><div class="content"><h2 id="ddia-序章">DDIA 序章</h2>
+<blockquote>
+<p><a href="http://ddia.vonng.com/#/ch1" target="_blank" rel="noopener noreffer ">http://ddia.vonng.com/#/ch1</a></p>
+</blockquote>
+<p><strong>数据密集型</strong> 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。</p>
+<p><strong>计算密集型</strong>，处理器速度是其瓶颈。</p>
+<p><strong>新型数据库系统</strong>（NoSQL），消息队列，缓存，搜索索引，<strong>批处理和流处理框架</strong> 以及相关技术也非常重要。</p></div><div class="post-footer">
         <a href="../../posts/ddia-1/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/ddia/">DDIA</a>,&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="../../posts/my-first-post/">2024 的一些计划</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-04">2024-01-04</time></span></div><div class="content">总结过去 其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么</div><div class="post-footer">
+    </h1><div class="post-meta"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-publish">发布于 <time datetime="2024-01-04">2024-01-04</time></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/notes/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Notes</a></span></div><div class="content"><h2 id="总结过去">总结过去</h2>
+<p>其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么。</p>
+<p>2023 年过得很匆忙，其实每天就是实习和打打游戏就过去了。养成了天天睡前总爱刷视频的坏习惯，学习的动力也少了很多，碎片化学习的方式始终不适合我。</p></div><div class="post-footer">
         <a href="../../posts/my-first-post/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/%E6%80%BB%E7%BB%93/">总结</a></div></div>
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/%E7%AC%94%E8%AE%B0/">笔记</a></div></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="../../">1</a>
@@ -161,8 +201,8 @@
                     </span>
                 </li></ul></div></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
         </div>
     </footer></div>
 

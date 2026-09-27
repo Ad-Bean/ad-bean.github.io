@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Index on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/tags/index/</link>
+		<description>Recent content in Index on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Sat, 26 Sep 2026 00:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Reading Map</title>
+				<link>https://ad-bean.github.io/reading-map/</link>
+				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/reading-map/</guid>
+				<description>&lt;h2 id=&#34;这是什么&#34;&gt;这是什么&lt;/h2&gt;&#xA;&lt;p&gt;这个博客的知识索引。所有文章按 &lt;strong&gt;6 条轨道&lt;/strong&gt;归类，每条轨道标出&lt;strong&gt;读到哪里、断在哪&lt;/strong&gt;。以后再写新的，挂到对应轨道下面即可。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;总览&lt;/strong&gt;：61 篇，跨 2024-01 → 2025-12。最大的两块是 &lt;strong&gt;OS/Kernel（22）&lt;/strong&gt; 和 &lt;strong&gt;Database（11）&lt;/strong&gt;——论文读得很多，但&lt;strong&gt;动手只到 Mini-LSM 第一周&lt;/strong&gt;。这是目前最大的缺口。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

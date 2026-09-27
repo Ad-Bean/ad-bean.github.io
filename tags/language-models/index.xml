@@ -1,24 +1,35 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Language Models - 标签 - Adbean&#39;s Blog</title>
-        <link>https://ad-bean.github.io/tags/language-models/</link>
-        <description>Language Models - 标签 - Adbean&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/language-models/" rel="self" type="application/rss+xml" /><item>
-    <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
-    <link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
-    <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</guid>
-    <description><![CDATA[Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等 知乎一篇不错的总结 作者 Jared 的视频介绍 其中和 ZeRO 的对]]></description>
-</item>
-<item>
-    <title>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</title>
-    <link>https://ad-bean.github.io/posts/paper-megatron-lm/</link>
-    <pubDate>Wed, 26 Feb 2025 13:19:30 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/paper-megatron-lm/</guid>
-    <description><![CDATA[Megatron-LM Nvidia 开源的 Megatron-LM 大模型训练框架 结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism 基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章 论文比较短，细节很少，需要结]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Language Models on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/tags/language-models/</link>
+		<description>Recent content in Language Models on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/tags/language-models/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
+				<link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
+				<pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</guid>
+				<description>&lt;h2 id=&#34;efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm&#34;&gt;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&lt;/h2&gt;&#xA;&lt;p&gt;姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/19482552307&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;知乎一篇不错的总结&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;作者 Jared 的&lt;a href=&#34;https://youtu.be/gHaNUcS1_O4?si=EEgK2Y5_6fZtAJB8&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;视频介绍&lt;/a&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</title>
+				<link>https://ad-bean.github.io/posts/paper-megatron-lm/</link>
+				<pubDate>Wed, 26 Feb 2025 13:19:30 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-megatron-lm/</guid>
+				<description>&lt;h2 id=&#34;megatron-lm&#34;&gt;Megatron-LM&lt;/h2&gt;&#xA;&lt;p&gt;Nvidia 开源的 &lt;a href=&#34;https://github.com/NVIDIA/Megatron-LM&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Megatron-LM&lt;/a&gt; 大模型训练框架&lt;/p&gt;&#xA;&lt;p&gt;结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism&lt;/p&gt;&#xA;&lt;p&gt;基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;论文比较短，细节很少，需要结合李沐大神的精读视频阅读，关于 AI 的东西还是得多看多动手，不然一知半解&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

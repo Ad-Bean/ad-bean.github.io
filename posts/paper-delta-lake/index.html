@@ -5,19 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-delta-lake/">
-  <meta property="og:site_name" content="Adbean&#39;s Blog">
-  <meta property="og:title" content="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores">
-  <meta property="og:description" content="Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores https://github.com/delta-io/delta data lake? delta lake? data warehouse? databricks 的论文 DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon 其他论文笔记 https://www.cnblogs.com/Aitozi/p/17552466.html 大数据技术换代也太快了，但底层原理我还是一问三不知，还得练 Towards Multi-Table">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-11-11T11:24:58-05:00">
-    <meta property="article:modified_time" content="2024-11-11T11:24:58-05:00">
-    <meta property="article:tag" content="Paper Reading">
+	<meta property="og:site_name" content="Adbean&#39;s Blog">
+	<meta property="og:title" content="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores">
+	<meta property="og:description" content="Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores https://github.com/delta-io/delta
+data lake? delta lake? data warehouse?
+databricks 的论文
+DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon
+其他论文笔记 https://www.cnblogs.com/Aitozi/p/17552466.html
+大数据技术换代也太快了，但底层原理我还是一问三不知，还得练
+Towards Multi-Table Transactions in Delta Lake">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-11-11T11:24:58-05:00">
+		<meta property="article:modified_time" content="2024-11-11T11:24:58-05:00">
+		<meta property="article:tag" content="Paper Reading">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores">
-  <meta name="twitter:description" content="Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores https://github.com/delta-io/delta data lake? delta lake? data warehouse? databricks 的论文 DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon 其他论文笔记 https://www.cnblogs.com/Aitozi/p/17552466.html 大数据技术换代也太快了，但底层原理我还是一问三不知，还得练 Towards Multi-Table">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores">
+	<meta name="twitter:description" content="Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores https://github.com/delta-io/delta
+data lake? delta lake? data warehouse?
+databricks 的论文
+DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon
+其他论文笔记 https://www.cnblogs.com/Aitozi/p/17552466.html
+大数据技术换代也太快了，但底层原理我还是一问三不知，还得练
+Towards Multi-Table Transactions in Delta Lake">
 <meta name="application-name" content="Adbean&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../Owl.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-delta-lake/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-ownership/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-apiary/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -54,7 +66,7 @@
         title="/Owl.ico" />Adbean&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -103,7 +115,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -117,7 +129,7 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-11">2024-11-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 9412 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 19 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -505,8 +517,8 @@ such as clustering and indexing, fast storage hardware, and a suitably <strong>o
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.129.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
         </div>
     </footer></div>
 

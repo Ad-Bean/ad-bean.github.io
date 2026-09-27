@@ -1,32 +1,91 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>笔记 - 标签 - Adbean&#39;s Blog</title>
-        <link>https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/</link>
-        <description>笔记 - 标签 - Adbean&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-            <webMaster>adbeanx@outlook.com (Adbean)</webMaster><lastBuildDate>Wed, 22 May 2024 15:28:22 &#43;0800</lastBuildDate><atom:link href="https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/" rel="self" type="application/rss+xml" /><item>
-    <title>阅读：Go 并发编程实战 1-4</title>
-    <link>https://ad-bean.github.io/posts/go-concurrent-1/</link>
-    <pubDate>Wed, 22 May 2024 15:28:22 &#43;0800</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/go-concurrent-1/</guid>
-    <description><![CDATA[Go 并发编程实战 https://time.geekbang.org/column/intro/100061801 挺好的实战教程 资源并发访问问题 使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？ 互斥锁 临界区就是一个被共]]></description>
-</item>
-<item>
-    <title>阅读：DDIA 第二章</title>
-    <link>https://ad-bean.github.io/posts/ddia-2/</link>
-    <pubDate>Sat, 10 Feb 2024 18:09:40 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/ddia-2/</guid>
-    <description><![CDATA[第二章：数据模型与查询语言 数据模型可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着软件的编写方式，而且影响着我们的 解题思]]></description>
-</item>
-<item>
-    <title>阅读：DDIA 序章以及第一章</title>
-    <link>https://ad-bean.github.io/posts/ddia-1/</link>
-    <pubDate>Fri, 05 Jan 2024 14:16:41 -0500</pubDate>
-    <author>Adbean</author>
-    <guid>https://ad-bean.github.io/posts/ddia-1/</guid>
-    <description><![CDATA[DDIA 序章 http://ddia.vonng.com/#/ch1 数据密集型 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。 计算密集型，处理器速度是其瓶颈。 新型数据库系统（NoSQL）]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>笔记 on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/</link>
+		<description>Recent content in 笔记 on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Wed, 31 Dec 2025 23:53:34 -0800</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Agentic Design Patterns 第一章笔记</title>
+				<link>https://ad-bean.github.io/posts/adp-01/</link>
+				<pubDate>Wed, 31 Dec 2025 23:53:34 -0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/adp-01/</guid>
+				<description>&lt;h2 id=&#34;agentic-design-patterns&#34;&gt;Agentic Design Patterns&lt;/h2&gt;&#xA;&lt;p&gt;AI Agent 这几个月被吹得神乎其神，让我看看到底怎么个事！&lt;/p&gt;&#xA;&lt;h3 id=&#34;prompt-chaining&#34;&gt;Prompt Chaining&lt;/h3&gt;&#xA;&lt;p&gt;通过顺序分解增强可靠性&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;其实我不理解 prompt 里主动要求任务分解 + 拆解，和不要求有什么区别，如果都是通过 LM 注意力机制，有没有又有什么区别呢，prompt 的质量确实能影响结果的好坏，但到底是怎么影响的呢？&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 hw0</title>
+				<link>https://ad-bean.github.io/posts/ml-sys-hw0/</link>
+				<pubDate>Tue, 04 Mar 2025 16:46:50 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ml-sys-hw0/</guid>
+				<description>&lt;h2 id=&#34;10-714-homework-0&#34;&gt;10-714: Homework 0&lt;/h2&gt;&#xA;&lt;p&gt;build a basic softmax regression algorithm, plus a simple two-layer neural network&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dlsyscourse/hw0.git&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;github hw0&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h3 id=&#34;question-1-a-basic-add-function-and-testingautograding-basics&#34;&gt;Question 1: A basic &lt;code&gt;add&lt;/code&gt; function, and testing/autograding basics&lt;/h3&gt;&#xA;&lt;p&gt;plement &lt;code&gt;simple_ml.add()&lt;/code&gt; function in &lt;code&gt;src/simple_ml.py&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;testing: &lt;code&gt;!python3 -m pytest -k &amp;quot;add&amp;quot;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;根据测试，由于 add(x, y) 传入的参数可以是任意类型，则直接返回 return x + y&lt;/p&gt;&#xA;&lt;p&gt;没有注册 mugrade 等 autograde system，所以就基本跑本地的测试了&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation</title>
+				<link>https://ad-bean.github.io/posts/ml-sys-03/</link>
+				<pubDate>Mon, 03 Mar 2025 00:49:41 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ml-sys-03/</guid>
+				<description>&lt;h2 id=&#34;automatic-differentiation&#34;&gt;Automatic Differentiation&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;hypothesis class: $x \rightarrow h_\theta(x)$, MLP&lt;/li&gt;&#xA;&lt;li&gt;loss function(cross-entropy loss): $\ell(x, y) = -h_y(x) + \log \sum_{j=1}^n \exp(h_j(x))$&lt;/li&gt;&#xA;&lt;li&gt;optimization method: $\theta := \theta - \alpha \nabla_\theta \ell$&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;机器学习/深度学习是否就是在学习参数集合 $\theta$?&lt;/p&gt;&#xA;&lt;p&gt;除了 SGD 随机梯度下降，还有 Adam 等优化方法&lt;/p&gt;&#xA;&lt;p&gt;计算 gradient 是一个很复杂的问题，但是现在有自动微分&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 02-03 Neural Networks</title>
+				<link>https://ad-bean.github.io/posts/ml-sys-02/</link>
+				<pubDate>Mon, 10 Feb 2025 14:58:18 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ml-sys-02/</guid>
+				<description>&lt;h2 id=&#34;manual-neural-networks--backprop&#34;&gt;&amp;ldquo;Manual&amp;rdquo; Neural Networks / Backprop&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;还是复习 ML 的内容&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;From linear to nonlinear hypothesis classes&lt;/li&gt;&#xA;&lt;li&gt;Neural networks&lt;/li&gt;&#xA;&lt;li&gt;Backpropagation (i.e., computiing gradients)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;hypothesis classes 是用于模型训练的函数类型&lt;/p&gt;&#xA;&lt;p&gt;线性假设类、非线性假设类&lt;/p&gt;&#xA;&lt;p&gt;多项式回归或神经网络等模型都属于非线性假设类，能捕捉更复杂的关系&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 01 Softmax</title>
+				<link>https://ad-bean.github.io/posts/ml-sys-01/</link>
+				<pubDate>Wed, 05 Feb 2025 11:04:50 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ml-sys-01/</guid>
+				<description>&lt;h2 id=&#34;deep-learning-systems&#34;&gt;Deep Learning Systems&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://dlsyscourse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://dlsyscourse.org/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;10-414/714: Deep Learning Systems&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;这学期选了 ML systems，一些 DL 的概念不太熟悉，补一下 Tianqi Chen 大神的课&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;AlexNet: Image Classification&lt;/p&gt;&#xA;&lt;p&gt;AlphaGo, StyleGAN, GPT-3, stable diffusion &amp;hellip;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;DL 是深度神经网络，越深越好吗？&lt;/p&gt;&#xA;&lt;p&gt;transformer 和 GAN 也都是深度学习&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：Go 并发编程实战 1-4</title>
+				<link>https://ad-bean.github.io/posts/go-concurrent-1/</link>
+				<pubDate>Wed, 22 May 2024 15:28:22 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/go-concurrent-1/</guid>
+				<description>&lt;h2 id=&#34;go-并发编程实战&#34;&gt;Go 并发编程实战&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/100061801&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://time.geekbang.org/column/intro/100061801&lt;/a&gt; 挺好的实战教程&lt;/p&gt;&#xA;&lt;h2 id=&#34;资源并发访问问题&#34;&gt;资源并发访问问题&lt;/h2&gt;&#xA;&lt;p&gt;使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？&lt;/p&gt;&#xA;&lt;h3 id=&#34;互斥锁&#34;&gt;互斥锁&lt;/h3&gt;&#xA;&lt;p&gt;临界区就是一个被共享的资源。为了避免竞争导致并发结果不对，可以使用互斥锁，限定临界区只能同时由一个线程持有，比如 Mutex 锁。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：DDIA 第二章</title>
+				<link>https://ad-bean.github.io/posts/ddia-2/</link>
+				<pubDate>Sat, 10 Feb 2024 18:09:40 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ddia-2/</guid>
+				<description>&lt;h2 id=&#34;第二章数据模型与查询语言&#34;&gt;第二章：数据模型与查询语言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;数据模型&lt;/strong&gt;可能是软件开发中最重要的部分了，因为它们的影响如此深远：不仅仅影响着&lt;strong&gt;软件的编写方式&lt;/strong&gt;，而且影响着我们的 &lt;strong&gt;解题思路&lt;/strong&gt;。&lt;/p&gt;&#xA;&lt;p&gt;多数应用使用&lt;strong&gt;层层叠加&lt;/strong&gt;的数据模型构建。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：Ryan Dahl: NodeJS</title>
+				<link>https://ad-bean.github.io/posts/node-js-io/</link>
+				<pubDate>Tue, 30 Jan 2024 13:23:51 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/node-js-io/</guid>
+				<description>&lt;h2 id=&#34;nodejs&#34;&gt;NodeJS&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;NodeJS 简述：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Server Side Javascript&lt;/li&gt;&#xA;&lt;li&gt;Built on Google&amp;rsquo;s V8&lt;/li&gt;&#xA;&lt;li&gt;Evented, non-blocking IO, similar to EventMachine or Python&amp;rsquo;s Twisted.&lt;/li&gt;&#xA;&lt;li&gt;&lt;del&gt;CommonJS module system&lt;/del&gt; (用 ES6 Module 替代 CommonJS)&lt;/li&gt;&#xA;&lt;li&gt;8k lines of C/C++, 2k lines of JavaScript, 14 Contributes&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;io-needs-to-be-done-differently&#34;&gt;IO needs to be done differently&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;事件驱动，单线程异步 IO 是否能理解为非阻塞的协程？&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：DDIA 序章以及第一章</title>
+				<link>https://ad-bean.github.io/posts/ddia-1/</link>
+				<pubDate>Fri, 05 Jan 2024 14:16:41 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/ddia-1/</guid>
+				<description>&lt;h2 id=&#34;ddia-序章&#34;&gt;DDIA 序章&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://ddia.vonng.com/#/ch1&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;http://ddia.vonng.com/#/ch1&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;数据密集型&lt;/strong&gt; 的应用，数据是其主要挑战（数据量，数据复杂度或数据变化速度）。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;计算密集型&lt;/strong&gt;，处理器速度是其瓶颈。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;新型数据库系统&lt;/strong&gt;（NoSQL），消息队列，缓存，搜索索引，&lt;strong&gt;批处理和流处理框架&lt;/strong&gt; 以及相关技术也非常重要。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>2024 的一些计划</title>
+				<link>https://ad-bean.github.io/posts/my-first-post/</link>
+				<pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/my-first-post/</guid>
+				<description>&lt;h2 id=&#34;总结过去&#34;&gt;总结过去&lt;/h2&gt;&#xA;&lt;p&gt;其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么。&lt;/p&gt;&#xA;&lt;p&gt;2023 年过得很匆忙，其实每天就是实习和打打游戏就过去了。养成了天天睡前总爱刷视频的坏习惯，学习的动力也少了很多，碎片化学习的方式始终不适合我。&lt;/p&gt;</description>
+			</item>
+	</channel>
 </rss>

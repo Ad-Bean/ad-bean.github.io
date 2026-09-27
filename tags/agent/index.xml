@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Agent on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/tags/agent/</link>
+		<description>Recent content in Agent on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Wed, 31 Dec 2025 23:53:34 -0800</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/tags/agent/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Agentic Design Patterns 第一章笔记</title>
+				<link>https://ad-bean.github.io/posts/adp-01/</link>
+				<pubDate>Wed, 31 Dec 2025 23:53:34 -0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/adp-01/</guid>
+				<description>&lt;h2 id=&#34;agentic-design-patterns&#34;&gt;Agentic Design Patterns&lt;/h2&gt;&#xA;&lt;p&gt;AI Agent 这几个月被吹得神乎其神，让我看看到底怎么个事！&lt;/p&gt;&#xA;&lt;h3 id=&#34;prompt-chaining&#34;&gt;Prompt Chaining&lt;/h3&gt;&#xA;&lt;p&gt;通过顺序分解增强可靠性&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;其实我不理解 prompt 里主动要求任务分解 + 拆解，和不要求有什么区别，如果都是通过 LM 注意力机制，有没有又有什么区别呢，prompt 的质量确实能影响结果的好坏，但到底是怎么影响的呢？&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

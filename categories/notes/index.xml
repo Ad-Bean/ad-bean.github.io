@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Notes on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/categories/notes/</link>
+		<description>Recent content in Notes on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Sat, 26 Sep 2026 00:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/categories/notes/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Reading Map</title>
+				<link>https://ad-bean.github.io/reading-map/</link>
+				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/reading-map/</guid>
+				<description>&lt;h2 id=&#34;这是什么&#34;&gt;这是什么&lt;/h2&gt;&#xA;&lt;p&gt;这个博客的知识索引。所有文章按 &lt;strong&gt;6 条轨道&lt;/strong&gt;归类，每条轨道标出&lt;strong&gt;读到哪里、断在哪&lt;/strong&gt;。以后再写新的，挂到对应轨道下面即可。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;总览&lt;/strong&gt;：61 篇，跨 2024-01 → 2025-12。最大的两块是 &lt;strong&gt;OS/Kernel（22）&lt;/strong&gt; 和 &lt;strong&gt;Database（11）&lt;/strong&gt;——论文读得很多，但&lt;strong&gt;动手只到 Mini-LSM 第一周&lt;/strong&gt;。这是目前最大的缺口。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Agentic Design Patterns 第一章笔记</title>
+				<link>https://ad-bean.github.io/posts/adp-01/</link>
+				<pubDate>Wed, 31 Dec 2025 23:53:34 -0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/adp-01/</guid>
+				<description>&lt;h2 id=&#34;agentic-design-patterns&#34;&gt;Agentic Design Patterns&lt;/h2&gt;&#xA;&lt;p&gt;AI Agent 这几个月被吹得神乎其神，让我看看到底怎么个事！&lt;/p&gt;&#xA;&lt;h3 id=&#34;prompt-chaining&#34;&gt;Prompt Chaining&lt;/h3&gt;&#xA;&lt;p&gt;通过顺序分解增强可靠性&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;其实我不理解 prompt 里主动要求任务分解 + 拆解，和不要求有什么区别，如果都是通过 LM 注意力机制，有没有又有什么区别呢，prompt 的质量确实能影响结果的好坏，但到底是怎么影响的呢？&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读笔记：微服务架构</title>
+				<link>https://ad-bean.github.io/posts/backend-microservice/</link>
+				<pubDate>Wed, 25 Dec 2024 15:27:29 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/backend-microservice/</guid>
+				<description>&lt;h2 id=&#34;微服务架构&#34;&gt;微服务架构&lt;/h2&gt;&#xA;&lt;p&gt;回顾下微服务架构的一些知识，包括服务发现、负载均衡、可用性，很多东西没有实操过所以难以记住，需要多多回顾。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;来自极客时间的课程 &lt;a href=&#34;https://time.geekbang.org/column/intro/100551601&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://time.geekbang.org/column/intro/100551601&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;后端工程师的高阶面经&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：Go 并发编程实战 1-4</title>
+				<link>https://ad-bean.github.io/posts/go-concurrent-1/</link>
+				<pubDate>Wed, 22 May 2024 15:28:22 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/go-concurrent-1/</guid>
+				<description>&lt;h2 id=&#34;go-并发编程实战&#34;&gt;Go 并发编程实战&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://time.geekbang.org/column/intro/100061801&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://time.geekbang.org/column/intro/100061801&lt;/a&gt; 挺好的实战教程&lt;/p&gt;&#xA;&lt;h2 id=&#34;资源并发访问问题&#34;&gt;资源并发访问问题&lt;/h2&gt;&#xA;&lt;p&gt;使用 10 个线程对变量 counter 进行增加，每个增加 10000，结果最后是 10 * 10000 吗？&lt;/p&gt;&#xA;&lt;h3 id=&#34;互斥锁&#34;&gt;互斥锁&lt;/h3&gt;&#xA;&lt;p&gt;临界区就是一个被共享的资源。为了避免竞争导致并发结果不对，可以使用互斥锁，限定临界区只能同时由一个线程持有，比如 Mutex 锁。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>阅读：Ryan Dahl: NodeJS</title>
+				<link>https://ad-bean.github.io/posts/node-js-io/</link>
+				<pubDate>Tue, 30 Jan 2024 13:23:51 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/node-js-io/</guid>
+				<description>&lt;h2 id=&#34;nodejs&#34;&gt;NodeJS&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;这学期要用 JS 写分布式，看 Ryan Dahl 在 2009 年 JSConf 上分享 NodeJS 背后的概念，刚好复习一下 JS 的一些知识&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;NodeJS 简述：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Server Side Javascript&lt;/li&gt;&#xA;&lt;li&gt;Built on Google&amp;rsquo;s V8&lt;/li&gt;&#xA;&lt;li&gt;Evented, non-blocking IO, similar to EventMachine or Python&amp;rsquo;s Twisted.&lt;/li&gt;&#xA;&lt;li&gt;&lt;del&gt;CommonJS module system&lt;/del&gt; (用 ES6 Module 替代 CommonJS)&lt;/li&gt;&#xA;&lt;li&gt;8k lines of C/C++, 2k lines of JavaScript, 14 Contributes&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;io-needs-to-be-done-differently&#34;&gt;IO needs to be done differently&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;事件驱动，单线程异步 IO 是否能理解为非阻塞的协程？&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>2024 的一些计划</title>
+				<link>https://ad-bean.github.io/posts/my-first-post/</link>
+				<pubDate>Thu, 04 Jan 2024 11:26:22 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/my-first-post/</guid>
+				<description>&lt;h2 id=&#34;总结过去&#34;&gt;总结过去&lt;/h2&gt;&#xA;&lt;p&gt;其实不太希望写一些小学生流水账来记录过去，但 2023 过的实在是太快，年纪到了也开始逐渐忘事，不写一些东西总会记不起自己做了什么，需要做什么。&lt;/p&gt;&#xA;&lt;p&gt;2023 年过得很匆忙，其实每天就是实习和打打游戏就过去了。养成了天天睡前总爱刷视频的坏习惯，学习的动力也少了很多，碎片化学习的方式始终不适合我。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

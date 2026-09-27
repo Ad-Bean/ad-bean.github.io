@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Distributed on Adbean&#39;s Blog</title>
+		<link>https://ad-bean.github.io/categories/distributed/</link>
+		<description>Recent content in Distributed on Adbean&#39;s Blog</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+		
+		
+			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+		
+		
+		
+			<lastBuildDate>Wed, 04 Dec 2024 11:25:04 -0500</lastBuildDate>
+		
+			<atom:link href="https://ad-bean.github.io/categories/distributed/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Paper Reading: From Cloud Computing to Sky Computing</title>
+				<link>https://ad-bean.github.io/posts/paper-skycomputing/</link>
+				<pubDate>Wed, 04 Dec 2024 11:25:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-skycomputing/</guid>
+				<description>&lt;h2 id=&#34;from-cloud-computing-to-sky-computing&#34;&gt;From Cloud Computing to Sky Computing&lt;/h2&gt;&#xA;&lt;p&gt;21 年 UCB 提出了 Sky Computing 的概念，后续也有一篇 35 页的 &lt;a href=&#34;https://arxiv.org/pdf/2205.07147&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;The Sky Above The Clouds&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;相比起传统的云服务，sky computing 更像一个大一统的中间层，比如可以调用不同的云服务。但看他们实验室的项目已经基本都在做 LLM 相关，没有太多 sky computing 的后续了。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paper Reading: ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta</title>
+				<link>https://ad-bean.github.io/posts/paper-servicerouter/</link>
+				<pubDate>Mon, 02 Dec 2024 09:37:05 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-servicerouter/</guid>
+				<description>&lt;h2 id=&#34;servicerouter-hyperscale-and-minimal-cost-service-mesh-at-meta&#34;&gt;ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta&lt;/h2&gt;&#xA;&lt;p&gt;Meta 的全球服务网格 ServiceRouter（SR）&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;服务网格（Service Mesh）是一种用于处理微服务架构中服务之间通信的软件层。它通过在服务之间插入代理，实现通信控制和监控，从而提高系统的可靠性、安全性和可观测性。&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paper Reading: From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers</title>
+				<link>https://ad-bean.github.io/posts/paper-gg/</link>
+				<pubDate>Wed, 20 Nov 2024 01:09:31 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-gg/</guid>
+				<description>&lt;h2 id=&#34;from-laptop-to-lambda-outsourcing-everyday-jobs-to-thousands-of-transient-functional-containers&#34;&gt;From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers&lt;/h2&gt;&#xA;&lt;p&gt;同样是 standford DBOS 组关于 serverless 的论文，作者还有一篇 R2E2 很厉害，用 serverless 做 ray tracing 实现很高的加速，但 cost 估计控制不住&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;gg framework&lt;/p&gt;&#xA;&lt;p&gt;users might push a button that spawns 10,000 parallel cloud functions to execute a large job in a few seconds from start.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</title>
+				<link>https://ad-bean.github.io/posts/paper-ownership/</link>
+				<pubDate>Sun, 10 Nov 2024 16:27:22 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/paper-ownership/</guid>
+				<description>&lt;h2 id=&#34;ownership-a-distributed-futures-system-for-fine-grained-tasks&#34;&gt;Ownership: A Distributed Futures System for Fine-Grained Tasks&lt;/h2&gt;&#xA;&lt;p&gt;分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）&lt;/p&gt;&#xA;&lt;p&gt;Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论文也提到许多 Futures, distributed futures interface 之类的第一次接触，实际上是 RPC 的扩展&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Paper Reading: Scalability! But at what COST</title>
+				<link>https://ad-bean.github.io/posts/scalability-cost/</link>
+				<pubDate>Sun, 08 Sep 2024 20:25:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+				<guid>https://ad-bean.github.io/posts/scalability-cost/</guid>
+				<description>&lt;h2 id=&#34;scalability-but-at-what-cost&#34;&gt;Scalability! But at what COST?&lt;/h2&gt;&#xA;&lt;p&gt;比较短的 paper，之前也略有看过，主要讲主流分布式框架在多机器上存在 COST(不是成本) 问题，并不一定能比单机更好。是很有意思的主题。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
