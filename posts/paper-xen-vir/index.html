@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Xen and the Art of Virtualization - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-xen-vir/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Xen and the Art of Virtualization - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Xen and the Art of Virtualization">
+	<meta itemprop="description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/">
+	<meta itemprop="datePublished" content="2024-10-12T14:32:07-04:00">
+	<meta itemprop="dateModified" content="2024-10-12T14:32:07-04:00">
+	<meta itemprop="wordCount" content="12799">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-xen-vir/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Xen and the Art of Virtualization">
-	<meta property="og:description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/
-本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区别？比如容器化或 Intel VT-X 等等？">
+	<meta property="og:description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -18,123 +25,115 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Xen and the Art of Virtualization">
-	<meta name="twitter:description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/
-本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区别？比如容器化或 Intel VT-X 等等？">
+	<meta name="twitter:description" content="Xen and the Art of Virtualization Xen 是开源的虚拟化项目，https://xenproject.org/">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-xen-vir/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-caladan/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-firecracker/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Xen and the Art of Virtualization",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-xen-vir\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  12799 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-xen-vir\/","datePublished": "2024-10-12T14:32:07-04:00","dateModified": "2024-10-12T14:32:07-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-xen-vir/" title="Paper Reading: Xen and the Art of Virtualization - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-caladan/" title="Paper Reading: Caladan" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-firecracker/" title="Paper Reading: Firecracker " /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Xen and the Art of Virtualization",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-xen-vir\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  12799 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-xen-vir\/","datePublished": "2024-10-12T14:32:07-04:00","dateModified": "2024-10-12T14:32:07-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Xen and the Art of Virtualization</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-12">2024-10-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 12799 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 26 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Xen and the Art of Virtualization</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-10-12 14:32:07"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-10-12">2024-10-12</time></span>&nbsp;<span title="12799 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 12800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 26 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#xen-and-the-art-of-virtualization">Xen and the Art of Virtualization</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
     <li><a href="#introduction">INTRODUCTION</a></li>
     <li><a href="#xen-approach--overview">XEN: APPROACH &amp; OVERVIEW</a>
       <ul>
-        <li><a href="#the-virtual-machine-interface">The Virtual Machine Interface</a></li>
+        <li><a href="#the-virtual-machine-interface">The Virtual Machine Interface</a>
+          <ul>
+            <li><a href="#memory-management">Memory management</a></li>
+            <li><a href="#cpu">CPU</a></li>
+            <li><a href="#device-ios">Device I/OS</a></li>
+          </ul>
+        </li>
         <li><a href="#the-cost-of-porting-an-os-to-xen">The Cost of Porting an OS to Xen</a></li>
         <li><a href="#control-and-management">Control and Management</a></li>
       </ul>
@@ -143,14 +142,27 @@
       <ul>
         <li><a href="#control-transfer-hypercalls-and-events">Control Transfer: Hypercalls and Events</a></li>
         <li><a href="#data-transfer-io-rings">Data Transfer: I/O Rings</a></li>
-        <li><a href="#subsystem-virtualization">Subsystem Virtualization</a></li>
+        <li><a href="#subsystem-virtualization">Subsystem Virtualization</a>
+          <ul>
+            <li><a href="#cpu-scheduling">CPU scheduling</a></li>
+            <li><a href="#time-and-timers">Time and timers</a></li>
+            <li><a href="#virtual-address-translation">Virtual address translation</a></li>
+            <li><a href="#physical-memory">Physical memory</a></li>
+            <li><a href="#network">Network</a></li>
+            <li><a href="#disk">Disk</a></li>
+          </ul>
+        </li>
         <li><a href="#building-a-new-domain">Building a New Domain</a></li>
       </ul>
     </li>
     <li><a href="#evaluation">Evaluation</a>
       <ul>
         <li><a href="#relative-performance">Relative Performance</a></li>
-        <li><a href="#operating-system-benchmarks">Operating System Benchmarks</a></li>
+        <li><a href="#operating-system-benchmarks">Operating System Benchmarks</a>
+          <ul>
+            <li><a href="#network-performance">Network performance</a></li>
+          </ul>
+        </li>
         <li><a href="#concurrent-virtual-machines">Concurrent Virtual Machines</a></li>
         <li><a href="#performance-isolation">Performance Isolation</a></li>
         <li><a href="#scalability">Scalability</a></li>
@@ -160,8 +172,11 @@
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="xen-and-the-art-of-virtualization">Xen and the Art of Virtualization</h2>
-<p>Xen 是开源的虚拟化项目，https://xenproject.org/</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="xen-and-the-art-of-virtualization"><span>Xen and the Art of Virtualization</span>
+  <a href="#xen-and-the-art-of-virtualization" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Xen 是开源的虚拟化项目，https://xenproject.org/</p>
 <p>本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区别？比如容器化或 Intel VT-X 等等？</p>
 <p>直接运行在计算机硬件之上的用以替代操作系统的软件层，虚拟化又分两类、para virtualization 和 hardware virtualization 半虚拟化和完全虚拟化</p>
 <blockquote>
@@ -172,15 +187,21 @@
 <p>似乎 Linux 开发社区比如 Linus 和 Xen 开发人员也有争吵，质疑他们的代码不规范等等。</p>
 <p>在 2017 年 Amazon EC2 也去掉了 Xen (安全问题？还是说难以修复)</p>
 <p>关于 Xen 为什么发展出现问题，最后比不过 KVM 的相关的历史可以看一看</p>
-<p><a href="https://wangxu.me/translation/2009/03/22/xen-to-kernel/index.html" target="_blank" rel="noopener noreffer ">https://wangxu.me/translation/2009/03/22/xen-to-kernel/index.html</a></p>
-<p><a href="https://fosschef.wordpress.com/2011/06/17/xen-the-road-of-the-life/" target="_blank" rel="noopener noreffer ">https://fosschef.wordpress.com/2011/06/17/xen-the-road-of-the-life/</a></p>
+<p><a href="https://wangxu.me/translation/2009/03/22/xen-to-kernel/index.html" target="_blank" rel="external nofollow noopener noreferrer">https://wangxu.me/translation/2009/03/22/xen-to-kernel/index.html</a></p>
+<p><a href="https://fosschef.wordpress.com/2011/06/17/xen-the-road-of-the-life/" target="_blank" rel="external nofollow noopener noreferrer">https://fosschef.wordpress.com/2011/06/17/xen-the-road-of-the-life/</a></p>
 </blockquote>
-<h2 id="abstract">ABSTRACT</h2>
-<p>许多系统已经被设计出来，它们利用虚拟化技术来细分现代计算机的丰富资源。一些系统需要专门的硬件，或者无法支持通用操作系统。一些系统以性能为代价实现了 100% 的二进制兼容性。其他系统则为了速度而牺牲了安全性或功能性。很少有系统提供资源隔离或性能保证；大多数系统只提供尽力而为的资源分配，存在服务拒绝的风险。</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>许多系统已经被设计出来，它们利用虚拟化技术来细分现代计算机的丰富资源。一些系统需要专门的硬件，或者无法支持通用操作系统。一些系统以性能为代价实现了 100% 的二进制兼容性。其他系统则为了速度而牺牲了安全性或功能性。很少有系统提供资源隔离或性能保证；大多数系统只提供尽力而为的资源分配，存在服务拒绝的风险。</p>
 <p>This paper presents Xen, an x86 <strong>virtual machine monitor</strong> which allows multiple commodity operating systems to share conventional hardware in a safe and resource managed fashion, 同时不牺牲性能或功能。这是通过提供一个理想化的虚拟机抽象来实现的，操作系统如 Linux、BSD 和 Windows XP 可以以最小的努力移植到这个抽象上。</p>
 <p>我们的设计目标是同时在一台现代服务器上托管多达 100 个虚拟机实例。Xen 采用的虚拟化方法非常高效：我们允许像 Linux 和 Windows XP 这样的操作系统同时托管，性能开销几乎可以忽略不计——最多比非虚拟化情况高出几个百分点。我们在一系列微基准测试和系统级测试中显著优于竞争的商业和免费解决方案。</p>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>现代计算机足够强大，可以利用虚拟化技术来呈现许多较小的虚拟机（VM）的假象，每个虚拟机运行一个单独的操作系统实例。</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>现代计算机足够强大，可以利用虚拟化技术来呈现许多较小的虚拟机（VM）的假象，每个虚拟机运行一个单独的操作系统实例。</p>
 <p>在本文中，我们介绍了 Xen，一种高性能的资源管理虚拟机监视器（VMM），它支持诸如服务器整合[42, 8]、共置托管设施[14]、分布式 Web 服务[43]、安全计算平台[12, 16]和应用程序移动性[26, 37]等应用。</p>
 <blockquote>
 <p>为什么要叫 Monitor 或者 Hypervisor</p>
@@ -206,8 +227,11 @@
 <blockquote>
 <p>这里的 binary 是什么，程序进程？</p>
 </blockquote>
-<h2 id="xen-approach--overview">XEN: APPROACH &amp; OVERVIEW</h2>
-<p>在传统的虚拟机监视器（VMM）中，暴露的虚拟硬件在功能上与底层机器相同。虽然 full virtualization 具有允许托管<strong>未修改操作系统</strong>的明显优势，但它也有许多缺点。这对于普遍的 IA-32 或 x86 架构尤为明显。</p>
+<h2 class="heading-element" id="xen-approach--overview"><span>XEN: APPROACH &amp; OVERVIEW</span>
+  <a href="#xen-approach--overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在传统的虚拟机监视器（VMM）中，暴露的虚拟硬件在功能上与底层机器相同。虽然 full virtualization 具有允许托管<strong>未修改操作系统</strong>的明显优势，但它也有许多缺点。这对于普遍的 IA-32 或 x86 架构尤为明显。</p>
 <p>x86 架构的设计从未考虑过全虚拟化支持。某些特权指令必须由 VMM 处理以实现正确的虚拟化，但在权限不足的情况下执行这些指令会静默失败，而不是引发方便的 <strong>trap</strong> [36]。高效地虚拟化 x86 内**存管理单元（MMU）**也很困难。</p>
 <p>VMware 的 ESX Server[10]动态<strong>重写</strong>托管机器代码的部分内容，以在可能需要 VMM 干预的任何地方插入陷阱。这种转换应用于整个客户操作系统内核（伴随着相关的转换、执行和缓存成本），因为所有非陷阱的特权指令都必须被捕获和处理。ESX Server 实现了系统结构（如页表）的<strong>影子版本</strong>，并通过捕获每次更新尝试来保持与虚拟表的一致性——这种方法对于更新密集型操作（如创建新的应用程序进程）具有高成本。</p>
 <blockquote>
@@ -246,15 +270,24 @@
 <p>在下一节中，我们将描述 Xen 导出的虚拟机抽象，并讨论客户操作系统必须如何修改以符合这一抽象。请注意，在本文中，我们将术语“客户操作系统 guest
 operating system” 保留给 Xen 可以托管的操作系统之一，并使用术语“域 domain”来指代在其中执行客户操作系统的运行虚拟机；
 We call Xen itself the <strong>hypervisor</strong> since it operates at a higher privilege level than the supervisor code of the guest operating systems that it hosts</p>
-<h3 id="the-virtual-machine-interface">The Virtual Machine Interface</h3>
-<p>表 1 概述了<strong>半虚拟化 x86 接口</strong>，分为系统三大方面：内存管理、CPU 和设备 I/O。接下来，我们将依次讨论每个机器子系统，并讨论它们在我们半虚拟化架构中的呈现方式。请注意，尽管我们的实现中某些部分（如内存管理）是<strong>特定于 x86</strong> 的，但许多方面（如我们的虚拟 CPU 和 I/O 设备）可以轻松应用于其他机器架构。此外，x86 在某些方面与其他 RISC 风格处理器存在显著差异，例如，高效虚拟化硬件页表比虚拟化软件管理的 TLB 更为困难。</p>
-<h4 id="memory-management">Memory management</h4>
-<p>Virtualizing memory 无疑是半虚拟化架构中最困难的部分，无论是从虚拟机监视器所需的机制还是从移植每个客户操作系统所需的修改来看。如果架构提供软件管理的 TLB，这项任务会更容易，因为这些 TLB 可以以简单的方式高效虚拟化[13]。带标签的 TLB 是大多数服务器级 RISC 架构（包括 Alpha、MIPS 和 SPARC）支持的另一个有用功能。将地址空间标识符标签与每个 TLB 条目相关联，允许虚拟机监视器和每个客户操作系统在单独的地址空间中高效共存，因为不需要在转移执行时刷新整个 TLB。</p>
+<h3 class="heading-element" id="the-virtual-machine-interface"><span>The Virtual Machine Interface</span>
+  <a href="#the-virtual-machine-interface" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>表 1 概述了<strong>半虚拟化 x86 接口</strong>，分为系统三大方面：内存管理、CPU 和设备 I/O。接下来，我们将依次讨论每个机器子系统，并讨论它们在我们半虚拟化架构中的呈现方式。请注意，尽管我们的实现中某些部分（如内存管理）是<strong>特定于 x86</strong> 的，但许多方面（如我们的虚拟 CPU 和 I/O 设备）可以轻松应用于其他机器架构。此外，x86 在某些方面与其他 RISC 风格处理器存在显著差异，例如，高效虚拟化硬件页表比虚拟化软件管理的 TLB 更为困难。</p>
+<h4 class="heading-element" id="memory-management"><span>Memory management</span>
+  <a href="#memory-management" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Virtualizing memory 无疑是半虚拟化架构中最困难的部分，无论是从虚拟机监视器所需的机制还是从移植每个客户操作系统所需的修改来看。如果架构提供软件管理的 TLB，这项任务会更容易，因为这些 TLB 可以以简单的方式高效虚拟化[13]。带标签的 TLB 是大多数服务器级 RISC 架构（包括 Alpha、MIPS 和 SPARC）支持的另一个有用功能。将地址空间标识符标签与每个 TLB 条目相关联，允许虚拟机监视器和每个客户操作系统在单独的地址空间中高效共存，因为不需要在转移执行时刷新整个 TLB。</p>
 <p>不幸的是，x86 没有软件管理的 TLB；相反，TLB 未命中由处理器通过<strong>硬件遍历页表结构自动处理</strong>。因此，为了实现最佳性能，当前地址空间的所有有效页翻译应存在于硬件可访问的页表中。此外，由于 TLB 未带标签，地址空间切换通常需要完全刷新 TLB。鉴于这些限制，我们做出了两个决定：(i) 客户操作系统负责分配和管理硬件页表，Xen 仅在确保安全和隔离的情况下进行最小程度的参与；(ii) Xen 存在于<strong>每个地址空间的顶部 64MB 区域</strong>，从而在进入和离开虚拟机监视器时避免 TLB 刷新。</p>
 <p>每当客户操作系统需要一个新的页表时（例如，因为正在创建一个新进程），它会从自己的内存预留中分配并初始化一个页面，并将其注册到 Xen。此时，操作系统必须放弃对页表内存的直接写权限：所有后续更新必须由 Xen 验证。这限制了更新的方式，包括只允许操作系统映射其拥有的页面，并禁止对页表的可写映射。客户操作系统可以批量更新请求，以分摊进入虚拟机监视器的开销。每个地址空间的顶部 64MB 区域，保留给 Xen，不可由客户操作系统访问或重新映射。然而，这个地址区域不被任何常见的 x86 ABI 使用，因此这个限制不会破坏应用程序兼容性。</p>
 <p>分段以类似的方式虚拟化，通过验证对硬件段描述符表的更新。x86 <strong>段描述符</strong>的唯一限制是：(i) 它们必须比 Xen 具有更低的特权，(ii) 它们不得允许访问 Xen 保留的地址空间部分。</p>
-<h4 id="cpu">CPU</h4>
-<p>虚拟化 CPU 对客户操作系统有几个影响。主要的是，在操作系统之下插入一个虚拟机监视器违反了操作系统是系统中最特权实体的通常假设。为了保护虚拟机监视器免受操作系统错误行为的影响（以及域之间的相互保护），客户操作系统必须修改为在<strong>较低的特权级别上运行</strong>。</p>
+<h4 class="heading-element" id="cpu"><span>CPU</span>
+  <a href="#cpu" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>虚拟化 CPU 对客户操作系统有几个影响。主要的是，在操作系统之下插入一个虚拟机监视器违反了操作系统是系统中最特权实体的通常假设。为了保护虚拟机监视器免受操作系统错误行为的影响（以及域之间的相互保护），客户操作系统必须修改为在<strong>较低的特权级别上运行</strong>。</p>
 <p>许多处理器架构只提供两个特权级别。</p>
 <blockquote>
 <p>内核模式，用户模式</p>
@@ -275,26 +308,28 @@ We call Xen itself the <strong>hypervisor</strong> since it operates at a higher
 <p>异常传播修复，是什么意思？</p>
 </blockquote>
 <p>请注意，即使对于直接系统调用处理程序，这种“懒惰”检查也是安全的：当 CPU 尝试直接跳转到客户操作系统处理程序时，将发生访问故障。在这种情况下，故障地址将在 Xen 之外（因为 Xen 永远不会执行客户操作系统的系统调用），因此故障以正常方式虚拟化。如果故障的传播导致进一步的 “double fault”，则如上所述终止客户操作系统。</p>
-<h4 id="device-ios">Device I/OS</h4>
-<p>与通常在完全虚拟化环境中模拟现有硬件设备不同，Xen 暴露了一组干净且简单的设备抽象。这使我们能够设计一个既高效又满足我们对保护和隔离要求的接口。为此，<strong>I/O 数据通过 Xen 在每个域之间传输，使用共享内存、异步缓冲区描述符环</strong>。这些环提供了一种高性能的通信机制，用于在系统中垂直传递缓冲区信息，同时允许 Xen 高效地执行验证检查（例如，检查缓冲区是否包含在域的内存预留中）。</p>
+<h4 class="heading-element" id="device-ios"><span>Device I/OS</span>
+  <a href="#device-ios" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>与通常在完全虚拟化环境中模拟现有硬件设备不同，Xen 暴露了一组干净且简单的设备抽象。这使我们能够设计一个既高效又满足我们对保护和隔离要求的接口。为此，<strong>I/O 数据通过 Xen 在每个域之间传输，使用共享内存、异步缓冲区描述符环</strong>。这些环提供了一种高性能的通信机制，用于在系统中垂直传递缓冲区信息，同时允许 Xen 高效地执行验证检查（例如，检查缓冲区是否包含在域的内存预留中）。</p>
 <p>类似于硬件中断，Xen 支持一种<strong>轻量级的事件传递机制</strong>，用于向域发送异步通知。这些通知通过更新待处理事件类型的位图来实现，并且可以选择性地调用由客户操作系统指定的事件处理程序。这些回调可以根据客户操作系统的判断“暂停”——例如，为了避免频繁唤醒通知带来的额外开销。</p>
 <blockquote>
 <p>domain 到底是一个虚拟机实例还是什么</p>
 </blockquote>
-<h3 id="the-cost-of-porting-an-os-to-xen">The Cost of Porting an OS to Xen</h3>
-<p>XP 不好移植</p>
+<h3 class="heading-element" id="the-cost-of-porting-an-os-to-xen"><span>The Cost of Porting an OS to Xen</span>
+  <a href="#the-cost-of-porting-an-os-to-xen" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>XP 不好移植</p>
 <blockquote>
 <p>这样的移植感觉很费力，除非是开源的 OS，闭源的感觉难以操作</p>
 </blockquote>
-<h3 id="control-and-management">Control and Management</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png"
-        data-srcset="https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png, https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png 1.5x, https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png"
-        title="https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png" /></p>
+<h3 class="heading-element" id="control-and-management"><span>Control and Management</span>
+  <a href="#control-and-management" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png' alt="https://s2.loli.net/2024/10/14/XNFqoPrBfYv2aki.png"></p>
 <blockquote>
 <p>Domain 0 跑了一个 guestOS 负责 control software ，XenoLinux 应该也是 Xen 的</p>
 <p>其他 guestOs 可以是 xenoLinux 也可以是 xenoBSD 等等</p>
@@ -305,27 +340,29 @@ We call Xen itself the <strong>hypervisor</strong> since it operates at a higher
 <blockquote>
 <p>这个思路感觉和 kvm / hyper-v 完全虚拟化区别的还是很大的</p>
 </blockquote>
-<h2 id="detailed-design">DETAILED DESIGN</h2>
-<h3 id="control-transfer-hypercalls-and-events">Control Transfer: Hypercalls and Events</h3>
-<p>Xen 与上层域之间的控制交互存在两种机制：域可以使用 Hypercalls 向 Xen 进行<strong>同步调用</strong>，而 Xen 使用<strong>异步事件</strong>机制向域传递通知。</p>
+<h2 class="heading-element" id="detailed-design"><span>DETAILED DESIGN</span>
+  <a href="#detailed-design" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="control-transfer-hypercalls-and-events"><span>Control Transfer: Hypercalls and Events</span>
+  <a href="#control-transfer-hypercalls-and-events" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Xen 与上层域之间的控制交互存在两种机制：域可以使用 Hypercalls 向 Xen 进行<strong>同步调用</strong>，而 Xen 使用<strong>异步事件</strong>机制向域传递通知。</p>
 <p>hypercall 接口允许域执行 synchronous software trap 进入虚拟机监视器以执行特权操作，类似于传统操作系统中使用系统调用的方式。超调用的一个示例用途是<strong>请求一组页表更新</strong>，其中 Xen 验证并应用更新列表，并在完成后将控制权返回给调用域。</p>
 <p>Xen 与域之间的通信通过异步事件机制提供，该机制取代了设备中断的常规传递机制，并允许对重要事件（如域终止请求）进行轻量级通知。类似于传统的 Unix 信号，只有少数事件，每个事件用于标记特定类型的发生。例如，事件用于指示已通过网络接收到新数据，或虚拟磁盘请求已完成。</p>
 <p>待处理事件 Pending events 存储在每个域的位掩码中，Xen 在调用由客户操作系统指定的事件回调处理程序之前更新该位掩码。回调处理程序负责重置待处理事件集，并以适当的方式响应通知。域可以通过设置 Xen 可读的软件标志显式推迟事件处理：这类似于在真实处理器上禁用中断。</p>
-<h3 id="data-transfer-io-rings">Data Transfer: I/O Rings</h3>
-<p>The presence of a <strong>hypervisor</strong> means there is an <strong>additional protection domain</strong> between guest OSes and I/O devices,
+<h3 class="heading-element" id="data-transfer-io-rings"><span>Data Transfer: I/O Rings</span>
+  <a href="#data-transfer-io-rings" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The presence of a <strong>hypervisor</strong> means there is an <strong>additional protection domain</strong> between guest OSes and I/O devices,
 so it is crucial that a <strong>data transfer mechanism</strong> be provided that allows data to move <strong>vertically</strong> through the system with as little overhead as possible</p>
 <p>resource management</p>
 <p>event notification</p>
 <p>为了资源责任，我们试图在从设备接收到中断时<strong>最小化将数据多路分解到特定域所需的工作</strong>——管理缓冲区的开销稍后进行，计算可能归因于适当的域。
 类似地，尽可能由相关域提供用于设备 I/O 的内存，以防止共享缓冲池中固有的<strong>串扰</strong>；在数据传输期间，通过在 Xen 中固定底层页帧来保护 I/O 缓冲区。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png"
-        data-srcset="https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png, https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png 1.5x, https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png"
-        title="https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png' alt="https://s2.loli.net/2024/10/14/V2hPrlSBftyoDw6.png"></p>
 <p>图 2 展示了我们 <strong>I/O 描述符环</strong>的结构。环是由域分配的描述符的循环队列，但可以从 Xen 内部访问。描述符不直接包含 I/O 数据；相反，I/O 数据缓冲区由客户操作系统带外分配，并通过 I/O 描述符间接引用。对每个环的访问基于两对生产者-消费者指针：域在环上放置请求，推进请求生产者指针，Xen 移除这些请求进行处理，推进相关的请求消费者指针。响应以类似的方式放回环中，只是 Xen 作为生产者，客户操作系统作为消费者。没有要求按顺序处理请求：客户操作系统为每个请求关联一个唯一标识符，该标识符在相关响应中重现。这允许 Xen 由于调度或优先级考虑而明确地重新排序 I/O 操作。</p>
 <blockquote>
 <p>这里的 IO ring 和 NIC 的是不是很类似</p>
@@ -333,20 +370,32 @@ so it is crucial that a <strong>data transfer mechanism</strong> be provided tha
 <p>这种结构足够通用，可以支持多种不同的设备范式。例如，一组“请求”可以为网络数据包接收提供缓冲区；随后的“响应”然后通知这些缓冲区中数据包的到达。在处理磁盘请求时，重新排序是有用的，因为它允许在 Xen 中调度它们以提高效率，<strong>并且使用带外缓冲区的描述符使得实现零拷贝传输变得容易</strong>。</p>
 <blockquote>
 <p>Xen 实现了零拷贝吗</p>
-<p><a href="https://wiki.xenproject.org/wiki/Xen_4.3_Block_Protocol_Scalability" target="_blank" rel="noopener noreffer ">https://wiki.xenproject.org/wiki/Xen_4.3_Block_Protocol_Scalability</a></p>
+<p><a href="https://wiki.xenproject.org/wiki/Xen_4.3_Block_Protocol_Scalability" target="_blank" rel="external nofollow noopener noreferrer">https://wiki.xenproject.org/wiki/Xen_4.3_Block_Protocol_Scalability</a></p>
 <p>blkback/blkfront</p>
 </blockquote>
 <p>我们将请求或响应的生产与另一方的通知解耦：在请求的情况下，域可以在调用超调用以提醒 Xen 之前将多个条目排队；在响应的情况下，域可以通过指定响应阈值数量来推迟通知事件的传递。这允许每个域根据延迟和吞吐量要求进行权衡，类似于 ArseNIC 千兆以太网接口中的流量感知中断调度</p>
-<h3 id="subsystem-virtualization">Subsystem Virtualization</h3>
-<h4 id="cpu-scheduling">CPU scheduling</h4>
-<p>Xen 目前根据 Borrowed Virtual Time（BVT）调度算法[11]调度域，因为它既节省工作量，又有一个特殊的机制用于<strong>低延迟唤醒</strong>（或调度）域，当它接收到事件时。快速调度对于最小化虚拟化对设计为及时运行的操作系统子系统的影响尤为重要；例如，TCP 依赖于及时交付确认以正确估计网络往返时间。BVT 通过使用虚拟时间扭曲机制提供低延迟调度，该机制暂时违反“理想”的公平共享，以支持最近唤醒的域。然而，其他调度算法可以简单地在我们通用的调度器抽象上实现。每个域的调度参数可以通过在 Domain0 中运行的管理软件进行调整。</p>
-<h4 id="time-and-timers">Time and timers</h4>
-<p>Xen 为客户操作系统提供了真实时间、虚拟时间和挂钟时间的概念。</p>
+<h3 class="heading-element" id="subsystem-virtualization"><span>Subsystem Virtualization</span>
+  <a href="#subsystem-virtualization" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 class="heading-element" id="cpu-scheduling"><span>CPU scheduling</span>
+  <a href="#cpu-scheduling" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Xen 目前根据 Borrowed Virtual Time（BVT）调度算法[11]调度域，因为它既节省工作量，又有一个特殊的机制用于<strong>低延迟唤醒</strong>（或调度）域，当它接收到事件时。快速调度对于最小化虚拟化对设计为及时运行的操作系统子系统的影响尤为重要；例如，TCP 依赖于及时交付确认以正确估计网络往返时间。BVT 通过使用虚拟时间扭曲机制提供低延迟调度，该机制暂时违反“理想”的公平共享，以支持最近唤醒的域。然而，其他调度算法可以简单地在我们通用的调度器抽象上实现。每个域的调度参数可以通过在 Domain0 中运行的管理软件进行调整。</p>
+<h4 class="heading-element" id="time-and-timers"><span>Time and timers</span>
+  <a href="#time-and-timers" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Xen 为客户操作系统提供了真实时间、虚拟时间和挂钟时间的概念。</p>
 <blockquote>
 <p>配合 BVT 算法？</p>
 </blockquote>
-<h4 id="virtual-address-translation">Virtual address translation</h4>
-<p>Xen 试图以尽可能小的开销虚拟化内存访问。</p>
+<h4 class="heading-element" id="virtual-address-translation"><span>Virtual address translation</span>
+  <a href="#virtual-address-translation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Xen 试图以尽可能小的开销虚拟化内存访问。</p>
 <p>由于 x86 架构使用硬件页表，这一目标变得更加困难。VMware 的方法是为每个客户操作系统提供一个虚拟页表，该页表对内存管理单元（MMU）不可见
 然后，虚拟机监视器负责捕获对虚拟页表的访问，验证更新，并将更改在虚拟页表和 MMU 可见的“影子”页表之间来回传播。这大大增加了某些客户操作系统操作的成本，例如创建新的虚拟地址空间，并需要<strong>显式传播硬件更新到“访问”和“脏”位</strong></p>
 <p>尽管完全虚拟化迫使使用<strong>影子页表</strong>，以提供连续物理内存的假象，但 Xen 并不受此限制。事实上，Xen 只需要在页表更新时介入，以防止客户操作系统进行不可接受的更改。因此，我们避免了与使用影子页表相关的开销和额外复杂性——Xen 的方法是直接向 MMU 注册客户操作系统页表，并限制客户操作系统对页表的只读访问。页表更新通过超调用传递给 Xen；为了确保安全，请求在应用之前进行验证。</p>
@@ -365,22 +414,31 @@ so it is crucial that a <strong>data transfer mechanism</strong> be provided tha
 <p>更新提交：更新必须在 TLB 刷新之前提交，以保证正确性。客户操作系统通常在首次使用新映射之前执行 TLB 刷新，确保任何缓存的翻译无效。</p>
 <p>故障处理：如果客户操作系统在确定 TLB 中不存在陈旧条目时省略刷新，首次尝试使用新映射可能会导致页面不存在故障。客户操作系统故障处理程序必须检查是否有未完成的更新。</p>
 <p>重试机制：如果找到未完成的更新，则刷新它们并重试故障指令，确保内存映射的正确性。</p>
-<h4 id="physical-memory">Physical memory</h4>
-<p>每个域的初始内存分配或预留是在其创建时指定的，因此，内存在域之间<strong>静态分区</strong>，提供<strong>强隔离</strong>。还可以指定最大允许预留：如果域内的内存压力增加，它可能会尝试从 Xen 中获取额外的内存页，直到此预留限制。相反，如果域希望节省资源，可能为了避免产生不必要的成本，它可以通过将内存页释放回 Xen 来减少其内存预留。</p>
+<h4 class="heading-element" id="physical-memory"><span>Physical memory</span>
+  <a href="#physical-memory" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>每个域的初始内存分配或预留是在其创建时指定的，因此，内存在域之间<strong>静态分区</strong>，提供<strong>强隔离</strong>。还可以指定最大允许预留：如果域内的内存压力增加，它可能会尝试从 Xen 中获取额外的内存页，直到此预留限制。相反，如果域希望节省资源，可能为了避免产生不必要的成本，它可以通过将内存页释放回 Xen 来减少其内存预留。</p>
 <p>XenoLinux implements a balloon driver, 通过在 Xen 和 XenoLinux 的页面分配器之间来回传递内存页来调整域的内存使用。尽管我们可以直接修改 Linux 的内存管理例程，但气球驱动程序通过使用现有的操作系统功能进行调整，从而简化了 Linux 移植工作。然而，半虚拟化可以用来扩展气球驱动程序的功能；例如，客户操作系统中的内存不足处理机制可以修改为通过从 Xen 请求更多内存来自动缓解内存压力。</p>
 <p>大多数操作系统假设内存最多由几个大的连续区域组成。因为 Xen 不保证分配连续的内存区域，客户操作系统通常会为自己创造连续物理内存的假象，</p>
 <blockquote>
 <p>Xen 不保证分配连续的内存区域</p>
 </blockquote>
-<h4 id="network">Network</h4>
-<p>Domain0 负责插入和删除规则。</p>
+<h4 class="heading-element" id="network"><span>Network</span>
+  <a href="#network" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Domain0 负责插入和删除规则。</p>
 <p>为了发送数据包，客户操作系统只需将缓冲区描述符排队到发送环上。Xen 复制描述符，并确保安全，然后复制数据包头并执行任何匹配的过滤规则。数据包负载不会被复制，因为我们使用 scatter-gather DMA；但是请注意，相关的页帧必须固定，直到传输完成。<strong>为了确保公平性，Xen 实现了一个简单的轮询数据包调度器。</strong></p>
 <blockquote>
 <p>fairness -&gt; round-robin</p>
 <p>有没有性能更好的</p>
 </blockquote>
-<h4 id="disk">Disk</h4>
-<p>只有 Domain0 可以直接无限制地访问物理磁盘（IDE 和 SCSI）。所有其他域通过虚拟块设备（VBD）的抽象来访问持久存储，这些虚拟块设备由在 Domain0 内运行的管理软件创建和配置。允许 Domain0 管理 VBD 使得 Xen 的机制非常简单，避免了更复杂的解决方案，例如 Exokernel 使用的 UDFs [23]。</p>
+<h4 class="heading-element" id="disk"><span>Disk</span>
+  <a href="#disk" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>只有 Domain0 可以直接无限制地访问物理磁盘（IDE 和 SCSI）。所有其他域通过虚拟块设备（VBD）的抽象来访问持久存储，这些虚拟块设备由在 Domain0 内运行的管理软件创建和配置。允许 Domain0 管理 VBD 使得 Xen 的机制非常简单，避免了更复杂的解决方案，例如 Exokernel 使用的 UDFs [23]。</p>
 <p>一个 VBD 包含一个范围列表，以及相关的所有权和访问控制信息，并通过 I/O 环机制进行访问。</p>
 <blockquote>
 <p>ExoKernel 支持 UDF？是怎么做到的，用户可以自定义访问 IO 吗</p>
@@ -391,27 +449,29 @@ so it is crucial that a <strong>data transfer mechanism</strong> be provided tha
 <blockquote>
 <p>磁盘调度应该也是个有意思的方向</p>
 </blockquote>
-<h3 id="building-a-new-domain">Building a New Domain</h3>
-<p>为新域构建初始客户操作系统结构的任务主要委托给 Domain0，Domain0 使用其特权控制接口（第 2.3 节）访问新域的内存并通知 Xen 初始寄存器状态。</p>
-<h2 id="evaluation">Evaluation</h2>
-<blockquote>
+<h3 class="heading-element" id="building-a-new-domain"><span>Building a New Domain</span>
+  <a href="#building-a-new-domain" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>为新域构建初始客户操作系统结构的任务主要委托给 Domain0，Domain0 使用其特权控制接口（第 2.3 节）访问新域的内存并通知 Xen 初始寄存器状态。</p>
+<h2 class="heading-element" id="evaluation"><span>Evaluation</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>性能评估应该是 Xen 的重头戏</p>
 </blockquote>
 <p>我们首先将 Xen 与多种替代虚拟化技术进行基准测试，然后比较在单个原生操作系统上同时执行多个应用程序的总系统吞吐量与在每个虚拟机中运行每个应用程序的总系统吞吐量。</p>
 <p>评估了 Xen 在客户操作系统之间提供的性能隔离</p>
 <p>XenoLinux 移植（基于 Linux 2.4.21），因为这是我们最成熟的客户操作系统。我们预计 Windows XP 和 NetBSD 移植的相对开销会相似，但尚未进行全面评估。</p>
 <p>机器中的 Xeon 处理器支持 SMT（“超线程”），但由于当前内核都没有 SMT 感知的调度程序，因此<strong>禁用了此功能</strong>。我们确保所有客户操作系统及其虚拟机管理程序可用的总内存量等于原生 Linux 可用的总内存量。</p>
-<h3 id="relative-performance">Relative Performance</h3>
-<p>下一组条形图显示了在本地 ext3 文件系统上使用 gcc 2.96 构建 Linux 2.4.21 内核默认配置所花费的总时间。原生 Linux 花费了大约 7%的 CPU 时间在操作系统中，主要执行文件 I/O、调度和内存管理。在虚拟机管理程序的情况下，这种“系统时间”在不同程度上被扩展：Xen 仅增加了 3%的开销，而其他虚拟机管理程序则经历了更显著的减速。</p>
+<h3 class="heading-element" id="relative-performance"><span>Relative Performance</span>
+  <a href="#relative-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>下一组条形图显示了在本地 ext3 文件系统上使用 gcc 2.96 构建 Linux 2.4.21 内核默认配置所花费的总时间。原生 Linux 花费了大约 7%的 CPU 时间在操作系统中，主要执行文件 I/O、调度和内存管理。在虚拟机管理程序的情况下，这种“系统时间”在不同程度上被扩展：Xen 仅增加了 3%的开销，而其他虚拟机管理程序则经历了更显著的减速。</p>
 <p>我们使用 PostgreSQL 7.1.3 数据库进行了两个实验，通过默认配置的 Open Source Database Benchmark 套件（OSDB）进行测试。我</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png"
-        data-srcset="https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png, https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png 1.5x, https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png"
-        title="https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png' alt="https://s2.loli.net/2024/10/14/mTKzj5n98XIMt2v.png"></p>
 <blockquote>
 <p>对比了很多 benchmark</p>
 <p>选了几个有意思的，实际上涉及到 DB 操作或者磁盘操作，性能会有一些下降</p>
@@ -420,15 +480,11 @@ so it is crucial that a <strong>data transfer mechanism</strong> be provided tha
 <p>调度算法感觉都是为了公平，但为什么会这么好</p>
 <p>奇怪的是横坐标是 Relative Score</p>
 </blockquote>
-<h3 id="operating-system-benchmarks">Operating System Benchmarks</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png"
-        data-srcset="https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png, https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png 1.5x, https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png"
-        title="https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png" /></p>
+<h3 class="heading-element" id="operating-system-benchmarks"><span>Operating System Benchmarks</span>
+  <a href="#operating-system-benchmarks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png' alt="https://s2.loli.net/2024/10/14/qSI6zpryZKeCEfc.png"></p>
 <p>为了更精确地测量 Xen 和其他虚拟机管理程序（VMM）中的开销区域，我们进行了许多针对特定子系统的小型实验</p>
 <p>在进程微基准测试（表 3）中，Xen 的 fork、exec 和 sh 性能比原生 Linux 慢。这是预期的，因为这些操作需要大量的页表更新，这些更新必须全部由 Xen 验证。然而，半虚拟化方法允许 XenoLinux 批量更新请求。创建新的页表是一个理想的情况：因为没有理由更早地提交待处理的更新，XenoLinux 可以在每次超调用中分摊 2048 次更新（其批处理缓冲区的最大大小）。因此，每次更新超调用构造 8MB 的地址空间。</p>
 <p>表 5 中显示的 mmap 延迟和页面故障延迟结果很有趣，因为它们每页需要两次进入 Xen 的转换：一次是处理硬件故障并将详细信息传递给客户操作系统，另一次是代表客户操作系统安装更新的页表条目。尽管如此，开销相对较小。</p>
@@ -437,76 +493,147 @@ so it is crucial that a <strong>data transfer mechanism</strong> be provided tha
 <p>就是 fork 之类的要慢一些，需要通过 xen 来验证页表创建</p>
 <p>上下文切换、内存管理等等。</p>
 </blockquote>
-<h4 id="network-performance">Network performance</h4>
-<p>为了评估虚拟化网络的开销，我们检查了通过千兆以太网局域网的 TCP 性能。</p>
+<h4 class="heading-element" id="network-performance"><span>Network performance</span>
+  <a href="#network-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>为了评估虚拟化网络的开销，我们检查了通过千兆以太网局域网的 TCP 性能。</p>
 <blockquote>
 <p>为什么 TCP MTU 500 反而性能要低一些？</p>
 <p>使用 500 字节的 MTU 时，每包开销占主导地位。发送防火墙和接收多路复用的额外复杂性对吞吐量产生了不利影响，但仅降低了 14%。</p>
 </blockquote>
-<h3 id="concurrent-virtual-machines">Concurrent Virtual Machines</h3>
-<p>在图 5 中，我们展示了 Xen 在运行 1、2、4 和 8 个 OSDB-IR 和 OSDB-OLTP 实例时实现的总吞吐量。当添加第二个域时，第二个 CPU 的充分利用几乎使总吞吐量翻倍。进一步增加域的数量会导致总吞吐量有所下降，这可以归因于增加的上下文切换和磁盘头移动。在单个 Linux 操作系统上运行多个 PostgreSQL 实例的总分数比使用 Xen 的等效分数低 25-35%。原因尚未完全理解，但似乎 PostgreSQL 存在 SMP 可扩展性问题，并且未能充分利用 Linux 的块缓存。</p>
+<h3 class="heading-element" id="concurrent-virtual-machines"><span>Concurrent Virtual Machines</span>
+  <a href="#concurrent-virtual-machines" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在图 5 中，我们展示了 Xen 在运行 1、2、4 和 8 个 OSDB-IR 和 OSDB-OLTP 实例时实现的总吞吐量。当添加第二个域时，第二个 CPU 的充分利用几乎使总吞吐量翻倍。进一步增加域的数量会导致总吞吐量有所下降，这可以归因于增加的上下文切换和磁盘头移动。在单个 Linux 操作系统上运行多个 PostgreSQL 实例的总分数比使用 Xen 的等效分数低 25-35%。原因尚未完全理解，但似乎 PostgreSQL 存在 SMP 可扩展性问题，并且未能充分利用 Linux 的块缓存。</p>
 <p>图 5 还展示了 8 个域之间的性能差异化。Xen 的调度器配置为给每个域一个介于 1 和 8 之间的整数权重。每个域的吞吐量分数反映在条形图的不同分段中。在 IR 基准测试中，权重对吞吐量有精确的影响，每个分段都在其预期大小的 4%以内。然而，在 OLTP 情况下，分配更多资源的域未能实现成比例的高分数：<strong>高水平的同步磁盘活动突显了我们当前磁盘调度算法的弱点，导致它们表现不佳</strong></p>
 <blockquote>
 <p>磁盘调度是个问题，前文也提到</p>
 </blockquote>
-<h3 id="performance-isolation">Performance Isolation</h3>
-<p>第四个域同时运行了一个“fork 炸弹”和一个虚拟内存密集型应用程序，该应用程序尝试分配和接触 3GB 的虚拟内存，并在失败时释放每个页面然后重新启动。</p>
+<h3 class="heading-element" id="performance-isolation"><span>Performance Isolation</span>
+  <a href="#performance-isolation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>第四个域同时运行了一个“fork 炸弹”和一个虚拟内存密集型应用程序，该应用程序尝试分配和接触 3GB 的虚拟内存，并在失败时释放每个页面然后重新启动。</p>
 <p>我们发现，OSDB-IR 和 SPEC WEB99 的结果仅受到运行破坏性过程的两个域的行为的<strong>轻微影响</strong>——分别比之前报告的结果低 4%和 2%。我们将此归因于额外的上下文切换和缓存效应的开销。<strong>考虑到我们当前相对简单的磁盘调度算法</strong>，我们认为这是有些幸运的，但在这种情况下，它似乎为基准测试提供了足够的隔离，使其能够从其他域的页面交换和磁盘密集型活动中取得良好的进展。VMware Workstation 实现了类似的隔离水平，但绝对性能水平较低。</p>
 <blockquote>
 <p>论文希望实现的是 P. Shenoy and H. Vin. Cello: A Disk Scheduling Framework for Next-generation Operating Systems. In Proceedings of ACM SIGMETRICS’98, the International Conference on Measurement and Modeling of Computer Systems, pages 44–55, June 1998.</p>
 <p>这里的性能隔离可能不如 KVM</p>
 </blockquote>
-<h3 id="scalability">Scalability</h3>
-<p>在本节中，我们考察了 Xen 扩展到 100 个域的能力。我们讨论了运行许多客户操作系统实例及其相关应用程序的内存需求，并测量了其执行的 CPU 性能开销。</p>
-<h2 id="related-work">Related Work</h2>
-<p>如我们的评估所示，选择完全虚拟化虽然能够更容易地支持现成的操作系统，但对性能有不利影响。</p>
+<h3 class="heading-element" id="scalability"><span>Scalability</span>
+  <a href="#scalability" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在本节中，我们考察了 Xen 扩展到 100 个域的能力。我们讨论了运行许多客户操作系统实例及其相关应用程序的内存需求，并测量了其执行的 CPU 性能开销。</p>
+<h2 class="heading-element" id="related-work"><span>Related Work</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如我们的评估所示，选择完全虚拟化虽然能够更容易地支持现成的操作系统，但对性能有不利影响。</p>
 <p>目前，我们知道另外两个采用半虚拟化方法的系统：IBM 目前支持其 zSeries 大型机上的 Linux 半虚拟化版本，允许大量 Linux 实例同时运行。Denali [44]，前面讨论过，是一个当代的隔离内核，试图提供一个能够托管大量虚拟化操作系统实例的系统。</p>
 <p>我们与操作系统的可扩展性和主动网络社区有一些动机。然而，当在 Xen 上运行时，不需要检查“安全”代码或保证终止——在任何一种情况下，唯一受影响的人是相关客户。因此，Xen 提供了一个更通用的解决方案：托管代码不需要由受信任的编译器进行数字签名（如 SPIN [5]），不需要附带安全证明（如 PCC [31]），不需要用特定语言编写（如 SafetyNet [22] 或任何基于 Java 的系统），也不需要依赖特定中间件（如移动代理系统）。当然，这些其他技术可以在运行在 Xen 上的客户操作系统内继续使用。这对于具有更多临时任务的工作负载可能特别有用，这些任务不会提供启动新域的机会来分摊成本。</p>
-<h2 id="conclusion">Conclusion</h2>
-<blockquote>
+<h2 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>VMWare 成立于 1998</p>
 <p>Xen 很多想法都是半虚拟化，paravirtualization 而不是完全虚拟化，使用 Domain0 来管理客制化的 OS，需要实现 OS</p>
 <p>随着后面 Intel VT-X/ AMD SVM 的出现，KVM 的性能也可以接近原生，Xen 也开始支持 HVM，也加入了 Linux Foundation</p>
 <p>Xen 限制还是挺大的，要实现 OS，兼容性没那么好（直到 2012 才实现了 ARM），应该有不少文章对比 KVM 和 Xen 的性能</p>
 <p>可能这也是 Xen 现在发展完全不如 KVM 的根源所在吧，尽管 Xen 性能略优，但兼容性和使用门槛才是商业化的敲门砖，不过 Xen 后面被 Citrix 收购了可能商业化会好很多，也推出了全虚拟化 HVM 版本（貌似是 Windows）</p>
-<p><a href="https://ieeexplore.ieee.org/abstract/document/6714189" target="_blank" rel="noopener noreffer ">https://ieeexplore.ieee.org/abstract/document/6714189</a></p>
+<p><a href="https://ieeexplore.ieee.org/abstract/document/6714189" target="_blank" rel="external nofollow noopener noreferrer">https://ieeexplore.ieee.org/abstract/document/6714189</a></p>
 <p>S. G. Soriga and M. Barbulescu, &ldquo;A comparison of the performance and scalability of Xen and KVM hypervisors,&rdquo; 2013 RoEduNet International Conference 12th Edition: Networking in Education and Research, Iasi, Romania, 2013, pp. 1-6, doi: 10.1109/RoEduNet.2013.6714189.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-10-12</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-10-12 14:32:07">更新于 2024-10-12&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-xen-vir/" data-title="Paper Reading: Xen and the Art of Virtualization"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-caladan/" class="prev" rel="prev" title="Paper Reading: Caladan"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Caladan</a>
-            <a href="../../posts/paper-firecracker/" class="next" rel="next" title="Paper Reading: Firecracker ">Paper Reading: Firecracker <i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-caladan/" class="post-nav-item" rel="prev" title="Paper Reading: Caladan"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Caladan</a><a href="../../posts/paper-firecracker/" class="post-nav-item" rel="next" title="Paper Reading: Firecracker ">Paper Reading: Firecracker <i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#xen-and-the-art-of-virtualization">Xen and the Art of Virtualization</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#xen-approach--overview">XEN: APPROACH &amp; OVERVIEW</a>
+      <ul>
+        <li><a href="#the-virtual-machine-interface">The Virtual Machine Interface</a>
+          <ul>
+            <li><a href="#memory-management">Memory management</a></li>
+            <li><a href="#cpu">CPU</a></li>
+            <li><a href="#device-ios">Device I/OS</a></li>
+          </ul>
+        </li>
+        <li><a href="#the-cost-of-porting-an-os-to-xen">The Cost of Porting an OS to Xen</a></li>
+        <li><a href="#control-and-management">Control and Management</a></li>
+      </ul>
+    </li>
+    <li><a href="#detailed-design">DETAILED DESIGN</a>
+      <ul>
+        <li><a href="#control-transfer-hypercalls-and-events">Control Transfer: Hypercalls and Events</a></li>
+        <li><a href="#data-transfer-io-rings">Data Transfer: I/O Rings</a></li>
+        <li><a href="#subsystem-virtualization">Subsystem Virtualization</a>
+          <ul>
+            <li><a href="#cpu-scheduling">CPU scheduling</a></li>
+            <li><a href="#time-and-timers">Time and timers</a></li>
+            <li><a href="#virtual-address-translation">Virtual address translation</a></li>
+            <li><a href="#physical-memory">Physical memory</a></li>
+            <li><a href="#network">Network</a></li>
+            <li><a href="#disk">Disk</a></li>
+          </ul>
+        </li>
+        <li><a href="#building-a-new-domain">Building a New Domain</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#relative-performance">Relative Performance</a></li>
+        <li><a href="#operating-system-benchmarks">Operating System Benchmarks</a>
+          <ul>
+            <li><a href="#network-performance">Network performance</a></li>
+          </ul>
+        </li>
+        <li><a href="#concurrent-virtual-machines">Concurrent Virtual Machines</a></li>
+        <li><a href="#performance-isolation">Performance Isolation</a></li>
+        <li><a href="#scalability">Scalability</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-work">Related Work</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/430a78cc2eafd29c484470006c6d02d8.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

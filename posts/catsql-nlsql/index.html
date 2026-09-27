@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23] - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/catsql-nlsql/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23] - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]">
+	<meta itemprop="description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。">
+	<meta itemprop="datePublished" content="2024-04-14T14:19:15-04:00">
+	<meta itemprop="dateModified" content="2024-04-14T14:19:15-04:00">
+	<meta itemprop="wordCount" content="3418">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/catsql-nlsql/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]">
-	<meta property="og:description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。
-ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。
-本文提出的新框架，注重 Accuracy 和 runtime，提出了 novel CatSQL sketch, which constructs a template with slots that initially serve as placeholders, and tightly integrates with a deep learning model to fill in these slots with meaningful contents based on the database schema">
+	<meta property="og:description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -19,117 +25,102 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]">
-	<meta name="twitter:description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。
-ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。
-本文提出的新框架，注重 Accuracy 和 runtime，提出了 novel CatSQL sketch, which constructs a template with slots that initially serve as placeholders, and tightly integrates with a deep learning model to fill in these slots with meaningful contents based on the database schema">
+	<meta name="twitter:description" content="CatSQL: Towards Real World Natural Language to SQL Applications NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/catsql-nlsql/" /><link rel="prev" href="https://ad-bean.github.io/posts/learned-sorting/" /><link rel="next" href="https://ad-bean.github.io/posts/go-concurrent-1/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/catsql-nlsql\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  3418 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/catsql-nlsql\/","datePublished": "2024-04-14T14:19:15-04:00","dateModified": "2024-04-14T14:19:15-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/catsql-nlsql/" title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23] - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/learned-sorting/" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/go-concurrent-1/" title="阅读：Go 并发编程实战 1-4" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/catsql-nlsql\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  3418 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/catsql-nlsql\/","datePublished": "2024-04-14T14:19:15-04:00","dateModified": "2024-04-14T14:19:15-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-14">2024-04-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3418 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/learned-data-systems/" class="post-category" title="分类 - Learned Data Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> Learned Data Systems</a></span></div><div class="post-meta-line"><span title="发布于 2024-04-14 14:19:15"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-04-14">2024-04-14</time></span>&nbsp;<span title="3418 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 3500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#catsql-towards-real-world-natural-language-to-sql-applications">CatSQL: Towards Real World Natural Language to SQL Applications</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -162,18 +153,27 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
     <li><a href="#conclusion">CONCLUSION</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="catsql-towards-real-world-natural-language-to-sql-applications">CatSQL: Towards Real World Natural Language to SQL Applications</h2>
-<p>NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。</p>
-<h2 id="abstract">ABSTRACT</h2>
-<p>rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="catsql-towards-real-world-natural-language-to-sql-applications"><span>CatSQL: Towards Real World Natural Language to SQL Applications</span>
+  <a href="#catsql-towards-real-world-natural-language-to-sql-applications" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。</p>
 <p>本文提出的新框架，注重 Accuracy 和 runtime，提出了 novel CatSQL sketch, which constructs a template with slots that initially serve as placeholders, and tightly integrates with a <strong>deep learning model</strong> to fill in these slots with meaningful contents based on the database schema</p>
 <p>对比 sequence-to-sequence 或 sketch-based 方法，不需要生成关键词，有更高准确和更快</p>
 <p>对比 sketch-based 方法，更加通用，而且可以用已经填好的词来提高性能。</p>
 <p>提出了 Semantics Correction technique, which is the first that leverages database domain knowledge in a deep learning based NL2SQL solution.</p>
 <p>Semantics Correction 是 post-processing 后处理，通过 rules 识别和修改语义错误，大大提高了 NL2SQL 的准确度。</p>
 <p>实验：single-domain and cross-domain，准确性和吞吐量都提高很多，尤其是在 Spider 基准上，比之前最好的 stoa NL2SQL 要高四分，63x 的吞吐量</p>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>早期 NL2SQL 是 rule-based, 先将 nl parse 成中间态(parsing tree) 然后开发 rules 映射成 SQL 抽象语法树，然后转成 SQL query。这样难以跨域，而且需要大量人力开发规则。</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>早期 NL2SQL 是 rule-based, 先将 nl parse 成中间态(parsing tree) 然后开发 rules 映射成 SQL 抽象语法树，然后转成 SQL query。这样难以跨域，而且需要大量人力开发规则。</p>
 <p>最近借助 Deep Learning 实现 cross-domain adaption，而且提供了大量数据集，比如 Wiki-SQL 和 Spider。部分 DL 方法可以达到 80-90% 的精度，但是对于复杂查询性能会显著下降，不到 50%。以前的方法将其认为是翻译问题，机器翻译问题(seq2seq)，没有利用数据库知识，很容易导致语义错误。</p>
 <p>本文是第一个将 DL 结合数据库的，开发了新的 NL2SQL 问题，可以提高性能。</p>
 <p>CatSQL, is a deep learning-based approach, which can mitigate the issues of rule-based solutions to generalize across application domains.</p>
@@ -199,9 +199,15 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <blockquote>
 <p>主要贡献，CatSQL 新方法基于 sketch-based，语义矫正，大量测试，单领域多领域，运行时、吞吐量性能更好</p>
 </blockquote>
-<h2 id="overview">OVERVIEW</h2>
-<h3 id="motivating-example">Motivating Example</h3>
-<p>The NL2SQL problem is to translate the <strong>natural language question</strong> into the <strong>corresponding SQL query</strong>. We need to figure out three challenging questions from the natural language description: (1) what tables and columns that will be used in the query; (2) what is the correct query structure; and (3) how to fill in query details and the literal in the query.</p>
+<h2 class="heading-element" id="overview"><span>OVERVIEW</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="motivating-example"><span>Motivating Example</span>
+  <a href="#motivating-example" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The NL2SQL problem is to translate the <strong>natural language question</strong> into the <strong>corresponding SQL query</strong>. We need to figure out three challenging questions from the natural language description: (1) what tables and columns that will be used in the query; (2) what is the correct query structure; and (3) how to fill in query details and the literal in the query.</p>
 <blockquote>
 <p>表和列，query 结构，query details 字面量。</p>
 </blockquote>
@@ -212,8 +218,11 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <p>Deep Learning 训练大模型可以解决 cross-domain 问题，并且性能很好，但是没有利用语义信息生成查询，而且难以处理复杂查询，而且运行时性能和模型参数、复杂度有关。训练需要很多计算。</p>
 <p>本文结合了这两种方法，and we demonstrate that our approach performs better than all existing solutions.</p>
 <p>Our approach employs a <strong>deep learning architecture</strong>, and we <strong>leverage DB domain knowledge</strong> to develop novel <strong>Semantics Correction</strong> techniques to postprocess the query generated by a neural network to fix obvious semantics errors. In the following, we will first provide necessary background on how a deep neural network NL2SQL solution works, and then we will give an overview of our approach.</p>
-<h3 id="background">Background</h3>
-<ol>
+<h3 class="heading-element" id="background"><span>Background</span>
+  <a href="#background" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>Embedding: As an atomic operator, neural networks, such as LSTMs [18] and Transformers [41], can model a sequence of tokens into a sequence of 𝑁-dimensional numeric vectors called embedding</li>
 </ol>
 <blockquote>
@@ -233,30 +242,35 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <blockquote>
 <p>基础知识略</p>
 </blockquote>
-<h3 id="existing-nl2sql-approaches">Existing NL2SQL Approaches</h3>
-<p>(1) rule-based approaches;</p>
+<h3 class="heading-element" id="existing-nl2sql-approaches"><span>Existing NL2SQL Approaches</span>
+  <a href="#existing-nl2sql-approaches" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>(1) rule-based approaches;</p>
 <p>(2) sequence-to-sequence approaches; These approaches typically face the problem of picking a <strong>wrong column or a wrong value</strong>. Therefore, most of the efforts in these works are devoted to tackling this issue</p>
 <p>(3) sketch-based approaches. We will briefly explain the basic ideas below</p>
 <blockquote>
 <p>具体介绍略，但 rule-based 可以处理复杂结构和 query？而且 Sketch-based 方法并不新，以前也有，比如 SyntaxSQLNet 和 Sqlnet，只不过可能没有结合 RL 或者没有做得那么好。CatSQL 可能就是利用 GraPPa 加上 Sketch-Based 的结合</p>
 </blockquote>
-<h2 id="catsql-approach">CATSQL APPROACH</h2>
-<p>Column Action Templates</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png"
-        data-srcset="https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png, https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png 1.5x, https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png"
-        title="https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png" /></p>
-<h3 id="catsql-template">CatSQL template</h3>
-<p>The definition of the CatSQL template is designed to <strong>facilitate the idea of parameter sharing</strong>, which is not adapted by previous sketch-based approaches. In particular, since each of the four CAT clauses can be viewed as a sequence of CATs, we can train one sequence-to-sequence model for all four different clauses. At runtime, once the CATs are predicted, we can simply construct the final SQL query by assembling different CAT clauses. We will explain how our neural network fills a CatSQL sketch in the next section</p>
+<h2 class="heading-element" id="catsql-approach"><span>CATSQL APPROACH</span>
+  <a href="#catsql-approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Column Action Templates</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png' alt="https://s2.loli.net/2024/04/15/HbjG14VmxkD3lIR.png"></p>
+<h3 class="heading-element" id="catsql-template"><span>CatSQL template</span>
+  <a href="#catsql-template" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The definition of the CatSQL template is designed to <strong>facilitate the idea of parameter sharing</strong>, which is not adapted by previous sketch-based approaches. In particular, since each of the four CAT clauses can be viewed as a sequence of CATs, we can train one sequence-to-sequence model for all four different clauses. At runtime, once the CATs are predicted, we can simply construct the final SQL query by assembling different CAT clauses. We will explain how our neural network fills a CatSQL sketch in the next section</p>
 <blockquote>
 <p>parameter sharing 这个概念不太理解，如果说填空之间有联系，能不能用微调后的模型，做一个上下文预测？</p>
 </blockquote>
-<h3 id="catsql-query-generation">CatSQL query generation</h3>
-<p>the overall architecture of CatSQL is composed of four components, namely</p>
+<h3 class="heading-element" id="catsql-query-generation"><span>CatSQL query generation</span>
+  <a href="#catsql-query-generation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>the overall architecture of CatSQL is composed of four components, namely</p>
 <ol>
 <li>GraPPa embedding network,</li>
 <li>CAT decoder network,</li>
@@ -266,16 +280,12 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <blockquote>
 <p>就是用 GraPPa 实现了 parameter sharing，看来本质还是上下文预测。想知道和 CatSQL 的区别在哪呢？</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png"
-        data-srcset="https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png, https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png 1.5x, https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png"
-        title="https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png" /></p>
-<h3 id="semantics-correction">Semantics Correction</h3>
-<p><strong>Semantics Correction</strong> technique significantly improves the accuracy by leveraging database domain knowledge. While a deep learning model is effective in understanding the <strong>intention of a question</strong>, sometimes the gene<strong>rated SQL query expresses the same intention</strong>, but is semantically invalid considering the database schema.</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png' alt="https://s2.loli.net/2024/04/15/S1TC3I6lcOZ4KGP.png"></p>
+<h3 class="heading-element" id="semantics-correction"><span>Semantics Correction</span>
+  <a href="#semantics-correction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><strong>Semantics Correction</strong> technique significantly improves the accuracy by leveraging database domain knowledge. While a deep learning model is effective in understanding the <strong>intention of a question</strong>, sometimes the gene<strong>rated SQL query expresses the same intention</strong>, but is semantically invalid considering the database schema.</p>
 <blockquote>
 <p>如果和 CatSQL + GraPPa 区别不大，是不是语义矫正提高了更多的准确性</p>
 <p>如果说 ChatGPT 生成的 SQL 质量较好，是因为 RLHF 吗？</p>
@@ -289,17 +299,26 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <li>FROM clause revision 有时候 query 会出现一些没出现过的 column 比如 FROM 里没出现过的，此时会直接加到 FROM 里？用最小生成树来判断这些 JOIN 情况。</li>
 <li>join-path revision 有时候 join 会失败</li>
 </ol>
-<h2 id="system-implementation">SYSTEM IMPLEMENTATION</h2>
-<p>基于 MySQL v5.7.30</p>
+<h2 class="heading-element" id="system-implementation"><span>SYSTEM IMPLEMENTATION</span>
+  <a href="#system-implementation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>基于 MySQL v5.7.30</p>
 <ol>
 <li>Offline processing. 离线预处理，模型训练。甚至用了 redis 存储 literals to embedding (word2vec 而不是 BERT 的原因是更快)</li>
 <li>Online serving. 在线推理，由于构建了后端，好像可以并行化（吞吐量的由来？）</li>
 <li>Model details:</li>
 </ol>
-<h2 id="experiments">EXPERIMENTS</h2>
-<p>accuracy, running speed, throughput</p>
-<h3 id="benchmarks-and-baselines">Benchmarks and Baselines</h3>
-<p>Dataset:</p>
+<h2 class="heading-element" id="experiments"><span>EXPERIMENTS</span>
+  <a href="#experiments" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>accuracy, running speed, throughput</p>
+<h3 class="heading-element" id="benchmarks-and-baselines"><span>Benchmarks and Baselines</span>
+  <a href="#benchmarks-and-baselines" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Dataset:</p>
 <ol>
 <li>cross-domain: WikiSQL, Spider 具有大量的 queries, tables 和 databases</li>
 <li>single-domain: GeoQuery, Scholar, IMDB&hellip;</li>
@@ -312,30 +331,48 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <li>executable rate: 本文提出的</li>
 </ol>
 <p>Baseline approaches: 文章选了 RAT-SQL，但是是用 GraPPa 预训练的，而 NatSQL 和 SmBoP 选的是 GraPPa 与训练的</p>
-<h3 id="cross-domain-evaluation-results">Cross-Domain Evaluation Results</h3>
-<p>分别测试了没有 parameter sharing 的，没有 semantic correction 的，完整的，</p>
+<h3 class="heading-element" id="cross-domain-evaluation-results"><span>Cross-Domain Evaluation Results</span>
+  <a href="#cross-domain-evaluation-results" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>分别测试了没有 parameter sharing 的，没有 semantic correction 的，完整的，</p>
 <p>在 Spider 上表现非常好，几乎各项都是第一，没有 parameter sharing 的数据都挺好但看上去 SC 的提升在 easy 提升很明显，但 Extra Hard 就提升没那么多。</p>
 <p>而且可执行的概率也特别高，除非没有语义矫正，都是 100%</p>
 <p>论文提到 not designed for logical form accuracy？</p>
 <p>运行速度也很快，吞吐量也很大。</p>
-<h3 id="single-domain-evaluation-results">Single-Domain Evaluation Results</h3>
-<p>比 rule based 也要好，但是在 IMDB 上表现比较差，但也比其他都好</p>
+<h3 class="heading-element" id="single-domain-evaluation-results"><span>Single-Domain Evaluation Results</span>
+  <a href="#single-domain-evaluation-results" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>比 rule based 也要好，但是在 IMDB 上表现比较差，但也比其他都好</p>
 <blockquote>
 <p>使用的是 Spider 数据训练，在 IMDB 上表现差是因为很多 join rules 不太适用？</p>
 </blockquote>
-<h3 id="throughput-analysis">Throughput analysis</h3>
-<p>吞吐量高的原因，用了小的模型 GraPPa，所以也更快。而且在 decoding 时，一个 CAT 生成一组 slots，可以大幅并行。可以并行处理 11 个查询，</p>
-<h3 id="case-study">Case Study</h3>
-<p>分析了几个用例，比较有趣的是没法生成 AVG() 这种，而是直接 select average，但是表带有 average 列？</p>
+<h3 class="heading-element" id="throughput-analysis"><span>Throughput analysis</span>
+  <a href="#throughput-analysis" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>吞吐量高的原因，用了小的模型 GraPPa，所以也更快。而且在 decoding 时，一个 CAT 生成一组 slots，可以大幅并行。可以并行处理 11 个查询，</p>
+<h3 class="heading-element" id="case-study"><span>Case Study</span>
+  <a href="#case-study" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>分析了几个用例，比较有趣的是没法生成 AVG() 这种，而是直接 select average，但是表带有 average 列？</p>
 <p>还有就是 Column Action Template 会 flatten conjunction 关系 导致无法生成合适的 SQL 来选取 OR 关系。</p>
 <p>论文认为可以多训练 This problem could be possibly handled by either collecting more training data containing queries with complex conjunction relationships, or designing new architecture to predict logical operations explicitly. Both approaches are challenging to implement and require high-quality manual labels. We leave this issue as a further research to study</p>
 <blockquote>
 <p>多训练是合理的，不知道微调 GraPPa 能不能预测一些 conjunction 关系</p>
 </blockquote>
-<h2 id="related-work">RELATED WORK</h2>
-<p>提到了 GraPPa 非常有用</p>
-<h2 id="conclusion">CONCLUSION</h2>
-<p>略</p>
+<h2 class="heading-element" id="related-work"><span>RELATED WORK</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>提到了 GraPPa 非常有用</p>
+<h2 class="heading-element" id="conclusion"><span>CONCLUSION</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>略</p>
 <blockquote>
 <p>名字非常好玩，从 RatSQL 到 CatSQL，但实际上论文没有太多比较 RatSQL 甚至 RatSQL 只用了 BERT 来作为 baseline</p>
 <p>也非常创新地利用 RL 从翻译变成了完形填空，而且用 LLM 可以预测上下文的能力进行关联，非常巧妙</p>
@@ -360,40 +397,74 @@ ABSTRACT rule-based 或者 Deep Learning 方法，要么无法通用，或者存
 <p>This paper is very innovative and methodologically sound. I might try to replace the language model with a larger one at first, possibly with more parameters capable of stronger context and parameter sharing. And I may do more model training to try to solve the problems in cast study, especially conjunction errors and semantic obfuscation. In addition, perhaps the ChatGPT fine-tuning approach, or Reinforcement Learning Human Feedback (RLHF) could also help CatSQL to achieve higher accuracy. Finally, I would try to run the modified model on more benchmarks for evaluation, especially on the BIRD benchmark.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-04-14</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-04-14 14:19:15">更新于 2024-04-14&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/catsql-nlsql/" data-title="Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/learned-sorting/" class="prev" rel="prev" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</a>
-            <a href="../../posts/go-concurrent-1/" class="next" rel="next" title="阅读：Go 并发编程实战 1-4">阅读：Go 并发编程实战 1-4<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/learned-sorting/" class="post-nav-item" rel="prev" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</a><a href="../../posts/go-concurrent-1/" class="post-nav-item" rel="next" title="阅读：Go 并发编程实战 1-4">阅读：Go 并发编程实战 1-4<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#catsql-towards-real-world-natural-language-to-sql-applications">CatSQL: Towards Real World Natural Language to SQL Applications</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#overview">OVERVIEW</a>
+      <ul>
+        <li><a href="#motivating-example">Motivating Example</a></li>
+        <li><a href="#background">Background</a></li>
+        <li><a href="#existing-nl2sql-approaches">Existing NL2SQL Approaches</a></li>
+      </ul>
+    </li>
+    <li><a href="#catsql-approach">CATSQL APPROACH</a>
+      <ul>
+        <li><a href="#catsql-template">CatSQL template</a></li>
+        <li><a href="#catsql-query-generation">CatSQL query generation</a></li>
+        <li><a href="#semantics-correction">Semantics Correction</a></li>
+      </ul>
+    </li>
+    <li><a href="#system-implementation">SYSTEM IMPLEMENTATION</a></li>
+    <li><a href="#experiments">EXPERIMENTS</a>
+      <ul>
+        <li><a href="#benchmarks-and-baselines">Benchmarks and Baselines</a></li>
+        <li><a href="#cross-domain-evaluation-results">Cross-Domain Evaluation Results</a></li>
+        <li><a href="#single-domain-evaluation-results">Single-Domain Evaluation Results</a></li>
+        <li><a href="#throughput-analysis">Throughput analysis</a></li>
+        <li><a href="#case-study">Case Study</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+    <li><a href="#conclusion">CONCLUSION</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/619ccb31c79a2ba90901c67dcf89f622.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

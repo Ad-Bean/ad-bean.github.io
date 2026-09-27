@@ -1,315 +1,350 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Paper Reading on Adbean&#39;s Blog</title>
-		<link>https://ad-bean.github.io/tags/paper-reading/</link>
-		<description>Recent content in Paper Reading on Adbean&#39;s Blog</description>
-		<generator>Hugo</generator>
-		<language>zh-CN</language>
-		
-			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-		
-		
-			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
-		
-		
-		
-			<lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate>
-		
-			<atom:link href="https://ad-bean.github.io/tags/paper-reading/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
-				<link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
-				<pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</guid>
-				<description>&lt;h2 id=&#34;efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm&#34;&gt;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&lt;/h2&gt;&#xA;&lt;p&gt;姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/19482552307&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;知乎一篇不错的总结&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;作者 Jared 的&lt;a href=&#34;https://youtu.be/gHaNUcS1_O4?si=EEgK2Y5_6fZtAJB8&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;视频介绍&lt;/a&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</title>
-				<link>https://ad-bean.github.io/posts/paper-megatron-lm/</link>
-				<pubDate>Wed, 26 Feb 2025 13:19:30 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-megatron-lm/</guid>
-				<description>&lt;h2 id=&#34;megatron-lm&#34;&gt;Megatron-LM&lt;/h2&gt;&#xA;&lt;p&gt;Nvidia 开源的 &lt;a href=&#34;https://github.com/NVIDIA/Megatron-LM&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Megatron-LM&lt;/a&gt; 大模型训练框架&lt;/p&gt;&#xA;&lt;p&gt;结合 Model Parallelism 和 Pipeline Parallelism 实现了 Tensor Model Parallelism&lt;/p&gt;&#xA;&lt;p&gt;基于 Transformer 和 Attention 进行切分，同样是经典的一篇分布式语言模型训练的文章&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;论文比较短，细节很少，需要结合李沐大神的精读视频阅读，关于 AI 的东西还是得多看多动手，不然一知半解&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]</title>
-				<link>https://ad-bean.github.io/posts/paper-pipedream/</link>
-				<pubDate>Mon, 24 Feb 2025 10:49:51 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-pipedream/</guid>
-				<description>&lt;h2 id=&#34;pipedream-generalized-pipeline-parallelism-for-dnn-training&#34;&gt;PipeDream: Generalized Pipeline Parallelism for DNN Training&lt;/h2&gt;&#xA;&lt;p&gt;第一次看 ML/DL (distributed) training 框架相关的论文，有很多地方不理解。&lt;/p&gt;&#xA;&lt;p&gt;对 Evaluation 与数学证明更是浅尝辄止，许多指标和算法难以理解，关于大模型、分布式训练等等有许多总结得非常好的博客和分享，参照着多看看加深记忆。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: From Cloud Computing to Sky Computing</title>
-				<link>https://ad-bean.github.io/posts/paper-skycomputing/</link>
-				<pubDate>Wed, 04 Dec 2024 11:25:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-skycomputing/</guid>
-				<description>&lt;h2 id=&#34;from-cloud-computing-to-sky-computing&#34;&gt;From Cloud Computing to Sky Computing&lt;/h2&gt;&#xA;&lt;p&gt;21 年 UCB 提出了 Sky Computing 的概念，后续也有一篇 35 页的 &lt;a href=&#34;https://arxiv.org/pdf/2205.07147&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;The Sky Above The Clouds&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;相比起传统的云服务，sky computing 更像一个大一统的中间层，比如可以调用不同的云服务。但看他们实验室的项目已经基本都在做 LLM 相关，没有太多 sky computing 的后续了。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta</title>
-				<link>https://ad-bean.github.io/posts/paper-servicerouter/</link>
-				<pubDate>Mon, 02 Dec 2024 09:37:05 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-servicerouter/</guid>
-				<description>&lt;h2 id=&#34;servicerouter-hyperscale-and-minimal-cost-service-mesh-at-meta&#34;&gt;ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta&lt;/h2&gt;&#xA;&lt;p&gt;Meta 的全球服务网格 ServiceRouter（SR）&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;服务网格（Service Mesh）是一种用于处理微服务架构中服务之间通信的软件层。它通过在服务之间插入代理，实现通信控制和监控，从而提高系统的可靠性、安全性和可观测性。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers</title>
-				<link>https://ad-bean.github.io/posts/paper-gg/</link>
-				<pubDate>Wed, 20 Nov 2024 01:09:31 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-gg/</guid>
-				<description>&lt;h2 id=&#34;from-laptop-to-lambda-outsourcing-everyday-jobs-to-thousands-of-transient-functional-containers&#34;&gt;From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers&lt;/h2&gt;&#xA;&lt;p&gt;同样是 standford DBOS 组关于 serverless 的论文，作者还有一篇 R2E2 很厉害，用 serverless 做 ray tracing 实现很高的加速，但 cost 估计控制不住&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;gg framework&lt;/p&gt;&#xA;&lt;p&gt;users might push a button that spawns 10,000 parallel cloud functions to execute a large job in a few seconds from start.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Apiary: A DBMS-Integrated Transactional Function-as-a-Service Framework</title>
-				<link>https://ad-bean.github.io/posts/paper-apiary/</link>
-				<pubDate>Sat, 16 Nov 2024 16:08:33 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-apiary/</guid>
-				<description>&lt;h2 id=&#34;apiary-a-dbms-backed-transactional-function-as-a-service-framework&#34;&gt;Apiary: A DBMS-Backed Transactional Function-as-a-Service Framework&lt;/h2&gt;&#xA;&lt;p&gt;来自 DBOS 的一个很有意思的项目，DBOS 这个项目去年关注过，txn + serverless 很有趣的思路&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;传统 FaaS 客户端调用函数去连接 DB 查询&lt;/p&gt;&#xA;&lt;p&gt;DBOS 直接 DB as OS，提出万物都是表的概念&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores</title>
-				<link>https://ad-bean.github.io/posts/paper-delta-lake/</link>
-				<pubDate>Mon, 11 Nov 2024 11:24:58 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-delta-lake/</guid>
-				<description>&lt;h2 id=&#34;delta-lake-high-performance-acid-table-storage-over-cloud-object-stores&#34;&gt;Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/delta-io/delta&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://github.com/delta-io/delta&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;data lake? delta lake? data warehouse?&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;databricks 的论文&lt;/p&gt;&#xA;&lt;p&gt;DeltaLake 类似的产品有 Hudi, Iceberg, Apache Paimon&lt;/p&gt;&#xA;&lt;p&gt;其他论文笔记 &lt;a href=&#34;https://www.cnblogs.com/Aitozi/p/17552466.html&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://www.cnblogs.com/Aitozi/p/17552466.html&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;大数据技术换代也太快了，但底层原理我还是一问三不知，还得练&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Towards Multi-Table Transactions in Delta Lake&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</title>
-				<link>https://ad-bean.github.io/posts/paper-ownership/</link>
-				<pubDate>Sun, 10 Nov 2024 16:27:22 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-ownership/</guid>
-				<description>&lt;h2 id=&#34;ownership-a-distributed-futures-system-for-fine-grained-tasks&#34;&gt;Ownership: A Distributed Futures System for Fine-Grained Tasks&lt;/h2&gt;&#xA;&lt;p&gt;分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）&lt;/p&gt;&#xA;&lt;p&gt;Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论文也提到许多 Futures, distributed futures interface 之类的第一次接触，实际上是 RPC 的扩展&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</title>
-				<link>https://ad-bean.github.io/posts/paper-aifm/</link>
-				<pubDate>Wed, 06 Nov 2024 11:28:34 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-aifm/</guid>
-				<description>&lt;h2 id=&#34;aifm-high-performance-application-integrated-far-memory&#34;&gt;AIFM: High-Performance, Application-Integrated Far Memory&lt;/h2&gt;&#xA;&lt;p&gt;Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zainryan.github.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Zhenyuan Ruan&lt;/a&gt;, &lt;a href=&#34;https://cs.brown.edu/people/malte/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Malte Schwarzkopf&lt;/a&gt; 和 &lt;a href=&#34;http://www.abelay.me/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Adam Belay&lt;/a&gt;，zhenyuan 在 osdi 20 中了不少论文，很多都和解耦内存有关，非常有意思。adam 此外还有 caladan 等，太恐怖了。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</title>
-				<link>https://ad-bean.github.io/posts/paper-fastswap/</link>
-				<pubDate>Tue, 05 Nov 2024 23:12:01 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-fastswap/</guid>
-				<description>&lt;h2 id=&#34;can-far-memory-improve-job-throughput&#34;&gt;Can Far Memory Improve Job Throughput?&lt;/h2&gt;&#xA;&lt;p&gt;memory disaggregation 内存解耦的论文，稍微看看&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。&lt;/p&gt;&#xA;&lt;p&gt;种解决方案是内存解耦，即作业可以远程访问其他服务器上的内存，或称为远端内存&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</title>
-				<link>https://ad-bean.github.io/posts/paper-far-memory/</link>
-				<pubDate>Wed, 30 Oct 2024 12:01:04 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-far-memory/</guid>
-				<description>&lt;h2 id=&#34;software-defined-far-memory-in-warehouse-scale-computers&#34;&gt;Software-Defined Far Memory in Warehouse-Scale Computers&lt;/h2&gt;&#xA;&lt;p&gt;zswap 压缩内存的一篇论文，使用远端内存来降低成本&lt;/p&gt;&#xA;&lt;p&gt;需要理解什么是 cold memoery，什么是 zswap 怎么做压缩&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;zswap linux manual, &lt;a href=&#34;https://www.kernel.org/doc/html/v4.18/vm/zswap.html&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://www.kernel.org/doc/html/v4.18/vm/zswap.html&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;使用了 ML 做 Autotunner&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;有意思的是，ASPLOS 19 在 Providence RI，Hoard (内存管理) 是当年的 Influential Paper Winner&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Temeraire, Hugepage aware memory allocator</title>
-				<link>https://ad-bean.github.io/posts/paper-hugepage/</link>
-				<pubDate>Sun, 27 Oct 2024 13:30:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-hugepage/</guid>
-				<description>&lt;h2 id=&#34;beyond-malloc-efficiency-to-fleet-efficiency-a-hugepage-aware-memory-allocator&#34;&gt;Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator&lt;/h2&gt;&#xA;&lt;p&gt;tcmalloc 是 google 开发的高性能内存分配器 thread-caching malloc，而 temeraire 是本文提出的，改进 tcmalloc，改进大页分配减少内存碎片。https://github.com/google/tcmalloc&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction</title>
-				<link>https://ad-bean.github.io/posts/paper-junction/</link>
-				<pubDate>Mon, 21 Oct 2024 10:02:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-junction/</guid>
-				<description>&lt;h2 id=&#34;making-kernel-bypass-practical-for-the-cloud-with-junction&#34;&gt;Making Kernel Bypass Practical for the Cloud with Junction&lt;/h2&gt;&#xA;&lt;p&gt;NSDI 24 的论文&lt;/p&gt;&#xA;&lt;p&gt;motivation 还是和以前的类似，OS kernel 比如 TCP 栈带来了 IO overheads，在 cloud/datacenter 有很多 OS bypass 技术，但目前 cloud 很难实现&lt;/p&gt;&#xA;&lt;p&gt;原因主要是 density 和 compatibility 只有少量应用可以&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Firecracker </title>
-				<link>https://ad-bean.github.io/posts/paper-firecracker/</link>
-				<pubDate>Wed, 16 Oct 2024 09:52:03 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-firecracker/</guid>
-				<description>&lt;h2 id=&#34;firecracker-lightweight-virtualization-for-serverless-applications&#34;&gt;Firecracker: Lightweight Virtualization for Serverless Applications&lt;/h2&gt;&#xA;&lt;p&gt;开源的 VMM&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;不太感兴趣，看一眼 presentation 和实现细节就过了&lt;/p&gt;&#xA;&lt;p&gt;比 QEMU 轻量级，更注重几个专用场景&lt;/p&gt;&#xA;&lt;p&gt;比如没有 BIOS 没有 PCI&lt;/p&gt;&#xA;&lt;p&gt;和容器化结合比较好&lt;/p&gt;&#xA;&lt;p&gt;motivation 来自 EC2 太大，lambda 又太小，一些隔离&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Xen and the Art of Virtualization</title>
-				<link>https://ad-bean.github.io/posts/paper-xen-vir/</link>
-				<pubDate>Sat, 12 Oct 2024 14:32:07 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-xen-vir/</guid>
-				<description>&lt;h2 id=&#34;xen-and-the-art-of-virtualization&#34;&gt;Xen and the Art of Virtualization&lt;/h2&gt;&#xA;&lt;p&gt;Xen 是开源的虚拟化项目，https://xenproject.org/&lt;/p&gt;&#xA;&lt;p&gt;本文于 2003 年发布，已经 20 年过去了，和目前的虚拟化技术又有什么区别？比如容器化或 Intel VT-X 等等？&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Caladan</title>
-				<link>https://ad-bean.github.io/posts/paper-caladan/</link>
-				<pubDate>Wed, 09 Oct 2024 10:35:26 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-caladan/</guid>
-				<description>&lt;h2 id=&#34;caladan-mitigating-interference-at-microsecond-timescales&#34;&gt;Caladan: Mitigating Interference at Microsecond Timescales&lt;/h2&gt;&#xA;&lt;p&gt;Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;传统观点认为，CPU 资源如核心、缓存和内存带宽必须进行分区，以实现任务之间的性能隔离&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling</title>
-				<link>https://ad-bean.github.io/posts/paper-ghost/</link>
-				<pubDate>Mon, 07 Oct 2024 00:51:29 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-ghost/</guid>
-				<description>&lt;h2 id=&#34;ghost-fast--flexible-user-space-delegation-of-linux-scheduling&#34;&gt;ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling&lt;/h2&gt;&#xA;&lt;p&gt;Google 的 ghOSt，在这之前还有 Snap MicroKernel Approach to Host Networking，是一个用户网络协议栈，支持 RDMA 等等。&lt;/p&gt;&#xA;&lt;p&gt;ghOSt 更进一步，可以兼容 Linux，更加容易使用，更灵活，灵感来自微内核，OS 委托 delegate 给用户空间。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</title>
-				<link>https://ad-bean.github.io/posts/paper-enso/</link>
-				<pubDate>Mon, 30 Sep 2024 09:33:11 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-enso/</guid>
-				<description>&lt;h2 id=&#34;ens-o-a-streaming-interface-for-nic-application-communication&#34;&gt;Ens ̄o: A Streaming Interface for NIC-Application Communication&lt;/h2&gt;&#xA;&lt;p&gt;NIC interface 相关的论文，hardware offloads, steaming interface&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应该是非常高的，值得好好读&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Shenango</title>
-				<link>https://ad-bean.github.io/posts/paper-shenango/</link>
-				<pubDate>Mon, 30 Sep 2024 00:41:37 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-shenango/</guid>
-				<description>&lt;h2 id=&#34;shenango-achieving-high-cpu-efficiency-for-latency-sensitive-datacenter-workloads&#34;&gt;Shenango: Achieving High CPU Efficiency for Latency-sensitive Datacenter Workloads&lt;/h2&gt;&#xA;&lt;p&gt;蛮知名的一篇文章，引用很高，后续论文也有 ghOSt，和 Efficient Scheduling Policies for Microsecond-scale Tasks&lt;/p&gt;&#xA;&lt;p&gt;presentation 也很不错，看论文看到现在反而更喜欢看作者的 pre，有图就好理解，尤其是动图&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems</title>
-				<link>https://ad-bean.github.io/posts/paper-demikernel/</link>
-				<pubDate>Tue, 24 Sep 2024 23:02:58 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-demikernel/</guid>
-				<description>&lt;h2 id=&#34;the-demikernel-datapath-os-architecture-for-microsecond-scale-datacenter-systems&#34;&gt;The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems&lt;/h2&gt;&#xA;&lt;p&gt;Datacenter system 指的是 MPP 吗？&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/microsoft/demikernel&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;Github DemiKernel&lt;/a&gt; 好像最近还在更新&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;数据中心系统和 I/O 设备现在以单位微秒的延迟运行，需要 ns 级别的操作系统。传统的基于内核的操作系统带来了难以承受的开销，因此最近的内核绕过操作系统[73]和库[23]从 I/O 数据路径中消除了操作系统内核。然而，这些系统都没有提供一个&lt;strong&gt;通用的数据路径&lt;/strong&gt;操作系统的替代品，以满足 μs 规模系统的需要。提出了一种适用于&lt;strong&gt;异构内核旁路设备&lt;/strong&gt;和 μs 规模数据中心系统的柔性数据通路操作系统 Demikernel。我们构建了两个原型 Demikernel 操作系统，并展示了移植现有 μs 规模系统所需的最小努力。一旦移植，Demikernel 允许应用程序在具有 ns 级别开销且没有代码更改的异构内核旁路设备上运行&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Rethinking the RDMA Interface for Distributed Systems</title>
-				<link>https://ad-bean.github.io/posts/paper-prism/</link>
-				<pubDate>Sun, 22 Sep 2024 16:12:51 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-prism/</guid>
-				<description>&lt;h2 id=&#34;rethinking-the-rdma-interface-for-distributed-systems&#34;&gt;Rethinking the RDMA Interface for Distributed Systems&lt;/h2&gt;&#xA;&lt;p&gt;对 RDMA 没什么了解&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Linux 高性能网络详解：从 DPDK、RDMA 到 XDP，这本书看评价很不错，有机会可以看看&lt;/p&gt;&#xA;&lt;p&gt;DMA: IO 设备比如网卡，需要从内存拿发送的数据，需要告诉 CPU 从内存缓冲区复制，许多复制会让 CPU 阻塞。DMA 控制器，可以专门读写内存，绕开了 CPU，但 DMA 控制器一般和 IO 设备一起？&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: The eXpress Data Path</title>
-				<link>https://ad-bean.github.io/posts/paper-xdp/</link>
-				<pubDate>Wed, 18 Sep 2024 00:00:33 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-xdp/</guid>
-				<description>&lt;h2 id=&#34;the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel&#34;&gt;The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel&lt;/h2&gt;&#xA;&lt;p&gt;ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Arrakis</title>
-				<link>https://ad-bean.github.io/posts/paper-arrakis/</link>
-				<pubDate>Mon, 16 Sep 2024 00:22:05 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/paper-arrakis/</guid>
-				<description>&lt;h2 id=&#34;arrakis-the-operating-system-is-the-control-plane&#34;&gt;Arrakis: The Operating System is the Control Plane&lt;/h2&gt;&#xA;&lt;p&gt;和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。&lt;/p&gt;&#xA;&lt;p&gt;同样是用虚拟化技术，&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: IX: A Protected Dataplane Operating System</title>
-				<link>https://ad-bean.github.io/posts/ix-paper/</link>
-				<pubDate>Sun, 15 Sep 2024 14:47:50 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/ix-paper/</guid>
-				<description>&lt;h2 id=&#34;ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency&#34;&gt;IX: A Protected Dataplane Operating System for High Throughput and Low Latency&lt;/h2&gt;&#xA;&lt;p&gt;OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。&lt;/p&gt;&#xA;&lt;p&gt;不得不说这类型的论文阅读起来太费劲了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;传统观点认为，激进的网络需求，比如小消息的高包速率和微秒级的尾部延迟，最好在&lt;strong&gt;内核之外的用户级网络堆栈&lt;/strong&gt;中进行处理。我们介绍了 IX，一个数据平面操作系统，它提供了高 I/O 性能，同时保持了现有核心提供的强保护的关键优势。IX 使用&lt;strong&gt;硬件虚拟化将内核&lt;/strong&gt;(控制平面)的管理和调度功能与网络处理(数据平面)分离开来。数据平面体系结构建立在原生的&lt;strong&gt;零拷贝 API&lt;/strong&gt; 之上，通过将硬件线程和网络队列专用于数据平面实例，处理有界批量的数据包以完成，并通过消除一致性流量和多核同步来优化带宽和延迟。我们展示了 IX 在吞吐量和端到端延迟方面都明显优于 Linux 和最先进的用户空间网络堆栈。此外，IX 提高了一个广泛部署的键值存储器的吞吐量达到 3.6 倍，并减少了超过 2 倍的尾延迟。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Dune</title>
-				<link>https://ad-bean.github.io/posts/dune-paper/</link>
-				<pubDate>Wed, 11 Sep 2024 09:10:07 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/dune-paper/</guid>
-				<description>&lt;h2 id=&#34;dune-safe-user-level-access-to-privileged-cpu-features&#34;&gt;Dune: Safe User-level Access to Privileged CPU Features&lt;/h2&gt;&#xA;&lt;p&gt;是 MIT OS 课上的讲座，也是一篇很有意思的论文，很类似 exokernel，不过更像是内核上的功能，利用虚拟化使得进程可以访问一些内核态的功能，比如暴露 page table，使得 jvm 可以进行更高级的 GC。后续也有 IX，ZygOS 等相关论文。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Exokernel</title>
-				<link>https://ad-bean.github.io/posts/exokernel-paper/</link>
-				<pubDate>Wed, 11 Sep 2024 01:28:36 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/exokernel-paper/</guid>
-				<description>&lt;h2 id=&#34;exokernel-an-operating-system-architecture-for-application-level-resource-management&#34;&gt;Exokernel: An Operating System Architecture for Application-Level Resource Management&lt;/h2&gt;&#xA;&lt;p&gt;微内核？搜了一下发现上交的操作系统课甚至会讲这篇论文，但这篇论文也太早了 1995 年的，MIT 6828 (现 6.1810) 应该也会讲&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;operating system abstractions such as interprocess com- munication and virtual memory&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Scalability! But at what COST</title>
-				<link>https://ad-bean.github.io/posts/scalability-cost/</link>
-				<pubDate>Sun, 08 Sep 2024 20:25:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/scalability-cost/</guid>
-				<description>&lt;h2 id=&#34;scalability-but-at-what-cost&#34;&gt;Scalability! But at what COST?&lt;/h2&gt;&#xA;&lt;p&gt;比较短的 paper，之前也略有看过，主要讲主流分布式框架在多机器上存在 COST(不是成本) 问题，并不一定能比单机更好。是很有意思的主题。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: The Multikernel: A New OS Architecture for Scalable Multicore Systems</title>
-				<link>https://ad-bean.github.io/posts/multikernel-os/</link>
-				<pubDate>Sun, 08 Sep 2024 16:25:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/multikernel-os/</guid>
-				<description>&lt;h2 id=&#34;the-multikernel-a-new-os-architecture-for-scalable-multicore-systems&#34;&gt;The Multikernel: A New OS Architecture for Scalable Multicore Systems&lt;/h2&gt;&#xA;&lt;p&gt;SOSP 09 的文章，提出了 MultiKernel 分布式系统，网络架构是如何做通信、消息传递的。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;商用计算机越来越多的 processor cores 和多样化的架构，内存、互联 、指令集、IO 配置等等，以前的高性能计算机已经可以 scaled，但是现代 server workloads 是动态的，OS 是静态的？优化很难做？&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: DuckDB: an Embeddable Analytical Database</title>
-				<link>https://ad-bean.github.io/posts/duckdb-2019/</link>
-				<pubDate>Fri, 07 Jun 2024 15:37:41 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/duckdb-2019/</guid>
-				<description>&lt;h2 id=&#34;duckdb-an-embeddable-analytical-database&#34;&gt;DuckDB: an Embeddable Analytical Database&lt;/h2&gt;&#xA;&lt;p&gt;读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;SQLite 应用很广，unobtrusive in-process data management 是有必要的，但目前没有系统做 这样的 analytical workloads。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
-				<link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
-				<pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
-				<description>&lt;h2 id=&#34;catsql-towards-real-world-natural-language-to-sql-applications&#34;&gt;CatSQL: Towards Real World Natural Language to SQL Applications&lt;/h2&gt;&#xA;&lt;p&gt;NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。&lt;/p&gt;&#xA;&lt;p&gt;本文提出的新框架，注重 Accuracy 和 runtime，提出了 novel CatSQL sketch, which constructs a template with slots that initially serve as placeholders, and tightly integrates with a &lt;strong&gt;deep learning model&lt;/strong&gt; to fill in these slots with meaningful contents based on the database schema&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
-				<link>https://ad-bean.github.io/posts/learned-sorting/</link>
-				<pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
-				<description>&lt;h2 id=&#34;the-case-for-a-learned-sorting-algorithm&#34;&gt;The Case for a Learned Sorting Algorithm&lt;/h2&gt;&#xA;&lt;p&gt;除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？&lt;/p&gt;&#xA;&lt;p&gt;论文作者中的 Tim Kraska 以及其团队，是 SageDB, Bao: Learned Query Optimization, Neo 的作者，此外还有 FITing-Tree 索引结构。&lt;/p&gt;&#xA;&lt;p&gt;看了一下 Tim 除了在 MIT 当 AP，还在一家叫 Einblick 的公司创业（看了下好像是 text2SQL 类型的，应该已经被 Databricks 收购了），然后在 Amazon 研究 Data Science 和 AI 的结合？最近也有一些比如 2023 的 BRAD: simplifying cloud data processing with learned automated data meshes 和之前看的 SEED: Domain-specific data curation with large language models 也是 Tim 团队的，他们做了很多 AI 与数据库、数据、数据结构、数据处理结合的事情。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
-				<link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
-				<pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
-				<description>&lt;h2 id=&#34;an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34;&gt;An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems&lt;/h2&gt;&#xA;&lt;p&gt;CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;Modern database management systems (DBMS) expose dozens of &lt;strong&gt;configurable knobs&lt;/strong&gt; that control their runtime behavior&lt;/p&gt;&#xA;&lt;p&gt;与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有&lt;strong&gt;有限调优机会&lt;/strong&gt;的&lt;strong&gt;合成&lt;/strong&gt;工作负载上进行评估的，因此尚不清楚它们是否在&lt;strong&gt;生产环境&lt;/strong&gt;中提供相同的好处&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</title>
-				<link>https://ad-bean.github.io/posts/mb2-self-driving-db/</link>
-				<pubDate>Fri, 05 Apr 2024 09:50:55 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/mb2-self-driving-db/</guid>
-				<description>&lt;h2 id=&#34;mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34;&gt;MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems&lt;/h2&gt;&#xA;&lt;p&gt;self-driving database management systems&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;Database management systems (DBMSs) are notoriously difficult to deploy and administer.&lt;strong&gt;self-driving DBMS&lt;/strong&gt; is to remove these impediments by &lt;strong&gt;managing itself automatically&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;predict the DBMS’s runtime behavior and resource consumption.&lt;/p&gt;&#xA;&lt;p&gt;ModelBot2 e2e framework for constructing and maintaining prediction models using &lt;strong&gt;machine learning&lt;/strong&gt; (ML) in self-driving DBMSs.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;decomposes a DBMS’s architecture into fine-grained operating units that make it easier to &lt;strong&gt;estimate the system’s behavior&lt;/strong&gt; for configurations&lt;/li&gt;&#xA;&lt;li&gt;ModelBot2 then provides an offline execution environment to exercise the system to produce the training data used to train its models.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;We integrated ModelBot2 in an in-memory DBMS and measured its ability to predict its performance for OLTP and OLAP workloads running in dynamic environments. We also compare ModelBot2 against state-of-the-art ML models and show that our models are up to 25×more accurate in multiple scenarios&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</title>
-				<link>https://ad-bean.github.io/posts/bao-learned-query-opt/</link>
-				<pubDate>Sun, 17 Mar 2024 00:14:24 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/bao-learned-query-opt/</guid>
-				<description>&lt;h2 id=&#34;bao-making-learned-query-optimization-practical&#34;&gt;Bao: Making Learned Query Optimization Practical&lt;/h2&gt;&#xA;&lt;p&gt;MLDB + query optimization&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.&lt;/p&gt;&#xA;&lt;p&gt;论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</title>
-				<link>https://ad-bean.github.io/posts/zero-shot-learned/</link>
-				<pubDate>Sat, 16 Mar 2024 09:58:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/zero-shot-learned/</guid>
-				<description>&lt;h2 id=&#34;zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34;&gt;Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]&lt;/h2&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box &lt;strong&gt;without expensive training data collection&lt;/strong&gt;。为了 zero-shot cost models，本文提出 a new learning paradigm based on &lt;strong&gt;pre-trained cost models&lt;/strong&gt;。As core contributions to support the transfer of such a &lt;strong&gt;pre-trained cost model&lt;/strong&gt; to &lt;strong&gt;unseen databases&lt;/strong&gt;, we introduce a new model architecture and &lt;strong&gt;representation technique for encoding query workloads as input&lt;/strong&gt; to those models. As we will show in our evaluation, zero-shot cost estimation can &lt;strong&gt;provide more accurate cost estimates&lt;/strong&gt; than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on &lt;strong&gt;unseen databases&lt;/strong&gt;. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</title>
-				<link>https://ad-bean.github.io/posts/spade-paper/</link>
-				<pubDate>Fri, 01 Mar 2024 20:26:39 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/spade-paper/</guid>
-				<description>&lt;h2 id=&#34;spade-synthesizing-assertions-for-large-language-model-pipelines&#34;&gt;SPADE: Synthesizing Assertions for Large Language Model Pipelines&lt;/h2&gt;&#xA;&lt;p&gt;Synthesizing Assertions&lt;/p&gt;&#xA;&lt;p&gt;Pipelines&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;合成断言、流水线&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其&lt;strong&gt;不可预测和潜在的灾难性故障&lt;/strong&gt;。认识到这些错误的不可避免性，我们将重点放在识别 LLM 在作为数据生成 pipeline 的一部分重复使用时可能&lt;strong&gt;生成错误响应&lt;/strong&gt;的情况。我们提出了 spade，一种自动合成断言的方法，可以识别不良的 LLM 输出。SPADE 分析提示版本历史，&lt;strong&gt;创建候选断言函数&lt;/strong&gt;，然后&lt;strong&gt;选择满足覆盖率和准确性要求的最小集合&lt;/strong&gt;。在对九种不同的实际 LLM pipeline 进行测试时，与简单的基线相比，spade 有效地&lt;strong&gt;减少了 14% 的断言数量&lt;/strong&gt;，并将&lt;strong&gt;错误失败率降低了 21%。&lt;/strong&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</title>
-				<link>https://ad-bean.github.io/posts/seed-paper/</link>
-				<pubDate>Fri, 01 Mar 2024 10:42:53 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/seed-paper/</guid>
-				<description>&lt;h2 id=&#34;seed-domain-specific-data-curation-with-large-language-models&#34;&gt;SEED: Domain-Specific Data Curation With Large Language Models&lt;/h2&gt;&#xA;&lt;p&gt;使用大型语言模型的 领域特定 数据管理&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;准备分析数据的数据管理任务 Data Curation 对于将数据转换为可行的见解至关重要。但是，由于不同域中的应用程序的不同要求，通用的现成工具通常不足。结果，数据科学家通常必须开发针对数据集和任务量身定制的特定领域 domain-specific 解决方案，例如在足够数量的带注释的示例上编写特定于域的代码或培训机器学习模型。众所周知，这个过程很困难且耗时。我们提出了 SEED ，这是一种 LLM-as-compiler 方法，该方法自动通过大语言模型（LLMS）自动生成特定于域的数据策划解决方案。用户描述了一个任务，输入数据和预期的量后，SEED compiler 编译器就会生产由 LLM 生成的代码，小型模型和数据访问模块组成的可执行管道。SEED 使用这些生成的模块来处理大部分数据记录，并动态决定 LLM 何时应该介入直接处理一些单独的记录，可能使用数据访问模块从数据源检索相关信息，以协助 LLM 解决任务。为了验证这种新的、革命性的方法，我们在跨越 5 个数据管理任务的 9 个数据集上进行了实验。结果表明，SEED 生成的特定领域的解决方案显著优于它们的通用对应方案，通常接近使用数千个标记训练示例的手动管理解决方案的性能。此外，与在每个数据记录上使用 LLM 的解决方案相比，SEED 实现了最先进的或相当少的性能，&lt;strong&gt;同时显着减少了 LLM 调用的数量&lt;/strong&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: AnalyticDB-V</title>
-				<link>https://ad-bean.github.io/posts/analyticdb-paper/</link>
-				<pubDate>Sun, 25 Feb 2024 13:00:46 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/analyticdb-paper/</guid>
-				<description>&lt;h2 id=&#34;analyticdb-v-a-hybrid-analytical-engine-towards-query-fusion-for-structured-and-unstructured-data&#34;&gt;AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data&lt;/h2&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;随着&lt;strong&gt;非结构化数据&lt;/strong&gt;的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数据库系统开始合并非结构化数据分析以满足此类需求。但是，在大多数系统中，对&lt;strong&gt;非结构化和结构化数据&lt;/strong&gt;的查询通常被视为 disjoint tasks，在大多数系统中，&lt;strong&gt;混合查询&lt;/strong&gt;（即涉及两种数据类型）尚未得到充分支持。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Milvus A Purpose-Built Vector Data Management System</title>
-				<link>https://ad-bean.github.io/posts/milvus-paper/</link>
-				<pubDate>Sun, 25 Feb 2024 10:08:12 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/milvus-paper/</guid>
-				<description>&lt;h2 id=&#34;milvusa-purpose-built-vector-data-management-system&#34;&gt;Milvus：A Purpose-Built Vector Data Management System&lt;/h2&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;最近，数据科学和人工智能应用中迫切需要管理&lt;strong&gt;高维向量数据&lt;/strong&gt;。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理&lt;strong&gt;大规模动态向量&lt;/strong&gt;数据时会出现严重的&lt;strong&gt;性能问题&lt;/strong&gt;； (2)它们提供的&lt;strong&gt;功能有限&lt;/strong&gt;，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； &lt;strong&gt;针对具有现代 CPU 和 GPU 的异构计算平台进行优化&lt;/strong&gt;； 实现超越简单向量&lt;strong&gt;相似性搜索&lt;/strong&gt;的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp;amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 &lt;a href=&#34;https://github.com/milvus-io/milvus&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://github.com/milvus-io/milvus&lt;/a&gt;。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</title>
-				<link>https://ad-bean.github.io/posts/vbase-paper/</link>
-				<pubDate>Sat, 17 Feb 2024 11:18:45 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/vbase-paper/</guid>
-				<description>&lt;h2 id=&#34;vbase-unifying-online-vector-similarity-search-and-relational-queries-via-relaxed-monotonicity&#34;&gt;VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity&lt;/h2&gt;&#xA;&lt;p&gt;VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;基于高维向量索引的&lt;strong&gt;近似相似度查询 approximate similarity queries&lt;/strong&gt;已经成为许多关键在线服务的基础。对更复杂的向量查询的日益增长的需求要求将向量搜索系统与&lt;strong&gt;关系数据库&lt;/strong&gt;集成在一起。然而，高维向量盘不表现单调性，而单调性是常规指标的一个重要性质。缺乏单调性迫使现有的向量系统依赖于 monotonicity-preserving &lt;strong&gt;tentative&lt;/strong&gt; indices（为目标矢量的 TopK 近邻临时设置）来方便查询，由于难以预测最优 K，这将导致次优性能。本文介绍的 VBASE 系统能有效支持&lt;strong&gt;近似相似性搜索&lt;/strong&gt;和&lt;strong&gt;关系运算符的复杂查询&lt;/strong&gt;。VBASE 发现了一个共同属性 &lt;strong&gt;relaxed monotonicity 松弛单调性&lt;/strong&gt;，从而将两个看似不兼容的系统统一起来。这一共同属性使 VBASE 能够规避仅 TopK 的限制，从而显著提高效率，同时证明它保留了基于 TopK 的语义。评估结果表明，在复杂的&lt;strong&gt;在线向量查询&lt;/strong&gt;中，VBASE 的性能比最先进的向量系统高出三个数量级。VBASE 还能进行&lt;strong&gt;分析性相似性查询 analytical similarity queries&lt;/strong&gt;，而以往的向量系统则无法做到这一点，而且在精确查询方面，VBASE 提高了 7000x speedup 的同时准确率达到 99.9%。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</title>
-				<link>https://ad-bean.github.io/posts/llm-capability/</link>
-				<pubDate>Sun, 04 Feb 2024 12:38:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/llm-capability/</guid>
-				<description>&lt;h2 id=&#34;db-bert-a-databse-tuning-tool-that-reads-the-manual&#34;&gt;DB-BERT: a databse tuning tool that reads the manual&lt;/h2&gt;&#xA;&lt;p&gt;DB-BERT，一个读了手册的数据库调优工具&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2112.10925.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://arxiv.org/pdf/2112.10925.pdf&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;DB-BERT 是一种&lt;strong&gt;数据库调优工具&lt;/strong&gt;，可利用通过对手册和其他相关文本文档进行&lt;strong&gt;自然语言分析&lt;/strong&gt;而获得的信息。它利用文本来识别需要调整的数据库系统参数以及推荐的参数值。DB-BERT 应用预先训练好的大型语言模型（特别是 &lt;strong&gt;BERT 模型&lt;/strong&gt;）进行文本分析。在初始训练阶段，它会&lt;strong&gt;微调模型权重&lt;/strong&gt;，以便将自然语言提示转化为推荐设置。在运行时，DB-BERT 会学习汇总、调整和优先处理提示，以&lt;strong&gt;实现特定数据库系统和基准的最佳性能&lt;/strong&gt;。这两个阶段都是&lt;strong&gt;迭代式&lt;/strong&gt;的，并使用&lt;strong&gt;强化学习&lt;/strong&gt;来指导选择要评估的调整设置（惩罚数据库系统拒绝接受的设置，同时奖励提高性能的设置）。在实验中，我们利用数百篇有关数据基础调整的文本文档作为 DB-BERT 的输入。我们将 DB-BERT 与不同的基准（TPC-C 和 TPC-H）、指标（吞吐量和运行时间）以及数据库系统（Postgres 和 MySQL）进行了比较。在所有情况下，DB-BERT 都能在所有比较方法中找到&lt;strong&gt;最佳参数设置&lt;/strong&gt;。源码：https://itrummer.github.io/dbbert/&lt;/p&gt;</description>
-			</item>
-	</channel>
+  <channel>
+    <title>Paper Reading - 标签 - Adbean&#39;s Blog</title>
+    <link>https://ad-bean.github.io/tags/paper-reading/</link>
+    <description>Adbean&#39;s Blog</description>
+    <generator>Hugo 0.166.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+    <webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+    <lastBuildDate>Wed, 26 Feb 2025 22:39:12 -0500</lastBuildDate>
+    <atom:link href="https://ad-bean.github.io/tags/paper-reading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</title>
+      <link>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</link>
+      <pubDate>Wed, 26 Feb 2025 22:39:12 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-megatron-lm-v2/</guid>
+      <category domain="https://ad-bean.github.io/categories/ml-systems/">ML Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm&#34;&gt;&lt;span&gt;Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM&lt;/span&gt;&#xA;  &lt;a href=&#34;#efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</title>
+      <link>https://ad-bean.github.io/posts/paper-megatron-lm/</link>
+      <pubDate>Wed, 26 Feb 2025 13:19:30 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-megatron-lm/</guid>
+      <category domain="https://ad-bean.github.io/categories/ml-systems/">ML Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;megatron-lm&#34;&gt;&lt;span&gt;Megatron-LM&lt;/span&gt;&#xA;  &lt;a href=&#34;#megatron-lm&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Nvidia 开源的 &lt;a href=&#34;https://github.com/NVIDIA/Megatron-LM&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Megatron-LM&lt;/a&gt; 大模型训练框架&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: PipeDream: Generalized Pipeline Parallelism for DNN Training [SOSP2019]</title>
+      <link>https://ad-bean.github.io/posts/paper-pipedream/</link>
+      <pubDate>Mon, 24 Feb 2025 10:49:51 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-pipedream/</guid>
+      <category domain="https://ad-bean.github.io/categories/ml-systems/">ML Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;pipedream-generalized-pipeline-parallelism-for-dnn-training&#34;&gt;&lt;span&gt;PipeDream: Generalized Pipeline Parallelism for DNN Training&lt;/span&gt;&#xA;  &lt;a href=&#34;#pipedream-generalized-pipeline-parallelism-for-dnn-training&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;第一次看 ML/DL (distributed) training 框架相关的论文，有很多地方不理解。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: From Cloud Computing to Sky Computing</title>
+      <link>https://ad-bean.github.io/posts/paper-skycomputing/</link>
+      <pubDate>Wed, 04 Dec 2024 11:25:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-skycomputing/</guid>
+      <category domain="https://ad-bean.github.io/categories/distributed/">Distributed</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;from-cloud-computing-to-sky-computing&#34;&gt;&lt;span&gt;From Cloud Computing to Sky Computing&lt;/span&gt;&#xA;  &lt;a href=&#34;#from-cloud-computing-to-sky-computing&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;21 年 UCB 提出了 Sky Computing 的概念，后续也有一篇 35 页的 &lt;a href=&#34;https://arxiv.org/pdf/2205.07147&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;The Sky Above The Clouds&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta</title>
+      <link>https://ad-bean.github.io/posts/paper-servicerouter/</link>
+      <pubDate>Mon, 02 Dec 2024 09:37:05 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-servicerouter/</guid>
+      <category domain="https://ad-bean.github.io/categories/distributed/">Distributed</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;servicerouter-hyperscale-and-minimal-cost-service-mesh-at-meta&#34;&gt;&lt;span&gt;ServiceRouter: Hyperscale and Minimal Cost Service Mesh at Meta&lt;/span&gt;&#xA;  &lt;a href=&#34;#servicerouter-hyperscale-and-minimal-cost-service-mesh-at-meta&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Meta 的全球服务网格 ServiceRouter（SR）&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers</title>
+      <link>https://ad-bean.github.io/posts/paper-gg/</link>
+      <pubDate>Wed, 20 Nov 2024 01:09:31 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-gg/</guid>
+      <category domain="https://ad-bean.github.io/categories/distributed/">Distributed</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;from-laptop-to-lambda-outsourcing-everyday-jobs-to-thousands-of-transient-functional-containers&#34;&gt;&lt;span&gt;From Laptop to Lambda: Outsourcing Everyday Jobs to Thousands of Transient Functional Containers&lt;/span&gt;&#xA;  &lt;a href=&#34;#from-laptop-to-lambda-outsourcing-everyday-jobs-to-thousands-of-transient-functional-containers&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;同样是 standford DBOS 组关于 serverless 的论文，作者还有一篇 R2E2 很厉害，用 serverless 做 ray tracing 实现很高的加速，但 cost 估计控制不住&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Apiary: A DBMS-Integrated Transactional Function-as-a-Service Framework</title>
+      <link>https://ad-bean.github.io/posts/paper-apiary/</link>
+      <pubDate>Sat, 16 Nov 2024 16:08:33 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-apiary/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;apiary-a-dbms-backed-transactional-function-as-a-service-framework&#34;&gt;&lt;span&gt;Apiary: A DBMS-Backed Transactional Function-as-a-Service Framework&lt;/span&gt;&#xA;  &lt;a href=&#34;#apiary-a-dbms-backed-transactional-function-as-a-service-framework&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;来自 DBOS 的一个很有意思的项目，DBOS 这个项目去年关注过，txn + serverless 很有趣的思路&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores</title>
+      <link>https://ad-bean.github.io/posts/paper-delta-lake/</link>
+      <pubDate>Mon, 11 Nov 2024 11:24:58 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-delta-lake/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;delta-lake-high-performance-acid-table-storage-over-cloud-object-stores&#34;&gt;&lt;span&gt;Delta Lake: High-Performance ACID Table Storage over Cloud Object Stores&lt;/span&gt;&#xA;  &lt;a href=&#34;#delta-lake-high-performance-acid-table-storage-over-cloud-object-stores&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/delta-io/delta&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/delta-io/delta&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</title>
+      <link>https://ad-bean.github.io/posts/paper-ownership/</link>
+      <pubDate>Sun, 10 Nov 2024 16:27:22 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-ownership/</guid>
+      <category domain="https://ad-bean.github.io/categories/distributed/">Distributed</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;ownership-a-distributed-futures-system-for-fine-grained-tasks&#34;&gt;&lt;span&gt;Ownership: A Distributed Futures System for Fine-Grained Tasks&lt;/span&gt;&#xA;  &lt;a href=&#34;#ownership-a-distributed-futures-system-for-fine-grained-tasks&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</title>
+      <link>https://ad-bean.github.io/posts/paper-aifm/</link>
+      <pubDate>Wed, 06 Nov 2024 11:28:34 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-aifm/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;aifm-high-performance-application-integrated-far-memory&#34;&gt;&lt;span&gt;AIFM: High-Performance, Application-Integrated Far Memory&lt;/span&gt;&#xA;  &lt;a href=&#34;#aifm-high-performance-application-integrated-far-memory&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</title>
+      <link>https://ad-bean.github.io/posts/paper-fastswap/</link>
+      <pubDate>Tue, 05 Nov 2024 23:12:01 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-fastswap/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;can-far-memory-improve-job-throughput&#34;&gt;&lt;span&gt;Can Far Memory Improve Job Throughput?&lt;/span&gt;&#xA;  &lt;a href=&#34;#can-far-memory-improve-job-throughput&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;memory disaggregation 内存解耦的论文，稍微看看&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</title>
+      <link>https://ad-bean.github.io/posts/paper-far-memory/</link>
+      <pubDate>Wed, 30 Oct 2024 12:01:04 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-far-memory/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;software-defined-far-memory-in-warehouse-scale-computers&#34;&gt;&lt;span&gt;Software-Defined Far Memory in Warehouse-Scale Computers&lt;/span&gt;&#xA;  &lt;a href=&#34;#software-defined-far-memory-in-warehouse-scale-computers&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;zswap 压缩内存的一篇论文，使用远端内存来降低成本&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Temeraire, Hugepage aware memory allocator</title>
+      <link>https://ad-bean.github.io/posts/paper-hugepage/</link>
+      <pubDate>Sun, 27 Oct 2024 13:30:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-hugepage/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;beyond-malloc-efficiency-to-fleet-efficiency-a-hugepage-aware-memory-allocator&#34;&gt;&lt;span&gt;Beyond malloc efficiency to fleet efficiency: a hugepage-aware memory allocator&lt;/span&gt;&#xA;  &lt;a href=&#34;#beyond-malloc-efficiency-to-fleet-efficiency-a-hugepage-aware-memory-allocator&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;tcmalloc 是 google 开发的高性能内存分配器 thread-caching malloc，而 temeraire 是本文提出的，改进 tcmalloc，改进大页分配减少内存碎片。https://github.com/google/tcmalloc&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Making Kernel Bypass Practical for the Cloud with Junction</title>
+      <link>https://ad-bean.github.io/posts/paper-junction/</link>
+      <pubDate>Mon, 21 Oct 2024 10:02:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-junction/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;making-kernel-bypass-practical-for-the-cloud-with-junction&#34;&gt;&lt;span&gt;Making Kernel Bypass Practical for the Cloud with Junction&lt;/span&gt;&#xA;  &lt;a href=&#34;#making-kernel-bypass-practical-for-the-cloud-with-junction&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;NSDI 24 的论文&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Firecracker </title>
+      <link>https://ad-bean.github.io/posts/paper-firecracker/</link>
+      <pubDate>Wed, 16 Oct 2024 09:52:03 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-firecracker/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;firecracker-lightweight-virtualization-for-serverless-applications&#34;&gt;&lt;span&gt;Firecracker: Lightweight Virtualization for Serverless Applications&lt;/span&gt;&#xA;  &lt;a href=&#34;#firecracker-lightweight-virtualization-for-serverless-applications&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;开源的 VMM&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Xen and the Art of Virtualization</title>
+      <link>https://ad-bean.github.io/posts/paper-xen-vir/</link>
+      <pubDate>Sat, 12 Oct 2024 14:32:07 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-xen-vir/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;xen-and-the-art-of-virtualization&#34;&gt;&lt;span&gt;Xen and the Art of Virtualization&lt;/span&gt;&#xA;  &lt;a href=&#34;#xen-and-the-art-of-virtualization&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Xen 是开源的虚拟化项目，https://xenproject.org/&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Caladan</title>
+      <link>https://ad-bean.github.io/posts/paper-caladan/</link>
+      <pubDate>Wed, 09 Oct 2024 10:35:26 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-caladan/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;caladan-mitigating-interference-at-microsecond-timescales&#34;&gt;&lt;span&gt;Caladan: Mitigating Interference at Microsecond Timescales&lt;/span&gt;&#xA;  &lt;a href=&#34;#caladan-mitigating-interference-at-microsecond-timescales&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling</title>
+      <link>https://ad-bean.github.io/posts/paper-ghost/</link>
+      <pubDate>Mon, 07 Oct 2024 00:51:29 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-ghost/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;ghost-fast--flexible-user-space-delegation-of-linux-scheduling&#34;&gt;&lt;span&gt;ghOSt: Fast &amp;amp; Flexible User-Space Delegation of Linux Scheduling&lt;/span&gt;&#xA;  &lt;a href=&#34;#ghost-fast--flexible-user-space-delegation-of-linux-scheduling&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Google 的 ghOSt，在这之前还有 Snap MicroKernel Approach to Host Networking，是一个用户网络协议栈，支持 RDMA 等等。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</title>
+      <link>https://ad-bean.github.io/posts/paper-enso/</link>
+      <pubDate>Mon, 30 Sep 2024 09:33:11 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-enso/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;ens-o-a-streaming-interface-for-nic-application-communication&#34;&gt;&lt;span&gt;Ens ̄o: A Streaming Interface for NIC-Application Communication&lt;/span&gt;&#xA;  &lt;a href=&#34;#ens-o-a-streaming-interface-for-nic-application-communication&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;NIC interface 相关的论文，hardware offloads, steaming interface&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Shenango</title>
+      <link>https://ad-bean.github.io/posts/paper-shenango/</link>
+      <pubDate>Mon, 30 Sep 2024 00:41:37 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-shenango/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;shenango-achieving-high-cpu-efficiency-for-latency-sensitive-datacenter-workloads&#34;&gt;&lt;span&gt;Shenango: Achieving High CPU Efficiency for Latency-sensitive Datacenter Workloads&lt;/span&gt;&#xA;  &lt;a href=&#34;#shenango-achieving-high-cpu-efficiency-for-latency-sensitive-datacenter-workloads&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;蛮知名的一篇文章，引用很高，后续论文也有 ghOSt，和 Efficient Scheduling Policies for Microsecond-scale Tasks&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems</title>
+      <link>https://ad-bean.github.io/posts/paper-demikernel/</link>
+      <pubDate>Tue, 24 Sep 2024 23:02:58 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-demikernel/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;the-demikernel-datapath-os-architecture-for-microsecond-scale-datacenter-systems&#34;&gt;&lt;span&gt;The Demikernel Datapath OS Architecture for Microsecond-scale Datacenter Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#the-demikernel-datapath-os-architecture-for-microsecond-scale-datacenter-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Datacenter system 指的是 MPP 吗？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Rethinking the RDMA Interface for Distributed Systems</title>
+      <link>https://ad-bean.github.io/posts/paper-prism/</link>
+      <pubDate>Sun, 22 Sep 2024 16:12:51 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-prism/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;rethinking-the-rdma-interface-for-distributed-systems&#34;&gt;&lt;span&gt;Rethinking the RDMA Interface for Distributed Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#rethinking-the-rdma-interface-for-distributed-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;对 RDMA 没什么了解&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: The eXpress Data Path</title>
+      <link>https://ad-bean.github.io/posts/paper-xdp/</link>
+      <pubDate>Wed, 18 Sep 2024 00:00:33 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-xdp/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel&#34;&gt;&lt;span&gt;The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel&lt;/span&gt;&#xA;  &lt;a href=&#34;#the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Arrakis</title>
+      <link>https://ad-bean.github.io/posts/paper-arrakis/</link>
+      <pubDate>Mon, 16 Sep 2024 00:22:05 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/paper-arrakis/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;arrakis-the-operating-system-is-the-control-plane&#34;&gt;&lt;span&gt;Arrakis: The Operating System is the Control Plane&lt;/span&gt;&#xA;  &lt;a href=&#34;#arrakis-the-operating-system-is-the-control-plane&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;和 IX 同样是 OSDI 14 的文章，Arrakis 应该也是 Dune 沙丘里的名字吧，但好像不是同一批人 Adam Belay Standford 的人做的，应该很类似。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: IX: A Protected Dataplane Operating System</title>
+      <link>https://ad-bean.github.io/posts/ix-paper/</link>
+      <pubDate>Sun, 15 Sep 2024 14:47:50 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/ix-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency&#34;&gt;&lt;span&gt;IX: A Protected Dataplane Operating System for High Throughput and Low Latency&lt;/span&gt;&#xA;  &lt;a href=&#34;#ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Dune</title>
+      <link>https://ad-bean.github.io/posts/dune-paper/</link>
+      <pubDate>Wed, 11 Sep 2024 09:10:07 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/dune-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;dune-safe-user-level-access-to-privileged-cpu-features&#34;&gt;&lt;span&gt;Dune: Safe User-level Access to Privileged CPU Features&lt;/span&gt;&#xA;  &lt;a href=&#34;#dune-safe-user-level-access-to-privileged-cpu-features&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;是 MIT OS 课上的讲座，也是一篇很有意思的论文，很类似 exokernel，不过更像是内核上的功能，利用虚拟化使得进程可以访问一些内核态的功能，比如暴露 page table，使得 jvm 可以进行更高级的 GC。后续也有 IX，ZygOS 等相关论文。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Exokernel</title>
+      <link>https://ad-bean.github.io/posts/exokernel-paper/</link>
+      <pubDate>Wed, 11 Sep 2024 01:28:36 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/exokernel-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;exokernel-an-operating-system-architecture-for-application-level-resource-management&#34;&gt;&lt;span&gt;Exokernel: An Operating System Architecture for Application-Level Resource Management&lt;/span&gt;&#xA;  &lt;a href=&#34;#exokernel-an-operating-system-architecture-for-application-level-resource-management&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;微内核？搜了一下发现上交的操作系统课甚至会讲这篇论文，但这篇论文也太早了 1995 年的，MIT 6828 (现 6.1810) 应该也会讲&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Scalability! But at what COST</title>
+      <link>https://ad-bean.github.io/posts/scalability-cost/</link>
+      <pubDate>Sun, 08 Sep 2024 20:25:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/scalability-cost/</guid>
+      <category domain="https://ad-bean.github.io/categories/distributed/">Distributed</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;scalability-but-at-what-cost&#34;&gt;&lt;span&gt;Scalability! But at what COST?&lt;/span&gt;&#xA;  &lt;a href=&#34;#scalability-but-at-what-cost&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;比较短的 paper，之前也略有看过，主要讲主流分布式框架在多机器上存在 COST(不是成本) 问题，并不一定能比单机更好。是很有意思的主题。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: The Multikernel: A New OS Architecture for Scalable Multicore Systems</title>
+      <link>https://ad-bean.github.io/posts/multikernel-os/</link>
+      <pubDate>Sun, 08 Sep 2024 16:25:59 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/multikernel-os/</guid>
+      <category domain="https://ad-bean.github.io/categories/os/">OS</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;the-multikernel-a-new-os-architecture-for-scalable-multicore-systems&#34;&gt;&lt;span&gt;The Multikernel: A New OS Architecture for Scalable Multicore Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#the-multikernel-a-new-os-architecture-for-scalable-multicore-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;SOSP 09 的文章，提出了 MultiKernel 分布式系统，网络架构是如何做通信、消息传递的。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: DuckDB: an Embeddable Analytical Database</title>
+      <link>https://ad-bean.github.io/posts/duckdb-2019/</link>
+      <pubDate>Fri, 07 Jun 2024 15:37:41 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/duckdb-2019/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;duckdb-an-embeddable-analytical-database&#34;&gt;&lt;span&gt;DuckDB: an Embeddable Analytical Database&lt;/span&gt;&#xA;  &lt;a href=&#34;#duckdb-an-embeddable-analytical-database&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;读一下 DuckDB 的论文，对 OLAP 没什么了解，但论文很短也可以看看。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
+      <link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
+      <pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;catsql-towards-real-world-natural-language-to-sql-applications&#34;&gt;&lt;span&gt;CatSQL: Towards Real World Natural Language to SQL Applications&lt;/span&gt;&#xA;  &lt;a href=&#34;#catsql-towards-real-world-natural-language-to-sql-applications&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
+      <link>https://ad-bean.github.io/posts/learned-sorting/</link>
+      <pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;the-case-for-a-learned-sorting-algorithm&#34;&gt;&lt;span&gt;The Case for a Learned Sorting Algorithm&lt;/span&gt;&#xA;  &lt;a href=&#34;#the-case-for-a-learned-sorting-algorithm&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
+      <link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
+      <pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34;&gt;&lt;span&gt;An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</title>
+      <link>https://ad-bean.github.io/posts/mb2-self-driving-db/</link>
+      <pubDate>Fri, 05 Apr 2024 09:50:55 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/mb2-self-driving-db/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34;&gt;&lt;span&gt;MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;self-driving database management systems&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</title>
+      <link>https://ad-bean.github.io/posts/bao-learned-query-opt/</link>
+      <pubDate>Sun, 17 Mar 2024 00:14:24 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/bao-learned-query-opt/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;bao-making-learned-query-optimization-practical&#34;&gt;&lt;span&gt;Bao: Making Learned Query Optimization Practical&lt;/span&gt;&#xA;  &lt;a href=&#34;#bao-making-learned-query-optimization-practical&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;MLDB + query optimization&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</title>
+      <link>https://ad-bean.github.io/posts/zero-shot-learned/</link>
+      <pubDate>Sat, 16 Mar 2024 09:58:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/zero-shot-learned/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34;&gt;&lt;span&gt;Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]&lt;/span&gt;&#xA;  &lt;a href=&#34;#zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h2 class=&#34;heading-element&#34; id=&#34;abstract&#34;&gt;&lt;span&gt;Abstract&lt;/span&gt;&#xA;  &lt;a href=&#34;#abstract&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box &lt;strong&gt;without expensive training data collection&lt;/strong&gt;。为了 zero-shot cost models，本文提出 a new learning paradigm based on &lt;strong&gt;pre-trained cost models&lt;/strong&gt;。As core contributions to support the transfer of such a &lt;strong&gt;pre-trained cost model&lt;/strong&gt; to &lt;strong&gt;unseen databases&lt;/strong&gt;, we introduce a new model architecture and &lt;strong&gt;representation technique for encoding query workloads as input&lt;/strong&gt; to those models. As we will show in our evaluation, zero-shot cost estimation can &lt;strong&gt;provide more accurate cost estimates&lt;/strong&gt; than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on &lt;strong&gt;unseen databases&lt;/strong&gt;. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</title>
+      <link>https://ad-bean.github.io/posts/spade-paper/</link>
+      <pubDate>Fri, 01 Mar 2024 20:26:39 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/spade-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;spade-synthesizing-assertions-for-large-language-model-pipelines&#34;&gt;&lt;span&gt;SPADE: Synthesizing Assertions for Large Language Model Pipelines&lt;/span&gt;&#xA;  &lt;a href=&#34;#spade-synthesizing-assertions-for-large-language-model-pipelines&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Synthesizing Assertions&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</title>
+      <link>https://ad-bean.github.io/posts/seed-paper/</link>
+      <pubDate>Fri, 01 Mar 2024 10:42:53 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/seed-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;seed-domain-specific-data-curation-with-large-language-models&#34;&gt;&lt;span&gt;SEED: Domain-Specific Data Curation With Large Language Models&lt;/span&gt;&#xA;  &lt;a href=&#34;#seed-domain-specific-data-curation-with-large-language-models&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;使用大型语言模型的 领域特定 数据管理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: AnalyticDB-V</title>
+      <link>https://ad-bean.github.io/posts/analyticdb-paper/</link>
+      <pubDate>Sun, 25 Feb 2024 13:00:46 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/analyticdb-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;analyticdb-v-a-hybrid-analytical-engine-towards-query-fusion-for-structured-and-unstructured-data&#34;&gt;&lt;span&gt;AnalyticDB-V: A Hybrid Analytical Engine Towards Query Fusion for Structured and Unstructured Data&lt;/span&gt;&#xA;  &lt;a href=&#34;#analyticdb-v-a-hybrid-analytical-engine-towards-query-fusion-for-structured-and-unstructured-data&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h2 class=&#34;heading-element&#34; id=&#34;abstract&#34;&gt;&lt;span&gt;ABSTRACT&lt;/span&gt;&#xA;  &lt;a href=&#34;#abstract&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;随着&lt;strong&gt;非结构化数据&lt;/strong&gt;的爆炸性增长（例如图像，视频和音频），非结构化数据分析在真实世界应用的丰富脉络中广泛存在。许多数据库系统开始合并非结构化数据分析以满足此类需求。但是，在大多数系统中，对&lt;strong&gt;非结构化和结构化数据&lt;/strong&gt;的查询通常被视为 disjoint tasks，在大多数系统中，&lt;strong&gt;混合查询&lt;/strong&gt;（即涉及两种数据类型）尚未得到充分支持。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Milvus A Purpose-Built Vector Data Management System</title>
+      <link>https://ad-bean.github.io/posts/milvus-paper/</link>
+      <pubDate>Sun, 25 Feb 2024 10:08:12 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/milvus-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;milvusa-purpose-built-vector-data-management-system&#34;&gt;&lt;span&gt;Milvus：A Purpose-Built Vector Data Management System&lt;/span&gt;&#xA;  &lt;a href=&#34;#milvusa-purpose-built-vector-data-management-system&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h2 class=&#34;heading-element&#34; id=&#34;abstract&#34;&gt;&lt;span&gt;ABSTRACT&lt;/span&gt;&#xA;  &lt;a href=&#34;#abstract&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;最近，数据科学和人工智能应用中迫切需要管理&lt;strong&gt;高维向量数据&lt;/strong&gt;。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理&lt;strong&gt;大规模动态向量&lt;/strong&gt;数据时会出现严重的&lt;strong&gt;性能问题&lt;/strong&gt;； (2)它们提供的&lt;strong&gt;功能有限&lt;/strong&gt;，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； &lt;strong&gt;针对具有现代 CPU 和 GPU 的异构计算平台进行优化&lt;/strong&gt;； 实现超越简单向量&lt;strong&gt;相似性搜索&lt;/strong&gt;的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp;amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 &lt;a href=&#34;https://github.com/milvus-io/milvus&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/milvus-io/milvus&lt;/a&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</title>
+      <link>https://ad-bean.github.io/posts/vbase-paper/</link>
+      <pubDate>Sat, 17 Feb 2024 11:18:45 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/vbase-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/database/">Database</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;vbase-unifying-online-vector-similarity-search-and-relational-queries-via-relaxed-monotonicity&#34;&gt;&lt;span&gt;VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity&lt;/span&gt;&#xA;  &lt;a href=&#34;#vbase-unifying-online-vector-similarity-search-and-relational-queries-via-relaxed-monotonicity&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;VBase: 通过 Relaxed Monotonicity (松弛单调性) 统一在线矢量相似性搜索和关系查询&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</title>
+      <link>https://ad-bean.github.io/posts/llm-capability/</link>
+      <pubDate>Sun, 04 Feb 2024 12:38:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/llm-capability/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;db-bert-a-databse-tuning-tool-that-reads-the-manual&#34;&gt;&lt;span&gt;DB-BERT: a databse tuning tool that reads the manual&lt;/span&gt;&#xA;  &lt;a href=&#34;#db-bert-a-databse-tuning-tool-that-reads-the-manual&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;DB-BERT，一个读了手册的数据库调优工具&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

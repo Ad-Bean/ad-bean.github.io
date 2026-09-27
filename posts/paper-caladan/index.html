@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Caladan - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-caladan/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Caladan - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Caladan">
+	<meta itemprop="description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath">
+	<meta itemprop="datePublished" content="2024-10-09T10:35:26-04:00">
+	<meta itemprop="dateModified" content="2024-10-09T10:35:26-04:00">
+	<meta itemprop="wordCount" content="5459">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-caladan/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Caladan">
-	<meta property="og:description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath
-Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须进行分区，以实现任务之间的性能隔离">
+	<meta property="og:description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -18,116 +25,102 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Caladan">
-	<meta name="twitter:description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath
-Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须进行分区，以实现任务之间的性能隔离">
+	<meta name="twitter:description" content="Caladan: Mitigating Interference at Microsecond Timescales Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-caladan/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-ghost/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-xen-vir/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Caladan",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-caladan\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  5459 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-caladan\/","datePublished": "2024-10-09T10:35:26-04:00","dateModified": "2024-10-09T10:35:26-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-caladan/" title="Paper Reading: Caladan - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-ghost/" title="Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-xen-vir/" title="Paper Reading: Xen and the Art of Virtualization" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Caladan",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-caladan\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  5459 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-caladan\/","datePublished": "2024-10-09T10:35:26-04:00","dateModified": "2024-10-09T10:35:26-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Caladan</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-09">2024-10-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5459 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Caladan</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-10-09 10:35:26"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-10-09">2024-10-09</time></span>&nbsp;<span title="5459 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 5500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#caladan-mitigating-interference-at-microsecond-timescales">Caladan: Mitigating Interference at Microsecond Timescales</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -161,10 +154,16 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
     <li><a href="#discussion">Discussion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="caladan-mitigating-interference-at-microsecond-timescales">Caladan: Mitigating Interference at Microsecond Timescales</h2>
-<p>Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath</p>
-<h2 id="abstract">Abstract</h2>
-<p>传统观点认为，CPU 资源如核心、缓存和内存带宽必须进行分区，以实现任务之间的性能隔离</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="caladan-mitigating-interference-at-microsecond-timescales"><span>Caladan: Mitigating Interference at Microsecond Timescales</span>
+  <a href="#caladan-mitigating-interference-at-microsecond-timescales" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Shenango 同一批人做的，在其基础上提出了性能更好、吞吐量更大的 Caladan，将 IOKernel 移出了 datapath，使用的是 Dirctpath</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>传统观点认为，CPU 资源如核心、缓存和内存带宽必须进行分区，以实现任务之间的性能隔离</p>
 <blockquote>
 <p>什么是 performance isolation</p>
 <p>多任务或多用户环境中，确保一个任务或用户的性能不受其他任务或用户的影响</p>
@@ -175,8 +174,11 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <p>绕过 Linux Kernel scheduler，和 eBPF 实现调度有什么区别呢</p>
 <p>这性能提升太夸张了，到底是 baseline 选的好还是什么</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>像网络搜索、社交网络和在线零售这样的交互式、数据密集型网络服务通常会将请求分布在数千台服务器上。最小化尾部延迟对这些服务至关重要，</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>像网络搜索、社交网络和在线零售这样的交互式、数据密集型网络服务通常会将请求分布在数千台服务器上。最小化尾部延迟对这些服务至关重要，</p>
 <p>然而，减少尾部延迟的努力必须与最大化数据中心效率的需求仔细平衡；</p>
 <p>大规模数据中心运营商通常 pack several tasks 在同一台机器上，以在可变负载的情况下提高 CPU 利用率[22, 57, 66, 71]。在这些条件下，任务必须竞争共享资源，如核心、内存带宽、缓存和执行单元。当共享资源争用高时，延迟会显著增加；这种由于资源争用导致的任务减速称为干扰 interference。</p>
 <blockquote>
@@ -203,8 +205,11 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <p>假设是：custom runtime system, LC tasks exposes their internal concurrency</p>
 <p>低延迟任务需要暴露并行性？</p>
 </blockquote>
-<h2 id="motivation">Motivation</h2>
-<p>干扰未被迅速缓解时性能如何下降</p>
+<h2 class="heading-element" id="motivation"><span>Motivation</span>
+  <a href="#motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>干扰未被迅速缓解时性能如何下降</p>
 <p>许多工作负载表现出阶段性行为，在亚秒级时间尺度上急剧改变它们使用的资源类型和数量。例如，压缩、编译、Spark 计算作业和垃圾收集器</p>
 <p>为了更好地理解与时间变化干扰相关的挑战，我们考虑当我们将一个 LC 任务 memcached[43]与一个由于垃圾收集而表现出阶段性行为的 BE 工作负载共存时会发生什么。</p>
 <p>在这个实验中，我们向 memcached 提供一个固定的负载，并在两个任务之间 statically partition cores</p>
@@ -212,16 +217,22 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <blockquote>
 <p>就是先将 CPU 固定给特定的任务，实现性能隔离，但是发生了干扰，无法应对突发负载，需要重新分配</p>
 </blockquote>
-<h2 id="background">Background</h2>
-<p>共享 CPU 时可能发生的三种干扰形式：hyperthreading interference, memory bandwidth interference, and LLC interference.</p>
+<h2 class="heading-element" id="background"><span>Background</span>
+  <a href="#background" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>共享 CPU 时可能发生的三种干扰形式：hyperthreading interference, memory bandwidth interference, and LLC interference.</p>
 <p>超线程干扰通常在任务运行在兄弟核心时存在，因为 CPU 会划分某些物理核心资源（例如，微操作队列），但其严重程度取决于<strong>共享资源</strong>（L1/L2 缓存、预取器、执行单元、TLB 等）是否被争用。另一方面，内存带宽和 LLC 干扰的强度可能会有所不同，但会影响共享同一物理 CPU 的所有核心。随着内存带宽使用量的增加，由于干扰，内存访问延迟会逐渐增加，直到内存带宽饱和；<strong>访问延迟随后会呈指数级增加</strong>[62]。LLC 干扰由每个应用程序使用的缓存量决定：当需求超过容量时，LLC 未命中率会增加。</p>
 <blockquote>
 <p>LLC 干扰 (Last Level Cache Interference)</p>
 <p>LLC 干扰是指在多任务或多线程环境中，多个任务或线程共享最后一级缓存（LLC）时，由于缓存资源的争用而导致的性能下降。</p>
 <p>DDIO data direct IO 可以直接将网络数据推到 LLC</p>
 </blockquote>
-<h3 id="existing-approaches-to-interference">Existing Approaches to Interference</h3>
-<p>最先进的系统如 Heracles[38]和 Parties[12]通过动态分区资源（如核心和 LLC 分区大小）来处理干扰</p>
+<h3 class="heading-element" id="existing-approaches-to-interference"><span>Existing Approaches to Interference</span>
+  <a href="#existing-approaches-to-interference" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>最先进的系统如 Heracles[38]和 Parties[12]通过动态分区资源（如核心和 LLC 分区大小）来处理干扰</p>
 <p>首先，这两个系统使用应用程序级别的尾部延迟测量来检测干扰，这些测量必须在数百毫秒内进行，以获得稳定的结果；Parties 的作者发现，较短的间隔会产生“噪声和不稳定的结果”</p>
 <p>因此，Heracles 和 Parties 至少需要 50 倍于我们例子中 GC 周期的时间来适应干扰的变化。</p>
 <p>除了收敛速度，现有系统还存在可扩展性限制。例如，典型的数据中心服务器必须同时处理多个 LC 和 BE 任务[66, 71]，但 Heracles 仅限于单个 LC 任务（和许多 BE 任务）</p>
@@ -229,14 +240,20 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <blockquote>
 <p>所以一方面是现有的处理干扰策略太慢，毫秒级别，资源分配慢，convergence speed 慢，扩展性也不行，有些仅限于单个 LC 任务，也依赖于硬件，比如不支持超线程。</p>
 </blockquote>
-<h3 id="limitations-of-hardware-extensions">Limitations of Hardware Extensions</h3>
-<p>英特尔的 CAT（Cache Allocation Technology）技术可以将 LLC 分区，但分区配置的变化需要相当长的时间才能生效。</p>
+<h3 class="heading-element" id="limitations-of-hardware-extensions"><span>Limitations of Hardware Extensions</span>
+  <a href="#limitations-of-hardware-extensions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>英特尔的 CAT（Cache Allocation Technology）技术可以将 LLC 分区，但分区配置的变化需要相当长的时间才能生效。</p>
 <p>内存带宽分配（Memory Bandwidth Allocation，MBA）</p>
 <blockquote>
 <p>太接近硬件设计了这一篇论文，我感觉只要了解一下 interference 的原理，和现有解决方案的不足，以及 caladan 怎么做的就差不多了</p>
 </blockquote>
-<h2 id="challenges-and-approach">Challenges and Approach</h2>
-<p>我们的总体目标是保持性能隔离的同时最大化 CPU 利用率。</p>
+<h2 class="heading-element" id="challenges-and-approach"><span>Challenges and Approach</span>
+  <a href="#challenges-and-approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>我们的总体目标是保持性能隔离的同时最大化 CPU 利用率。</p>
 <p>管理干扰变化需要微秒级反应时间。</p>
 <p>因此 Caladan 的方法是通过控制核心如何分配给任务来管理干扰。</p>
 <p>之前的系统已经将核心调整作为其管理干扰策略的一部分[12, 28, 38, 70]，但 Caladan 是第一个完全依赖核心分配来管理多种干扰形式的系统。</p>
@@ -255,8 +272,11 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <p>专用核心调度，解决信号问题</p>
 <p>内核扩展、绕过</p>
 </blockquote>
-<h3 id="caladans-approach">Caladan’s Approach</h3>
-<p>Caladan 专门分配一个核心，称为调度器，以持续轮询和收集一组控制信号，时间尺度为微秒级。</p>
+<h3 class="heading-element" id="caladans-approach"><span>Caladan’s Approach</span>
+  <a href="#caladans-approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Caladan 专门分配一个核心，称为调度器，以持续轮询和收集一组控制信号，时间尺度为微秒级。</p>
 <blockquote>
 <p>到底是什么信号啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
 <p>看一半才讲也太夸张了这论文</p>
@@ -268,24 +288,26 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <p>Per-Core LLC Miss Rates, queueing delay</p>
 </blockquote>
 <p>最后，Caladan 引入了一个名为 KSCHED 的 Linux 内核模块。<strong>KSCHED 在微秒级时间尺度上跨多个核心同时执行调度功能</strong>，即使在存在干扰的情况下也是如此。KSCHED 通过三种主要技术实现这些目标：（1）它在 Caladan 管理的所有核心上运行，<strong>并将调度工作从调度核心转移到运行任务的核心</strong>；（2）它利用硬件对多播处理器间中断（IPIs）的支持，以分摊同时启动多个核心操作的成本；（3）它提供了一个完全异步的调度器接口，以便调度器可以在等待远程核心完成操作的同时发起操作并执行其他工作。</p>
-<h2 id="design">Design</h2>
-<h3 id="overview">Overview</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png"
-        data-srcset="https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png, https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png 1.5x, https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png"
-        title="https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png" /></p>
+<h2 class="heading-element" id="design"><span>Design</span>
+  <a href="#design" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="overview"><span>Overview</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png' alt="https://s2.loli.net/2024/10/10/IxZmOSVl1wgdWFh.png"></p>
 <p>图 2 展示了 Caladan 的关键组件及其之间的共享内存区域。Caladan 与 Shenango[47]共享一些架构和实现构建块：每个应用程序都与一个运行时系统链接，一个专用的调度核心（以 root 权限运行）忙碌轮询共享内存区域以收集控制信号并进行核心分配。这两个系统都设计为在正常 Linux 环境中互操作，可能管理可用核心的子集。</p>
 <p>Shenango 使用排队延迟作为其唯一的控制信号来管理负载变化；</p>
 <p>Caladan 使用多个控制信号来管理多种类</p>
 <p>外，Shenango 的调度核心将网络处理与 CPU 调度结合在一起；Caladan 的调度核心<strong>仅负责 CPU 调度</strong>，消除了数据包处理瓶颈（§6）型的干扰以及负载变化。</p>
 <p>Caladan 的运行时系统提供“绿色”线程和内核旁路 I/O，使用工作窃取来平衡负载，并在没有工作可窃取时让出核心。这使得管理干扰更容易，并能导出正确的每任务控制信号。</p>
 <p>用户为每个任务配置保证核心和突发核心，任务被指定为 LC（延迟敏感型）或 BE（尽力而为型）。BE 任务以较低的优先级运行，仅在 LC 任务不需要时分配突发核心，并根据需要进行限制以管理干扰。</p>
-<h3 id="the-caladan-scheduler">The Caladan Scheduler</h3>
-<p>独立的控制器模块检测内存带宽和超线程干扰，分别对核心分配施加约束并在必要时撤销核心。</p>
+<h3 class="heading-element" id="the-caladan-scheduler"><span>The Caladan Scheduler</span>
+  <a href="#the-caladan-scheduler" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>独立的控制器模块检测内存带宽和超线程干扰，分别对核心分配施加约束并在必要时撤销核心。</p>
 <blockquote>
 <p>撤销？</p>
 </blockquote>
@@ -299,13 +321,31 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 <p>主要是将一些 LC 和 BE 任务，不再需要资源分区</p>
 <p>而是通过分配和调度，减少干扰，降低尾部延迟</p>
 </blockquote>
-<h2 id="implementation">Implementation</h2>
-<h2 id="evaluation">Evaluation</h2>
-<h3 id="comparison-to-other-systems">Comparison to Other Systems</h3>
-<h3 id="diverse-colocations">Diverse Colocations</h3>
-<h3 id="microbenchmarks">Microbenchmarks</h3>
-<h2 id="discussion">Discussion</h2>
-<p>Caladan 要求应用程序使用其运行时系统，因为它依赖于运行时系统向调度器导出控制信号，并快速将线程和数据包处理工作映射到频繁变化的可用核心集上。我们的运行时系统不是完全 Linux 兼容的，但它提供了一个现实的并发编程模型（继承自 Shenango），包括线程、互斥锁、条件变量和同步 I/O[47]。</p>
+<h2 class="heading-element" id="implementation"><span>Implementation</span>
+  <a href="#implementation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 class="heading-element" id="evaluation"><span>Evaluation</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="comparison-to-other-systems"><span>Comparison to Other Systems</span>
+  <a href="#comparison-to-other-systems" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="diverse-colocations"><span>Diverse Colocations</span>
+  <a href="#diverse-colocations" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="microbenchmarks"><span>Microbenchmarks</span>
+  <a href="#microbenchmarks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h2 class="heading-element" id="discussion"><span>Discussion</span>
+  <a href="#discussion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Caladan 要求应用程序使用其运行时系统，因为它依赖于运行时系统向调度器导出控制信号，并快速将线程和数据包处理工作映射到频繁变化的可用核心集上。我们的运行时系统不是完全 Linux 兼容的，但它提供了一个现实的并发编程模型（继承自 Shenango），包括线程、互斥锁、条件变量和同步 I/O[47]。</p>
 <p>Caladan 还包括一个部分兼容层，用于系统库（例如，libpthread），可以在不修改的情况下支持 PARSEC[9]，使我们对设计在未来支持未修改的 Linux 应用程序具有一定的信心。不使用我们运行时的应用程序可以共存在同一台机器上，但它们必须运行在不受 Caladan 管理的核心上，并且如果它们引起干扰，则无法被限制。</p>
 <blockquote>
 <p>为什么不完全支持 linux，为什么</p>
@@ -318,40 +358,75 @@ Abstract 传统观点认为，CPU 资源如核心、缓存和内存带宽必须�
 </blockquote>
 <p>Caladan 的当前实现有两个限制。首先，它无法管理跨 NUMA 节点的干扰。NUMA 引入了额外的共享资源，这些资源容易受到干扰，包括跨套接字互连和每个节点的独立内存控制器。幸运的是，这些资源的高精度性能计数器是可用的，我们计划在未来探索 NUMA 感知的干扰缓解策略，例如在节点之间撤销核心或迁移任务。其次，我们的调度策略不会最小化跨超线程兄弟的瞬态执行攻击的威胁[3, 11, 65]。理想情况下，只有相互信任的任务才允许在兄弟核心上运行。在撰写本文时，Linux 内核正在开发类似的功能[13]。</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-10-09</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-10-09 10:35:26">更新于 2024-10-09&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-caladan/" data-title="Paper Reading: Caladan"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-ghost/" class="prev" rel="prev" title="Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: ghOSt: Fast & Flexible User-Space Delegation of Linux Scheduling</a>
-            <a href="../../posts/paper-xen-vir/" class="next" rel="next" title="Paper Reading: Xen and the Art of Virtualization">Paper Reading: Xen and the Art of Virtualization<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-ghost/" class="post-nav-item" rel="prev" title="Paper Reading: GhOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: GhOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling</a><a href="../../posts/paper-xen-vir/" class="post-nav-item" rel="next" title="Paper Reading: Xen and the Art of Virtualization">Paper Reading: Xen and the Art of Virtualization<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#caladan-mitigating-interference-at-microsecond-timescales">Caladan: Mitigating Interference at Microsecond Timescales</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#background">Background</a>
+      <ul>
+        <li><a href="#existing-approaches-to-interference">Existing Approaches to Interference</a></li>
+        <li><a href="#limitations-of-hardware-extensions">Limitations of Hardware Extensions</a></li>
+      </ul>
+    </li>
+    <li><a href="#challenges-and-approach">Challenges and Approach</a>
+      <ul>
+        <li><a href="#caladans-approach">Caladan’s Approach</a></li>
+      </ul>
+    </li>
+    <li><a href="#design">Design</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#the-caladan-scheduler">The Caladan Scheduler</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#comparison-to-other-systems">Comparison to Other Systems</a></li>
+        <li><a href="#diverse-colocations">Diverse Colocations</a></li>
+        <li><a href="#microbenchmarks">Microbenchmarks</a></li>
+      </ul>
+    </li>
+    <li><a href="#discussion">Discussion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/d8627349729b346fb9b3656a226e8ecb.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-megatron-lm-v2/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等
+"><meta name="keywords" content='Paper Reading, Deep Learning, Language Models, Training'>
+	<meta itemprop="name" content="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM">
+	<meta itemprop="description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等">
+	<meta itemprop="datePublished" content="2025-02-26T22:39:12-05:00">
+	<meta itemprop="dateModified" content="2025-02-26T22:39:12-05:00">
+	<meta itemprop="wordCount" content="1894">
+	<meta itemprop="keywords" content="Paper Reading,Deep Learning,Language Models,Training"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-megatron-lm-v2/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM">
-	<meta property="og:description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等
-知乎一篇不错的总结
-作者 Jared 的视频介绍">
+	<meta property="og:description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -22,117 +28,102 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM">
-	<meta name="twitter:description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等
-知乎一篇不错的总结
-作者 Jared 的视频介绍">
+	<meta name="twitter:description" content="Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM 姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-megatron-lm/" /><link rel="next" href="https://ad-bean.github.io/posts/ml-sys-03/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm-v2\/"
-        },"genre": "posts","keywords": "Paper Reading, Deep Learning, Language Models, Training","wordcount":  1777 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm-v2\/","datePublished": "2025-02-26T22:39:12-05:00","dateModified": "2025-02-26T22:39:12-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-megatron-lm/" title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/ml-sys-03/" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm-v2\/"
+    },"genre": "posts","keywords": "Paper Reading, Deep Learning, Language Models, Training","wordcount":  1894 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-megatron-lm-v2\/","datePublished": "2025-02-26T22:39:12-05:00","dateModified": "2025-02-26T22:39:12-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/ml-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>ML Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-02-26">2025-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1777 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/ml-systems/" class="post-category" title="分类 - ML Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> ML Systems</a></span></div><div class="post-meta-line"><span title="发布于 2025-02-26 22:39:12"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-02-26">2025-02-26</time></span>&nbsp;<span title="1894 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm">Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -170,18 +161,27 @@
     <li><a href="#related-work">RELATED WORK</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm">Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</h2>
-<p>姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm"><span>Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</span>
+  <a href="#efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>姑且算作 Megatron LM v2，因为是晚一年发表的，粗略过一下，因为都是同样的 motivation 和 background 等等</p>
 <blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/19482552307" target="_blank" rel="noopener noreffer ">知乎一篇不错的总结</a></p>
-<p>作者 Jared 的<a href="https://youtu.be/gHaNUcS1_O4?si=EEgK2Y5_6fZtAJB8" target="_blank" rel="noopener noreffer ">视频介绍</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/19482552307" target="_blank" rel="external nofollow noopener noreferrer">知乎一篇不错的总结</a></p>
+<p>作者 Jared 的<a href="https://youtu.be/gHaNUcS1_O4?si=EEgK2Y5_6fZtAJB8" target="_blank" rel="external nofollow noopener noreferrer">视频介绍</a></p>
 <p>其中和 ZeRO 的对比很有意思，吞吐量高了很多。周末看看 Gpipe 和 ZeRO</p>
 </blockquote>
-<h2 id="abstract">ABSTRACT</h2>
-<p>本文中，我们展示了如何将张量并行、流水线并行和数据并行结合起来，以扩展到数千个 GPU。</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本文中，我们展示了如何将张量并行、流水线并行和数据并行结合起来，以扩展到数千个 GPU。</p>
 <p>提出了一种新颖的交错流水线调度方法，可以在内存占用与现有方法相当的情况下，将吞吐量提高 10%以上。</p>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>数据并行扩展通常效果良好，但存在两个局限性：</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>数据并行扩展通常效果良好，但存在两个局限性：</p>
 <ol>
 <li>beyond a point, the per-GPU batch size becomes too small, reducing GPU utilization and increasing communication cost</li>
 <li>the maximum number of devices that can be used is the batch size, limiting the number of accelerators that can be used for training.</li>
@@ -194,59 +194,83 @@
 <p>Pipeline model parallelism 流水线模型并行化，一个批次被拆分为较小的微批次，执行过程在这些微批次之间进行流水线处理。</p>
 <p>将流水线并行、张量并行和数据并行结合起来，这种技术我们称之为 PTD-P</p>
 <p>还与 ZeRO[36]进行了比较，发现由于跨节点通信较少，我们的方法在 1750 亿和 5300 亿参数的模型上比 ZeRO-3 高出 70%。这些模型太大，无法容纳在多 GPU 服务器上。</p>
-<h2 id="modes-of-parallelism">MODES OF PARALLELISM</h2>
-<h3 id="data-parallelism">Data Parallelism</h3>
-<p>每个工作节点都拥有完整模型的副本，输入数据集被分片，工作节点定期聚合它们的梯度，以确保所有工作节点看到一致的权重版本</p>
-<h3 id="pipeline-model-parallelism">Pipeline Model Parallelism</h3>
-<p>在流水线并行化中，<strong>模型的各层</strong>被分配到多个设备上。当用于具有重复相同 Transformer 块的模型时，每个设备可以被分配相同数量的 Transformer 层。</p>
+<h2 class="heading-element" id="modes-of-parallelism"><span>MODES OF PARALLELISM</span>
+  <a href="#modes-of-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="data-parallelism"><span>Data Parallelism</span>
+  <a href="#data-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>每个工作节点都拥有完整模型的副本，输入数据集被分片，工作节点定期聚合它们的梯度，以确保所有工作节点看到一致的权重版本</p>
+<h3 class="heading-element" id="pipeline-model-parallelism"><span>Pipeline Model Parallelism</span>
+  <a href="#pipeline-model-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在流水线并行化中，<strong>模型的各层</strong>被分配到多个设备上。当用于具有重复相同 Transformer 块的模型时，每个设备可以被分配相同数量的 Transformer 层。</p>
 <p>一个批次被拆分为较小的微批次；然后在微批次之间进行流水线执行。</p>
 <blockquote>
 <p>其实流水线和 CPU 的流水线调度很相似？</p>
 </blockquote>
 <p>量化 GPipe 的流水线气泡大小（𝑡𝑝𝑏）。我们将批次中的微批次数量表示为 𝑚，流水线阶段的数量（用于流水线并行的设备数量）表示为 𝑝，每次迭代的理想时间表示为 𝑡𝑖𝑑（假设完美或理想的扩展），执行单个微批次的前向和后向传递的时间表示为 𝑡𝑓 和 𝑡𝑏。在此调度中，流水线气泡包括批次开始时的 𝑝−1 个前向传递和批次结束时的 𝑝−1 个后向传递。流水线气泡中花费的总时间为 𝑡𝑝𝑏 = (𝑝−1)·(𝑡𝑓 +𝑡𝑏)。批次的理想处理时间为 𝑡𝑖𝑑 = 𝑚·(𝑡𝑓 +𝑡𝑏)。因此，流水线气泡中花费的理想计算时间的比例为</p>
-<p>$$
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>B</mi><mi>u</mi><mi>b</mi><mi>b</mi><mi>l</mi><mi>e</mi><mtext> </mtext><mi>t</mi><mi>i</mi><mi>m</mi><mi>e</mi><mtext> </mtext><mi>f</mi><mi>r</mi><mi>a</mi><mi>c</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">(</mo><mi>p</mi><mi>i</mi><mi>p</mi><mi>e</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>e</mi><mtext> </mtext><mi>b</mi><mi>u</mi><mi>b</mi><mi>b</mi><mi>l</mi><mi>e</mi><mtext> </mtext><mi>s</mi><mi>i</mi><mi>z</mi><mi>e</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><msub><mi>t</mi><mrow><mi>p</mi><mi>b</mi></mrow></msub><msub><mi>t</mi><mrow><mi>i</mi><mi>d</mi></mrow></msub></mfrac><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><mi>p</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo><mo>⋅</mo><mo stretchy="false">(</mo><msub><mi>t</mi><mi>f</mi></msub><mo>+</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><mrow><mi>m</mi><mo>⋅</mo><mo stretchy="false">(</mo><msub><mi>t</mi><mi>f</mi></msub><mo>+</mo><msub><mi>t</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow><mi>m</mi></mfrac></mrow><annotation encoding="application/x-tex">
 Bubble\ time\ fraction (pipeline\ bubble\ size) = \frac{t_{pb}}{t_{id}} = \frac{(p−1)\cdot (t_f + t_b)}{m \cdot(t_f + t_b)} = \frac{p−1}{m}
-$$</p>
-<p>为了减少流水线气泡的影响，可以<strong>增加微批次的数量</strong>或<strong>减少流水线阶段的数量</strong>。</p>
-<p>使流水线气泡时间占比（bubble time fraction）尽可能小，我们需要满足 $m &raquo; p$</p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0502em;">B</span><span class="mord mathnormal">u</span><span class="mord mathnormal">bb</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal">t</span><span class="mord mathnormal">im</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">c</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord mathnormal">i</span><span class="mord mathnormal">p</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span><span class="mord mathnormal">in</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal">b</span><span class="mord mathnormal">u</span><span class="mord mathnormal">bb</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span><span class="mord mathnormal">e</span><span class="mspace"> </span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="mord mathnormal">e</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.1281em;vertical-align:-0.836em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2921em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mord mathnormal mtight">b</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.3991em;vertical-align:-0.9721em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1076em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.1076em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9721em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><p>为了减少流水线气泡的影响，可以<strong>增加微批次的数量</strong>或<strong>减少流水线阶段的数量</strong>。</p>
+<p>使流水线气泡时间占比（bubble time fraction）尽可能小，我们需要满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>&gt;</mo><mo>&gt;</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">m &gt;&gt; p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span></span></span></span></p>
 <p>Schedule with Interleaved Stages: 新调度将气泡时间减少了 v 倍，这种流水线气泡大小的减少并非没有代价：这种调度需要额外的通信。</p>
-<h3 id="tensor-model-parallelism">Tensor Model Parallelism</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png"
-        data-srcset="https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png, https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png 1.5x, https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png"
-        title="https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png" /></p>
+<h3 class="heading-element" id="tensor-model-parallelism"><span>Tensor Model Parallelism</span>
+  <a href="#tensor-model-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png' alt="https://s2.loli.net/2025/02/27/XAPO3Kie1fxMUlS.png"></p>
 <ol>
 <li>MLP parallelism</li>
 <li>multi-head attention parallelism</li>
 </ol>
-<h2 id="performance-analysis-of-parallelizati-on-configurations">PERFORMANCE ANALYSIS OF PARALLELIZATI ON CONFIGURATIONS</h2>
-<h3 id="tensor-and-pipeline-model-parallelism">Tensor and Pipeline Model Parallelism</h3>
-<p>$$
+<h2 class="heading-element" id="performance-analysis-of-parallelizati-on-configurations"><span>PERFORMANCE ANALYSIS OF PARALLELIZATI ON CONFIGURATIONS</span>
+  <a href="#performance-analysis-of-parallelizati-on-configurations" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="tensor-and-pipeline-model-parallelism"><span>Tensor and Pipeline Model Parallelism</span>
+  <a href="#tensor-and-pipeline-model-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mfrac><mrow><mi>p</mi><mo>−</mo><mn>1</mn></mrow><mi>m</mi></mfrac><mo>=</mo><mfrac><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mi>t</mi><mo>−</mo><mn>1</mn></mrow><mi>m</mi></mfrac></mrow><annotation encoding="application/x-tex">
 \frac{p - 1}{m} = \frac{n / t - 1}{m}
-$$</p>
-<p>因此，我们可以看到，<strong>张量模型并行化</strong>增加了设备之间的通信量。因此，当 𝑡 大于单个节点中的 GPU 数量时，跨较慢的节点间链路执行张量模型并行化的开销可能是不切实际的。</p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:2.0074em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.113em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><p>因此，我们可以看到，<strong>张量模型并行化</strong>增加了设备之间的通信量。因此，当 𝑡 大于单个节点中的 GPU 数量时，跨较慢的节点间链路执行张量模型并行化的开销可能是不切实际的。</p>
 <blockquote>
 <p>𝑡 表示张量模型并行的规模，𝑝 表示流水线模型并行的规模，𝑑 表示数据并行的规模。</p>
 <p>𝑏：微批次大小
 𝑚：每个流水线中一个批次内的微批次数量
 𝑛：GPU 的数量</p>
 </blockquote>
-<h3 id="data-and-model-parallelism">Data and Model Parallelism</h3>
-<p>在使用张量模型并行化时，每个微批次都需要执行 all-reduce 通信。这在跨多 GPU 服务器时可能会非常昂贵</p>
-<h3 id="microbatch-size">Microbatch Size</h3>
-<p>微批次大小 b 的选择也会影响模型训练的吞吐量。</p>
-<h3 id="activation-recomputation">Activation Recomputation</h3>
-<p>激活重计算（Activation Recomputation）[12, 18, 20, 21] 是一种可选技术，通过在后向传递之前再次运行前向传递（并仅保存给定流水线阶段的输入激活值，而不是整个中间激活值集，后者占用内存更大），以增加计算操作的数量为代价来减少内存占用。</p>
-<h2 id="implementation">IMPLEMENTATION</h2>
-<blockquote>
+<h3 class="heading-element" id="data-and-model-parallelism"><span>Data and Model Parallelism</span>
+  <a href="#data-and-model-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在使用张量模型并行化时，每个微批次都需要执行 all-reduce 通信。这在跨多 GPU 服务器时可能会非常昂贵</p>
+<h3 class="heading-element" id="microbatch-size"><span>Microbatch Size</span>
+  <a href="#microbatch-size" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>微批次大小 b 的选择也会影响模型训练的吞吐量。</p>
+<h3 class="heading-element" id="activation-recomputation"><span>Activation Recomputation</span>
+  <a href="#activation-recomputation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>激活重计算（Activation Recomputation）[12, 18, 20, 21] 是一种可选技术，通过在后向传递之前再次运行前向传递（并仅保存给定流水线阶段的输入激活值，而不是整个中间激活值集，后者占用内存更大），以增加计算操作的数量为代价来减少内存占用。</p>
+<h2 class="heading-element" id="implementation"><span>IMPLEMENTATION</span>
+  <a href="#implementation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>略</p>
 </blockquote>
-<h2 id="evaluation">EVALUATION</h2>
-<ul>
+<h2 class="heading-element" id="evaluation"><span>EVALUATION</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ul>
 <li>
 <p>PTD-P 的性能如何？它是否能实现实际的端到端训练时间？</p>
 </li>
@@ -260,63 +284,136 @@ $$</p>
 <p>scatter-gather 通信优化的影响是什么？在大规模运行训练迭代时，我们对硬件施加了哪些限制？</p>
 </li>
 </ul>
-<h3 id="end-to-end-performance">End-to-End Performance</h3>
-<p>评估了系统在参数量从 10 亿到 1 万亿的 GPT 模型上的端到端性能</p>
+<h3 class="heading-element" id="end-to-end-performance"><span>End-to-End Performance</span>
+  <a href="#end-to-end-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>评估了系统在参数量从 10 亿到 1 万亿的 GPT 模型上的端到端性能</p>
 <p>启用了 scatter/gather 优化 的交错流水线调度</p>
 <blockquote>
 <p>如何计算 FLOPS？</p>
 </blockquote>
-<h3 id="comparison-to-zero-3">Comparison to ZeRO-3</h3>
-<p>PTD-P 在这两个模型上的性能比 ZeRO-3 高出 70%，这得益于更少的跨节点通信。</p>
-<h3 id="pipeline-parallelism">Pipeline Parallelism</h3>
-<p>Weak Scaling. 较高的批量大小具有更好的扩展性，因为流水线气泡被分摊到更多的微批次上</p>
+<h3 class="heading-element" id="comparison-to-zero-3"><span>Comparison to ZeRO-3</span>
+  <a href="#comparison-to-zero-3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>PTD-P 在这两个模型上的性能比 ZeRO-3 高出 70%，这得益于更少的跨节点通信。</p>
+<h3 class="heading-element" id="pipeline-parallelism"><span>Pipeline Parallelism</span>
+  <a href="#pipeline-parallelism" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Weak Scaling. 较高的批量大小具有更好的扩展性，因为流水线气泡被分摊到更多的微批次上</p>
 <p>Interleaved versus Non-Interleaved Schedule. 启用 scatter/gather 通信优化 的交错调度比非交错（默认）调度具有更高的计算性能。</p>
-<h3 id="comparison-of-parallel-configurations">Comparison of Parallel Configurations</h3>
-<h3 id="microbatch-size-1">Microbatch Size</h3>
-<h3 id="activation-recomputation-1">Activation Recomputation</h3>
-<h3 id="scatter-gather-optimization">Scatter-Gather Optimization</h3>
-<h3 id="fused-operators">Fused Operators</h3>
-<h3 id="inter-node-communication-bandwidth">Inter-Node Communication Bandwidth</h3>
-<h3 id="checkpoint-loading-and-saving">Checkpoint Loading and Saving</h3>
-<blockquote>
+<h3 class="heading-element" id="comparison-of-parallel-configurations"><span>Comparison of Parallel Configurations</span>
+  <a href="#comparison-of-parallel-configurations" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="microbatch-size-1"><span>Microbatch Size</span>
+  <a href="#microbatch-size-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="activation-recomputation-1"><span>Activation Recomputation</span>
+  <a href="#activation-recomputation-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="scatter-gather-optimization"><span>Scatter-Gather Optimization</span>
+  <a href="#scatter-gather-optimization" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="fused-operators"><span>Fused Operators</span>
+  <a href="#fused-operators" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="inter-node-communication-bandwidth"><span>Inter-Node Communication Bandwidth</span>
+  <a href="#inter-node-communication-bandwidth" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="checkpoint-loading-and-saving"><span>Checkpoint Loading and Saving</span>
+  <a href="#checkpoint-loading-and-saving" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>各种配置 evaluation 略</p>
 </blockquote>
-<h2 id="related-work">RELATED WORK</h2>
-</div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2025-02-26</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM" data-hashtags="Paper Reading,Deep Learning,Language Models,Training"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+<h2 class="heading-element" id="related-work"><span>RELATED WORK</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2025-02-26 22:39:12">更新于 2025-02-26&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM" data-hashtags="Paper Reading,Deep Learning,Language Models,Training"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-megatron-lm-v2/" data-title="Paper Reading: Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a>,&nbsp;<a href="../../tags/deep-learning/">Deep Learning</a>,&nbsp;<a href="../../tags/language-models/">Language Models</a>,&nbsp;<a href="../../tags/training/">Training</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-megatron-lm/" class="prev" rel="prev" title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</a>
-            <a href="../../posts/ml-sys-03/" class="next" rel="next" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a><a href="../../tags/deep-learning/" class="post-tag" title="标签 - Deep Learning">Deep Learning</a><a href="../../tags/language-models/" class="post-tag" title="标签 - Language Models">Language Models</a><a href="../../tags/training/" class="post-tag" title="标签 - Training">Training</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-megatron-lm/" class="post-nav-item" rel="prev" title="Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</a><a href="../../posts/ml-sys-03/" class="post-nav-item" rel="next" title="CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation">CMU 10-414/714: Deep Learning Systems (2020) - 深度学习系统 04 Automatic Differentiation<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#efficient-large-scale-language-model-training-on-gpu-clusters-using-megatron-lm">Efficient Large-Scale Language Model Training on GPU Clusters Using Megatron-LM</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#modes-of-parallelism">MODES OF PARALLELISM</a>
+      <ul>
+        <li><a href="#data-parallelism">Data Parallelism</a></li>
+        <li><a href="#pipeline-model-parallelism">Pipeline Model Parallelism</a></li>
+        <li><a href="#tensor-model-parallelism">Tensor Model Parallelism</a></li>
+      </ul>
+    </li>
+    <li><a href="#performance-analysis-of-parallelizati-on-configurations">PERFORMANCE ANALYSIS OF PARALLELIZATI ON CONFIGURATIONS</a>
+      <ul>
+        <li><a href="#tensor-and-pipeline-model-parallelism">Tensor and Pipeline Model Parallelism</a></li>
+        <li><a href="#data-and-model-parallelism">Data and Model Parallelism</a></li>
+        <li><a href="#microbatch-size">Microbatch Size</a></li>
+        <li><a href="#activation-recomputation">Activation Recomputation</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">IMPLEMENTATION</a></li>
+    <li><a href="#evaluation">EVALUATION</a>
+      <ul>
+        <li><a href="#end-to-end-performance">End-to-End Performance</a></li>
+        <li><a href="#comparison-to-zero-3">Comparison to ZeRO-3</a></li>
+        <li><a href="#pipeline-parallelism">Pipeline Parallelism</a></li>
+        <li><a href="#comparison-of-parallel-configurations">Comparison of Parallel Configurations</a></li>
+        <li><a href="#microbatch-size-1">Microbatch Size</a></li>
+        <li><a href="#activation-recomputation-1">Activation Recomputation</a></li>
+        <li><a href="#scatter-gather-optimization">Scatter-Gather Optimization</a></li>
+        <li><a href="#fused-operators">Fused Operators</a></li>
+        <li><a href="#inter-node-communication-bandwidth">Inter-Node Communication Bandwidth</a></li>
+        <li><a href="#checkpoint-loading-and-saving">Checkpoint Loading and Saving</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="../../lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/katex/copy-tex.min.js" defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/b4aa950deed51f833d0dd93e374a4a7e.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

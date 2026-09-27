@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>阅读笔记：编程高手必学的内存知识 01 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/memo-class-1/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>阅读笔记：编程高手必学的内存知识 01 - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看
+"><meta name="keywords" content='System, Memory'>
+	<meta itemprop="name" content="阅读笔记：编程高手必学的内存知识 01">
+	<meta itemprop="description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看">
+	<meta itemprop="datePublished" content="2024-11-07T21:08:55-05:00">
+	<meta itemprop="dateModified" content="2024-11-07T21:08:55-05:00">
+	<meta itemprop="wordCount" content="976">
+	<meta itemprop="keywords" content="System,Memory"><meta property="og:url" content="https://ad-bean.github.io/posts/memo-class-1/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="阅读笔记：编程高手必学的内存知识 01">
-	<meta property="og:description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看
-https://www.cnblogs.com/binlovetech/p/17571929.html
-为什么要从操作物理内存转向操作虚拟内存？
-保护内存，每个进程使用的内存独立、隔离 多进程，内存管理，运行更多应用 局部性 局部性原理 时间局部性：未来可能再次访问">
+	<meta property="og:description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -21,118 +26,102 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="阅读笔记：编程高手必学的内存知识 01">
-	<meta name="twitter:description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看
-https://www.cnblogs.com/binlovetech/p/17571929.html
-为什么要从操作物理内存转向操作虚拟内存？
-保护内存，每个进程使用的内存独立、隔离 多进程，内存管理，运行更多应用 局部性 局部性原理 时间局部性：未来可能再次访问">
+	<meta name="twitter:description" content="为什么可用内存会远超物理内存？ 结合一些杂七杂八的文章看看">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/memo-class-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-aifm/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-ownership/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "阅读笔记：编程高手必学的内存知识 01",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/memo-class-1\/"
-        },"genre": "posts","keywords": "System, Memory","wordcount":  954 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/memo-class-1\/","datePublished": "2024-11-07T21:08:55-05:00","dateModified": "2024-11-07T21:08:55-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/memo-class-1/" title="阅读笔记：编程高手必学的内存知识 01 - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-aifm/" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-ownership/" title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "阅读笔记：编程高手必学的内存知识 01",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/memo-class-1\/"
+    },"genre": "posts","keywords": "System, Memory","wordcount":  976 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/memo-class-1\/","datePublished": "2024-11-07T21:08:55-05:00","dateModified": "2024-11-07T21:08:55-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">阅读笔记：编程高手必学的内存知识 01</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-07">2024-11-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 954 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>阅读笔记：编程高手必学的内存知识 01</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-07 21:08:55"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-11-07">2024-11-07</time></span>&nbsp;<span title="976 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1000 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#为什么可用内存会远超物理内存">为什么可用内存会远超物理内存？</a>
       <ul>
@@ -145,10 +134,13 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
     <li><a href="#页面-swap">页面 SWAP</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="为什么可用内存会远超物理内存">为什么可用内存会远超物理内存？</h2>
-<blockquote>
+      </div><div class="content" id="content"><h2 class="heading-element" id="为什么可用内存会远超物理内存"><span>为什么可用内存会远超物理内存？</span>
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e5%8f%af%e7%94%a8%e5%86%85%e5%ad%98%e4%bc%9a%e8%bf%9c%e8%b6%85%e7%89%a9%e7%90%86%e5%86%85%e5%ad%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>结合一些杂七杂八的文章看看</p>
-<p><a href="https://www.cnblogs.com/binlovetech/p/17571929.html" target="_blank" rel="noopener noreffer ">https://www.cnblogs.com/binlovetech/p/17571929.html</a></p>
+<p><a href="https://www.cnblogs.com/binlovetech/p/17571929.html" target="_blank" rel="external nofollow noopener noreferrer">https://www.cnblogs.com/binlovetech/p/17571929.html</a></p>
 </blockquote>
 <p>为什么要从操作物理内存转向操作虚拟内存？</p>
 <ol>
@@ -156,8 +148,11 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
 <li>多进程，内存管理，运行更多应用</li>
 <li>局部性</li>
 </ol>
-<h3 id="局部性原理">局部性原理</h3>
-<p>时间局部性：未来可能再次访问</p>
+<h3 class="heading-element" id="局部性原理"><span>局部性原理</span>
+  <a href="#%e5%b1%80%e9%83%a8%e6%80%a7%e5%8e%9f%e7%90%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>时间局部性：未来可能再次访问</p>
 <p>空间局部性：内存位置可能再次访问</p>
 <p>每个进程都独享 128T 的<strong>虚拟内存空间</strong></p>
 <blockquote>
@@ -168,16 +163,22 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
 <blockquote>
 <p>虚拟内存是只有用的时候才会映射吗，所以可以任意分配？</p>
 </blockquote>
-<h3 id="虚拟内存">虚拟内存</h3>
-<p>操作系统管理虚拟内存和物理内存映射，通过页管理</p>
+<h3 class="heading-element" id="虚拟内存"><span>虚拟内存</span>
+  <a href="#%e8%99%9a%e6%8b%9f%e5%86%85%e5%ad%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>操作系统管理虚拟内存和物理内存映射，通过页管理</p>
 <p>程序 <code>malloc</code> 的时候会发生页分配，但不一定发生映射，直到需要读写的时候才会真正分配内存页面</p>
 <blockquote>
 <p>为什么是 128T 呢，因为 64 位机器，2^64 是很大的，只用了低 48 位也就是 2^48 = 256T，内核态和用户态各一半</p>
 <p>至于 32 位机器，2^32 就只有 4G 了，内核态 1G，用户态 3G 虚拟地址空间</p>
 <p>而且用户态都是低位到高位，内核从高到低</p>
 </blockquote>
-<h2 id="页表">页表</h2>
-<p>CPU 通过 MMU 内存管理单元映射虚拟内存到物理内存，通过操作系统设置页表</p>
+<h2 class="heading-element" id="页表"><span>页表</span>
+  <a href="#%e9%a1%b5%e8%a1%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>CPU 通过 MMU 内存管理单元映射虚拟内存到物理内存，通过操作系统设置页表</p>
 <p>页表是由 PTE 页表项组成的数组，虚拟空间每个地址每个页都有 PTE 对应</p>
 <p>PTE 也有一些 metadata，比如页面读写权限，是否存在的有效位、脏位等等</p>
 <blockquote>
@@ -189,8 +190,11 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
 <blockquote>
 <p>多级页表，64 位处理器上有更多级的页表</p>
 </blockquote>
-<h2 id="cpu---真实地址">CPU - 真实地址</h2>
-<p>给定虚拟地址，如何映射到物理地址？</p>
+<h2 class="heading-element" id="cpu---真实地址"><span>CPU - 真实地址</span>
+  <a href="#cpu---%e7%9c%9f%e5%ae%9e%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>给定虚拟地址，如何映射到物理地址？</p>
 <ol>
 <li>
 <p>CPU - 寄存器 (页目录基址寄存器 CR3): 确定页目录地址（最高级页表基地址），在 MMU 找到存储着虚拟地址到物理地址转换页表项</p>
@@ -227,48 +231,64 @@ https://www.cnblogs.com/binlovetech/p/17571929.html
           v
 +---------------------+
 |   Physical Address  |  物理地址 (Physical Address)
-+---------------------+
-</code></pre><h2 id="页面-swap">页面 SWAP</h2>
-<p>不经常使用的页面，会被换出内存，存在硬盘 swap 区域，提供给新的虚拟内存</p>
++---------------------+</code></pre><h2 class="heading-element" id="页面-swap"><span>页面 SWAP</span>
+  <a href="#%e9%a1%b5%e9%9d%a2-swap" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>不经常使用的页面，会被换出内存，存在硬盘 swap 区域，提供给新的虚拟内存</p>
 <blockquote>
 <p>页面调度算法如何实现？</p>
 <p>FIFO? 还是 RR? 有什么区别?</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-11-07</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01" data-hashtags="System,Memory"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-hashtag="System"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-11-07 21:08:55">更新于 2024-11-07&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01" data-hashtags="System,Memory"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-hashtag="System"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/memo-class-1/" data-title="阅读笔记：编程高手必学的内存知识 01"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/system/">System</a>,&nbsp;<a href="../../tags/memory/">Memory</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-aifm/" class="prev" rel="prev" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</a>
-            <a href="../../posts/paper-ownership/" class="next" rel="next" title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks">Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/system/" class="post-tag" title="标签 - System">System</a><a href="../../tags/memory/" class="post-tag" title="标签 - Memory">Memory</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-aifm/" class="post-nav-item" rel="prev" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</a><a href="../../posts/paper-ownership/" class="post-nav-item" rel="next" title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks">Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#为什么可用内存会远超物理内存">为什么可用内存会远超物理内存？</a>
+      <ul>
+        <li><a href="#局部性原理">局部性原理</a></li>
+        <li><a href="#虚拟内存">虚拟内存</a></li>
+      </ul>
+    </li>
+    <li><a href="#页表">页表</a></li>
+    <li><a href="#cpu---真实地址">CPU - 真实地址</a></li>
+    <li><a href="#页面-swap">页面 SWAP</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/33104919c2783e55ee7b4fcd2c5774a1.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

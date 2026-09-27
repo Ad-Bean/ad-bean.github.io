@@ -1,84 +1,86 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Learned Data Systems on Adbean&#39;s Blog</title>
-		<link>https://ad-bean.github.io/categories/learned-data-systems/</link>
-		<description>Recent content in Learned Data Systems on Adbean&#39;s Blog</description>
-		<generator>Hugo</generator>
-		<language>zh-CN</language>
-		
-			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-		
-		
-			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
-		
-		
-		
-			<lastBuildDate>Sun, 14 Apr 2024 14:19:15 -0400</lastBuildDate>
-		
-			<atom:link href="https://ad-bean.github.io/categories/learned-data-systems/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
-				<link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
-				<pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
-				<description>&lt;h2 id=&#34;catsql-towards-real-world-natural-language-to-sql-applications&#34;&gt;CatSQL: Towards Real World Natural Language to SQL Applications&lt;/h2&gt;&#xA;&lt;p&gt;NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;rule-based 或者 Deep Learning 方法，要么无法通用，或者存在语法/语义错误/无法执行。&lt;/p&gt;&#xA;&lt;p&gt;本文提出的新框架，注重 Accuracy 和 runtime，提出了 novel CatSQL sketch, which constructs a template with slots that initially serve as placeholders, and tightly integrates with a &lt;strong&gt;deep learning model&lt;/strong&gt; to fill in these slots with meaningful contents based on the database schema&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
-				<link>https://ad-bean.github.io/posts/learned-sorting/</link>
-				<pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
-				<description>&lt;h2 id=&#34;the-case-for-a-learned-sorting-algorithm&#34;&gt;The Case for a Learned Sorting Algorithm&lt;/h2&gt;&#xA;&lt;p&gt;除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？&lt;/p&gt;&#xA;&lt;p&gt;论文作者中的 Tim Kraska 以及其团队，是 SageDB, Bao: Learned Query Optimization, Neo 的作者，此外还有 FITing-Tree 索引结构。&lt;/p&gt;&#xA;&lt;p&gt;看了一下 Tim 除了在 MIT 当 AP，还在一家叫 Einblick 的公司创业（看了下好像是 text2SQL 类型的，应该已经被 Databricks 收购了），然后在 Amazon 研究 Data Science 和 AI 的结合？最近也有一些比如 2023 的 BRAD: simplifying cloud data processing with learned automated data meshes 和之前看的 SEED: Domain-specific data curation with large language models 也是 Tim 团队的，他们做了很多 AI 与数据库、数据、数据结构、数据处理结合的事情。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
-				<link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
-				<pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
-				<description>&lt;h2 id=&#34;an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34;&gt;An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems&lt;/h2&gt;&#xA;&lt;p&gt;CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;Modern database management systems (DBMS) expose dozens of &lt;strong&gt;configurable knobs&lt;/strong&gt; that control their runtime behavior&lt;/p&gt;&#xA;&lt;p&gt;与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有&lt;strong&gt;有限调优机会&lt;/strong&gt;的&lt;strong&gt;合成&lt;/strong&gt;工作负载上进行评估的，因此尚不清楚它们是否在&lt;strong&gt;生产环境&lt;/strong&gt;中提供相同的好处&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</title>
-				<link>https://ad-bean.github.io/posts/mb2-self-driving-db/</link>
-				<pubDate>Fri, 05 Apr 2024 09:50:55 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/mb2-self-driving-db/</guid>
-				<description>&lt;h2 id=&#34;mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34;&gt;MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems&lt;/h2&gt;&#xA;&lt;p&gt;self-driving database management systems&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;Database management systems (DBMSs) are notoriously difficult to deploy and administer.&lt;strong&gt;self-driving DBMS&lt;/strong&gt; is to remove these impediments by &lt;strong&gt;managing itself automatically&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;predict the DBMS’s runtime behavior and resource consumption.&lt;/p&gt;&#xA;&lt;p&gt;ModelBot2 e2e framework for constructing and maintaining prediction models using &lt;strong&gt;machine learning&lt;/strong&gt; (ML) in self-driving DBMSs.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;decomposes a DBMS’s architecture into fine-grained operating units that make it easier to &lt;strong&gt;estimate the system’s behavior&lt;/strong&gt; for configurations&lt;/li&gt;&#xA;&lt;li&gt;ModelBot2 then provides an offline execution environment to exercise the system to produce the training data used to train its models.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;We integrated ModelBot2 in an in-memory DBMS and measured its ability to predict its performance for OLTP and OLAP workloads running in dynamic environments. We also compare ModelBot2 against state-of-the-art ML models and show that our models are up to 25×more accurate in multiple scenarios&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</title>
-				<link>https://ad-bean.github.io/posts/bao-learned-query-opt/</link>
-				<pubDate>Sun, 17 Mar 2024 00:14:24 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/bao-learned-query-opt/</guid>
-				<description>&lt;h2 id=&#34;bao-making-learned-query-optimization-practical&#34;&gt;Bao: Making Learned Query Optimization Practical&lt;/h2&gt;&#xA;&lt;p&gt;MLDB + query optimization&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.&lt;/p&gt;&#xA;&lt;p&gt;论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</title>
-				<link>https://ad-bean.github.io/posts/zero-shot-learned/</link>
-				<pubDate>Sat, 16 Mar 2024 09:58:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/zero-shot-learned/</guid>
-				<description>&lt;h2 id=&#34;zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34;&gt;Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]&lt;/h2&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box &lt;strong&gt;without expensive training data collection&lt;/strong&gt;。为了 zero-shot cost models，本文提出 a new learning paradigm based on &lt;strong&gt;pre-trained cost models&lt;/strong&gt;。As core contributions to support the transfer of such a &lt;strong&gt;pre-trained cost model&lt;/strong&gt; to &lt;strong&gt;unseen databases&lt;/strong&gt;, we introduce a new model architecture and &lt;strong&gt;representation technique for encoding query workloads as input&lt;/strong&gt; to those models. As we will show in our evaluation, zero-shot cost estimation can &lt;strong&gt;provide more accurate cost estimates&lt;/strong&gt; than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on &lt;strong&gt;unseen databases&lt;/strong&gt;. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</title>
-				<link>https://ad-bean.github.io/posts/spade-paper/</link>
-				<pubDate>Fri, 01 Mar 2024 20:26:39 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/spade-paper/</guid>
-				<description>&lt;h2 id=&#34;spade-synthesizing-assertions-for-large-language-model-pipelines&#34;&gt;SPADE: Synthesizing Assertions for Large Language Model Pipelines&lt;/h2&gt;&#xA;&lt;p&gt;Synthesizing Assertions&lt;/p&gt;&#xA;&lt;p&gt;Pipelines&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;合成断言、流水线&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;将大型语言模型（LLM）用于定制、重复数据 pipeline 的操作具有挑战性，特别是由于其&lt;strong&gt;不可预测和潜在的灾难性故障&lt;/strong&gt;。认识到这些错误的不可避免性，我们将重点放在识别 LLM 在作为数据生成 pipeline 的一部分重复使用时可能&lt;strong&gt;生成错误响应&lt;/strong&gt;的情况。我们提出了 spade，一种自动合成断言的方法，可以识别不良的 LLM 输出。SPADE 分析提示版本历史，&lt;strong&gt;创建候选断言函数&lt;/strong&gt;，然后&lt;strong&gt;选择满足覆盖率和准确性要求的最小集合&lt;/strong&gt;。在对九种不同的实际 LLM pipeline 进行测试时，与简单的基线相比，spade 有效地&lt;strong&gt;减少了 14% 的断言数量&lt;/strong&gt;，并将&lt;strong&gt;错误失败率降低了 21%。&lt;/strong&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</title>
-				<link>https://ad-bean.github.io/posts/seed-paper/</link>
-				<pubDate>Fri, 01 Mar 2024 10:42:53 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/seed-paper/</guid>
-				<description>&lt;h2 id=&#34;seed-domain-specific-data-curation-with-large-language-models&#34;&gt;SEED: Domain-Specific Data Curation With Large Language Models&lt;/h2&gt;&#xA;&lt;p&gt;使用大型语言模型的 领域特定 数据管理&lt;/p&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;ABSTRACT&lt;/h2&gt;&#xA;&lt;p&gt;准备分析数据的数据管理任务 Data Curation 对于将数据转换为可行的见解至关重要。但是，由于不同域中的应用程序的不同要求，通用的现成工具通常不足。结果，数据科学家通常必须开发针对数据集和任务量身定制的特定领域 domain-specific 解决方案，例如在足够数量的带注释的示例上编写特定于域的代码或培训机器学习模型。众所周知，这个过程很困难且耗时。我们提出了 SEED ，这是一种 LLM-as-compiler 方法，该方法自动通过大语言模型（LLMS）自动生成特定于域的数据策划解决方案。用户描述了一个任务，输入数据和预期的量后，SEED compiler 编译器就会生产由 LLM 生成的代码，小型模型和数据访问模块组成的可执行管道。SEED 使用这些生成的模块来处理大部分数据记录，并动态决定 LLM 何时应该介入直接处理一些单独的记录，可能使用数据访问模块从数据源检索相关信息，以协助 LLM 解决任务。为了验证这种新的、革命性的方法，我们在跨越 5 个数据管理任务的 9 个数据集上进行了实验。结果表明，SEED 生成的特定领域的解决方案显著优于它们的通用对应方案，通常接近使用数千个标记训练示例的手动管理解决方案的性能。此外，与在每个数据记录上使用 LLM 的解决方案相比，SEED 实现了最先进的或相当少的性能，&lt;strong&gt;同时显着减少了 LLM 调用的数量&lt;/strong&gt;&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</title>
-				<link>https://ad-bean.github.io/posts/llm-capability/</link>
-				<pubDate>Sun, 04 Feb 2024 12:38:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/posts/llm-capability/</guid>
-				<description>&lt;h2 id=&#34;db-bert-a-databse-tuning-tool-that-reads-the-manual&#34;&gt;DB-BERT: a databse tuning tool that reads the manual&lt;/h2&gt;&#xA;&lt;p&gt;DB-BERT，一个读了手册的数据库调优工具&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2112.10925.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;https://arxiv.org/pdf/2112.10925.pdf&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;abstract&#34;&gt;Abstract&lt;/h2&gt;&#xA;&lt;p&gt;DB-BERT 是一种&lt;strong&gt;数据库调优工具&lt;/strong&gt;，可利用通过对手册和其他相关文本文档进行&lt;strong&gt;自然语言分析&lt;/strong&gt;而获得的信息。它利用文本来识别需要调整的数据库系统参数以及推荐的参数值。DB-BERT 应用预先训练好的大型语言模型（特别是 &lt;strong&gt;BERT 模型&lt;/strong&gt;）进行文本分析。在初始训练阶段，它会&lt;strong&gt;微调模型权重&lt;/strong&gt;，以便将自然语言提示转化为推荐设置。在运行时，DB-BERT 会学习汇总、调整和优先处理提示，以&lt;strong&gt;实现特定数据库系统和基准的最佳性能&lt;/strong&gt;。这两个阶段都是&lt;strong&gt;迭代式&lt;/strong&gt;的，并使用&lt;strong&gt;强化学习&lt;/strong&gt;来指导选择要评估的调整设置（惩罚数据库系统拒绝接受的设置，同时奖励提高性能的设置）。在实验中，我们利用数百篇有关数据基础调整的文本文档作为 DB-BERT 的输入。我们将 DB-BERT 与不同的基准（TPC-C 和 TPC-H）、指标（吞吐量和运行时间）以及数据库系统（Postgres 和 MySQL）进行了比较。在所有情况下，DB-BERT 都能在所有比较方法中找到&lt;strong&gt;最佳参数设置&lt;/strong&gt;。源码：https://itrummer.github.io/dbbert/&lt;/p&gt;</description>
-			</item>
-	</channel>
+  <channel>
+    <title>Learned Data Systems - 分类 - Adbean&#39;s Blog</title>
+    <link>https://ad-bean.github.io/categories/learned-data-systems/</link>
+    <description>Adbean&#39;s Blog</description>
+    <generator>Hugo 0.166.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+    <webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+    <lastBuildDate>Sun, 14 Apr 2024 14:19:15 -0400</lastBuildDate>
+    <atom:link href="https://ad-bean.github.io/categories/learned-data-systems/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Paper Reading: CatSQL: Towards Real World Natural Language to SQL Applications [VLDB 23]</title>
+      <link>https://ad-bean.github.io/posts/catsql-nlsql/</link>
+      <pubDate>Sun, 14 Apr 2024 14:19:15 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/catsql-nlsql/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;catsql-towards-real-world-natural-language-to-sql-applications&#34;&gt;&lt;span&gt;CatSQL: Towards Real World Natural Language to SQL Applications&lt;/span&gt;&#xA;  &lt;a href=&#34;#catsql-towards-real-world-natural-language-to-sql-applications&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;NL2SQL, text to SQL 是很有趣的方向。有 DL 方法也有现在的 LLM 微调。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]</title>
+      <link>https://ad-bean.github.io/posts/learned-sorting/</link>
+      <pubDate>Fri, 12 Apr 2024 20:27:34 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/learned-sorting/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;the-case-for-a-learned-sorting-algorithm&#34;&gt;&lt;span&gt;The Case for a Learned Sorting Algorithm&lt;/span&gt;&#xA;  &lt;a href=&#34;#the-case-for-a-learned-sorting-algorithm&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;除了 Query Optimization, Index, Tunning, ML 还可以用在 Database 其他方面，比如排序？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</title>
+      <link>https://ad-bean.github.io/posts/ml-based-autotunning/</link>
+      <pubDate>Sun, 07 Apr 2024 14:22:23 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/ml-based-autotunning/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34;&gt;&lt;span&gt;An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</title>
+      <link>https://ad-bean.github.io/posts/mb2-self-driving-db/</link>
+      <pubDate>Fri, 05 Apr 2024 09:50:55 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/mb2-self-driving-db/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34;&gt;&lt;span&gt;MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems&lt;/span&gt;&#xA;  &lt;a href=&#34;#mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;self-driving database management systems&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</title>
+      <link>https://ad-bean.github.io/posts/bao-learned-query-opt/</link>
+      <pubDate>Sun, 17 Mar 2024 00:14:24 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/bao-learned-query-opt/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;bao-making-learned-query-optimization-practical&#34;&gt;&lt;span&gt;Bao: Making Learned Query Optimization Practical&lt;/span&gt;&#xA;  &lt;a href=&#34;#bao-making-learned-query-optimization-practical&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;MLDB + query optimization&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</title>
+      <link>https://ad-bean.github.io/posts/zero-shot-learned/</link>
+      <pubDate>Sat, 16 Mar 2024 09:58:30 -0400</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/zero-shot-learned/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34;&gt;&lt;span&gt;Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]&lt;/span&gt;&#xA;  &lt;a href=&#34;#zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h2 class=&#34;heading-element&#34; id=&#34;abstract&#34;&gt;&lt;span&gt;Abstract&lt;/span&gt;&#xA;  &lt;a href=&#34;#abstract&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box &lt;strong&gt;without expensive training data collection&lt;/strong&gt;。为了 zero-shot cost models，本文提出 a new learning paradigm based on &lt;strong&gt;pre-trained cost models&lt;/strong&gt;。As core contributions to support the transfer of such a &lt;strong&gt;pre-trained cost model&lt;/strong&gt; to &lt;strong&gt;unseen databases&lt;/strong&gt;, we introduce a new model architecture and &lt;strong&gt;representation technique for encoding query workloads as input&lt;/strong&gt; to those models. As we will show in our evaluation, zero-shot cost estimation can &lt;strong&gt;provide more accurate cost estimates&lt;/strong&gt; than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on &lt;strong&gt;unseen databases&lt;/strong&gt;. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</title>
+      <link>https://ad-bean.github.io/posts/spade-paper/</link>
+      <pubDate>Fri, 01 Mar 2024 20:26:39 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/spade-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;spade-synthesizing-assertions-for-large-language-model-pipelines&#34;&gt;&lt;span&gt;SPADE: Synthesizing Assertions for Large Language Model Pipelines&lt;/span&gt;&#xA;  &lt;a href=&#34;#spade-synthesizing-assertions-for-large-language-model-pipelines&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Synthesizing Assertions&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: SEED Domain-Specific Data Curation With Large Language Models</title>
+      <link>https://ad-bean.github.io/posts/seed-paper/</link>
+      <pubDate>Fri, 01 Mar 2024 10:42:53 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/seed-paper/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;seed-domain-specific-data-curation-with-large-language-models&#34;&gt;&lt;span&gt;SEED: Domain-Specific Data Curation With Large Language Models&lt;/span&gt;&#xA;  &lt;a href=&#34;#seed-domain-specific-data-curation-with-large-language-models&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;使用大型语言模型的 领域特定 数据管理&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paper Reading: DB-BERT: a Database Tuning Tool that “Reads the Manual”</title>
+      <link>https://ad-bean.github.io/posts/llm-capability/</link>
+      <pubDate>Sun, 04 Feb 2024 12:38:04 -0500</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/posts/llm-capability/</guid>
+      <category domain="https://ad-bean.github.io/categories/learned-data-systems/">Learned Data Systems</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;db-bert-a-databse-tuning-tool-that-reads-the-manual&#34;&gt;&lt;span&gt;DB-BERT: a databse tuning tool that reads the manual&lt;/span&gt;&#xA;  &lt;a href=&#34;#db-bert-a-databse-tuning-tool-that-reads-the-manual&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;DB-BERT，一个读了手册的数据库调优工具&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

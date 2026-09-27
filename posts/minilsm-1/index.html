@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Mini-LSM Week 1 Day1 - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/minilsm-1/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Mini-LSM Week 1 Day1 - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/
+"><meta name="keywords" content='Database, LSM'>
+	<meta itemprop="name" content="Mini-LSM Week 1 Day1">
+	<meta itemprop="description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/">
+	<meta itemprop="datePublished" content="2024-03-22T14:04:33-04:00">
+	<meta itemprop="dateModified" content="2024-03-22T14:04:33-04:00">
+	<meta itemprop="wordCount" content="4515">
+	<meta itemprop="keywords" content="Database,LSM"><meta property="og:url" content="https://ad-bean.github.io/posts/minilsm-1/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Mini-LSM Week 1 Day1">
-	<meta property="og:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/
-前言 使用 Rust 实现 LSM-Tree 存储结构
-什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。">
+	<meta property="og:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -20,117 +26,102 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Mini-LSM Week 1 Day1">
-	<meta name="twitter:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/
-前言 使用 Rust 实现 LSM-Tree 存储结构
-什么是 LSM，为什么 LSM LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。">
+	<meta name="twitter:description" content="Mini-LSM Week 1 Day1 记录下 LSM 的学习过程，感谢迟先生的教程 https://skyzh.github.io/mini-lsm/">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/minilsm-1/" /><link rel="prev" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" /><link rel="next" href="https://ad-bean.github.io/posts/minilsm-2/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Mini-LSM Week 1 Day1",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/minilsm-1\/"
-        },"genre": "posts","keywords": "Database, LSM","wordcount":  4516 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/minilsm-1\/","datePublished": "2024-03-22T14:04:33-04:00","dateModified": "2024-03-22T14:04:33-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/minilsm-1/" title="Mini-LSM Week 1 Day1 - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/minilsm-2/" title="Mini-LSM Week 1 Day2" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Mini-LSM Week 1 Day1",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/minilsm-1\/"
+    },"genre": "posts","keywords": "Database, LSM","wordcount":  4515 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/minilsm-1\/","datePublished": "2024-03-22T14:04:33-04:00","dateModified": "2024-03-22T14:04:33-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mini-LSM Week 1 Day1</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-22">2024-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4516 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Mini-LSM Week 1 Day1</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/database/" class="post-category" title="分类 - Database"><i class="fa-regular fa-folder" aria-hidden="true"></i> Database</a></span></div><div class="post-meta-line"><span title="发布于 2024-03-22 14:04:33"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-03-22">2024-03-22</time></span>&nbsp;<span title="4515 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 4600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#mini-lsm-week-1-day1">Mini-LSM Week 1 Day1</a></li>
     <li><a href="#前言">前言</a>
@@ -161,40 +152,54 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="mini-lsm-week-1-day1">Mini-LSM Week 1 Day1</h2>
-<p>记录下 LSM 的学习过程，感谢迟先生的教程 <a href="https://skyzh.github.io/mini-lsm/" target="_blank" rel="noopener noreffer ">https://skyzh.github.io/mini-lsm/</a></p>
-<h2 id="前言">前言</h2>
-<p>使用 Rust 实现 LSM-Tree 存储结构</p>
-<h3 id="什么是-lsm为什么-lsm">什么是 LSM，为什么 LSM</h3>
-<p>LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="mini-lsm-week-1-day1"><span>Mini-LSM Week 1 Day1</span>
+  <a href="#mini-lsm-week-1-day1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>记录下 LSM 的学习过程，感谢迟先生的教程 <a href="https://skyzh.github.io/mini-lsm/" target="_blank" rel="external nofollow noopener noreferrer">https://skyzh.github.io/mini-lsm/</a></p>
+<h2 class="heading-element" id="前言"><span>前言</span>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>使用 Rust 实现 LSM-Tree 存储结构</p>
+<h3 class="heading-element" id="什么是-lsm为什么-lsm"><span>什么是 LSM，为什么 LSM</span>
+  <a href="#%e4%bb%80%e4%b9%88%e6%98%af-lsm%e4%b8%ba%e4%bb%80%e4%b9%88-lsm" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>LSM, Log-structured merge trees, 是一种维护 key-value 对的数据结构。这种数据结构广泛用于分布式数据库（TiDB， CockroachDB）及其存储引擎。RocksDB 基于 LevelDB 实现了 LSM-Tree 存储引擎。LSM 提供许多 key-value 访问函数，并且被用于许多生产系统。</p>
 <p>LSM Tree 属于 append-friendly 添加友好的数据结构。将 LSM 与 B-Tree 或 RB-Tree 等 key-value 数据结构比较。对于后者，所有数据都在原地操作，比如你想要更新 key 对应的 value，存储引擎会用新值直接覆盖原有的值（内存或硬盘）。而在 LSM-Tree 中，所有写操作 (比如 insert, update, delete) 会 lazily 懒地应用到存储中，存储引擎批量地将这些操作分成 SST (sorted string table) 文件并且写入磁盘。一旦被写入到磁盘，存储引擎不会直接修改它们。而是在 compaction 后台任务中，存储引擎会合并这些文件，应用这些更新或删除。</p>
 <p>这个架构设计使得 LSM-Tree 易于使用：</p>
 <ol>
 <li>数据在存储中是不可变的 immutable。并发控制更加直观。将后台任务（compaction）卸载? (offload) 到远程服务器是可行的。在云原生存储系统比如 S3 存储或提供数据也变得可行。</li>
 <li>改变 compaction 算法允许存储引擎在读放大、写放大、空间放大之间取得平衡。LSM-Tree 是多功能的，通过调整 compaction 参数，可以优化 LSM 数据结构在不同工作负载中的表现。</li>
 </ol>
-<h3 id="前提条件">前提条件</h3>
-<ul>
+<h3 class="heading-element" id="前提条件"><span>前提条件</span>
+  <a href="#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
 <li>Rust</li>
-<li>key-value store engine (<a href="https://github.com/pingcap/talent-plan/tree/master/courses/rust/projects/project-2" target="_blank" rel="noopener noreffer ">PingCap Bitcask 项目</a>)</li>
+<li>key-value store engine (<a href="https://github.com/pingcap/talent-plan/tree/master/courses/rust/projects/project-2" target="_blank" rel="external nofollow noopener noreferrer">PingCap Bitcask 项目</a>)</li>
 <li>LevelDB 一些概念能帮助理解 可变和不可变 mem-table, SST, compaction, WAL 等等。</li>
 </ul>
-<h3 id="期望">期望</h3>
-<p>学习了解基于 LSM-Tree 的存储引擎是如何工作的，尤其是从各种 tradeoffs 权衡中寻找最优的、符合你的工作负载的需求或目标。</p>
-<h2 id="总览">总览</h2>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png"
-        data-srcset="https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png, https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png 1.5x, https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png"
-        title="LSM-Tree" /></p>
+<h3 class="heading-element" id="期望"><span>期望</span>
+  <a href="#%e6%9c%9f%e6%9c%9b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>学习了解基于 LSM-Tree 的存储引擎是如何工作的，尤其是从各种 tradeoffs 权衡中寻找最优的、符合你的工作负载的需求或目标。</p>
+<h2 class="heading-element" id="总览"><span>总览</span>
+  <a href="#%e6%80%bb%e8%a7%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src='https://s2.loli.net/2024/03/15/lmvd4PQyrZazuKc.png' alt="LSM-Tree"></p>
 <p>第一部分主要研究 LSM Tree 的存储结构和存储格式。</p>
 <p>第二部分主要关于 compaction 和实现持久化。</p>
 <p>第三部分实现 MVCC 多版本控制。</p>
-<h3 id="lsm">LSM</h3>
-<p>LSM 存储大致含有三部分：</p>
+<h3 class="heading-element" id="lsm"><span>LSM</span>
+  <a href="#lsm" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>LSM 存储大致含有三部分：</p>
 <ol>
 <li>Write-Ahead Log 用于持久化数据（Recovery）</li>
 <li>SSTs 在磁盘用于维护 LSM-Tree 结构</li>
@@ -213,15 +218,11 @@
 </ul>
 <p>一些引擎会结合 <code>Put</code> 和 <code>Delete</code> 成为一个操作 <code>WriteBatch</code>，接受一批键值对。</p>
 <p>MiniLSM 教程假设 LSM 使用 leveled compaction，是广泛使用的。</p>
-<h3 id="写路径">写路径</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png"
-        data-srcset="https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png, https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png 1.5x, https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png"
-        title="https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png" /></p>
+<h3 class="heading-element" id="写路径"><span>写路径</span>
+  <a href="#%e5%86%99%e8%b7%af%e5%be%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png' alt="https://s2.loli.net/2024/03/15/VwoSxREh23zgaMe.png"></p>
 <p>写操作包含四步：</p>
 <ol>
 <li>在 WAL 写入键值对，在引擎 crash 时可以 recovery</li>
@@ -229,40 +230,38 @@
 <li>(后台) 当 memtable 满时，freeze 它们成为 immutable mem-tables 然后 flush 到硬盘成为 SST files</li>
 <li>(后台) 引擎 compact 这些文件，按 levels 到一些低层的，维护一个好的 LSM 结构，减少读放大</li>
 </ol>
-<h3 id="读路径">读路径</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png"
-        data-srcset="https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png, https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png 1.5x, https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png"
-        title="https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png" /></p>
+<h3 class="heading-element" id="读路径"><span>读路径</span>
+  <a href="#%e8%af%bb%e8%b7%af%e5%be%84" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png' alt="https://s2.loli.net/2024/03/15/v9wUOk3GJElqXVH.png"></p>
 <p>当需要读一个 key 时</p>
 <ol>
 <li>probe 所有的 mem-tables，从最近的到最旧的</li>
 <li>如果 key 没找到，就搜索整个 LSM tree 包括 SSTs，直到找到这个数据</li>
 </ol>
 <p>有两种读操作：lookup 和 scan，lookup 找到一个 key，scan 在一个范围里找到所有的 keys。</p>
-<h2 id="minilsm">MiniLSM</h2>
-<p>第一章需要构建必要的存储格式、读路径、写路径，以及一个基于 LSM 的 key-value store。</p>
-<h3 id="mem-table">Mem-Table</h3>
-<p>in-memory 的读写路径</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png"
-        data-srcset="https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png, https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png 1.5x, https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png"
-        title="https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png" /></p>
+<h2 class="heading-element" id="minilsm"><span>MiniLSM</span>
+  <a href="#minilsm" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>第一章需要构建必要的存储格式、读路径、写路径，以及一个基于 LSM 的 key-value store。</p>
+<h3 class="heading-element" id="mem-table"><span>Mem-Table</span>
+  <a href="#mem-table" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>in-memory 的读写路径</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png' alt="https://s2.loli.net/2024/03/15/ybQxUzwYIpS6fju.png"></p>
 <ul>
 <li>基于 skiplist 实现 memtables</li>
 <li>实现 freezing memtable 的逻辑</li>
 <li>实现 LSM 的 memtable 读路径 <code>get</code></li>
 </ul>
-<h3 id="task1-skiplist-memtable">Task1: SkipList Memtable</h3>
-<p><code>src/mem_table.rs</code> 基于 <a href="https://docs.rs/crossbeam-skiplist/latest/crossbeam_skiplist/" target="_blank" rel="noopener noreffer ">crossbeam_skiplist</a> 跳表，支持 lock-free 并发读写。跳表是一个允许<strong>并发读写</strong>的有序 key-value map。</p>
+<h3 class="heading-element" id="task1-skiplist-memtable"><span>Task1: SkipList Memtable</span>
+  <a href="#task1-skiplist-memtable" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>src/mem_table.rs</code> 基于 <a href="https://docs.rs/crossbeam-skiplist/latest/crossbeam_skiplist/" target="_blank" rel="external nofollow noopener noreferrer">crossbeam_skiplist</a> 跳表，支持 lock-free 并发读写。跳表是一个允许<strong>并发读写</strong>的有序 key-value map。</p>
 <p>crossbeam-skiplist 提供了与 Rust std <code>BTreeMap</code> 类似的接口：insert, get 和 iter。区别在于修改的接口比如 insert 需要一个 <strong>immutable reference</strong> 到 skiplist 而不是一个 mutable。实现不应该使用任何 mutex 锁。</p>
 <p><code>MemTable</code> 结构没有 <code>delete</code> 接口，在 mini-lsm 项目中，deletion 可以用 key 和 empty value 表示。</p>
 <p>Task1 需要实现 <code>MemTable::get</code> 和 <code>MemTable::put</code> 使得可以修改 memtable</p>
@@ -275,8 +274,11 @@
 <p>每个位于第 i 层的节点有 p 的概率出现在第 i+1 层</p>
 <p>查找、删除、增加的简单实现：https://leetcode.cn/problems/design-skiplist/</p>
 </blockquote>
-<h3 id="task1-solution">Task1 Solution</h3>
-<p>在 <code>src/mem_table.rs</code> 中实现 <code>impl Memtable</code> 中的</p>
+<h3 class="heading-element" id="task1-solution"><span>Task1 Solution</span>
+  <a href="#task1-solution" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 <code>src/mem_table.rs</code> 中实现 <code>impl Memtable</code> 中的</p>
 <ul>
 <li><code>pub fn get(&amp;self, key: &amp;[u8]) -&gt; Option&lt;Bytes&gt; {}</code> 函数</li>
 <li><code>pub fn put(&amp;self, key: &amp;[u8], value: &amp;[u8]) -&gt; Result&lt;()&gt; {}</code> 函数</li>
@@ -293,35 +295,35 @@
 <li>
 <p>首先实现 <code>Memtable::get</code> ，从跳表中获取数据，但 <code>key: &amp;[u8]</code> 是一个切片比如 <code>b&quot;key1&quot;</code>。</p>
 <p>实现方法：使用 <code>self.map.get(key)</code> 获取相应的 value，由于 <code>map.get()</code> 的返回值是 <code>Option&lt;Entry&lt;'_, K, V&gt;&gt;</code>，需要将其转成 <code>Bytes</code>，所以使用 <code>map.get(key).map(|v| v.value())</code> 但此时 <code>v</code> 的类型是 <code>Option&lt;&amp;bytes::Bytes&gt;</code> 还需要转换，可以使用 <code>clone()</code> 将结果转成函数返回类型的 <code>Option&lt;Bytes&gt;</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">v</span><span class="o">|</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">clone</span><span class="p">())</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// v: Entry&lt;&#39;_, Bytes, Bytes&gt;
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div></li>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div></li>
 <li>
 <p>再实现 <code>Memtable::put</code>，存入 <code>key: &amp;[u8]</code> 和 <code>value: &amp;[u8]</code> 并且返回 <code>Result&lt;()&gt;</code>。由于 task1 不需要关心跳表的实现，也不需要关心 WAL 日志，直接使用 <code>self.map.insert()</code>。但是该函数的签名是 <code>insert(&amp;self, key: K, value: V) -&gt; Entry&lt;'_, K, V&gt;</code>，此时 K 和 V 都是 <code>Bytes</code> 所以需要将 <code>key</code> 和 <code>value</code> 转换成 <code>Bytes</code> (使用 bytes 库提供的 <code>Bytes::copy_from_slice</code> 方法。)</p>
 <p>然后将 <code>insert()</code> 的返回值转成 <code>Result&lt;()&gt;</code> （这里参照其他函数直接返回 <code>OK(())</code>）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">key</span><span class="p">),</span><span class="w"> </span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">value</span><span class="p">));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="nb">Ok</span><span class="p">(())</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div></li>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div></li>
 </ol>
 <p>实现 <code>MemTable::create</code> 后，可以通过 <code>mini-lsm-starter tests::week1_day1::test_task1_memtable_overwrite</code> 和 <code>mini-lsm-starter tests::week1_day1::test_task1_memtable_get</code> 两个测试</p>
-<h3 id="task2-a-single-memtable-in-the-engine">Task2: A Single Memtable in the Engine</h3>
-<p>Task2 需要修改 <code>src/lsm_storage.rs</code>，将 <code>Memtable</code> 加入到 <code>LSM State</code> 中。</p>
+<h3 class="heading-element" id="task2-a-single-memtable-in-the-engine"><span>Task2: A Single Memtable in the Engine</span>
+  <a href="#task2-a-single-memtable-in-the-engine" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Task2 需要修改 <code>src/lsm_storage.rs</code>，将 <code>Memtable</code> 加入到 <code>LSM State</code> 中。</p>
 <p>在 <code>LsmStorageState::create</code> 中根据不同的 <code>compaction_options</code> 创建了一个 LSM 结构 <code>memtable, imm_memtable, l0_sstables, levels, sstables</code>。</p>
 <p>默认情况下 <code>memtable: Arc::new(MemTable::create(0))</code> 创建了一个 id 为 0 的 <code>mutable memtable</code>。任何时间，引擎只会有一个 <code>mutable memtable</code>，通常有个大小限制（比如 256MB），并且当存满后会被 frozen 变成 immutable memtable</p>
 <p>在 <code>lsm_storage.rs</code> 文件中，有两个结构表示了存储引擎：<code>MiniLSM</code> 和 <code>LsmStorageInner</code>，前者是一个 thin wrapper:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MiniLsm</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">MiniLsm</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="p">(</span><span class="k">crate</span><span class="p">)</span><span class="w"> </span><span class="n">inner</span>: <span class="nc">Arc</span><span class="o">&lt;</span><span class="n">LsmStorageInner</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">flush_notifier</span>: <span class="nc">crossbeam_channel</span>::<span class="n">Sender</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">flush_thread</span>: <span class="nc">Mutex</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">JoinHandle</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">compaction_notifier</span>: <span class="nc">crossbeam_channel</span>::<span class="n">Sender</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">compaction_thread</span>: <span class="nc">Mutex</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">JoinHandle</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>需要实现的方法大部分在 <code>LsmStorageInner</code> 直到 Week2 Compaction，这个结构包含了当前的 LSM storage engine 结构。Week 1 只用到 <code>memtable</code> 结构，并且是 <strong>mutable memtable</strong>。</p>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>需要实现的方法大部分在 <code>LsmStorageInner</code> 直到 Week2 Compaction，这个结构包含了当前的 LSM storage engine 结构。Week 1 只用到 <code>memtable</code> 结构，并且是 <strong>mutable memtable</strong>。</p>
 <p>Task2 需要实现 <code>LsmStorageInner::get</code>, <code>LsmStorageInner::put</code> 和 <code>LsmStorageInner::delete</code>，这些接口会分发请求到 <code>memtable</code></p>
 <p>考虑 <code>delete</code> 函数，应该是简单的将 <code>key</code> 对应的 <code>value</code> 修改为空，称为 <code>delete tombstone</code> 标记删除而不是真的直接删除。实现 <code>get</code> 时应该注意这点。</p>
 <blockquote>
@@ -331,22 +333,24 @@
 <blockquote>
 <p>如果 put 用了不可变的引用，则不会修改原数据结构，所以</p>
 </blockquote>
-<h3 id="task2-solution">Task2 Solution</h3>
-<ol>
+<h3 class="heading-element" id="task2-solution"><span>Task2 Solution</span>
+  <a href="#task2-solution" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>
 <p>先实现 <code>LsmStorageInner::put</code> 和 <code>LsmStorageInner::delete</code>，前者调用读锁，后者存入空值，然后在 <code>get</code> 中处理</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">().</span><span class="n">memtable</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="sd">/// Remove a key from the storage by writing an empty value.
 </span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">delete</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">().</span><span class="n">memtable</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="w"> </span><span class="sa">b</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="c1">// handle empty value in get
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div></li>
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span></span></span></code></pre></div></div></li>
 <li>
 <p><code>get</code> 实现需要额外判断取出来的 <code>Bytes</code> 是不是空值</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">().</span><span class="n">memtable</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">             </span><span class="k">return</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">None</span><span class="p">);</span><span class="w">
@@ -354,27 +358,28 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">Some</span><span class="p">(</span><span class="n">v</span><span class="p">));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">None</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div></li>
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span></span></span></code></pre></div></div></li>
 </ol>
-<h3 id="task-3-write-path---freezing-a-memtable">Task 3: Write Path - Freezing a Memtable</h3>
-<p>在 <code>src/lsm_storage.rs</code> 和 <code>src/mem_table.rs</code> 实现 freeze a memtable 功能。由于 memtable 无法一直增长，所以需要冷冻 freeze 起来，在当 memtable 超过大小限制时可以 flush，在 <code>lsm_storage</code> 中 <code>target_sst_size</code> 字段表示 SST table size 同时也是 memtable 的大致大小（比如 <code>1 &lt;&lt; 20</code> 1MB）。</p>
+<h3 class="heading-element" id="task-3-write-path---freezing-a-memtable"><span>Task 3: Write Path - Freezing a Memtable</span>
+  <a href="#task-3-write-path---freezing-a-memtable" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 <code>src/lsm_storage.rs</code> 和 <code>src/mem_table.rs</code> 实现 freeze a memtable 功能。由于 memtable 无法一直增长，所以需要冷冻 freeze 起来，在当 memtable 超过大小限制时可以 flush，在 <code>lsm_storage</code> 中 <code>target_sst_size</code> 字段表示 SST table size 同时也是 memtable 的大致大小（比如 <code>1 &lt;&lt; 20</code> 1MB）。</p>
 <p>本 task 需要在 <code>put/delete</code> 时，估算 memtable 的大小，比如 put 时简单地将 keys and values 的字节大小加起来（如果 put 两次，你也可以计算两次）。一旦 memtable 达到大小限制，调用 <code>force_freeze_memtable</code> 冻结 memtable 然后创建一个新的 memtable。</p>
 <p>因为此时可能有多个线程从存储引擎中获取数据，<code>force_freeze_memtable</code> 可能会被多个线程并行调用，需要考虑避免 race condition</p>
 <p>有多个地方可以更改 LSM state: freeze a mutable memtable, flush memtable to SST, and GC/compaction. 所有的修改，都可能是 IO 操作，为了实现 <code>freeze_memtable</code> 需要调用 state 中的写锁：<code>let state = self.state.write()</code>, <code>state.immutable_memtable.push(/* something */)</code> 和 <code>state.memtable = create();</code></p>
 <p>但是，当需要为每个 memtable 创建 write-ahead log 时 <code>state.memtable = MemTable::create_with_wal()?</code> 由于需要几个毫秒比较耗时，其他线程就需要等待，造成 spike of latency 延迟尖峰。</p>
 <p>可以将 IO 操作放在锁区域外，来解决这种问题（创建 Memtable 实际上不需要锁）：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MemTable</span>::<span class="n">create_with_wal</span><span class="p">()</span><span class="o">?</span><span class="p">;</span><span class="w"> </span><span class="c1">// &lt;- could take several milliseconds
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">write</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">state</span><span class="p">.</span><span class="n">immutable_memtable</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="cm">/* something */</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">state</span><span class="p">.</span><span class="n">memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">memtable</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>但这引起了另一种情况：memtable 快要达到容量限制，并且两个线程成功 <code>put</code> 了两个 keys 到 memtable，并且都发现了 memtable 达到了容量限制。两个线程都会检查 size 然后决定调用 freeze，于是两个空的 memtable 都被创建了。</p>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>但这引起了另一种情况：memtable 快要达到容量限制，并且两个线程成功 <code>put</code> 了两个 keys 到 memtable，并且都发现了 memtable 达到了容量限制。两个线程都会检查 size 然后决定调用 freeze，于是两个空的 memtable 都被创建了。</p>
 <p>为了解决这种情况，所有的 state 修改操作都需要通过 state lock 同步：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// put things into the memtable, checks capacity, and drop the read lock on LSM state
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">memtable_reaches_capacity_on_put</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">state_lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state_lock</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span><span class="w">
@@ -382,30 +387,27 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="n">freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="n">state_lock</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>这种模式非常常见，比如 L0 flush 也是这样：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">force_flush_next_imm_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>这种模式非常常见，比如 L0 flush 也是这样：</p>
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">force_flush_next_imm_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">state_lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state_lock</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// get the oldest memtable and drop the read lock on LSM state
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// write the contents to the disk
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// get the write lock on LSM state and update the state
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>在这个 Task，需要修改 <code>put</code> 和 <code>delete</code> 满足 memtable 的 soft capacity limit，当到达限制时调用 <code>force_freeze_memtable</code> 冻结 memtable。测试文件并没有测试并发场景，所以需要自己考虑多种 race condition 竞争情况。并且，时刻记住检查锁的区域，保证 critical section 临界区是最小的。</p>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div><p>在这个 Task，需要修改 <code>put</code> 和 <code>delete</code> 满足 memtable 的 soft capacity limit，当到达限制时调用 <code>force_freeze_memtable</code> 冻结 memtable。测试文件并没有测试并发场景，所以需要自己考虑多种 race condition 竞争情况。并且，时刻记住检查锁的区域，保证 critical section 临界区是最小的。</p>
 <p>可以简单地赋给下一个 memtable id 为 <code>self.next_ssd_id()</code>, 注意 <code>imm_memtables</code> 存储了最新到最旧的 memtables，<code>imm_memtables.first()</code> 是最后一个被冻结的。</p>
 <ol>
 <li>
 <p>修改 <code>Memtable::put</code>，计算 key 和 value 的长度，增加原子变量（使用 Relaxed 不需要线性一致）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">put</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">],</span><span class="w"> </span><span class="n">value</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="n">sz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="bp">self</span><span class="p">.</span><span class="n">map</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">key</span><span class="p">),</span><span class="w"> </span><span class="n">Bytes</span>::<span class="n">copy_from_slice</span><span class="p">(</span><span class="n">value</span><span class="p">));</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="bp">self</span><span class="p">.</span><span class="n">approximate_size</span><span class="p">.</span><span class="n">fetch_add</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span><span class="w"> </span><span class="n">Ordering</span>::<span class="n">Relaxed</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div></li>
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span></span></span></code></pre></div></div></li>
 <li>
 <p>实现 <code>LsmStorageInner::force_freeze_memtable</code>：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">force_freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_state_lock_observer</span>: <span class="kp">&amp;</span><span class="nc">MutexGuard</span><span class="o">&lt;</span><span class="nb">&#39;_</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="w"> </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">force_freeze_memtable</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_state_lock_observer</span>: <span class="kp">&amp;</span><span class="nc">MutexGuard</span><span class="o">&lt;</span><span class="nb">&#39;_</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="n">memtable_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">next_sst_id</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="kd">let</span><span class="w"> </span><span class="n">memtable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">options</span><span class="p">.</span><span class="n">enable_wal</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">         </span><span class="n">Arc</span>::<span class="n">new</span><span class="p">(</span><span class="n">MemTable</span>::<span class="n">create_with_wal</span><span class="p">(</span><span class="w">
@@ -426,13 +428,15 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="c1">// old_memtable.sync_wal()?;
 </span></span></span><span class="line"><span class="cl"><span class="w">     </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><p>获取新的 <code>memtable_id</code> 后根据 option 创建新的 Memtable，随后获取写锁，获取 <code>state</code> 的 mut 状态得到旧的 memtable，使用 <code>std::mem::replace</code> 替换成新的，随后释放写锁并且更新 <code>*state = Arc::new(snapshot)</code>。</p>
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><p>获取新的 <code>memtable_id</code> 后根据 option 创建新的 Memtable，随后获取写锁，获取 <code>state</code> 的 mut 状态得到旧的 memtable，使用 <code>std::mem::replace</code> 替换成新的，随后释放写锁并且更新 <code>*state = Arc::new(snapshot)</code>。</p>
 </li>
 </ol>
-<h3 id="task-4-read-path---get">Task 4: Read Path - Get</h3>
-<p>修改 <code>src/lsm_storage.rs</code> read path 中的 <code>get</code> 函数，来获取最新版本的 key，保证你 probe 扫描了最新到最旧的 memtable:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+<h3 class="heading-element" id="task-4-read-path---get"><span>Task 4: Read Path - Get</span>
+  <a href="#task-4-read-path---get" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>修改 <code>src/lsm_storage.rs</code> read path 中的 <code>get</code> 函数，来获取最新版本的 key，保证你 probe 扫描了最新到最旧的 memtable:</p>
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-rust"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">get</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">key</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="kt">u8</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">Bytes</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">state</span><span class="p">.</span><span class="n">read</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">state</span><span class="p">.</span><span class="n">memtable</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">is_empty</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -449,9 +453,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nb">Ok</span><span class="p">(</span><span class="nb">None</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span></code></pre></div><h3 id="conclusion">Conclusion</h3>
-<p>第一次写 Rust 项目，有很多不熟悉，写了蛮久。</p>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div></div><h3 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>第一次写 Rust 项目，有很多不熟悉，写了蛮久。</p>
 <p>通过 <code>cargo x copy-test --week 1 --day 1</code> 和 <code>cargo x scheck</code> 可以通过第一天的所有测试</p>
 <ul>
 <li>为什么 memtable 不提供 delete 接口？</li>
@@ -498,40 +504,72 @@
 </li>
 </ul>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-03-22</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1" data-hashtags="Database,LSM"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-hashtag="Database"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-03-22 14:04:33">更新于 2024-03-22&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1" data-hashtags="Database,LSM"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-hashtag="Database"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/minilsm-1/" data-title="Mini-LSM Week 1 Day1"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/database/">Database</a>,&nbsp;<a href="../../tags/lsm/">LSM</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/bao-learned-query-opt/" class="prev" rel="prev" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</a>
-            <a href="../../posts/minilsm-2/" class="next" rel="next" title="Mini-LSM Week 1 Day2">Mini-LSM Week 1 Day2<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/database/" class="post-tag" title="标签 - Database">Database</a><a href="../../tags/lsm/" class="post-tag" title="标签 - LSM">LSM</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/bao-learned-query-opt/" class="post-nav-item" rel="prev" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</a><a href="../../posts/minilsm-2/" class="post-nav-item" rel="next" title="Mini-LSM Week 1 Day2">Mini-LSM Week 1 Day2<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#mini-lsm-week-1-day1">Mini-LSM Week 1 Day1</a></li>
+    <li><a href="#前言">前言</a>
+      <ul>
+        <li><a href="#什么是-lsm为什么-lsm">什么是 LSM，为什么 LSM</a></li>
+        <li><a href="#前提条件">前提条件</a></li>
+        <li><a href="#期望">期望</a></li>
+      </ul>
+    </li>
+    <li><a href="#总览">总览</a>
+      <ul>
+        <li><a href="#lsm">LSM</a></li>
+        <li><a href="#写路径">写路径</a></li>
+        <li><a href="#读路径">读路径</a></li>
+      </ul>
+    </li>
+    <li><a href="#minilsm">MiniLSM</a>
+      <ul>
+        <li><a href="#mem-table">Mem-Table</a></li>
+        <li><a href="#task1-skiplist-memtable">Task1: SkipList Memtable</a></li>
+        <li><a href="#task1-solution">Task1 Solution</a></li>
+        <li><a href="#task2-a-single-memtable-in-the-engine">Task2: A Single Memtable in the Engine</a></li>
+        <li><a href="#task2-solution">Task2 Solution</a></li>
+        <li><a href="#task-3-write-path---freezing-a-memtable">Task 3: Write Path - Freezing a Memtable</a></li>
+        <li><a href="#task-4-read-path---get">Task 4: Read Path - Get</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/de3a798468585ee67f32092d7b842587.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

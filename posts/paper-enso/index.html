@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023) - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-enso/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023) - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)">
+	<meta itemprop="description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface">
+	<meta itemprop="datePublished" content="2024-09-30T09:33:11-04:00">
+	<meta itemprop="dateModified" content="2024-09-30T09:33:11-04:00">
+	<meta itemprop="wordCount" content="6373">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-enso/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)">
-	<meta property="og:description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface
-2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应该是非常高的，值得好好读">
+	<meta property="og:description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -18,116 +25,102 @@
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)">
-	<meta name="twitter:description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface
-2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应该是非常高的，值得好好读">
+	<meta name="twitter:description" content="Ens ̄o: A Streaming Interface for NIC-Application Communication NIC interface 相关的论文，hardware offloads, steaming interface">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-enso/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-shenango/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-ghost/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-enso\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  6373 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-enso\/","datePublished": "2024-09-30T09:33:11-04:00","dateModified": "2024-09-30T09:33:11-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-enso/" title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023) - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-shenango/" title="Paper Reading: Shenango" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-ghost/" title="Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-enso\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  6373 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-enso\/","datePublished": "2024-09-30T09:33:11-04:00","dateModified": "2024-09-30T09:33:11-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-30">2024-09-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6373 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-09-30 09:33:11"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-09-30">2024-09-30</time></span>&nbsp;<span title="6373 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 6400 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 13 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#ens-o-a-streaming-interface-for-nic-application-communication">Ens ̄o: A Streaming Interface for NIC-Application Communication</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -149,23 +142,32 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="ens-o-a-streaming-interface-for-nic-application-communication">Ens ̄o: A Streaming Interface for NIC-Application Communication</h2>
-<p>NIC interface 相关的论文，hardware offloads, steaming interface</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="ens-o-a-streaming-interface-for-nic-application-communication"><span>Ens ̄o: A Streaming Interface for NIC-Application Communication</span>
+  <a href="#ens-o-a-streaming-interface-for-nic-application-communication" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>NIC interface 相关的论文，hardware offloads, steaming interface</p>
 <blockquote>
 <p>2023 OSDI best paper，我读起来觉得很困难，尤其是不理解其中的一些设计，这篇论文工作量应该是非常高的，值得好好读</p>
 <p>之前看得都是 kernel bypass (XDP, DPDK) 又或者是 NIC offload，但 NIC 到 软件 的缓冲区和包传递其实也存在瓶颈</p>
 <p>核心思想是固定大小的包缓冲区变成了流缓冲区，省去了 metadata 传输等等，对于小包传输带宽提升明显，enso 用单核就能跑到很高的带宽</p>
-<p>2023 年操作系统设计与实现研讨会（OSDI）有哪些值得关注的文章？ - ChenKuGai 的回答 - 知乎 <a href="https://www.zhihu.com/question/591516372/answer/3506857114" target="_blank" rel="noopener noreffer ">https://www.zhihu.com/question/591516372/answer/3506857114</a></p>
+<p>2023 年操作系统设计与实现研讨会（OSDI）有哪些值得关注的文章？ - ChenKuGai 的回答 - 知乎 <a href="https://www.zhihu.com/question/591516372/answer/3506857114" target="_blank" rel="external nofollow noopener noreferrer">https://www.zhihu.com/question/591516372/answer/3506857114</a></p>
 <p>知乎的解答很不错</p>
 </blockquote>
-<h2 id="abstract">Abstract</h2>
-<p>今天，网卡和软件之间的大多数通信都涉及到交换<strong>固定大小的</strong>数据包缓冲区。这种分组接口是为一个时代而设计的，当时 NIC 实现了很少的卸载，软件实现了在应用程序数据和数据包之间进行转换的逻辑。然而，NIC 和网络软件都已经发展: 现代 NIC 实现了硬件卸载，例如 TSO、 LRO 和序列化卸载，可以更有效地在应用程序数据和数据包之间进行转换。此外，现代软件越来越多地批处理网络 I/O，以减少开销。这些变化导致了分组接口(假设网卡和软件交换固定大小的缓冲区)与现代网卡提供并由现代软件使用的特性之间的不匹配。接口和数据之间的这种不一致性增加了软件复杂性和 I/O 开销，从而限制了通信性能。本文提出了一种新的流式 NIC-to-software 接口 Ens o，旨在更好地支持当今 NIC 和软件的交互方式。在其核心，Ens o 避免固定大小的缓冲区，而是将通信结构设计为一个流，可用于发送任意大小的数据。我们展示了这个更改减少了软件开销，降低了 PCIe 带宽需求，并导致更少的缓存丢失。这些改进使得基于 Ens o 的网卡能够在 100Gbps 的链路上使用单个核心的最小数据包(转发速度为 148.8 Mpps) ，提高高性能网络应用的吞吐量 1.5-6 倍，降低延迟高达 43%</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>今天，网卡和软件之间的大多数通信都涉及到交换<strong>固定大小的</strong>数据包缓冲区。这种分组接口是为一个时代而设计的，当时 NIC 实现了很少的卸载，软件实现了在应用程序数据和数据包之间进行转换的逻辑。然而，NIC 和网络软件都已经发展: 现代 NIC 实现了硬件卸载，例如 TSO、 LRO 和序列化卸载，可以更有效地在应用程序数据和数据包之间进行转换。此外，现代软件越来越多地批处理网络 I/O，以减少开销。这些变化导致了分组接口(假设网卡和软件交换固定大小的缓冲区)与现代网卡提供并由现代软件使用的特性之间的不匹配。接口和数据之间的这种不一致性增加了软件复杂性和 I/O 开销，从而限制了通信性能。本文提出了一种新的流式 NIC-to-software 接口 Ens o，旨在更好地支持当今 NIC 和软件的交互方式。在其核心，Ens o 避免固定大小的缓冲区，而是将通信结构设计为一个流，可用于发送任意大小的数据。我们展示了这个更改减少了软件开销，降低了 PCIe 带宽需求，并导致更少的缓存丢失。这些改进使得基于 Ens o 的网卡能够在 100Gbps 的链路上使用单个核心的最小数据包(转发速度为 148.8 Mpps) ，提高高性能网络应用的吞吐量 1.5-6 倍，降低延迟高达 43%</p>
 <blockquote>
 <p>hardware offloads, serialization offloads</p>
 <p>避免固定大小的缓冲区</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>NIC offloads allow the NIC to perform common tasks (e.g., segmentation) previously implemented in software; 更高效的网络 I/O 库和接口，包括 DPDK 和 XDP，允许应用程序减少网络栈的处理</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>NIC offloads allow the NIC to perform common tasks (e.g., segmentation) previously implemented in software; 更高效的网络 I/O 库和接口，包括 DPDK 和 XDP，允许应用程序减少网络栈的处理</p>
 <p>大多数 NIC 目前提供了一个接口，其中所有软件和 NIC 之间的通信都需要发送（和接收）一系列固定大小的缓冲区，我们在本文中称之为数据包缓冲区。</p>
 <p>首先，许多 NIC 卸载，如 TCP 分段卸载（TSO）[20, 39]、大接收卸载（LRO）[14]、序列化卸载[44, 71, 86]和传输卸载[3, 14, 27, 77]，它们的输入（和输出）可以跨越多个数据包并且大小不一。在使用这些卸载与数据包化接口时，软件在与 NIC 通信时必须不必要地将数据分割（和重新组合）到多个数据包缓冲区中。</p>
 <p>Packetized abstraction: 尽管在软件始终需要交换 MTU 大小的数据包时，采用固定大小的缓冲区效果合理，但在使用更高级别的抽象（如应用程序级消息（例如，RPC）、字节流）或更简单的卸载（如 LRO）时，它变得笨拙。</p>
@@ -186,27 +188,29 @@
 <blockquote>
 <p>实现了一个硬件？还是硬件上的软件？为什么和 dpdk 非硬件卸载比，是不是不太对照</p>
 </blockquote>
-<h2 id="background-and-motivation">Background and Motivation</h2>
-<p>数据包化 NIC 接口决定了几乎所有高性能网络库提供的 API，包括 io_uring[15]、DPDK[19]和 netmap[73]</p>
-<h3 id="packetized-nic-interface">Packetized NIC Interface</h3>
-<p>NIC 卸载允许 NIC 执行以前在软件中实现的常见任务（例如，分段）；更高效的网络 I/O 库和接口，包括 DPDK 和 XDP，允许应用程序减少网络栈的处理。</p>
+<h2 class="heading-element" id="background-and-motivation"><span>Background and Motivation</span>
+  <a href="#background-and-motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>数据包化 NIC 接口决定了几乎所有高性能网络库提供的 API，包括 io_uring[15]、DPDK[19]和 netmap[73]</p>
+<h3 class="heading-element" id="packetized-nic-interface"><span>Packetized NIC Interface</span>
+  <a href="#packetized-nic-interface" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>NIC 卸载允许 NIC 执行以前在软件中实现的常见任务（例如，分段）；更高效的网络 I/O 库和接口，包括 DPDK 和 XDP，允许应用程序减少网络栈的处理。</p>
 <p>但 NIC 到软件的接口几十年来一直没有变化。</p>
 <p>数据包化 NIC 接口的一个核心设计选择是为每个数据包放置一个专用的数据包缓冲区。</p>
 <p>缓冲区通常被设置为可以容纳 MTU 大小的数据包</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png"
-        data-srcset="https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png, https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png 1.5x, https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png"
-        title="https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png' alt="https://s2.loli.net/2024/09/30/yuNxgbGVeaURAQM.png"></p>
 <p>图 1 显示了一个数据包化 NIC 接口被用来从 NIC 上的特定硬件队列接收四个数据包的示例。NIC 队列与一组 NIC 寄存器相关联，这些寄存器可以用来控制接收（RX）描述符环形缓冲区和传输（TX）描述符环形缓冲区。在能够接收数据包之前，软件通过在 RX 描述符环形缓冲区中排队指向每个缓冲区的描述符，通知 NIC 其缓冲区池中多个可用缓冲区的地址。然后，NIC 可以使用 DMA 将传入的数据包数据写入下一个可用的数据包缓冲区，并排队更新的描述符，包含数据包大小等元数据。重要的是，NIC 还在描述符中设置了一个“<strong>标志 flag</strong>”位，向软件发出信号，表明该缓冲区已到达数据包。观察到描述符下的头部指针的通知位，软件然后可以增加头部指针。</p>
 <p>传输过程也类似：发送软件为准备传输的数据包缓冲区组装一组描述符，并将描述符（而不是数据包本身）复制到 TX 环形缓冲区；描述符中的标志位现在用于向 NIC 发出信号，表明已经传输（而不是接收）了一个数据包。</p>
 <p>为每个数据包分配缓冲区的一个主要好处是，可以在软件中高效地进行复用/解复用。</p>
 <p>然而，现代高性能软件栈的使用模式看起来非常不同。不是有一个软件实体（例如，内核，软件交换机）调解对 NIC 的访问，可能有多个线程或进程直接访问 NIC（即，内核绕过）。然后 NIC 承担了解复用的所有责任，使用例如 RSS[82]、Intel 的 Flow Director[39]，或者（对于非常丰富的交换模型）Microsoft 的 AccelNet[28]。在这种设置中，数据包化 NIC 接口的复用/解复用能力没有提供任何额外的价值。</p>
-<h3 id="issues-with-a-packetized-interface">Issues with a Packetized Interface</h3>
-<p>尽管许多高性能应用程序今天从数据包化接口中获得的好处很少，但它们仍然需要为伴随而来的开销付出代价。将 NIC 和应用程序之间的数据通信硬塞进固定大小的块中，会导致 CPU 缓存和 PCIe 带宽在小请求上的使用效率低下，以及由于应用程序依赖于大消息或字节流而导致的额外数据复制。</p>
+<h3 class="heading-element" id="issues-with-a-packetized-interface"><span>Issues with a Packetized Interface</span>
+  <a href="#issues-with-a-packetized-interface" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>尽管许多高性能应用程序今天从数据包化接口中获得的好处很少，但它们仍然需要为伴随而来的开销付出代价。将 NIC 和应用程序之间的数据通信硬塞进固定大小的块中，会导致 CPU 缓存和 PCIe 带宽在小请求上的使用效率低下，以及由于应用程序依赖于大消息或字节流而导致的额外数据复制。</p>
 <blockquote>
 <p>主要是面对小请求吗，不知道后续的 evaluation 是不是也都是小请求</p>
 </blockquote>
@@ -216,8 +220,11 @@
 </blockquote>
 <p>Metadata Bandwidth Overhead: 高达 39%的 CPU 到 NIC 互连带宽用于传输描述符</p>
 <p>总结：通过为每个数据包配对一个单独的描述符，数据包化 NIC 接口非常适合以前一代需要在软件中实现复用的高吞吐量网络应用程序。然而，对于今天的高性能应用程序，它引入了不必要的性能开销。</p>
-<h2 id="enso-overview">Enso Overview</h2>
-<p>网络接口卡（NIC）与应用程序通信的流式接口</p>
+<h2 class="heading-element" id="enso-overview"><span>Enso Overview</span>
+  <a href="#enso-overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>网络接口卡（NIC）与应用程序通信的流式接口</p>
 <ol>
 <li>灵活性，允许它用于不同类别的卸载操作，这些操作在不同的网络层级上运行，并且具有不同的数据大小；</li>
 <li>低软件开销，减少应用程序在通信上需要花费的周期数；以及</li>
@@ -228,14 +235,7 @@
 <p>都是环，区别在哪呢</p>
 </blockquote>
 <p>High-level operation: 最初，Pipes 是空的，HeadSW 和 TailNIC 指向缓冲区 1 中的同一位置。当 NIC 接收到消息时，它使用 DMA 将它们排队到 Pipes 拥有的连续内存中。在图中，NIC 在 Pipe A 的内存中排队了两个消息，在 Pipe B 的内存中排队了三个。NIC 通过在通知缓冲区中排队两个通知（每个 Enso Pipe 一个）来通知软件。软件使用这些通知来推进 TailNIC 并处理消息。一旦消息被处理，软件就写入一个内存映射 I/O（MMIO）寄存器（推进 HeadSW）来通知 NIC——允许内存被后续消息重用 3。发送消息是对称的，除了最后一步：NIC 通过覆盖 CPU 用来通知 NIC 有消息可供传输的通知来通知软件消息已被传输。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png"
-        data-srcset="https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png, https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png 1.5x, https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png"
-        title="https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png' alt="https://s2.loli.net/2024/10/01/9mB5fCsVkbIX1ZU.png"></p>
 <blockquote>
 <p>感觉过程和 ring buffer 没啥区别？</p>
 </blockquote>
@@ -257,10 +257,16 @@
 <p>为什么不适合 multiplex and demultiplex</p>
 <p>但是为什么性能又好很多？硬件 Offload 带来的显著提升吗</p>
 </blockquote>
-<h2 id="efficient-notifications">Efficient Notifications</h2>
-<p>efficiently coordinating Enso Pipes between the CPU and the NIC</p>
-<h3 id="efficient-ens-o-pipe-coordination">Efficient Ens ̄o Pipe Coordination</h3>
-<p>How should software and the NIC communicate pointer updates?</p>
+<h2 class="heading-element" id="efficient-notifications"><span>Efficient Notifications</span>
+  <a href="#efficient-notifications" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>efficiently coordinating Enso Pipes between the CPU and the NIC</p>
+<h3 class="heading-element" id="efficient-ens-o-pipe-coordination"><span>Efficient Ens ̄o Pipe Coordination</span>
+  <a href="#efficient-ens-o-pipe-coordination" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>How should software and the NIC communicate pointer updates?</p>
 <p>在数据包化 NIC 接口使用的<strong>描述符环形缓冲区</strong>中，软件使用 MMIO 写入来向 NIC 通信指针更新，而 NIC 通过描述符缓冲区本身的内联信号来通信指针更新[25, 39]，避免了 MMIO 读取的开销。因为描述符的格式由 NIC 定义，NIC 可以在每个描述符中专门设置一个“标志信号”来信号描述符是有效的。然后，软件可以轮询下一个描述符，直到其标志变为有效。这样，NIC 就不需要明确地告诉软件指针更新。
 不幸的是，我们不能对 Ens ̄o 使用这种方法。虽然 Ens ̄o Pipes 仍然可以<strong>使用 MMIO 写入来更新软件的指针</strong>，但我们不能在 Ens ̄o Pipe 本身中<strong>嵌入内联信号</strong>，因为我们不对数据施加任何结构。
 我们考虑了几种设计选项来通信指针更新。我们在这里关注 illuminating rejected design here：在主内存中 NIC 和软件之间共享一个地址。对于每个 Pipe，我们可能有一个专用的内存地址，NIC 在其中写入最新的 TailNIC。然后，软件可以轮询这个地址来确定最新的值。不幸的是，这种方法会导致争用，因为每次 NIC 写入内存时，CPU 上的缓存条目就会被使无效。如果软件继续轮询同一缓存行，由此产生的争用会将吞吐量降低几个数量级：我们在使用小传输时使用这种方法测量到的吞吐量低于 5 Gbps。我们在附录中讨论了其他被拒绝的方法。</p>
@@ -269,70 +275,95 @@
 <p>共享一个地址，导致争用，为什么 NIC 写内存 CPU 缓存会失效？缓存一致性？缓存行无效？为什么不直接写入内存，DMA 呢？</p>
 <p>Pipe coordinate 还是指针的位置问题。</p>
 </blockquote>
-<h3 id="notification-buffer">Notification Buffer</h3>
-<p>Ens ̄o 使用通知缓冲区来通信指针更新。虽然通知缓冲区本身的结构并不能解决缓存争用挑战，但当它与批量通知结合使用，并且用于聚合多个 Ens ̄o Pipes 的通知更新时，这种方法可以防止 CPU 忙等待共享缓存行，从而避免争用引起的减速。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png"
-        data-srcset="https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png, https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png 1.5x, https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png"
-        title="https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png" /></p>
+<h3 class="heading-element" id="notification-buffer"><span>Notification Buffer</span>
+  <a href="#notification-buffer" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Ens ̄o 使用通知缓冲区来通信指针更新。虽然通知缓冲区本身的结构并不能解决缓存争用挑战，但当它与批量通知结合使用，并且用于聚合多个 Ens ̄o Pipes 的通知更新时，这种方法可以防止 CPU 忙等待共享缓存行，从而避免争用引起的减速。</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png' alt="https://s2.loli.net/2024/10/01/NCd5M4j6Dn9WV3v.png"></p>
 <blockquote>
 <p>一个通知，指示多个连续数据库</p>
 <p>批量/合并通知，消费通知后 MMIO 写入指针，使用通知缓冲区来更新指针。</p>
 <p>还是不懂为什么不直接用 DMA</p>
 </blockquote>
-<h3 id="multiplexing-and-scaling">Multiplexing and Scaling</h3>
-<p>在单个线程内：为了让单个线程有效地访问多个 Ens ̄o Pipes，我们将多个 Ens ̄o Pipes 与同一个通知缓冲区关联。因此，软件可以探测单个通知缓冲区来检索多个 Ens ̄o Pipes 的更新。这避免了需要轮询多个队列的已知可扩展性问题</p>
+<h3 class="heading-element" id="multiplexing-and-scaling"><span>Multiplexing and Scaling</span>
+  <a href="#multiplexing-and-scaling" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在单个线程内：为了让单个线程有效地访问多个 Ens ̄o Pipes，我们将多个 Ens ̄o Pipes 与同一个通知缓冲区关联。因此，软件可以探测单个通知缓冲区来检索多个 Ens ̄o Pipes 的更新。这避免了需要轮询多个队列的已知可扩展性问题</p>
 <p>在多个线程之间：为了让多个线程独立地发送和接收数据，Ens ̄o 支持多个通知缓冲区。每个线程可以使用专用的通知缓冲区，避免了昂贵的同步原语。在设置新的 Ens ̄o Pipe 时，软件告诉 NIC 它与哪个通知缓冲区关联。因此，NIC 知道要向哪个通知缓冲区发送通知。</p>
 <p>在多个应用程序之间：除了使用独立的的通知缓冲区，Ens ̄o 确保应用程序只访问它们自己的 Ens ̄o Pipes 和通知缓冲区的子集。每个队列的 MMIO 指针寄存器对保持在其自己的专用页面对齐的内存块中[22]。这让内核可以将指针寄存器以每个队列的粒度映射到请求它的应用程序的地址空间。</p>
 <blockquote>
 <p>那 pipe 是怎么分的，还需要元数据吗，到底多少个 pipes 呢，是多个应用就多个 pipe 吗，</p>
 </blockquote>
-<h3 id="notifications-contention-and-overhead">Notifications: Contention and Overhead</h3>
-<p>允许多个 Ens ̄o Pipes 共享同一个通知队列（§4.1.2），并且只有对于更大的数据批次才有通知到达（§4.2）自然地通过保持 NIC 在更新通知缓冲区时“领先”于 CPU 来防止争用，并且也减少了通信这些通知的 PCIe 开销。当 CPU 读取一个 Ens ̄o Pipe 的数据时，NIC 正在为后续的 Ens ̄o Pipes 写入新的条目。因为 CPU 正在处理更大的数据批次，所以在需要检查通知缓冲区之前，它会更忙更长时间。因此，随着线速的提高，两者不太可能同时访问同一个缓存行。</p>
+<h3 class="heading-element" id="notifications-contention-and-overhead"><span>Notifications: Contention and Overhead</span>
+  <a href="#notifications-contention-and-overhead" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>允许多个 Ens ̄o Pipes 共享同一个通知队列（§4.1.2），并且只有对于更大的数据批次才有通知到达（§4.2）自然地通过保持 NIC 在更新通知缓冲区时“领先”于 CPU 来防止争用，并且也减少了通信这些通知的 PCIe 开销。当 CPU 读取一个 Ens ̄o Pipe 的数据时，NIC 正在为后续的 Ens ̄o Pipes 写入新的条目。因为 CPU 正在处理更大的数据批次，所以在需要检查通知缓冲区之前，它会更忙更长时间。因此，随着线速的提高，两者不太可能同时访问同一个缓存行。</p>
 <blockquote>
 <p>这里 FIFO 队列的 tail latency 应该是比较低的</p>
 <p>而且必须注册连续的地址空间，类似 RDMA？</p>
 <p>后续的没来得及看了</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-09-30</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-enso/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-09-30 09:33:11">更新于 2024-09-30&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-enso/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-enso/" data-title="Paper Reading: Enso: A Streaming Interface for NIC-Application Communication (OSDI2023)"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-shenango/" class="prev" rel="prev" title="Paper Reading: Shenango"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Shenango</a>
-            <a href="../../posts/paper-ghost/" class="next" rel="next" title="Paper Reading: ghOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling">Paper Reading: ghOSt: Fast & Flexible User-Space Delegation of Linux Scheduling<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-shenango/" class="post-nav-item" rel="prev" title="Paper Reading: Shenango"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Shenango</a><a href="../../posts/paper-ghost/" class="post-nav-item" rel="next" title="Paper Reading: GhOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling">Paper Reading: GhOSt: Fast &amp; Flexible User-Space Delegation of Linux Scheduling<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#ens-o-a-streaming-interface-for-nic-application-communication">Ens ̄o: A Streaming Interface for NIC-Application Communication</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#background-and-motivation">Background and Motivation</a>
+      <ul>
+        <li><a href="#packetized-nic-interface">Packetized NIC Interface</a></li>
+        <li><a href="#issues-with-a-packetized-interface">Issues with a Packetized Interface</a></li>
+      </ul>
+    </li>
+    <li><a href="#enso-overview">Enso Overview</a></li>
+    <li><a href="#efficient-notifications">Efficient Notifications</a>
+      <ul>
+        <li><a href="#efficient-ens-o-pipe-coordination">Efficient Ens ̄o Pipe Coordination</a></li>
+        <li><a href="#notification-buffer">Notification Buffer</a></li>
+        <li><a href="#multiplexing-and-scaling">Multiplexing and Scaling</a></li>
+        <li><a href="#notifications-contention-and-overhead">Notifications: Contention and Overhead</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/68e283972357717f7519e4d20f12c974.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

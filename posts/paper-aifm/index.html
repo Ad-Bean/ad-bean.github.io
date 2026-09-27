@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20) - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-aifm/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20) - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)">
+	<meta itemprop="description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存">
+	<meta itemprop="datePublished" content="2024-11-06T11:28:34-05:00">
+	<meta itemprop="dateModified" content="2024-11-06T11:28:34-05:00">
+	<meta itemprop="wordCount" content="7094">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-aifm/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)">
-	<meta property="og:description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存
-Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不少论文，很多都和解耦内存有关，非常有意思。adam 此外还有 caladan 等，太恐怖了。">
+	<meta property="og:description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -18,116 +25,102 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)">
-	<meta name="twitter:description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存
-Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不少论文，很多都和解耦内存有关，非常有意思。adam 此外还有 caladan 等，太恐怖了。">
+	<meta name="twitter:description" content="AIFM: High-Performance, Application-Integrated Far Memory Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-aifm/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-fastswap/" /><link rel="next" href="https://ad-bean.github.io/posts/memo-class-1/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-aifm\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  7091 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-aifm\/","datePublished": "2024-11-06T11:28:34-05:00","dateModified": "2024-11-06T11:28:34-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-aifm/" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20) - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-fastswap/" title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/memo-class-1/" title="阅读笔记：编程高手必学的内存知识 01" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-aifm\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  7094 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-aifm\/","datePublished": "2024-11-06T11:28:34-05:00","dateModified": "2024-11-06T11:28:34-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-06">2024-11-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 7091 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 15 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-06 11:28:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-11-06">2024-11-06</time></span>&nbsp;<span title="7094 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 7100 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#aifm-high-performance-application-integrated-far-memory">AIFM: High-Performance, Application-Integrated Far Memory</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -137,7 +130,15 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
     <li><a href="#aifm-design">AIFM Design</a>
       <ul>
         <li><a href="#overview">Overview</a></li>
-        <li><a href="#remoteable-memory-abstractions">Remoteable Memory Abstractions</a></li>
+        <li><a href="#remoteable-memory-abstractions">Remoteable Memory Abstractions</a>
+          <ul>
+            <li><a href="#remoteable-pointers">Remoteable Pointers</a></li>
+            <li><a href="#dereference-scopes">Dereference Scopes</a></li>
+            <li><a href="#evacuation-handlers">Evacuation Handlers</a></li>
+            <li><a href="#remote-devices">Remote Devices</a></li>
+            <li><a href="#semantic-hints">Semantic Hints</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#aifm-runtime">AIFM Runtime</a>
@@ -158,11 +159,17 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="aifm-high-performance-application-integrated-far-memory">AIFM: High-Performance, Application-Integrated Far Memory</h2>
-<p>Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存</p>
-<p><a href="https://zainryan.github.io/" target="_blank" rel="noopener noreffer ">Zhenyuan Ruan</a>, <a href="https://cs.brown.edu/people/malte/" target="_blank" rel="noopener noreffer ">Malte Schwarzkopf</a> 和 <a href="http://www.abelay.me/" target="_blank" rel="noopener noreffer ">Adam Belay</a>，zhenyuan 在 osdi 20 中了不少论文，很多都和解耦内存有关，非常有意思。adam 此外还有 caladan 等，太恐怖了。</p>
-<h2 id="abstract">Abstract</h2>
-<p>application-integrated far memory (AIFM)</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="aifm-high-performance-application-integrated-far-memory"><span>AIFM: High-Performance, Application-Integrated Far Memory</span>
+  <a href="#aifm-high-performance-application-integrated-far-memory" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Disaggregated Memory 领域的论文，之前稍微看了一点，挺有意思的从应用层面用远端内存</p>
+<p><a href="https://zainryan.github.io/" target="_blank" rel="external nofollow noopener noreferrer">Zhenyuan Ruan</a>, <a href="https://cs.brown.edu/people/malte/" target="_blank" rel="external nofollow noopener noreferrer">Malte Schwarzkopf</a> 和 <a href="http://www.abelay.me/" target="_blank" rel="external nofollow noopener noreferrer">Adam Belay</a>，zhenyuan 在 osdi 20 中了不少论文，很多都和解耦内存有关，非常有意思。adam 此外还有 caladan 等，太恐怖了。</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>application-integrated far memory (AIFM)</p>
 <p>它通过一个简单的 API 将<strong>远程的“远端”内存提供给应用程序</strong>，并具有高性能。AIFM 实现了与本地 RAM 相同的常见情况访问延迟；它避免了<strong>基于分页的方法所遭受的读写放大</strong>；它允许数据结构工程师构建可远程访问的、混合近/远端内存数据结构；并且它使远端内存对应用程序开发者透明且易于使用。</p>
 <blockquote>
 <p>读写放大</p>
@@ -176,8 +183,11 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <p>实际上我觉得要对这些应用的类型做个评估，到底是 IO 密集型还是内存密集型</p>
 <p>再就是对于云平台内存超卖，远端内存有这方面的讨论吗？</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Google [73] 和阿里巴巴 [46] 的服务器平均内存利用率为 60%，服务器之间的差异很大，而平均 CPU 利用率约为 40%。</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Google [73] 和阿里巴巴 [46] 的服务器平均内存利用率为 60%，服务器之间的差异很大，而平均 CPU 利用率约为 40%。</p>
 <p>当今的操作系统主要通过交换机制支持内存弹性，通过将未使用的物理内存页推送到较慢的内存层（如磁盘或远程内存）来释放 RAM。但操作系统的交换机制在固定且粗粒度上操作，并产生大量开销。为了交换一个页面，操作系统必须处理页面错误，这需要进入内核并等待数据到达</p>
 <p>此外，Linux 内核在等待交换数据时会旋转，以避免上下文切换和中断处理的开销。这意味着等待时间（使用 Fastswap 的 RDMA 后端大约为 15-20k 个周期）被浪费了。</p>
 <p>我们描述了一种根本不同的方法：应用程序集成的远端内存（AIFM），它将交换绑定到<strong>单个应用程序级别的内存对象</strong>，而不是虚拟内存（VM）页面的抽象。开发者编写可远程访问的数据结构，其支持的内存可以是本地的和“远端”的——即在远程服务器上——而不影响常见情况下的延迟或应用程序吞吐量。当 AIFM 检测到内存压力时，<strong>其运行时会交换出对象</strong>，并将所有指向该对象的指针转换为远程指针。当应用程序解引用远程指针时，<strong>一个轻量级的绿色线程运行时会将对象恢复到本地内存</strong>。运行时的低上下文切换成本允许其他绿色线程在等待周期内进行有效利用，这隐藏了远程访问延迟并保持了高吞吐量。由于这些快速的上下文切换，AIFM 在访问 4KB 对象时比基于页面的方法高出 81%的吞吐量，并且由于 AIFM 避免了放大，它在访问小对象时实现了 6.8 倍的高吞吐量（图 1）。</p>
@@ -194,8 +204,11 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <blockquote>
 <p>这限制看着很奇怪，所以没有网络通信？</p>
 </blockquote>
-<h2 id="background-and-related-work">Background and Related Work</h2>
-<p>当今操作系统主要通过将物理内存页交换到二级存储来实现内存弹性，比如磁盘</p>
+<h2 class="heading-element" id="background-and-related-work"><span>Background and Related Work</span>
+  <a href="#background-and-related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>当今操作系统主要通过将物理内存页交换到二级存储来实现内存弹性，比如磁盘</p>
 <p>最近的研究考虑将<strong>交换到更快的内存层或远端内存</strong>，例如主机的<strong>远程内存</strong>或<strong>压缩缓存</strong>。由于交换与内核虚拟内存子系统集成，因此对用户空间应用程序是透明的。但这种透明性 transparency 也迫使交换粒度为最小的虚拟内存原语，即 4KB 页面。<strong>结合小于 4KB 的内存对象，这导致 I/O 放大</strong>：当访问一个对象时，内核必须独立于对象的实际内存大小交换一个完整的 4KB 页面。此外，提供应用程序语义信息，如预期的内存访问模式、适当的预取策略或内存热度，仅限于粗略和不灵活的接口，如 madvise。</p>
 <blockquote>
 <p>透明性是什么意思？系统隐藏了具体原理，直接用？</p>
@@ -226,16 +239,12 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <p>pauseless GC algorithms 不知道是不是 Java 现在用的，但好像也需要一些小暂停，比如 JDK 12 Shenandoah GC 和 ZGC</p>
 <p>Cliff Click, Gil Tene, and Michael Wolf. “The pauseless GC algorithm”. In: ACM/USENIX international conference on Virtual execution environments (VEE). 2005.</p>
 </blockquote>
-<h2 id="motivation">Motivation</h2>
-<p>内核分页机制在访问远端内存的基本成本上引入了大量开销。考虑图 2，它分解了 Linux（v5.0.0）从 SSD 检索交换出的页面的成本。设备的硬件延迟约为 6µs，但由于与锁定（P1，P5）、虚拟内存管理（P2，P3，P5）、记账（P4）和读取 I/O 放大（P3）相关的开销，Linux 需要超过 15µs（2.5 倍）。此外，由于上下文切换的高成本，Linux 在等待数据时会旋转（P3），浪费了 11.7µs 的可能计算时间。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png"
-        data-srcset="https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png, https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png 1.5x, https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png"
-        title="https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png" /></p>
+<h2 class="heading-element" id="motivation"><span>Motivation</span>
+  <a href="#motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>内核分页机制在访问远端内存的基本成本上引入了大量开销。考虑图 2，它分解了 Linux（v5.0.0）从 SSD 检索交换出的页面的成本。设备的硬件延迟约为 6µs，但由于与锁定（P1，P5）、虚拟内存管理（P2，P3，P5）、记账（P4）和读取 I/O 放大（P3）相关的开销，Linux 需要超过 15µs（2.5 倍）。此外，由于上下文切换的高成本，Linux 在等待数据时会旋转（P3），浪费了 11.7µs 的可能计算时间。</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png' alt="https://s2.loli.net/2024/11/07/ztLW3CPFTB2khEU.png"></p>
 <blockquote>
 <p>这里的几个 phase 可以详细讲讲</p>
 <p>Linux Kernel swapping</p>
@@ -246,50 +255,59 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <p>P5 页面映射 PTE -&gt; 解锁</p>
 <p>但是 AIFM 直接请求 IO，进入 context switch 然后用协程等待，最后上下文切换回去</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png"
-        data-srcset="https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png, https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png 1.5x, https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png"
-        title="https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png" /></p>
-<h2 id="aifm-design">AIFM Design</h2>
-<h3 id="overview">Overview</h3>
-<p>AIFM 面向两个群体：应用程序开发者和数据结构开发者。</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png' alt="https://s2.loli.net/2024/11/07/SmRIxezWC4w7i9U.png"></p>
+<h2 class="heading-element" id="aifm-design"><span>AIFM Design</span>
+  <a href="#aifm-design" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="overview"><span>Overview</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>AIFM 面向两个群体：应用程序开发者和数据结构开发者。</p>
 <p>对于应用程序开发者来说，使用远端内存编程应用程序应该感觉几乎与使用纯本地数据结构编程相同。特别是，开发者不应该需要知道一个对象当前是本地的还是远程的（即远端内存是透明的）</p>
 <blockquote>
 <p>对开发者来说用法和 std 应该一样？</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="n">RemHashtable</span><span class="o">&lt;</span><span class="n">key_t</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">hashtable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">RemArray</span><span class="o">&lt;</span><span class="n">data_t</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">;</span>
-</span></span></code></pre></div><p>可远程访问的内存数据结构本身（上面的 RemHashtable 和 RemArray）由数据结构工程师编写，他们使用 AIFM 的运行时 API <strong>将可远程访问的内存对象包含在他们的数据结构中</strong></p>
+<div class="code-block highlight line-nos-hidden" data-mode="classic" data-copyable="true"><div class="code-header language-cpp"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><pre tabindex="0" class="chroma"><code class="language-CPP" data-lang="CPP"><span class="line"><span class="cl"><span class="n">RemHashtable</span><span class="o">&lt;</span><span class="n">key_t</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">hashtable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">RemArray</span><span class="o">&lt;</span><span class="n">data_t</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">;</span></span></span></code></pre></div></div><p>可远程访问的内存数据结构本身（上面的 RemHashtable 和 RemArray）由数据结构工程师编写，他们使用 AIFM 的运行时 API <strong>将可远程访问的内存对象包含在他们的数据结构中</strong></p>
 <p>当<strong>内存变得紧张</strong>时，AIFM 的运行时会将<strong>其中一些内存对象移动到远程内存</strong>；当数据结构需要访问远程对象时，AIFM 运行时会获取它们。数据结构工程师有很大的设计自由度：他们可以完全依赖 AIFM 来获取远程对象，或者他们可以在远程端部署自定义逻辑。</p>
 <blockquote>
 <p>这里的移动是怎么发生的？消耗是什么，怎么监控内存紧张呢？是否会被别的修改呢？什么时候回收呢</p>
 </blockquote>
-<h3 id="remoteable-memory-abstractions">Remoteable Memory Abstractions</h3>
-<p>We designed the abstractions such that they <strong>impose minimal overheads</strong> (as low as three micro-ops) on “hot path” access to local objects, and try to ensure that the “cold path” remote access incurs little latency above hardware limits</p>
-<h4 id="remoteable-pointers">Remoteable Pointers</h4>
-<p>Memory representation. 唯一可远程访问指针（对应于 C++的 std::unique_ptr）的大小与普通 64 位指针相同，而共享指针（对应于 C++的 std::shared_ptr）的宽度为 128 位。图 4 显示了可远程访问唯一指针的内存布局。根据可远程访问指针是本地还是远程，我们采用不同的格式。如果内存是本地的（图 4a），指针在其低 47 位中包含一个虚拟内存地址（足以表示用户空间地址），并在高 17 位中包含控制位，包括标准的脏位（D）和存在位（P）（参考页表）。它还包含用于跟踪指针是否热（H）以及是否正在并发疏散（E）的位。对于唯一指针，共享位（S）设置为 0。我们将 D、E 和 H 位按字节对齐，允许每个位由变异器和运行时疏散器并发且原子地访问，因为字节是最小的读/写单位。</p>
+<h3 class="heading-element" id="remoteable-memory-abstractions"><span>Remoteable Memory Abstractions</span>
+  <a href="#remoteable-memory-abstractions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>We designed the abstractions such that they <strong>impose minimal overheads</strong> (as low as three micro-ops) on “hot path” access to local objects, and try to ensure that the “cold path” remote access incurs little latency above hardware limits</p>
+<h4 class="heading-element" id="remoteable-pointers"><span>Remoteable Pointers</span>
+  <a href="#remoteable-pointers" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Memory representation. 唯一可远程访问指针（对应于 C++的 std::unique_ptr）的大小与普通 64 位指针相同，而共享指针（对应于 C++的 std::shared_ptr）的宽度为 128 位。图 4 显示了可远程访问唯一指针的内存布局。根据可远程访问指针是本地还是远程，我们采用不同的格式。如果内存是本地的（图 4a），指针在其低 47 位中包含一个虚拟内存地址（足以表示用户空间地址），并在高 17 位中包含控制位，包括标准的脏位（D）和存在位（P）（参考页表）。它还包含用于跟踪指针是否热（H）以及是否正在并发疏散（E）的位。对于唯一指针，共享位（S）设置为 0。我们将 D、E 和 H 位按字节对齐，允许每个位由变异器和运行时疏散器并发且原子地访问，因为字节是最小的读/写单位。</p>
 <p>API: 清单 1 显示了可远程访问唯一指针的 API（共享指针的 API 大致相同）。RemUniquePtr 有两个构造函数：一个用于已经本地的对象，另一个用于当前远程的对象。第二个构造函数允许数据结构形成指向当前远程对象的可远程访问指针。这有助于数据结构工程师从其数据结构中引用远程对象，而无需获取这些对象。</p>
 <p>要将远程指针转换为本地指针，程序员通过 deref 和 deref_mut API 方法进行解引用。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png"
-        data-srcset="https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png, https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png 1.5x, https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png"
-        title="https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png' alt="https://s2.loli.net/2024/11/07/Um6EhjyKFpD59IS.png"></p>
 <p>Dereferencing 运行时会检查可远程访问指针的存在位。如果对象是本地的，它将设置热位并返回存储在指针中的地址。否则，运行时会从远程服务器获取对象，设置热位和脏位（在 deref_mut 中），并返回指向数据的本地指针。</p>
-<h4 id="dereference-scopes">Dereference Scopes</h4>
-<p>未来，AIFM 可能会利用静态分析来捕捉生命周期违规，如 Rust 编译器</p>
-<h4 id="evacuation-handlers">Evacuation Handlers</h4>
-<p>数据结构开发者通过调用 RegisterEvacHandler 注册他们的疏散处理器。疏散处理器与唯一的数据结构 ID 绑定，每个数据结构在其构造函数中分配该 ID，数据结构工程师必须一致使用该 ID。这样，不同的数据结构或同一数据结构的实例可以在同一个应用程序中共存，而运行时会调用适当的处理器</p>
-<h4 id="remote-devices">Remote Devices</h4>
-<h4 id="semantic-hints">Semantic Hints</h4>
-<p>Hotness tracking 内存疏散器使用此热度信息来确保频繁访问的对象是本地的</p>
+<h4 class="heading-element" id="dereference-scopes"><span>Dereference Scopes</span>
+  <a href="#dereference-scopes" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>未来，AIFM 可能会利用静态分析来捕捉生命周期违规，如 Rust 编译器</p>
+<h4 class="heading-element" id="evacuation-handlers"><span>Evacuation Handlers</span>
+  <a href="#evacuation-handlers" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>数据结构开发者通过调用 RegisterEvacHandler 注册他们的疏散处理器。疏散处理器与唯一的数据结构 ID 绑定，每个数据结构在其构造函数中分配该 ID，数据结构工程师必须一致使用该 ID。这样，不同的数据结构或同一数据结构的实例可以在同一个应用程序中共存，而运行时会调用适当的处理器</p>
+<h4 class="heading-element" id="remote-devices"><span>Remote Devices</span>
+  <a href="#remote-devices" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><h4 class="heading-element" id="semantic-hints"><span>Semantic Hints</span>
+  <a href="#semantic-hints" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Hotness tracking 内存疏散器使用此热度信息来确保频繁访问的对象是本地的</p>
 <p>Prefetching AIFM 包含一个库，数据结构可以使用该库来维护每个线程的解引用位置历史窗口，并使用有限状态机（FSM）预测未来的访问</p>
 <p>Nontemporal Access 对于没有时间局部性的对象的可远程访问指针，限制用于存储其对象数据的本地内存是有意义的</p>
 <blockquote>
@@ -298,18 +316,30 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <blockquote>
 <p>虽然很详细，但我觉得这部分讲的还是不够清楚不够直观</p>
 </blockquote>
-<h2 id="aifm-runtime">AIFM Runtime</h2>
-<p>AIFM 的运行时建立在“绿色”线程（轻量级用户级线程）、内核旁路 TCP/IP 网络栈和无暂停内存疏散器之上。应用程序将运行时链接到其用户空间进程中。这使我们能够与 AIFM 的抽象共同设计运行时，并提供高性能的远端内存，而不依赖于任何操作系统内核抽象。</p>
-<h3 id="hiding-remote-access-latency">Hiding Remote Access Latency</h3>
-<p>现有的操作系统内核线程支付高上下文切换成本：例如，在 Linux 上，重新调度任务大约需要 500ns。这些成本是远程内存延迟的非平凡部分，因此 Linux 和 Fastswap 采用了一种设计，即在等待网络响应时忙等待[6]。这避免了上下文切换开销，但也浪费了几个微秒的处理时间。这种方法还对网络提供商施加了巨大压力，要求支持更低的延迟，以减少浪费的周期[9, 28]。AIFM 采用了不同的方法：它依赖于低开销的绿色线程，在等待远程数据获取时执行应用程序工作。</p>
+<h2 class="heading-element" id="aifm-runtime"><span>AIFM Runtime</span>
+  <a href="#aifm-runtime" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>AIFM 的运行时建立在“绿色”线程（轻量级用户级线程）、内核旁路 TCP/IP 网络栈和无暂停内存疏散器之上。应用程序将运行时链接到其用户空间进程中。这使我们能够与 AIFM 的抽象共同设计运行时，并提供高性能的远端内存，而不依赖于任何操作系统内核抽象。</p>
+<h3 class="heading-element" id="hiding-remote-access-latency"><span>Hiding Remote Access Latency</span>
+  <a href="#hiding-remote-access-latency" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>现有的操作系统内核线程支付高上下文切换成本：例如，在 Linux 上，重新调度任务大约需要 500ns。这些成本是远程内存延迟的非平凡部分，因此 Linux 和 Fastswap 采用了一种设计，即在等待网络响应时忙等待[6]。这避免了上下文切换开销，但也浪费了几个微秒的处理时间。这种方法还对网络提供商施加了巨大压力，要求支持更低的延迟，以减少浪费的周期[9, 28]。AIFM 采用了不同的方法：它依赖于低开销的绿色线程，在等待远程数据获取时执行应用程序工作。</p>
 <blockquote>
 <p>其实是很简单的思路，用协程，异步 IO</p>
 <p>但是缺点呢，这些协程怎么调度呢</p>
 </blockquote>
-<h3 id="remoteable-memory-layout">Remoteable Memory Layout</h3>
-<p>对于 AIFM 管理的本地内存，其运行时采用了日志结构内存[63]的思想，将本地可远程访问内存按日志粒度分割和管理</p>
-<h3 id="pauseless-memory-evacuator">Pauseless Memory Evacuator</h3>
-<p>运行时的内存疏散器将冷对象移动到远程服务器</p>
+<h3 class="heading-element" id="remoteable-memory-layout"><span>Remoteable Memory Layout</span>
+  <a href="#remoteable-memory-layout" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>对于 AIFM 管理的本地内存，其运行时采用了日志结构内存[63]的思想，将本地可远程访问内存按日志粒度分割和管理</p>
+<h3 class="heading-element" id="pauseless-memory-evacuator"><span>Pauseless Memory Evacuator</span>
+  <a href="#pauseless-memory-evacuator" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>运行时的内存疏散器将冷对象移动到远程服务器</p>
 <ol>
 <li>Log Selection Phase.</li>
 <li>Concurrent Marking Phase</li>
@@ -326,39 +356,50 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <ol>
 <li>Concurrent Evacuation Phase.</li>
 </ol>
-<h3 id="co-design-with-the-thread-scheduler">Co-design with the Thread Scheduler</h3>
-<p>当运行时面临内存压力时，疏散是一项紧急任务。使用简单的线程调度器，疏散可能会被变异器线程饿死，导致内存不足错误和应用程序崩溃。</p>
+<h3 class="heading-element" id="co-design-with-the-thread-scheduler"><span>Co-design with the Thread Scheduler</span>
+  <a href="#co-design-with-the-thread-scheduler" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>当运行时面临内存压力时，疏散是一项紧急任务。使用简单的线程调度器，疏散可能会被变异器线程饿死，导致内存不足错误和应用程序崩溃。</p>
 <p>我们需要解决两个挑战。首先，<strong>大量变异器线程可能比疏散更快地分配内存</strong>。其次，疏散有时会在变异器线程的解引用范围内阻塞，这造成了一个困境。一方面，调度器需要执行变异器线程，以便它们可以解除疏散的阻塞。另一方面，执行变异器线程可能会消耗更多内存。</p>
-<h2 id="remoteable-data-structure-examples">Remoteable Data Structure Examples</h2>
-<blockquote>
+<h2 class="heading-element" id="remoteable-data-structure-examples"><span>Remoteable Data Structure Examples</span>
+  <a href="#remoteable-data-structure-examples" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>略</p>
 </blockquote>
-<h2 id="implementation">Implementation</h2>
-<p>AIFM 的实现包括核心运行时库（§5）和数据结构库（§6）。核心运行时建立在 Shenango[55]之上，以利用其快速的用户级线程运行时和 I/O 栈。</p>
+<h2 class="heading-element" id="implementation"><span>Implementation</span>
+  <a href="#implementation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>AIFM 的实现包括核心运行时库（§5）和数据结构库（§6）。核心运行时建立在 Shenango[55]之上，以利用其快速的用户级线程运行时和 I/O 栈。</p>
 <blockquote>
 <p>怪不得说这么多线程，用了 Shenango</p>
 </blockquote>
 <p>我们将两个远端内存后端集成到 AIFM 中：一个基于 DPDK 的 TCP 栈的远程内存服务器，以及一个使用 SPDK 存储栈的 NVMe SSD。与远程内存后端不同，SSD 后端不支持活动的远程组件（因为存储驱动器没有通用计算单元），并且由于其固定块大小的限制，存在固有的 I/O 放大。我们的评估主要集中在远程内存后端。</p>
 <p>当前实现有一些限制。首先，我们不支持 TCP 卸载或 RDMA，这会减少我们运行时的 CPU 开销。</p>
-<h2 id="evaluation">Evaluation</h2>
-<h3 id="end-to-end-performance">End-to-end Performance</h3>
-<p>Web 服务</p>
+<h2 class="heading-element" id="evaluation"><span>Evaluation</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="end-to-end-performance"><span>End-to-end Performance</span>
+  <a href="#end-to-end-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Web 服务</p>
 <p>其次，我们还移植了一个开源的 C++ DataFrame 库[16]，其接口类似于 Pandas[56]，以了解所需的移植工作量和 AIFM 对现有应用程序的性能。</p>
 <p>我们将两种 AIFM 设置（带有和不带有数组元素的非临时解引用）与 Fastswap[6]和理想化的基线（所有 26GB 都在本地内存中）进行比较。AIFM 的良好结果将显示其性能优于 Fastswap，非临时数组访问的好处，<strong>并且性能不比将所有数据保存在本地内存中低很多。</strong></p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png"
-        data-srcset="https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png, https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png 1.5x, https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png"
-        title="https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png' alt="https://s2.loli.net/2024/11/07/q7TDgtKA3xMIvnE.png"></p>
 <p>在图左侧（5%本地内存），AIFM 在哈希表（52%）和数组（89%）中看到<strong>高缺失率</strong>，因为 AIFM 的<strong>非临时数组解引用</strong>确保大部分本地内存专用于哈希表条目。相应地，数组缺失率下降得更慢，并与可用本地内存成比例。相比之下，Fastswap（此处未显示）在两个数据结构中都有高缺失率，因为其基于页面的方法管理本地内存效率低下。</p>
 <blockquote>
 <p>为什么这里 web 应用都是 8K 对象呢？</p>
 </blockquote>
-<h3 id="dataframe-application">DataFrame Application</h3>
-<p>我们将一个流行的开源 C++ DataFrame 库[16]移植到 AIFM 的 API 中。该库中使用的主要数据结构是一个存储 DataFrame 列和索引的 std::vector，我们将其替换为启用了 AIFM 的等效数据结构。此外，我们还增加了对卸载关键操作的支持，这些操作计算强度低但内存访问频率高。我们通过使用 AIFM 的远程设备 API（§4.2.4）卸载三个操作来实现这一点。Copy 和 Shuffle 操作复制一个向量（即 DataFrame 列），Shuffle 还通过另一个列中的索引位置重新排序行；Aggregate 计算聚合值（总和、平均值等）。这三种操作用于五个 DataFrame API 调用，包括过滤器、列创建、排序和聚合（表 1）。为了实现足以运行纽约市出租车行程分析工作负载[53]的覆盖范围，我们在 DataFrame 库（24.3k 行代码）中修改了 1,192 行代码，并编写了 233 行远程设备代码。这些修改由一位作者花费了大约五天时间。</p>
+<h3 class="heading-element" id="dataframe-application"><span>DataFrame Application</span>
+  <a href="#dataframe-application" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们将一个流行的开源 C++ DataFrame 库[16]移植到 AIFM 的 API 中。该库中使用的主要数据结构是一个存储 DataFrame 列和索引的 std::vector，我们将其替换为启用了 AIFM 的等效数据结构。此外，我们还增加了对卸载关键操作的支持，这些操作计算强度低但内存访问频率高。我们通过使用 AIFM 的远程设备 API（§4.2.4）卸载三个操作来实现这一点。Copy 和 Shuffle 操作复制一个向量（即 DataFrame 列），Shuffle 还通过另一个列中的索引位置重新排序行；Aggregate 计算聚合值（总和、平均值等）。这三种操作用于五个 DataFrame API 调用，包括过滤器、列创建、排序和聚合（表 1）。为了实现足以运行纽约市出租车行程分析工作负载[53]的覆盖范围，我们在 DataFrame 库（24.3k 行代码）中修改了 1,192 行代码，并编写了 233 行远程设备代码。这些修改由一位作者花费了大约五天时间。</p>
 <blockquote>
 <p>这修改挺累的</p>
 </blockquote>
@@ -371,40 +412,80 @@ Zhenyuan Ruan, Malte Schwarzkopf 和 Adam Belay，zhenyuan 在 osdi 20 中了不
 <p>但没有启用 RDMA 还是很可惜的</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-11-06</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-11-06 11:28:34">更新于 2024-11-06&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-aifm/" data-title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-fastswap/" class="prev" rel="prev" title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</a>
-            <a href="../../posts/memo-class-1/" class="next" rel="next" title="阅读笔记：编程高手必学的内存知识 01">阅读笔记：编程高手必学的内存知识 01<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-fastswap/" class="post-nav-item" rel="prev" title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</a><a href="../../posts/memo-class-1/" class="post-nav-item" rel="next" title="阅读笔记：编程高手必学的内存知识 01">阅读笔记：编程高手必学的内存知识 01<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#aifm-high-performance-application-integrated-far-memory">AIFM: High-Performance, Application-Integrated Far Memory</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#background-and-related-work">Background and Related Work</a></li>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#aifm-design">AIFM Design</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#remoteable-memory-abstractions">Remoteable Memory Abstractions</a>
+          <ul>
+            <li><a href="#remoteable-pointers">Remoteable Pointers</a></li>
+            <li><a href="#dereference-scopes">Dereference Scopes</a></li>
+            <li><a href="#evacuation-handlers">Evacuation Handlers</a></li>
+            <li><a href="#remote-devices">Remote Devices</a></li>
+            <li><a href="#semantic-hints">Semantic Hints</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#aifm-runtime">AIFM Runtime</a>
+      <ul>
+        <li><a href="#hiding-remote-access-latency">Hiding Remote Access Latency</a></li>
+        <li><a href="#remoteable-memory-layout">Remoteable Memory Layout</a></li>
+        <li><a href="#pauseless-memory-evacuator">Pauseless Memory Evacuator</a></li>
+        <li><a href="#co-design-with-the-thread-scheduler">Co-design with the Thread Scheduler</a></li>
+      </ul>
+    </li>
+    <li><a href="#remoteable-data-structure-examples">Remoteable Data Structure Examples</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#end-to-end-performance">End-to-end Performance</a></li>
+        <li><a href="#dataframe-application">DataFrame Application</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/4e1e0826e0650cbceff82d38c9e5a30a.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

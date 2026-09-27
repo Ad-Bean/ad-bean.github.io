@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-ownership/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks">
+	<meta itemprop="description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）">
+	<meta itemprop="datePublished" content="2024-11-10T16:27:22-05:00">
+	<meta itemprop="dateModified" content="2024-11-10T16:27:22-05:00">
+	<meta itemprop="wordCount" content="10601">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-ownership/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks">
-	<meta property="og:description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）
-Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论文也提到许多 Futures, distributed futures interface 之类的第一次接触，实际上是 RPC 的扩展">
+	<meta property="og:description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -18,116 +25,102 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks">
-	<meta name="twitter:description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）
-Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论文也提到许多 Futures, distributed futures interface 之类的第一次接触，实际上是 RPC 的扩展">
+	<meta name="twitter:description" content="Ownership: A Distributed Futures System for Fine-Grained Tasks 分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-ownership/" /><link rel="prev" href="https://ad-bean.github.io/posts/memo-class-1/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-delta-lake/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-ownership\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  10601 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-ownership\/","datePublished": "2024-11-10T16:27:22-05:00","dateModified": "2024-11-10T16:27:22-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-ownership/" title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/memo-class-1/" title="阅读笔记：编程高手必学的内存知识 01" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-delta-lake/" title="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-ownership\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  10601 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-ownership\/","datePublished": "2024-11-10T16:27:22-05:00","dateModified": "2024-11-10T16:27:22-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/distributed/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Distributed</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-10">2024-11-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10601 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 22 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/distributed/" class="post-category" title="分类 - Distributed"><i class="fa-regular fa-folder" aria-hidden="true"></i> Distributed</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-10 16:27:22"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-11-10">2024-11-10</time></span>&nbsp;<span title="10601 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 10700 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 22 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#ownership-a-distributed-futures-system-for-fine-grained-tasks">Ownership: A Distributed Futures System for Fine-Grained Tasks</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -161,8 +154,11 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="ownership-a-distributed-futures-system-for-fine-grained-tasks">Ownership: A Distributed Futures System for Fine-Grained Tasks</h2>
-<p>分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="ownership-a-distributed-futures-system-for-fine-grained-tasks"><span>Ownership: A Distributed Futures System for Fine-Grained Tasks</span>
+  <a href="#ownership-a-distributed-futures-system-for-fine-grained-tasks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>分布式系统中的一些任务调度的论文，本来是要看 Ray 的，同样都是 UCB 的研究（分布式机器学习框架）</p>
 <p>Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论文也提到许多 Futures, distributed futures interface 之类的第一次接触，实际上是 RPC 的扩展</p>
 <blockquote>
 <p>最重要的概念是 Distributed Memory + Ref + Future</p>
@@ -172,15 +168,21 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <p>A call worker2 o1+o2，worker2 解引用去 w1 找 o1</p>
 <p>future 就是异步，但是 解引用的时候就会有很多问题，所以有了这篇论文，但看下来感觉主题不太清晰，效果也不太优秀，不太令人信服。</p>
 </blockquote>
-<h2 id="abstract">Abstract</h2>
-<p>分布式 Futures 接口 distributed futures interface</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>分布式 Futures 接口 distributed futures interface</p>
 <p><strong>Distributed futures</strong> are an extension of <strong>RPC</strong> that combines futures and distributed memory</p>
 <p>分布式 futures 是一个引用，其最终值可能存储在远程节点上。
 然后，应用程序可以在<strong>不指定执行时间</strong>或<strong>数据移动位置</strong>的情况下表达分布式计算。</p>
 <p>最近的分布式 Futures 应用程序需要执行<strong>细粒度计算</strong>的能力，即在<strong>毫秒级</strong>运行的任务。与<strong>粗粒度任务</strong>相比，细粒度任务难以以可接受的系统开销执行。</p>
 <p>在本文中，我们提出了一种用于细粒度任务的分布式 Futures 系统，该系统在<strong>不牺牲性能</strong>的情况下提供<strong>容错能力</strong>。我们的解决方案基于一种称为 Ownership 的全新概念，该概念为每个对象分配一个系统操作的<strong>leader</strong>。我们表明，这种<strong>去中心化</strong>的架构可以实现<strong>水平扩展</strong>、每任务 1 毫秒的延迟和快速故障处理。</p>
-<h2 id="introduction">Introduction</h2>
-<p>RPC 是构建分布式应用程序的标准，最初的提案使用<strong>同步调用 synchronous</strong>，将返回值复制回调用者
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>RPC 是构建分布式应用程序的标准，最初的提案使用<strong>同步调用 synchronous</strong>，将返回值复制回调用者
 最近的一些系统 [4, 34, 37, 45] 扩展了 RPC，使得系统不仅可以管理分布式通信，还可以代表应用程序管理数据移动和并行性。</p>
 <blockquote>
 <p>PyTorch - Remote Reference Protocol.</p>
@@ -207,17 +209,10 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 </blockquote>
 <p>主要挑战是分布式 Futures 在进程之间引入了<strong>共享状态</strong>。特别是，一个对象及其元数据由其引用持有者、创建对象的 RPC 执行者以及其物理位置共享。为了确保每个引用持有者能够<strong>解引用值</strong>，进程必须<strong>协调 coordinate</strong>，这是一个在存在故障时难以解决的问题。相比之下，传统的 RPC 没有共享状态，因为数据是通过值传递的，并且自然避免了协调，这对于可扩展性和低延迟至关重要。</p>
 <p>例如，在图 2a 中，一旦 worker 1 将 a 复制到 driver，它 (worker1) 就不需要参与下游 add 任务的执行。相比之下，worker 1 在图 2d 中存储了 a，<strong>因此两个 worker 必须协调以确保 a 在 worker 2 读取时足够长时间可用</strong>。此外，worker 1 必须在 worker 2 执行 add 并且没有其他引用时对 a 进行<strong>垃圾回收</strong>。最后，进程必须协调以检测和恢复另一个进程的故障。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png"
-        data-srcset="https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png, https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png 1.5x, https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png"
-        title="https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png' alt="https://s2.loli.net/2024/11/11/oM5FCugkGBy61f4.png"></p>
 <p>以前系统中的常见解决方案是使用集中式主节点来存储系统状态并协调这些操作，确保容错的一种简单方法是将与操作相关的元数据同步记录和复制到主节点。</p>
 <blockquote>
-<p>Ray 使用了主节点 Head Node <a href="https://docs.ray.io/en/latest/cluster/key-concepts.html" target="_blank" rel="noopener noreffer ">https://docs.ray.io/en/latest/cluster/key-concepts.html</a></p>
+<p>Ray 使用了主节点 Head Node <a href="https://docs.ray.io/en/latest/cluster/key-concepts.html" target="_blank" rel="external nofollow noopener noreferrer">https://docs.ray.io/en/latest/cluster/key-concepts.html</a></p>
 <p>只要保证 a 不会在调用 add 前被垃圾回收？ray 用 head node 来任务调度、资源管理</p>
 </blockquote>
 <p>因此，分散系统状态对于可扩展性是必要的。问题是如何在不复杂化协调的情况下做到这一点。我们工作的关键见解是利用应用程序结构：分布式 Futures 可以通过<strong>引用传递共享</strong>，但大多数分布式 Futures 在调用者的范围内共享。例如，在图 1 中，a_future 被创建然后传递给同一范围内的 add。</p>
@@ -239,17 +234,16 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <blockquote>
 <p>分布式数据库应该比较常用 checkpoint + log 来做故障恢复把？</p>
 </blockquote>
-<h2 id="distributed-futures">Distributed Futures</h2>
-<h3 id="api">API</h3>
-<p>分布式未来的主要优势在于系统可以 transparently manage parallelism 和 data movement</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png"
-        data-srcset="https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png, https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png 1.5x, https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png"
-        title="https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png" /></p>
+<h2 class="heading-element" id="distributed-futures"><span>Distributed Futures</span>
+  <a href="#distributed-futures" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="api"><span>API</span>
+  <a href="#api" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>分布式未来的主要优势在于系统可以 transparently manage parallelism 和 data movement</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png' alt="https://s2.loli.net/2024/11/11/6FtTGDWCbXx2avi.png"></p>
 <blockquote>
 <p>f 是调用函数，传入 x 引用</p>
 <p>get(x) 是解引用，del(x) 删除引用</p>
@@ -265,8 +259,11 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <blockquote>
 <p>Actor 管理状态计算</p>
 </blockquote>
-<h3 id="applications">Applications</h3>
-<p>分布式未来的典型应用是那些需要 RPC 的灵活性以及数据移动和并行性优化的应用。</p>
+<h3 class="heading-element" id="applications"><span>Applications</span>
+  <a href="#applications" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>分布式未来的典型应用是那些需要 RPC 的灵活性以及数据移动和并行性优化的应用。</p>
 <p>分布式未来之前已被探索用于数据密集型应用，这些应用无法有效地表达或执行为数据并行程序。Ciel 识别了在执行过程中动态指定任务的关键能力，例如基于先前的结果，而不是<strong>预先指定整个图</strong> [37]。这使得新的工作负载成为可能，例如动态规划，它本质上具有递归性</p>
 <blockquote>
 <p>任务调度？</p>
@@ -283,20 +280,19 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <p>Lightdb: A DBMS for virtual reality video.</p>
 </blockquote>
 <p>在这种设置中，安全和及时的垃圾回收可能具有挑战性，因为单个对象（例如视频帧）可能被多个任务引用。实时视频处理也对延迟敏感：输出必须以与输入相同的帧速率生成。低延迟依赖于帧之间的流水线并行性，因为应用程序无法等待多个输入帧出现才开始执行</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png"
-        data-srcset="https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png, https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png 1.5x, https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png"
-        title="https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png' alt="https://s2.loli.net/2024/11/11/cUNtMJaxmLV35zK.png"></p>
 <blockquote>
 <p>DFut 的错误检测和错误恢复</p>
 </blockquote>
-<h2 id="overview">Overview</h2>
-<h3 id="requirements">Requirements</h3>
-<p>系统保证每个 DFut 都可以解引用到其值。这涉及三个问题：automatic memory management, failure detection, and failure recovery.</p>
+<h2 class="heading-element" id="overview"><span>Overview</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="requirements"><span>Requirements</span>
+  <a href="#requirements" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>系统保证每个 DFut 都可以解引用到其值。这涉及三个问题：automatic memory management, failure detection, and failure recovery.</p>
 <blockquote>
 <p>就是把值传递改成了引用传递</p>
 <p>可以减少网络传递的大小，但是带来的问题却很多，生命周期，错误检测，错误恢复</p>
@@ -320,27 +316,26 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <blockquote>
 <p>所以到底是异步还是同步更新？</p>
 </blockquote>
-<h3 id="existing-solutions">Existing solutions</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png"
-        data-srcset="https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png, https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png 1.5x, https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png"
-        title="https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png" /></p>
+<h3 class="heading-element" id="existing-solutions"><span>Existing solutions</span>
+  <a href="#existing-solutions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png' alt="https://s2.loli.net/2024/11/11/V8S6zuGCNZ7YOvn.png"></p>
 <p>Centralized master: 使用同步更新的集中式主节点进行故障处理，但这种设计也会增加显著的运行时开销，故障检测要求主节点在<strong>调度之前记录任务的计划位置</strong>，这使得主节点成为可扩展性和延迟的瓶颈。主节点可以通过分片来提高可扩展性，但这会使协调多个对象的操作（如垃圾回收和血统重建）变得复杂。此外，延迟开销是根本性的。每个任务调用必须首先联系主节点，即使不复制元数据以实现容错，也会在执行的关键路径上增加至少一次 RTT。</p>
 <p>Distributed leases: 这类似于异步更新的集中式主节点，这种设计通过分片实现<strong>水平可扩展性</strong>，并减少任务延迟，因为元数据是异步写入的。然而，<strong>依赖时间来协调系统状态会减慢恢复速度</strong>（图 14）。此外，这种去中心化方法引入了一个新问题：工作节点还必须在<strong>谁应该恢复对象（即重新执行创建任务）上进行协调</strong>。这在集中式方案中很简单，因为主节点协调所有恢复操作。</p>
 <blockquote>
 <p>在 Kubernetes 中，租约机制用于节点心跳和组件级别的领导者选举</p>
-<p>分布式原理介绍 <a href="https://lrita.github.io/images/posts/distribution/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D.pdf" target="_blank" rel="noopener noreffer ">https://lrita.github.io/images/posts/distribution/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D.pdf</a></p>
-<p>分布式系统中的 lease（租约）机制 <a href="https://lrita.github.io/2018/10/29/lease-in-distributed-system/" target="_blank" rel="noopener noreffer ">https://lrita.github.io/2018/10/29/lease-in-distributed-system/</a></p>
-<p>基于 PAXSO 算法的，时钟漂移有上界的部分同步网络的 lease(租约)算法 <a href="https://lrita.github.io/images/posts/distribution/flease-fault-tolerant-and-decentralized-lease-coordination-for-distributed-systems.pdf" target="_blank" rel="noopener noreffer ">https://lrita.github.io/images/posts/distribution/flease-fault-tolerant-and-decentralized-lease-coordination-for-distributed-systems.pdf</a></p>
+<p>分布式原理介绍 <a href="https://lrita.github.io/images/posts/distribution/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D.pdf" target="_blank" rel="external nofollow noopener noreferrer">https://lrita.github.io/images/posts/distribution/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86%E4%BB%8B%E7%BB%8D.pdf</a></p>
+<p>分布式系统中的 lease（租约）机制 <a href="https://lrita.github.io/2018/10/29/lease-in-distributed-system/" target="_blank" rel="external nofollow noopener noreferrer">https://lrita.github.io/2018/10/29/lease-in-distributed-system/</a></p>
+<p>基于 PAXSO 算法的，时钟漂移有上界的部分同步网络的 lease(租约)算法 <a href="https://lrita.github.io/images/posts/distribution/flease-fault-tolerant-and-decentralized-lease-coordination-for-distributed-systems.pdf" target="_blank" rel="external nofollow noopener noreferrer">https://lrita.github.io/images/posts/distribution/flease-fault-tolerant-and-decentralized-lease-coordination-for-distributed-systems.pdf</a></p>
 <p>这里提到的等待租约过期，那我将租约寿命调低，不断续约能否解决呢？</p>
 <p>至于谁来恢复，用主节点协调其实挺好的？这也是为什么 Ray 继续用 head node 吧</p>
 </blockquote>
-<h3 id="our-solution-ownership">Our solution: Ownership</h3>
-<p>我们工作的关键见解是“shard”集中式主节点以提高可扩展性，但基于应用程序结构来实现低运行时开销和简单的故障处理。</p>
+<h3 class="heading-element" id="our-solution-ownership"><span>Our solution: Ownership</span>
+  <a href="#our-solution-ownership" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们工作的关键见解是“shard”集中式主节点以提高可扩展性，但基于应用程序结构来实现低运行时开销和简单的故障处理。</p>
 <p>在所有权中，<strong>调用任务的工作节点存储与返回的 DFut 相关的元数据</strong>。与<strong>集中式主节点一样，它协调操作，如任务调度，以确保它知道任务位置，并进行垃圾回收</strong>。例如，在图 6d 中，worker 1 拥有 X 和 Y。</p>
 <p>选择任务的<strong>调用者作为所有者</strong>的原因是，通常情况下，它是访问元数据最频繁的工作节点。调用者通过任务调用参与 DFut 的初始创建，并通过将 DFut 传递给其他 RPC 来创建其他引用。因此，任务调用延迟最小，因为计划位置是本地写入的。类似地，如果 DFut 保持在所有者的作用域内，垃圾回收的开销很低，因为当所有者将 DFut 传递给另一个 RPC 时，可以在本地更新 DFut 的引用计数。对于小对象，这些开销可以进一步减少，这些对象可以按值传递，就像没有分布式内存一样（参见第 4.2 节）。</p>
 <p>当然，如果所有任务都由单个驱动程序提交，就像在 BSP 程序中那样，所有权机制将无法扩展到驱动程序的吞吐量之外。任何动态任务系统也是如此。然而，通过<strong>所有权机制</strong>，应用程序可以通过将控制逻辑分布在<strong>多个嵌套任务中来水平扩展</strong>，而不是像一致性哈希（图 12e）这样的应用程序无关的方法。此外，worker 进程持有系统元数据的大部分。这与之前的解决方案形成对比，之前的解决方案将所有元数据推送到系统的集中式或每个节点的进程中，限制了单个节点在拥有许多 worker 进程时的垂直可扩展性（图 12）。</p>
@@ -353,32 +348,24 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <blockquote>
 <p>Ray 文档说目前不支持 owner recovery 但为什么论文这里说集中式设计容易解决呢</p>
 </blockquote>
-<h2 id="ownership-design">Ownership Design</h2>
-<p>集群中的每个节点托管一个或多个 worker（通常每个核心一个），一个调度器和一个对象存储</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png"
-        data-srcset="https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png, https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png 1.5x, https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png"
-        title="https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png" /></p>
+<h2 class="heading-element" id="ownership-design"><span>Ownership Design</span>
+  <a href="#ownership-design" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>集群中的每个节点托管一个或多个 worker（通常每个核心一个），一个调度器和一个对象存储</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png' alt="https://s2.loli.net/2024/11/12/IJc29VWs8g6RGbt.png"></p>
 <p>worker 使用一个所有权表来记录它所处理的任务和数据</p>
 <p>The distributed memory layer (Section 4.2) consists of an immutable distributed object store (Figure 7d) with Locations stored at the owner</p>
 <blockquote>
 <p>具体细节看论文</p>
 </blockquote>
-<h3 id="task-scheduling">Task scheduling</h3>
-<p>Owner 如何协调任务调度</p>
+<h3 class="heading-element" id="task-scheduling"><span>Task scheduling</span>
+  <a href="#task-scheduling" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Owner 如何协调任务调度</p>
 <p>在较高层次上，<strong>所有者</strong>将每个任务分派到<strong>分布式调度器选择的位置</strong>。这确保了所有权表中的任务位置与分派同步更新。我们假设一个抽象的调度策略，该策略接收资源请求并返回应分配资源节点的 ID。该策略还可能更新其决策，例如由于资源可用性的变化。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png"
-        data-srcset="https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png, https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png 1.5x, https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png"
-        title="https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png' alt="https://s2.loli.net/2024/11/12/wHitG2CMXj8ZKse.png"></p>
 <p>图 8c 展示了分派任务的协议。在任务调用时，<strong>调用者，即返回的 DFut 的所有者</strong>，首先从其本地调度器请求资源。请求是一个元组，包含任务所需的资源（例如，{&ldquo;CPU&rdquo;: 1}）和分布式内存中的参数。如果策略选择本地节点，<strong>调度器接受请求</strong>：它获取参数，分配资源，然后将<strong>本地 worker 租给所有者</strong>。否则，调度器拒绝请求并将所有者重定向到策略选择的节点。</p>
 <p>在这两种情况下，<strong>调度器都会向所有者返回新位置</strong>：要么是租用的 worker 的 ID，要么是另一个节点的 ID。所有者在将任务分派到该位置之前，将其存储在其本地所有权表中。如果请求被接受，所有者直接将任务发送给租用的 worker 执行；否则，它在<strong>下一个调度器重复该协议</strong>。</p>
 <p>因此，所有者总是将任务分派到其下一个位置，确保任务的挂起位置（表 2）同步更新。这也允许所有者在任务的资源需求得到满足时，通过直接将任务分派给已租用的 worker 来绕过调度器。例如，在图 8d 中，worker 1 重用了从节点 2 租用的资源来执行 C。所有者在配置的超时时间后或没有更多任务需要分派时返回租约。我们目前不重用具有不同分布式内存依赖关系的任务的资源，因为这些资源由调度器获取。我们将其他<strong>租约撤销</strong>和<strong>工作重用</strong>的策略留待未来的工作。</p>
@@ -390,13 +377,19 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <p>这里很奇怪，说吞吐量是由于 worker2worker 调度限制了，那对于 lease 呢？</p>
 </blockquote>
 <p>Actor scheduling 系统调度 actor 构造任务的方式与普通任务类似。然而，在完成之后，所有者持有 worker 的租约，直到 actor 不再被引用（第 4.2 节），并且 worker 只能执行通过相应 ARef 提交的 actor 任务。</p>
-<h3 id="memory-management">Memory management</h3>
-<p>Allocation 对于小对象，复制可能比通过分布式内存传递更快，后者需要更新对象目录，从远程节点获取对象等。因此，在对象创建时，系统根据大小透明地选择是按值传递还是按引用传递。</p>
+<h3 class="heading-element" id="memory-management"><span>Memory management</span>
+  <a href="#memory-management" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Allocation 对于小对象，复制可能比通过分布式内存传递更快，后者需要更新对象目录，从远程节点获取对象等。因此，在对象创建时，系统根据大小透明地选择是按值传递还是按引用传递。</p>
 <p>Dereferencing</p>
 <p>Reclamation</p>
 <p>Actors</p>
-<h3 id="failure-recovery">Failure recovery</h3>
-<p>Failure detection. 故障通知包含 worker 或节点 ID，发布给所有 worker。Worker 不交换心跳；worker 故障由其本地调度器发布。节点故障通过节点之间交换心跳来检测，所有 worker 与其节点 fate-share。</p>
+<h3 class="heading-element" id="failure-recovery"><span>Failure recovery</span>
+  <a href="#failure-recovery" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Failure detection. 故障通知包含 worker 或节点 ID，发布给所有 worker。Worker 不交换心跳；worker 故障由其本地调度器发布。节点故障通过节点之间交换心跳来检测，所有 worker 与其节点 fate-share。</p>
 <p>在接收到节点或 worker 故障通知后，每个 worker 扫描其本地所有权表以检测 DFut 故障。DFut 在两种情况下被认为是失败的：1）通过比较 Location 字段，丢失拥有的对象（图 10a），或 2）通过比较 Owner 字段，丢失所有者（图 11a）。我们接下来分别使用行踪重建和命运共享来讨论这两种情况的处理</p>
 <p>请注意，非所有者不需要检测对象的丢失。例如，在图 10a 中，节点 2 在 worker 3 接收到 C 时失败。当 worker 3 在所有者处查找 X 时，可能找不到任何位置。从 worker 3 的角度来看，这意味着节点 2 的目录写入被延迟，或者节点 2 失败。Worker 3 不需要决定是哪一种；<strong>它只需等待 X 的所有者处理故障。</strong></p>
 <p>Object recovery: The owner recovers a lost value through lineage reconstruction</p>
@@ -407,12 +400,18 @@ Ownership 我一开始还以为是 Rust 里的所有权概念，弄混了，论�
 <p>我们使用命运共享来确保系统在所有者失败时能够继续运行。首先，所有者及其任何引用持有者持有的所有资源都被回收。具体来说，在接收到所有者失败的通知后，分布式对象存储释放对象（如果存在）或调度层回收 worker 租约（如果对象正在等待），如图 11b 所示。所有引用持有者，即借用者和依赖任务，也与所有者共享命运</p>
 <p>然后，为了恢复共享命运的状态，我们依赖于行踪重建。特别是，在失败的所有者上执行的任务或 actor 本身必须由另一个进程拥有。该进程最终将重新提交失败的任务。当新的所有者重新执行时，它将重新创建其先前的状态，无需系统干预。例如，图 11a 中 A 的所有者最终将重新提交 A（图 11b），这将再次提交 B 和 C。</p>
 <p>为了正确性，我们证明所有先前的引用持有者都被重新创建，并带有新所有者的地址。考虑计算 DFut x 值的任务 T。T 最初在 worker W 上执行，并在恢复期间在 W0 上重新执行。API（第 2 节）提供了三种创建对 x 的另一个引用的方法：（1）将 x 作为任务参数传递，（2）将 x 转换为 SharedDFut 然后作为任务参数传递，（3）从 T 返回 x。</p>
-<h2 id="evaluation">Evaluation</h2>
-<p>我们与三个基线进行了比较：（1）一个没有分布式内存的未来但按值传递的模型，类似于图 2c，（2）一个基于租约的去中心化系统用于分布式未来（Ray v0.7），（3）一个集中式主节点用于分布式未来（Ray v0.7 修改为在任务执行前写入集中式主节点）。</p>
+<h2 class="heading-element" id="evaluation"><span>Evaluation</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>我们与三个基线进行了比较：（1）一个没有分布式内存的未来但按值传递的模型，类似于图 2c，（2）一个基于租约的去中心化系统用于分布式未来（Ray v0.7），（3）一个集中式主节点用于分布式未来（Ray v0.7 修改为在任务执行前写入集中式主节点）。</p>
 <p>Task submission is divided across multiple intermediate drivers, either colocated on the m5.8xlarge
 head node or spread with one m5.8xlarge node per driver</p>
-<h3 id="microbenchmarks">Microbenchmarks</h3>
-<p>Throughput and scalability.</p>
+<h3 class="heading-element" id="microbenchmarks"><span>Microbenchmarks</span>
+  <a href="#microbenchmarks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Throughput and scalability.</p>
 <p>We could not produce stable results for pass-by-value with large objects due to the <strong>lack of backpressure</strong> in our implementation</p>
 <p>当驱动程序分散时（图 12b 和 12d），所有权和租约都线性扩展。在图 12b 中，所有权比租约扩展得更好，因为更多的工作被卸载到 worker 进程上。在图 12d 中，所有权和租约实现了类似的吞吐量，但<strong>所有权系统还包括内存安全</strong>（第 4.2 节）。集中式设计（2 个分片）线性扩展到 ∼60 个节点。添加更多分片会提高这个阈值，但只是常数数量。</p>
 <blockquote>
@@ -422,22 +421,18 @@ head node or spread with one m5.8xlarge node per driver</p>
 </blockquote>
 <p>Scaling through borrowing</p>
 <p>Latency 该 worker 要么与驱动程序位于同一节点（“本地”），要么位于单独的 m5.16xlarge 节点上（“远程”）
-<img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png"
-        data-srcset="https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png, https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png 1.5x, https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png"
-        title="https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png" /></p>
+<img loading="lazy" src='https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png' alt="https://s2.loli.net/2024/11/12/jTdsJrtk6XgGSFH.png"></p>
 <p>首先，分布式内存在所有情况下都比按值传递实现了更好的延迟，因为这些系统避免了从驱动程序到 worker 的<strong>不必要任务参数副本。</strong></p>
 <p>其次，与集中式和租约相比，所有权平均实现了 1.6 倍的更低延迟。这是因为（1）能够在所有者本地写入元数据，而不是远程进程，以及（2）能够<strong>重用租用的资源</strong>，在许多情况下<strong>绕过调度层</strong>（第 4.1 节）。</p>
 <blockquote>
 <p>如果任务的资源需求得到满足，所有者还可以绕过调度器，直接将任务分派给已租用的工人。 in Figure 8d, worker 1 reuses the resources leased from node 2 in Figure 8c to execute C.</p>
 </blockquote>
 <p>Recovery</p>
-<h3 id="end-to-end-applications">End-to-end applications</h3>
-<p>Model Serving
+<h3 class="heading-element" id="end-to-end-applications"><span>End-to-end applications</span>
+  <a href="#end-to-end-applications" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Model Serving
 所有权和集中式实现了相同的中位数延迟（54ms），但集中式的尾部延迟高出 9 倍（1 秒 vs. 108ms）</p>
 <p>Online video processing.
 图 15b 显示了没有故障的延迟。所有系统实现了相似的中位数延迟（∼65ms），但租约和集中式的尾部延迟较长（分别为 1208ms 和 1923ms）。</p>
@@ -448,8 +443,11 @@ head node or spread with one m5.8xlarge node per driver</p>
 <p>分布式垃圾回收 DGC</p>
 </blockquote>
 <p>application-level checkpoints (O+CP)</p>
-<h2 id="conclusion">Conclusion</h2>
-<blockquote>
+<h2 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>一些问题</p>
 <ol>
 <li>
@@ -475,7 +473,7 @@ w3 返回到一个失败节点？然后找到 owner 的 owner 来重建？这不
 </ol>
 </blockquote>
 <blockquote>
-<p><a href="https://docs.google.com/document/d/1tBw9A4j62ruI5omIJbMxly-la5w4q_TjyJgJL_jN2fI/preview?tab=t.0" target="_blank" rel="noopener noreffer ">https://docs.google.com/document/d/1tBw9A4j62ruI5omIJbMxly-la5w4q_TjyJgJL_jN2fI/preview?tab=t.0</a></p>
+<p><a href="https://docs.google.com/document/d/1tBw9A4j62ruI5omIJbMxly-la5w4q_TjyJgJL_jN2fI/preview?tab=t.0" target="_blank" rel="external nofollow noopener noreferrer">https://docs.google.com/document/d/1tBw9A4j62ruI5omIJbMxly-la5w4q_TjyJgJL_jN2fI/preview?tab=t.0</a></p>
 <p>Some of the trade-offs that come with ownership are:</p>
 <ol>
 <li>To resolve an <code>ObjectRef</code>, the object’s owner must be reachable. This means that an object will fate-share with its owner. See Object failures and Object spilling for more information about object recovery and persistence.</li>
@@ -508,40 +506,75 @@ The paper mentions some future work in section 7, it says that it might support 
 </li>
 </ol>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-11-10</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-11-10 16:27:22">更新于 2024-11-10&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-ownership/" data-title="Paper Reading: Ownership: A Distributed Futures System for Fine-Grained Tasks"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/memo-class-1/" class="prev" rel="prev" title="阅读笔记：编程高手必学的内存知识 01"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>阅读笔记：编程高手必学的内存知识 01</a>
-            <a href="../../posts/paper-delta-lake/" class="next" rel="next" title="Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores">Paper Reading: Delta Lake High-Performance ACID Table Storage over Cloud Object Stores<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/memo-class-1/" class="post-nav-item" rel="prev" title="阅读笔记：编程高手必学的内存知识 01"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>阅读笔记：编程高手必学的内存知识 01</a><a href="../../posts/paper-delta-lake/" class="post-nav-item" rel="next" title="Paper Reading: Delta Lake High-Performance ACID Table Storage Over Cloud Object Stores">Paper Reading: Delta Lake High-Performance ACID Table Storage Over Cloud Object Stores<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#ownership-a-distributed-futures-system-for-fine-grained-tasks">Ownership: A Distributed Futures System for Fine-Grained Tasks</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#distributed-futures">Distributed Futures</a>
+      <ul>
+        <li><a href="#api">API</a></li>
+        <li><a href="#applications">Applications</a></li>
+      </ul>
+    </li>
+    <li><a href="#overview">Overview</a>
+      <ul>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="#existing-solutions">Existing solutions</a></li>
+        <li><a href="#our-solution-ownership">Our solution: Ownership</a></li>
+      </ul>
+    </li>
+    <li><a href="#ownership-design">Ownership Design</a>
+      <ul>
+        <li><a href="#task-scheduling">Task scheduling</a></li>
+        <li><a href="#memory-management">Memory management</a></li>
+        <li><a href="#failure-recovery">Failure recovery</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#microbenchmarks">Microbenchmarks</a></li>
+        <li><a href="#end-to-end-applications">End-to-end applications</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/68ead7c71187c56f99f68950987f076a.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

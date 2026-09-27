@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21] - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/bao-learned-query-opt/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21] - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]">
+	<meta itemprop="description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization">
+	<meta itemprop="datePublished" content="2024-03-17T00:14:24-04:00">
+	<meta itemprop="dateModified" content="2024-03-17T00:14:24-04:00">
+	<meta itemprop="wordCount" content="3827">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/bao-learned-query-opt/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]">
-	<meta property="og:description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization
-ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.
-论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。">
+	<meta property="og:description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -19,117 +25,102 @@ ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training over
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]">
-	<meta name="twitter:description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization
-ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.
-论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。">
+	<meta name="twitter:description" content="Bao: Making Learned Query Optimization Practical MLDB &#43; query optimization">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" /><link rel="prev" href="https://ad-bean.github.io/posts/zero-shot-learned/" /><link rel="next" href="https://ad-bean.github.io/posts/minilsm-1/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/bao-learned-query-opt\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  3827 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/bao-learned-query-opt\/","datePublished": "2024-03-17T00:14:24-04:00","dateModified": "2024-03-17T00:14:24-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21] - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/zero-shot-learned/" title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/minilsm-1/" title="Mini-LSM Week 1 Day1" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/bao-learned-query-opt\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  3827 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/bao-learned-query-opt\/","datePublished": "2024-03-17T00:14:24-04:00","dateModified": "2024-03-17T00:14:24-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-17">2024-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3827 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/learned-data-systems/" class="post-category" title="分类 - Learned Data Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> Learned Data Systems</a></span></div><div class="post-meta-line"><span title="发布于 2024-03-17 00:14:24"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-03-17">2024-03-17</time></span>&nbsp;<span title="3827 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 3900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#bao-making-learned-query-optimization-practical">Bao: Making Learned Query Optimization Practical</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -152,18 +143,27 @@ ABSTRACT 最近 ML 做 query optimization 由于需要 substantive training over
     <li><a href="#paer-reading">Paer Reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="bao-making-learned-query-optimization-practical">Bao: Making Learned Query Optimization Practical</h2>
-<p>MLDB + query optimization</p>
-<h2 id="abstract">ABSTRACT</h2>
-<p>最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="bao-making-learned-query-optimization-practical"><span>Bao: Making Learned Query Optimization Practical</span>
+  <a href="#bao-making-learned-query-optimization-practical" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>MLDB + query optimization</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最近 ML 做 query optimization 由于需要 substantive training overhead 所以其实很少 practical gains, inability to adapt to changes, poor tail performance.</p>
 <p>论文提出了 Bao, Bandit Optimizer, 通过利用现有查询优化器的知识，对每个查询提供优化建议。</p>
 <p>Bao combines mordern tree Convolutional Neural Networks (CNN) with Thompson sampling (RL). Bao 可以从错误中学习，适应不同的 query workloads, data, schema.</p>
 <p>实验结果显示 BAO 可以快速学习改善<strong>端到端</strong>查询执行性能（包括 tail latency）的策略，用于几种包含 long-term 查询的工作负载。在<strong>云环境</strong>中，我们表明，与商业系统相比，BAO 可以提供降低的成本和更好的性能。</p>
 <blockquote>
 <p>长尾请求：P99, 99% 请求在一定耗时内，长尾请求就是明显高于均值的那部分比较小的请求</p>
 </blockquote>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>Query Optimization, cardinality estimation and cost modeling, difficult to crack</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Query Optimization, cardinality estimation and cost modeling, difficult to crack</p>
 <p>很多 Query Optimization 都是 ML 做的，但却是很少实用：</p>
 <ol>
 <li>Long training time, impractical amount of training data, ML-powered cardinality estimators based on supervised learning 需要收集精确的 cardinalities，非常昂贵的操作。所以 Bao wish to estimate cardinalities in the first place. RL 也需要好几天的训练。</li>
@@ -180,14 +180,7 @@ optimizer), and learn when to activate (or deactivate) some of its features on a
 </blockquote>
 <p>PostgreSQL optimizer might <strong>underestimate the cardinality</strong> for some joins and wrongly select a loop join when other join algorithms (e.g., merge join, hash join) would be more effective
 This occurs in query 16b of the <strong>Join Order Benchmark</strong> (JOB)， and disabling loop-joins for this query yields a 3𝑥 performance improvement (see Figure 1). Yet, it would be wrong to always disable loop joins. For example, for query 24b, disabling loop joins causes the performance to degrade by almost 50𝑥, an arguably catastrophic regression.</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png"
-        data-srcset="https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png, https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png 1.5x, https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png"
-        title="https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png' alt="https://s2.loli.net/2024/03/17/LGqXZjPCFvBbWOp.png"></p>
 <p>Bao assumes a <strong>finite set of hint sets</strong> and treats each hint set as an arm in a contextual multi-armed bandit problem.</p>
 <blockquote>
 <p>multi-armed bandit problem 多臂赌博机问题，机器学习问题，每个老虎机赢的概率不一样，不知道概率，选择哪个能做到最大收益？</p>
@@ -219,8 +212,11 @@ for very short running queries,</p>
 <li>We introduce Bao, a <strong>learned system</strong> for <strong>query optimization</strong> that is capable of <strong>learning how to apply query hints on a case-by-case basis</strong></li>
 <li>For the first time, we demonstrate a learned query optimization system that outperforms both open source and commercial systems in <strong>cost and latency</strong>, all while <strong>adapting to changes in workload, data, and schema</strong>.</li>
 </ol>
-<h2 id="system-model">SYSTEM MODEL</h2>
-<p>Bao combines a <strong>tree convolution model</strong>, a <strong>neural network operator</strong> that can recognize important patterns in query plan trees, with Thompson sampling (solving contextual multi-armed bandit problems)</p>
+<h2 class="heading-element" id="system-model"><span>SYSTEM MODEL</span>
+  <a href="#system-model" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Bao combines a <strong>tree convolution model</strong>, a <strong>neural network operator</strong> that can recognize important patterns in query plan trees, with Thompson sampling (solving contextual multi-armed bandit problems)</p>
 <ol>
 <li><strong>Generating 𝑛 query plans</strong>: When a user submits a query, Bao uses the underlying query optimizer to produce 𝑛 query plans, one for each set of hint. While some hints can be applied to a single relation or predicate, Bao focuses <strong>only on query hints that are a boolean flag</strong> (e.g., disable loop join, force index usage). The sets of hints available to Bao <strong>must be specified upfront</strong>, empty -&gt; original optimizer</li>
 <li><strong>Estimating the run-time</strong> for each query plan: Afterwards, each query plan is transformed into a <strong>vector tree</strong> (a tree where each node is a feature vector) -&gt; value model(tree convolutional neural network) -&gt; which <strong>predicts</strong> the quality (e.g., execution time) of each plan -&gt; parallel</li>
@@ -230,8 +226,11 @@ for very short running queries,</p>
 <blockquote>
 <p>Bao 的 vaule model 永远不会从错误中学习？而且看上去不支持 subquery 优化，不知道是不是时间复杂度太高的原因。</p>
 </blockquote>
-<h2 id="selecting-query-hints">SELECTING QUERY HINTS</h2>
-<p>Bao’s learning approach, optimization goal, formalize it as a contextual <strong>multi-armed bandit problem.</strong>, apply Thompson sampling, a classical technique used to solve such problems</p>
+<h2 class="heading-element" id="selecting-query-hints"><span>SELECTING QUERY HINTS</span>
+  <a href="#selecting-query-hints" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Bao’s learning approach, optimization goal, formalize it as a contextual <strong>multi-armed bandit problem.</strong>, apply Thompson sampling, a classical technique used to solve such problems</p>
 <p>Bao models each hint set in the family of hint sets</p>
 <p>Bao also assumes a user-defined performance metric 𝑃</p>
 <p>Contextual multi-armed bandits (CMABs):</p>
@@ -239,8 +238,11 @@ for very short running queries,</p>
 <blockquote>
 <p>RL 的一些东西，不看了</p>
 </blockquote>
-<h3 id="predictive-model">Predictive model</h3>
-<p>The core of Thompson sampling, Bao’s algorithm for selecting hint sets on a per-query basis, is a predictive model that estimates the performance of a particular query plan.</p>
+<h3 class="heading-element" id="predictive-model"><span>Predictive model</span>
+  <a href="#predictive-model" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The core of Thompson sampling, Bao’s algorithm for selecting hint sets on a per-query basis, is a predictive model that estimates the performance of a particular query plan.</p>
 <blockquote>
 <p>Bao 是怎么转换 query plan trees: <strong>binarizing</strong> the query plan tree and encoding each query plan operator as a vector, optionally augmenting this representation with cache information</p>
 </blockquote>
@@ -250,25 +252,40 @@ for very short running queries,</p>
 <p>Tree convolutional neural networks</p>
 </blockquote>
 <p><strong>Integrating with Thompson sampling</strong>: ?</p>
-<h3 id="training-loop">Training loop</h3>
-<blockquote>
+<h3 class="heading-element" id="training-loop"><span>Training loop</span>
+  <a href="#training-loop" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>提出了新的 optimization, 在云平台上可以热加载 GPU？</p>
 </blockquote>
-<h2 id="postgresql-integration">POSTGRESQL INTEGRATION</h2>
-<p>install and use with PostgreSQL, hook system</p>
+<h2 class="heading-element" id="postgresql-integration"><span>POSTGRESQL INTEGRATION</span>
+  <a href="#postgresql-integration" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>install and use with PostgreSQL, hook system</p>
 <p><strong>Per-query activation</strong>: sits on top of a traditional optimizer, When Bao is activated, Thompson sampling is used to select query hints. When Bao is deactivated, the PostgreSQL optimizer is used. Note that even when Bao is disabled, Bao can (optionally) still learn from query executions. <em>off-policy reinforcement learning</em> ??
 <strong>Active vs. advisor mode</strong>: In active mode, Bao operates as described above, <strong>automatically selecting hint sets and learning from their performance</strong>. In advisor mode, Bao does not select hint sets (all queries are optimized by the PostgreSQL planner), but still observes the performance of executed queries and trains a predictive model.
 <strong>Triggered exploration</strong>: query regressions, because Bao actively explores new query plans, regressions may be more <strong>erratic</strong></p>
-<h2 id="related-works">RELATED WORKS</h2>
-<p>One of the earliest applications of learning to query optimization was Leo [72], which used successive runs of the similar queries to adjust histogram estimators.</p>
+<h2 class="heading-element" id="related-works"><span>RELATED WORKS</span>
+  <a href="#related-works" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>One of the earliest applications of learning to query optimization was Leo [72], which used successive runs of the similar queries to adjust histogram estimators.</p>
 <p>Neo [51] showed that <strong>deep reinforcement learning</strong> could be applied <strong>directly to query latency</strong>, and could learn optimization strategies that were competitive with commercial systems after 24 hours of training. However, none of these techniques are <strong>capable of handling changes in schema, data, or queryworkload</strong>, and none <strong>demonstrate</strong> improvement in <strong>tail performance</strong>. Works applying reinforcement learning to adaptive query processing have shown interesting results, but are not applicableto existing, non-adaptive systems like <strong>PostgreSQL</strong>.</p>
 <blockquote>
 <p>我不认为 Bao 和 Neo 有太大的差别，同样都是 RL，为什么说 Neo 无法适应变化呢？</p>
 </blockquote>
-<h2 id="experiments">EXPERIMENTS</h2>
-<p>real-world database <strong>workloads</strong>, quantifying not only query performance, but also on the <strong>dollar-cost</strong> of executing a workload</p>
-<h3 id="setup">Setup</h3>
-<p>IMDb dataset, new real-world datasets and workload called Stack, Corp dataset</p>
+<h2 class="heading-element" id="experiments"><span>EXPERIMENTS</span>
+  <a href="#experiments" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>real-world database <strong>workloads</strong>, quantifying not only query performance, but also on the <strong>dollar-cost</strong> of executing a workload</p>
+<h3 class="heading-element" id="setup"><span>Setup</span>
+  <a href="#setup" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>IMDb dataset, new real-world datasets and workload called Stack, Corp dataset</p>
 <blockquote>
 <p>实验结果只是和 PG, ComSys 比了一下 latency，效果还不错，大概 20% 的改善， P99 也改善很多，但为什么这部分不和 Neo 对比呢？</p>
 </blockquote>
@@ -281,16 +298,12 @@ for very short running queries,</p>
 <blockquote>
 <p>65h &gt; 24h 为什么 Bao 会被 a small number of options 限制呢，文章也没有仔细解释 Bao 是怎么适应 dynamic workload 的</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png"
-        data-srcset="https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png, https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png 1.5x, https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png"
-        title="https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png" /></p>
-<h2 id="conclusion-and-future-work">CONCLUSION AND FUTURE WORK</h2>
-<blockquote>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png' alt="https://s2.loli.net/2024/03/18/dqC2A8ljWtbuI9L.png"></p>
+<h2 class="heading-element" id="conclusion-and-future-work"><span>CONCLUSION AND FUTURE WORK</span>
+  <a href="#conclusion-and-future-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>实际上 Bao 团队和 Neo 团队都是一批人，应该是注重点不太一样：</p>
 <p>Neo 是第一个提出深度学习 query optimizer 的，用一个未补全的 query plan encoding 之后用树形网络做预测 cost，并用最小堆搜索最优 plan，忽略 cardinality 等等传统，为每个 predicate 用浮点数存 feature 设计 word vector 存语义，可能好于 histgram 预测。但缺点是训练时间长，只在平均上提升比较好，高质量的计划很可能在随机样本中缺失，样本量必须大，模型训练成本太高。</p>
 </blockquote>
@@ -299,8 +312,11 @@ for very short running queries,</p>
 <p>去年也有一篇 Lero，采用成对方法训练分类器，也不是从头开始，很类似。尝试解决 Bao 的一些问题: 1. 在整个计划搜索过程中，通常对<strong>整个查询</strong>应用提示集。如果查询的不同部分（子查询）具有不同的最佳选择，则在查询级别调整标志可能会错过寻找高质量计划的机会 2. 可用的提示集是<strong>特定于系统</strong>的。优化器通常包含数百个标志来实现/禁用某些优化规则。在实践中<strong>枚举各种组合是不可行</strong>的。手动选择提示集的有效子集需要对系统进行深入的理解，并对工作负载进行综合分析。</p>
 <p>Lero 甚至实现了一个 Bao+, 用更多计划进行模型训练，但好像没有仔细说。同时拓展了更多的数据集， IMDB，JOB，STATS，TPC-H，TPC-DS，等等</p>
 </blockquote>
-<h2 id="paer-reading">Paer Reading</h2>
-<blockquote>
+<h2 class="heading-element" id="paer-reading"><span>Paer Reading</span>
+  <a href="#paer-reading" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>The paper proposes a more practical model called Bao, which sits on top of an existing query optimizer (PostgreSQL) and utilizes machine learning and reinforcement learning for database query optimization. Bao solves lots of the issues with previous learned optimizers, including long training times, inability to adapt, and being difficult to interpret while offers advantages like faster training, robustness to workload and data changes, and better interpretability. The core idea of Bao is to utilize tree convolutional neural networks to analyze query plans and leverage ML techniques called Multi-armed bandit and Thompson Sampling to choose the best query plan among alternatives.</p>
 </blockquote>
 <blockquote>
@@ -321,40 +337,64 @@ for very short running queries,</p>
 <p>First, I would explain the difference between Neo and Bao in more depth, for example, why they all use modern tree convolutional neural networks. Besides, I will collect more data sets and testing their performance on more data benchmarks (such as TPC-H, TPC-DS, STATS). If possible, I would try some methods to limit the hint sets to reduce the current query optimization time, such as manual selection or from expert experiences.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-03-17</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-03-17 00:14:24">更新于 2024-03-17&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/bao-learned-query-opt/" data-title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/zero-shot-learned/" class="prev" rel="prev" title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</a>
-            <a href="../../posts/minilsm-1/" class="next" rel="next" title="Mini-LSM Week 1 Day1">Mini-LSM Week 1 Day1<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/zero-shot-learned/" class="post-nav-item" rel="prev" title="Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022]"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022]</a><a href="../../posts/minilsm-1/" class="post-nav-item" rel="next" title="Mini-LSM Week 1 Day1">Mini-LSM Week 1 Day1<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#bao-making-learned-query-optimization-practical">Bao: Making Learned Query Optimization Practical</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#system-model">SYSTEM MODEL</a></li>
+    <li><a href="#selecting-query-hints">SELECTING QUERY HINTS</a>
+      <ul>
+        <li><a href="#predictive-model">Predictive model</a></li>
+        <li><a href="#training-loop">Training loop</a></li>
+      </ul>
+    </li>
+    <li><a href="#postgresql-integration">POSTGRESQL INTEGRATION</a></li>
+    <li><a href="#related-works">RELATED WORKS</a></li>
+    <li><a href="#experiments">EXPERIMENTS</a>
+      <ul>
+        <li><a href="#setup">Setup</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion-and-future-work">CONCLUSION AND FUTURE WORK</a></li>
+    <li><a href="#paer-reading">Paer Reading</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/978951f43d91ff72c821bc8d0b4b4e1b.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

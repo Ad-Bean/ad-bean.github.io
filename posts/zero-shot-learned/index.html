@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/zero-shot-learned/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022] - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box without expensive training data collection。为了 zero-shot cost models，本文提出 a new learning paradigm based on pre-trained cost models。As core contributions to support the transfer of such a pre-trained cost model to unseen databases, we introduce a new model architecture and representation technique for encoding query workloads as input to those models. As we will show in our evaluation, zero-shot cost estimation can provide more accurate cost estimates than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on unseen databases. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]">
+	<meta itemprop="description" content="Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box without expensive training data collection。为了 zero-shot cost models，本文提出 a new learning paradigm based on pre-trained cost models。As core contributions to support the transfer of such a pre-trained cost model to unseen databases, we introduce a new model architecture and representation technique for encoding query workloads as input to those models. As we will show in our evaluation, zero-shot cost estimation can provide more accurate cost estimates than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on unseen databases. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.">
+	<meta itemprop="datePublished" content="2024-03-16T09:58:30-04:00">
+	<meta itemprop="dateModified" content="2024-03-16T09:58:30-04:00">
+	<meta itemprop="wordCount" content="4530">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/zero-shot-learned/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]">
 	<meta property="og:description" content="Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box without expensive training data collection。为了 zero-shot cost models，本文提出 a new learning paradigm based on pre-trained cost models。As core contributions to support the transfer of such a pre-trained cost model to unseen databases, we introduce a new model architecture and representation technique for encoding query workloads as input to those models. As we will show in our evaluation, zero-shot cost estimation can provide more accurate cost estimates than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on unseen databases. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.">
@@ -19,113 +27,100 @@
 	<meta name="twitter:title" content="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]">
 	<meta name="twitter:description" content="Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] Abstract 本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box without expensive training data collection。为了 zero-shot cost models，本文提出 a new learning paradigm based on pre-trained cost models。As core contributions to support the transfer of such a pre-trained cost model to unseen databases, we introduce a new model architecture and representation technique for encoding query workloads as input to those models. As we will show in our evaluation, zero-shot cost estimation can provide more accurate cost estimates than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on unseen databases. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/zero-shot-learned/" /><link rel="prev" href="https://ad-bean.github.io/posts/spade-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/zero-shot-learned\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  4530 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/zero-shot-learned\/","datePublished": "2024-03-16T09:58:30-04:00","dateModified": "2024-03-16T09:58:30-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/zero-shot-learned/" title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022] - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/spade-paper/" title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/bao-learned-query-opt/" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/zero-shot-learned\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  4530 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/zero-shot-learned\/","datePublished": "2024-03-16T09:58:30-04:00","dateModified": "2024-03-16T09:58:30-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-16">2024-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4530 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022]</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/learned-data-systems/" class="post-category" title="分类 - Learned Data Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> Learned Data Systems</a></span></div><div class="post-meta-line"><span title="发布于 2024-03-16 09:58:30"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-03-16">2024-03-16</time></span>&nbsp;<span title="4530 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 4600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -168,14 +163,23 @@
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</h2>
-<h2 id="abstract">Abstract</h2>
-<p>本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box <strong>without expensive training data collection</strong>。为了 zero-shot cost models，本文提出 a new learning paradigm based on <strong>pre-trained cost models</strong>。As core contributions to support the transfer of such a <strong>pre-trained cost model</strong> to <strong>unseen databases</strong>, we introduce a new model architecture and <strong>representation technique for encoding query workloads as input</strong> to those models. As we will show in our evaluation, zero-shot cost estimation can <strong>provide more accurate cost estimates</strong> than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on <strong>unseen databases</strong>. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022"><span>Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</span>
+  <a href="#zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本文介绍了 zero-shot cost model，该模型可以使学习的成本估算能够 generalizes to unseen databases。与最 state-of-the-art 的工作负载驱动的方法相反，这些方法不必在每个新数据基础上执行大量 training queries ，zero-shot cost models thus allow to instantiate a learned cost model out-of-the-box <strong>without expensive training data collection</strong>。为了 zero-shot cost models，本文提出 a new learning paradigm based on <strong>pre-trained cost models</strong>。As core contributions to support the transfer of such a <strong>pre-trained cost model</strong> to <strong>unseen databases</strong>, we introduce a new model architecture and <strong>representation technique for encoding query workloads as input</strong> to those models. As we will show in our evaluation, zero-shot cost estimation can <strong>provide more accurate cost estimates</strong> than state-of-the-art models for a wide range of (real-world) databases without requiring any query executions on <strong>unseen databases</strong>. Furthermore, we show that zero-shot cost models can be used in a few-shot mode that further improves their quality by retraining them just with a small number of additional training queries on the unseen database.</p>
 <blockquote>
 <p>以后尽可能少地直接机翻原论文了，太多名词机翻效果很差，反而降低阅读速度。基本上读完就写一点感想。</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>Motivation: <strong>Accurate physical cost estimation</strong> (i.e., estimating query latencies) is crucial for <strong>query optimization</strong> in DBMSs. Classically, cost estimation is performed using models that make several simplifying assumptions. As a result, such models often over or underestimate runtimes, leading to <strong>suboptimal planning decisions</strong> that degrade the overall query performance. Recently, machine learning has thus been used for learned cost models that do not need to make such simplifying assumptions.</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Motivation: <strong>Accurate physical cost estimation</strong> (i.e., estimating query latencies) is crucial for <strong>query optimization</strong> in DBMSs. Classically, cost estimation is performed using models that make several simplifying assumptions. As a result, such models often over or underestimate runtimes, leading to <strong>suboptimal planning decisions</strong> that degrade the overall query performance. Recently, machine learning has thus been used for learned cost models that do not need to make such simplifying assumptions.</p>
 <p>While it was shown that the <strong>cost estimates</strong> of such learned cost models are significantly <strong>more accurate</strong> than those of the traditional cost models, the existing approaches rely on <strong>workload-driven learning</strong> where models have to observe thousands of queries on the same database for which the cost prediction should be performed. This workload execution is required to gather the training data which can take hours (or days) since tens of thousands of queries need to be executed on potentially large databases</p>
 <p>In Figure 1, we show the <strong>cost estimation accuracy</strong> depending on how many hours we allow for gathering the <strong>training data for a workload-driven model</strong>. As we can see, even for a medium-sized database such as IMDB, it takes more than 5 hours of running queries on this database to gather enough training data such that the cost estimation model can provide a decent accuracy.</p>
 <p>Unfortunately, <strong>collecting training data</strong> by running queries is not a one-time effort. In fact, the training data collection has to be repeated for every new database a learned model should be deployed for. This is due to the fact that current model architectures for workload-driven learning tie a <strong>trained model to a particular database instance</strong>. Consequently, <strong>for every (new) unseen database</strong> we not only have to train a model from scratch but also gather training data in the form of queries. And even for the same database, in case of <strong>changed data characteristics</strong> due to updates, training data collection needs to be repeated. Overall, these repeated high costs for obtaining training data for unseen databases render workloaddriven learning unattractive for many practical deployments.</p>
@@ -183,14 +187,7 @@
 <p>这里几个名词很奇怪 unseen database 和他 database 的概念也不同，实际上指的是具有特定数据特点的数据集。</p>
 <p>对于 query optimization 需要收集很多数据集，并且精读不够高，而且对于新的数据集又要重新收集。zero-shot 希望能用一种训练模型来泛化数据集。</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png"
-        data-srcset="https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png, https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png 1.5x, https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png"
-        title="https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png' alt="https://s2.loli.net/2024/03/16/QqEyBkIbfGhPSmr.png"></p>
 <p>Contributions: In this paper, we thus suggest <strong>a new learning paradigm for cost estimation called zero-shot cost models</strong> that reduces these high efforts. The general idea behind zero-shot cost models is motivated by recent advances in <strong>transfer learning of models</strong>. Similar to other approaches such as <strong>GPT-3</strong> which <strong>enable zero-shot learning for NLP</strong>, a zero-shot cost model is trained on a wide collection of different databases and workloads and can thus <strong>generalize out-of-the-box</strong> to a completely <strong>unseen database</strong> without the need to be trained particularly on that database. In fact as depicted in Figure 1, zero-shot cost models can provide a high accuracy and often even outperform existing workload-driven approaches that have been trained on large sets of training queries. Moreover, as we also show in Figure 1, zero-shot cost models can additionally be <strong>fine-tuned on the unseen database</strong> with just a few training queries and the resulting few-shot models further improve the accuracy.</p>
 <blockquote>
 <p>本文的想法是类似语言模型训练，进行无标注的大量预先训练，所以可以对没见过的数据集直接进行代价估计，具有较高的准确率，甚至比 workload-driven 的表现好，同时也可以 fine-tuned。</p>
@@ -205,15 +202,24 @@
 <blockquote>
 <p>没接触过这方向的工作，好像是用数据集做一些比较泛化的工作</p>
 </blockquote>
-<h2 id="overview">Overview</h2>
-<h3 id="problem-statement">Problem Statement</h3>
-<blockquote>
+<h2 class="heading-element" id="overview"><span>Overview</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="problem-statement"><span>Problem Statement</span>
+  <a href="#problem-statement" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>主要目标是预测在 unseen database 上的 query latency，并且没有提前知道任何 query。</p>
 <p>文章说 zero-short cost estimation 和 stoa workload-driven cost model 有强烈的对比。并且希望能够在流数据库、图数据库做一些未来的工作。</p>
 </blockquote>
 <p>Finally, while we believe that zero-shot learning for DBMSs is more <strong>generally applicable</strong>, we restrict ourselves in this paper to <strong>cost estimations</strong> for <strong>relational DBMSs</strong> (both single-node and distributed). In particular, zero-shot cost models for other types of systems such as graph-databases or streaming systems are interesting avenues of future work.</p>
-<h3 id="our-approach">Our Approach</h3>
-<p>A key challenge for developing zero-shot cost models is the question how to design a model that allows to <strong>generalize across databases</strong>.</p>
+<h3 class="heading-element" id="our-approach"><span>Our Approach</span>
+  <a href="#our-approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>A key challenge for developing zero-shot cost models is the question how to design a model that allows to <strong>generalize across databases</strong>.</p>
 <p>Typically, these consist of two models: <strong>a database-agnostic model</strong> to estimate the runtime cost and a database dependent model (e.g., histograms) to capture data characteristics. When predicting the cost of a query, the estimated cardinalities and other characteristics (i.e., outputs of the database-dependent models) serve as input to the general database-agnostic cost model which captures the general system behavior (e.g., the costs of a sequential scan grows linearly w.r.t. the number of rows). While the classical models are lightweight, they often largely under or overestimates the true costs of a query since models are too simple to capture complex interactions in the query plan and data.</p>
 <blockquote>
 <p>classical cost model 包含两个 model，估计运行时 cost 和捕获 model？</p>
@@ -223,27 +229,26 @@
 <blockquote>
 <p>data characteristics 是什么？tuple width, intermediate cardinalities，所以需要数据驱动学习？但这是否违反了 zero-shot？还是说只需要训练数据特征而不是 query</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png"
-        data-srcset="https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png, https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png 1.5x, https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png"
-        title="https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png' alt="https://s2.loli.net/2024/03/17/HzPkYLps5lj1FZo.png"></p>
 <blockquote>
 <p>训练然后推理，和语言模型类似</p>
 <p>但是怎么 estimate runtime of a plan given its data characteristics?</p>
 </blockquote>
 <p>本文提出了一种新的 query 表示方法，旧的不是 transferable 也不是 zero-shot。这种表现方式 completely relies on features that can be derived from any database to allow the model to generalize to unseen databases. For example, predicates for <strong>filter operations</strong> in a query are encoded by the general predicate structure (e.g., which data types and comparison operators are used in a predicate) instead of encoding the literals. In addition, data characteristics of a filter operator (e.g., input and output cardinality to express the selectivity) are provided as additional input to a zero-shot model. That way, a zero-shot model can learn the runtime overhead of a filter operation based on database-agnostic characteristics. We present details of our query representation in Section 3.</p>
 <p>Finally, a last important aspect of zero-shot cost models is that they can easily be extended to <strong>few-shot learning</strong>. Hence, instead of using the zero-shot model out-of-the box (which already can provide good performance), one can <strong>fine-tune</strong> the model with only a few training queries on an unseen database</p>
-<h2 id="zero-shot-cost-models">Zero-Shot Cost Models</h2>
-<ol>
+<h2 class="heading-element" id="zero-shot-cost-models"><span>Zero-Shot Cost Models</span>
+  <a href="#zero-shot-cost-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>how we devised such a <strong>transferable</strong> query representation</li>
 <li>how <strong>inference and training</strong> of a zero-shot model that uses this representation works</li>
 </ol>
-<h3 id="query-representation">Query Representation</h3>
-<p>State-of-the-art workload-driven models for cost estimation do not use <strong>transferable</strong> query representations and can thus only be used on the database they were trained on</p>
+<h3 class="heading-element" id="query-representation"><span>Query Representation</span>
+  <a href="#query-representation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>State-of-the-art workload-driven models for cost estimation do not use <strong>transferable</strong> query representations and can thus only be used on the database they were trained on</p>
 <ol>
 <li>
 <p>Query Representation for Workload-Driven Models: hard-code the model against a single database, <strong>attribute names</strong> (e.g., those used in filter predicates) are typically encoded using a one-hot encoding assigning each attribute present in the database a specific position in a feature vector. For instance, the attribute <code>production_year</code> of the IMDB dataset might be encoded using the vector (0,1,0)(assuming that there are only three attributes in total). If the same model should now be used to predict query costs for the SSB dataset, some attributes might not even exist or even worse they might exist but have very different data distributions or even a different data type. In fact, non-transferable feature encodings are not only used for <strong>attributes</strong> but in various places of the query representation such as encoding table names or literals in filter predicates.</p>
@@ -256,76 +261,107 @@
 </li>
 </ol>
 <p>For instance, to encode filter predicates, different from previous approaches we encode the predicate structure as nodes (red) without literals. In particular, we encode information such as data types of the attributes and operators used for comparisons. For example, the filter predicate company_type_id=2 for the query 0 in Figure 3, is encoded using an attribute node (𝑥5) with the comparison node = (𝑥7). As such, a zero-shot cost model provided with the transferable features (e.g., intermediate cardinalities which are given by the data-driven models) can infer the complexity of the predicates to estimate the query runtime</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png"
-        data-srcset="https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png, https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png 1.5x, https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png"
-        title="https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png' alt="https://s2.loli.net/2024/03/17/pEd3QMsvJArb4ZO.png"></p>
 <p>Transferable Featurization: nodes in the graph 1 (e.g., plan operators as shown in gray) are <strong>transferable</strong>. In particular, when used on <strong>different databases</strong>, features should not encode any implicit information that hinder the <strong>transfer of the model to a new unseen database</strong>. The set of such features used for the different node types in our query representation is depicted in Table 1. For instance, attribute nodes (green) use features such as the <strong>data type</strong> or the <strong>width</strong> in bytes. Similarly, for tables (blue nodes), we use other <strong>transferable features</strong> (e.g., the <strong>number of rows</strong> as well as the <strong>number of pages on disk</strong>)</p>
 <p>transferable features can either characterize the query plan (e.g., operator types) or represent the data characteristics (e.g., intermediate cardinalities)</p>
 <p>For transferable features that <strong>represent data characteristics</strong> many can be derived from the <strong>metadata</strong> of a database (such as the the <strong>number of rows</strong> of a table node). However, some other features that represent data characteristics — e.g., the <strong>estimated output cardinality</strong> of an operator node — require more involved techniques. In Section 3.4, we discuss alternatives of how we provide <strong>estimated output cardinalities to zero-shot cost models.</strong></p>
 <blockquote>
 <p>还是没理解 Transferable feature 是什么，是能代表一个数据的特征和 query plan 吗？intermediate cardinalities 也不知道是什么，是 join cardinality 吗？传统是基于直方图，之前数据库课上也见过一些，用直方图做一些统计和估计。</p>
 </blockquote>
-<h3 id="inference-on-zero-shot-models">Inference on Zero-Shot Models</h3>
-<p>用了每个图节点的特征向量来做 MLP 多层感知器（机器学习），加上 GNN 做消息传递，用 DAG 表示查询</p>
+<h3 class="heading-element" id="inference-on-zero-shot-models"><span>Inference on Zero-Shot Models</span>
+  <a href="#inference-on-zero-shot-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>用了每个图节点的特征向量来做 MLP 多层感知器（机器学习），加上 GNN 做消息传递，用 DAG 表示查询</p>
 <p>We thus use a novel <strong>bottom-up message passing scheme</strong> through the graph (i.e., in topological ordering) to obtain an updated hidden state ℎ′𝑣 of a node 𝑣 that contains all information of the child nodes.</p>
 <blockquote>
 <p>机器学习内容，没太理解</p>
 </blockquote>
-<h3 id="training-zero-shot-models">Training Zero-Shot Models</h3>
-<p>在几个数据集和查询集上做了训练</p>
-<h3 id="deriving-data-characteristics">Deriving Data Characteristics</h3>
-<p>zero shot model 和单个数据集的分布无关，所以能预测 unseen dataset，同时为了实现该特性，需要提供数据的特征（属性宽度、页面数量、表格行数量）</p>
+<h3 class="heading-element" id="training-zero-shot-models"><span>Training Zero-Shot Models</span>
+  <a href="#training-zero-shot-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在几个数据集和查询集上做了训练</p>
+<h3 class="heading-element" id="deriving-data-characteristics"><span>Deriving Data Characteristics</span>
+  <a href="#deriving-data-characteristics" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>zero shot model 和单个数据集的分布无关，所以能预测 unseen dataset，同时为了实现该特性，需要提供数据的特征（属性宽度、页面数量、表格行数量）</p>
 <blockquote>
 <p>所以需要人为 label？没有解释清楚到底怎么预测 cardinality estimation</p>
 <p>本模型是和 traditional approach 和 data-driven model 进行比较，但 zero-shot 最好可以和后者结合，传统方法作为 fallback。</p>
 </blockquote>
 <p>In our evaluation, we see that zero-shot models can still produce <strong>reasonable estimates</strong> even if only <strong>cardinalities estimates</strong> from <strong>traditional models</strong> are available</p>
-<h2 id="robustness-of-zero-shot-models">Robustness of Zero-Shot Models</h2>
-<p>针对 unseen datasets, zero-shot model 具有优势，但在什么时候可以观察到足够多的不同训练数据库(和工作负载) ，从而可以鲁棒地推广到 unseen？</p>
+<h2 class="heading-element" id="robustness-of-zero-shot-models"><span>Robustness of Zero-Shot Models</span>
+  <a href="#robustness-of-zero-shot-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>针对 unseen datasets, zero-shot model 具有优势，但在什么时候可以观察到足够多的不同训练数据库(和工作负载) ，从而可以鲁棒地推广到 unseen？</p>
 <p>零拍模型的运行时估计的鲁棒性，We then discuss a simple method to detect cases of workload drifts (i.e., the queries at runtime have substantially different characteristics than the training queries) as well as strategies how to tackle this problem.</p>
-<h3 id="estimating-the-generalization-performance">Estimating the Generalization Performance</h3>
-<ol>
+<h3 class="heading-element" id="estimating-the-generalization-performance"><span>Estimating the Generalization Performance</span>
+  <a href="#estimating-the-generalization-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>simply esimate the generalization errors</li>
 <li>(actually use) estimate if <strong>additional training databases</strong> will improve the generalization performance</li>
 </ol>
 <p>所以训练时用了 subsets，然后用更大的 train set 如果没有改进，则无法提高 generalization 能力</p>
-<h3 id="tackling-workload-drifts">Tackling Workload Drifts</h3>
-<p>new database and workload, we suggest a strategy to <strong>detect cases of workload drifts</strong> by monitoring the test error and propose to <strong>tackle workload-drifts</strong> using few-shot learning</p>
+<h3 class="heading-element" id="tackling-workload-drifts"><span>Tackling Workload Drifts</span>
+  <a href="#tackling-workload-drifts" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>new database and workload, we suggest a strategy to <strong>detect cases of workload drifts</strong> by monitoring the test error and propose to <strong>tackle workload-drifts</strong> using few-shot learning</p>
 <blockquote>
 <p>这是一个蛮新奇的 idea，用微调过的模型来检测和解决 workload drifts</p>
 </blockquote>
-<h2 id="extensions-of-zero-shot-cost-models">Extensions of Zero-Shot Cost Models</h2>
-<p>zero-shot cost estimation can be <strong>extended in various directions</strong>.</p>
-<h3 id="distributed-dbmss">Distributed DBMSs</h3>
-<p>本文的研究对象还是 单机 DBMS，这一节讨论了如何支持分布式 DBMS，尤其是当查询执行时数据会被打乱 shuffle。并且讨论了一些列存/行存时，查询优化的区别。</p>
+<h2 class="heading-element" id="extensions-of-zero-shot-cost-models"><span>Extensions of Zero-Shot Cost Models</span>
+  <a href="#extensions-of-zero-shot-cost-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>zero-shot cost estimation can be <strong>extended in various directions</strong>.</p>
+<h3 class="heading-element" id="distributed-dbmss"><span>Distributed DBMSs</span>
+  <a href="#distributed-dbmss" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>本文的研究对象还是 单机 DBMS，这一节讨论了如何支持分布式 DBMS，尤其是当查询执行时数据会被打乱 shuffle。并且讨论了一些列存/行存时，查询优化的区别。</p>
 <p>然后本文提出了对 查询 进行扩展编码，包含 <strong>operator nodes</strong> for data shuffling as well as <strong>encode data formats</strong> (column or row) as a feature of the table node</p>
-<h3 id="physical-design-tuning">Physical Design Tuning</h3>
-<p>没懂</p>
-<h3 id="other-directions">Other Directions</h3>
-<p>hardware parameters, database knob configurations&hellip;</p>
-<h2 id="a-new-benchmark">A New Benchmark</h2>
-<p>本文提出了一个新的 benchmark</p>
-<h3 id="design-decisions">Design Decisions</h3>
-<p>本文认为传统 TPC-H TPC-DS or SSB 不足够评估成本预测模型，并且因为这些数据是合成的，没法捕捉到相关性来提供 cardinality estimation，也有人基于 IMDB 数据集组了一些新的 workload 病故学习的成本和 cardinality estimation。但这也不能评估 zero-shot，因为要在不同的数据集上训练，需要一个跨越多种数据集的 benchmark。</p>
-<h3 id="datasets">Datasets</h3>
-<p>correlations hardly resemble data distributions found in the real-world</p>
+<h3 class="heading-element" id="physical-design-tuning"><span>Physical Design Tuning</span>
+  <a href="#physical-design-tuning" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>没懂</p>
+<h3 class="heading-element" id="other-directions"><span>Other Directions</span>
+  <a href="#other-directions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>hardware parameters, database knob configurations&hellip;</p>
+<h2 class="heading-element" id="a-new-benchmark"><span>A New Benchmark</span>
+  <a href="#a-new-benchmark" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>本文提出了一个新的 benchmark</p>
+<h3 class="heading-element" id="design-decisions"><span>Design Decisions</span>
+  <a href="#design-decisions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>本文认为传统 TPC-H TPC-DS or SSB 不足够评估成本预测模型，并且因为这些数据是合成的，没法捕捉到相关性来提供 cardinality estimation，也有人基于 IMDB 数据集组了一些新的 workload 病故学习的成本和 cardinality estimation。但这也不能评估 zero-shot，因为要在不同的数据集上训练，需要一个跨越多种数据集的 benchmark。</p>
+<h3 class="heading-element" id="datasets"><span>Datasets</span>
+  <a href="#datasets" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>correlations hardly resemble data distributions found in the real-world</p>
 <p>本文使用了真实世界数据集，也加入了 SSB 和 TPC-H</p>
-<h3 id="workloads-and-traces">Workloads and Traces</h3>
-<p>20 个数据集 + 生成的查询</p>
-<h2 id="experimental-evaluation">Experimental Evaluation</h2>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png"
-        data-srcset="https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png, https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png 1.5x, https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png"
-        title="https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png" /></p>
+<h3 class="heading-element" id="workloads-and-traces"><span>Workloads and Traces</span>
+  <a href="#workloads-and-traces" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>20 个数据集 + 生成的查询</p>
+<h2 class="heading-element" id="experimental-evaluation"><span>Experimental Evaluation</span>
+  <a href="#experimental-evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><img loading="lazy" src='https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png' alt="https://s2.loli.net/2024/03/17/NeI2ahUsbTGYg1P.png"></p>
 <ol>
 <li>Zero-Shot Accuracy, predict costs for unseen databases.</li>
 <li>Zero-Shot vs. Workload-Driven, compare the training overhead and accuracy with state-of-the-art workload driven approaches</li>
@@ -337,8 +373,11 @@
 <blockquote>
 <p>实验结果就不看了，文章没有深入讨论他们的数据集的区别，实验结果看起来和 workload-driven 看上去也差不多</p>
 </blockquote>
-<h2 id="conclusion">Conclusion</h2>
-<blockquote>
+<h2 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>The paper proposes a novel zero-shot cost model that enables learned cost estimation to unseen databases without extensive training on new datasets. The architecture of zero-shot cost model is very similar to the language model in NLP. It adopts the idea of ​​pre-training, so that it can perform well on different datasets, and can also be fine-tuned for special datasets. The paper details the methods used to enable zero-shot cost models, including the transferable query representation, training zero-shot models and deriving data characteristics.The paper also discusses the robustness and scalability of zero-shot models (distributed database). The paper proposes a new benchmark spanning multiple datasets, and gives experimental results, proving that zero-shot models can perform excellent cost estimation on unseen datasets</p>
 </blockquote>
 <blockquote>
@@ -359,40 +398,84 @@
 <p>First, I would try to create a larger and more diverse training and testing dataset that covers a wide range of database schemas and query workloads and extend the benchmark used for evaluating cost models to include more real-world databases and complex queries. This would provide a more comprehensive assessment of the model’s performance and its ability to generalize. Second, extending the zero-shot model to distributed databases or more databases seems very feasible. I might try to expand this part a little further, especially to implement zero-shot cost models fordistributed stream processing or graph databases, because the queries and datasets for stream processing and graph database will be very different. The other parts of the paper are very perfect, especially the architecture that draws on language models, which is very clever.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-03-16</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-03-16 09:58:30">更新于 2024-03-16&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022]" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/zero-shot-learned/" data-title="Paper Reading: Zero-Shot Cost Models for Out-of-the-Box Learned Cost Prediction [VLDB 2022]"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/spade-paper/" class="prev" rel="prev" title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</a>
-            <a href="../../posts/bao-learned-query-opt/" class="next" rel="next" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]">Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/spade-paper/" class="post-nav-item" rel="prev" title="Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Spade Synthesizing Assertions for Large Language Model Pipelines</a><a href="../../posts/bao-learned-query-opt/" class="post-nav-item" rel="next" title="Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]">Paper Reading: Bao: Making Learned Query Optimization Practical [SIGMOD 21]<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#zero-shot-cost-models-for-out-of-the-box-learned-cost-prediction-vldb-2022">Zero-Shot Cost Models for Out-of-the-box Learned Cost Prediction [VLDB 2022]</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#overview">Overview</a>
+      <ul>
+        <li><a href="#problem-statement">Problem Statement</a></li>
+        <li><a href="#our-approach">Our Approach</a></li>
+      </ul>
+    </li>
+    <li><a href="#zero-shot-cost-models">Zero-Shot Cost Models</a>
+      <ul>
+        <li><a href="#query-representation">Query Representation</a></li>
+        <li><a href="#inference-on-zero-shot-models">Inference on Zero-Shot Models</a></li>
+        <li><a href="#training-zero-shot-models">Training Zero-Shot Models</a></li>
+        <li><a href="#deriving-data-characteristics">Deriving Data Characteristics</a></li>
+      </ul>
+    </li>
+    <li><a href="#robustness-of-zero-shot-models">Robustness of Zero-Shot Models</a>
+      <ul>
+        <li><a href="#estimating-the-generalization-performance">Estimating the Generalization Performance</a></li>
+        <li><a href="#tackling-workload-drifts">Tackling Workload Drifts</a></li>
+      </ul>
+    </li>
+    <li><a href="#extensions-of-zero-shot-cost-models">Extensions of Zero-Shot Cost Models</a>
+      <ul>
+        <li><a href="#distributed-dbmss">Distributed DBMSs</a></li>
+        <li><a href="#physical-design-tuning">Physical Design Tuning</a></li>
+        <li><a href="#other-directions">Other Directions</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-new-benchmark">A New Benchmark</a>
+      <ul>
+        <li><a href="#design-decisions">Design Decisions</a></li>
+        <li><a href="#datasets">Datasets</a></li>
+        <li><a href="#workloads-and-traces">Workloads and Traces</a></li>
+      </ul>
+    </li>
+    <li><a href="#experimental-evaluation">Experimental Evaluation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/c1dad1aeed7b1469a9aafb1893ed5fd2.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Milvus A Purpose-Built Vector Data Management System - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/milvus-paper/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Milvus a Purpose-Built Vector Data Management System - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理大规模动态向量数据时会出现严重的性能问题； (2)它们提供的功能有限，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； 针对具有现代 CPU 和 GPU 的异构计算平台进行优化； 实现超越简单向量相似性搜索的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 https://github.com/milvus-io/milvus。
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Milvus A Purpose-Built Vector Data Management System">
+	<meta itemprop="description" content="Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理大规模动态向量数据时会出现严重的性能问题； (2)它们提供的功能有限，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； 针对具有现代 CPU 和 GPU 的异构计算平台进行优化； 实现超越简单向量相似性搜索的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 https://github.com/milvus-io/milvus。">
+	<meta itemprop="datePublished" content="2024-02-25T10:08:12-05:00">
+	<meta itemprop="dateModified" content="2024-02-25T10:08:12-05:00">
+	<meta itemprop="wordCount" content="3129">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/milvus-paper/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Milvus A Purpose-Built Vector Data Management System">
 	<meta property="og:description" content="Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理大规模动态向量数据时会出现严重的性能问题； (2)它们提供的功能有限，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； 针对具有现代 CPU 和 GPU 的异构计算平台进行优化； 实现超越简单向量相似性搜索的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 https://github.com/milvus-io/milvus。">
@@ -19,113 +27,100 @@
 	<meta name="twitter:title" content="Paper Reading: Milvus A Purpose-Built Vector Data Management System">
 	<meta name="twitter:description" content="Milvus：A Purpose-Built Vector Data Management System ABSTRACT 最近，数据科学和人工智能应用中迫切需要管理高维向量数据。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理大规模动态向量数据时会出现严重的性能问题； (2)它们提供的功能有限，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； 针对具有现代 CPU 和 GPU 的异构计算平台进行优化； 实现超越简单向量相似性搜索的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 https://github.com/milvus-io/milvus。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/milvus-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/vbase-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/analyticdb-paper/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Milvus A Purpose-Built Vector Data Management System",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/milvus-paper\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  3129 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/milvus-paper\/","datePublished": "2024-02-25T10:08:12-05:00","dateModified": "2024-02-25T10:08:12-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/milvus-paper/" title="Paper Reading: Milvus A Purpose-Built Vector Data Management System - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/vbase-paper/" title="Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/analyticdb-paper/" title="Paper Reading: AnalyticDB-V" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Milvus A Purpose-Built Vector Data Management System",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/milvus-paper\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  3129 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/milvus-paper\/","datePublished": "2024-02-25T10:08:12-05:00","dateModified": "2024-02-25T10:08:12-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Milvus A Purpose-Built Vector Data Management System</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/database/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Database</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-25">2024-02-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3129 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Milvus a Purpose-Built Vector Data Management System</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/database/" class="post-category" title="分类 - Database"><i class="fa-regular fa-folder" aria-hidden="true"></i> Database</a></span></div><div class="post-meta-line"><span title="发布于 2024-02-25 10:08:12"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-02-25">2024-02-25</time></span>&nbsp;<span title="3129 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 3200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#milvusa-purpose-built-vector-data-management-system">Milvus：A Purpose-Built Vector Data Management System</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -133,23 +128,25 @@
     <li><a href="#system-design">SYSTEM DESIGN</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="milvusa-purpose-built-vector-data-management-system">Milvus：A Purpose-Built Vector Data Management System</h2>
-<h2 id="abstract">ABSTRACT</h2>
-<p>最近，数据科学和人工智能应用中迫切需要管理<strong>高维向量数据</strong>。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理<strong>大规模动态向量</strong>数据时会出现严重的<strong>性能问题</strong>； (2)它们提供的<strong>功能有限</strong>，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； <strong>针对具有现代 CPU 和 GPU 的异构计算平台进行优化</strong>； 实现超越简单向量<strong>相似性搜索</strong>的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 <a href="https://github.com/milvus-io/milvus" target="_blank" rel="noopener noreffer ">https://github.com/milvus-io/milvus</a>。</p>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>在 Zilliz，我们遇到了各种客户在许多数据科学和人工智能应用中管理<strong>大规模高维向量数据</strong>（维度从 10 到 1000 维）<strong>不断增长</strong>的需求。 这主要是由于两个趋势。 第一个是由于智能手机、物联网设备和社交媒体应用程序的普及，图像、视频、文本、医疗数据和住房数据等非结构化数据的爆炸式增长。 据 IDC 称，到 2025 年，80% 的数据将是非结构化的。 第二个趋势是机器学习的快速发展，可以有效地将非结构化数据转换为学习的特征向量以进行数据分析。 特别是，推荐系统中最近流行的方法称为<strong>向量嵌入</strong>，它将项目转换为<strong>特征向量</strong>（例如 item2vec 、word2vec 、doc2vec 、graph2vec ）并通过 提供推荐 <strong>寻找相似的向量</strong>。 例如，YouTube 将视频嵌入到向量中； Airbnb 用向量建模房屋 ； 生物科学家使用载体描述药物化合物的分子结构信息。 除此之外，图像和文本也自然地由向量表示。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="milvusa-purpose-built-vector-data-management-system"><span>Milvus：A Purpose-Built Vector Data Management System</span>
+  <a href="#milvusa-purpose-built-vector-data-management-system" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>最近，数据科学和人工智能应用中迫切需要管理<strong>高维向量数据</strong>。 非结构化数据和机器学习 (ML) 的激增推动了这一趋势，其中 ML 模型通常将非结构化数据转换为特征向量以进行数据分析，例如产品推荐。 现有的向量数据管理系统和算法有两个局限性：（1）在处理<strong>大规模动态向量</strong>数据时会出现严重的<strong>性能问题</strong>； (2)它们提供的<strong>功能有限</strong>，不能满足多功能应用的要求。 本文介绍了 Milvus，这是一个专门构建的数据管理系统，用于有效管理大规模向量数据。 Milvus 支持易于使用的应用程序接口（包括 SDK 和 RESTful API）； <strong>针对具有现代 CPU 和 GPU 的异构计算平台进行优化</strong>； 实现超越简单向量<strong>相似性搜索</strong>的高级查询处理； 处理动态数据以实现快速更新，同时确保高效的查询处理； 并将数据分布到多个节点以实现可扩展性和可用性。 我们首先描述 Milvus 的设计和实现。 然后我们演示 Milvus 支持的实际用例。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序（例如图像/视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答）。 最后，我们使用广泛的系统对 Milvus 进行实验评估，包括两个开源系统（Veach 和 Microsoft SPTAG）和三个商业系统。 实验表明，Milvus 比竞争对手快两个数量级，同时提供更多功能。 现在 Milvus 已被全球数百家组织部署，也被认定为 LF AI &amp; Data Foundation 的孵化阶段项目。 Milvus 开源于 <a href="https://github.com/milvus-io/milvus" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/milvus-io/milvus</a>。</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 Zilliz，我们遇到了各种客户在许多数据科学和人工智能应用中管理<strong>大规模高维向量数据</strong>（维度从 10 到 1000 维）<strong>不断增长</strong>的需求。 这主要是由于两个趋势。 第一个是由于智能手机、物联网设备和社交媒体应用程序的普及，图像、视频、文本、医疗数据和住房数据等非结构化数据的爆炸式增长。 据 IDC 称，到 2025 年，80% 的数据将是非结构化的。 第二个趋势是机器学习的快速发展，可以有效地将非结构化数据转换为学习的特征向量以进行数据分析。 特别是，推荐系统中最近流行的方法称为<strong>向量嵌入</strong>，它将项目转换为<strong>特征向量</strong>（例如 item2vec 、word2vec 、doc2vec 、graph2vec ）并通过 提供推荐 <strong>寻找相似的向量</strong>。 例如，YouTube 将视频嵌入到向量中； Airbnb 用向量建模房屋 ； 生物科学家使用载体描述药物化合物的分子结构信息。 除此之外，图像和文本也自然地由向量表示。</p>
 <blockquote>
 <p>不断增长的例子是怎么样的？什么情况下一个向量会不断增加维度</p>
 </blockquote>
 <p>这些应用程序对设计可扩展的向量数据管理系统提出了独特的要求和挑战。 其中包括：（1）不仅需要支持大规模向量数据的快速查询处理，还需要支持动态向量数据的高效处理（例如插入和删除）。 例如，Youtube 每分钟上传 500 小时的用户生成视频，同时提供实时推荐 。（2）除了简单的向量相似性搜索之外，还需要提供高级查询处理，例如属性过滤和多向量查询处理。 这里的属性过滤是只搜索满足给定过滤条件的向量，这在电子商务应用中很有用，例如，找到与给定图像向量相似且成本低于 100 美元的 T 恤。 多向量查询处理目标适用于每个对象由多个向量描述的场景，例如，在许多计算机视觉应用中使用面部向量和姿势向量来分析人物。</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png"
-        data-srcset="https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png, https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png 1.5x, https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png"
-        title="https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png' alt="https://s2.loli.net/2024/02/25/aRkxB7JnEpLXZAe.png"></p>
 <p>现有的矢量数据管理工作主要集中于<strong>矢量相似度搜索</strong>，但由于性能较差（针对大规模和动态矢量数据）和功能有限（例如不支持属性过滤和多矢量查询），无法满足上述要求，以支持多功能数据科学和人工智能应用。</p>
 <p>更具体地说，我们将现有的工作分为两类：<strong>算法和系统</strong>。 对于向量相似性搜索的算法工作及其开源实现库（以 Facebook Faiss 和 Microsoft SPTAG 为例），存在一些局限性。 (1) 它们是算法和库，而不是管理矢量数据的成熟系统。 他们不能很好地处理大量数据，因为他们假设所有数据和索引都存储在主内存中并且不能跨越多台机器。 (2)这些工作通常假设数据一旦被引入系统就是静态的，并且不能轻松地处理动态数据，同时确保快速的实时搜索。 (3) 它们不支持高级查询处理。 （4）这些工作没有针对 CPU 和 GPU 的异构计算架构进行优化</p>
 <blockquote>
@@ -166,49 +163,61 @@
 <p>本文介绍了 Milvus，这是一种专门构建的数据管理系统，用于为数据科学和人工智能应用高效<strong>存储和搜索大规模矢量数据</strong>。 它是一个专门用于高维向量的系统，遵循 one-size-not-fits-all 的设计实践，与泛化关系数据库以支持向量不同。 Milvus 提供了许多应用程序接口（包括 Python/Java/Go/C++ 的 SDK 和 RESTful API），可以方便应用程序使用。 Milvus <strong>针对具有现代 CPU 和 GPU（多个 GPU 设备）的异构计算架构进行了高度调优</strong>，以实现最佳效率。 它支持多种查询类型，例如具有各种相似性函数的向量相似性搜索、属性过滤和多向量查询处理。 它提供了不同类型的索引（例如，基于<strong>量化的索引</strong>和基于<strong>图的索引</strong>），并开发了一个可扩展的接口，可以轻松地将新索引合并到系统中。 <strong>Milvus 通过基于 LSM 的结构管理动态矢量数据（例如插入和删除）</strong>，同时通过快照隔离提供一致的实时搜索。 Milvus 也是一个跨多个节点部署的<strong>分布式数据管理系统</strong>，以实现可扩展性和可用性。 表 1 突出显示了 Milvus 与其他系统之间的主要区别。</p>
 <p>在实现方面，Milvus 构建于 Facebook Faiss 之上，后者是一个用于<strong>向量相似性搜索的开源 C++ 库</strong>。 但 Milvus 显着增强了 Faiss，提高了性能（例如第 3 节中针对异构计算平台的优化、第 2.3 节中高效支持动态数据管理以及第 5.3 节中的分布式查询处理）、增强的功能（例如属性过滤和多重查询）。 第 4 节中的矢量查询处理），以及更好的可用性（例如第 2.1 节中的应用程序接口），成为成熟的易于使用的矢量数据管理系统</p>
 <p>产品影响： Milvus 已被全球数百个组织和机构采用，涉及图像处理、计算机视觉、自然语言处理、语音识别、推荐系统和药物发现等各个领域。 更重要的是，Milvus 于 2020 年 1 月被 LF AI &amp; Data Foundation 接纳为孵化阶段项目。1 贡献。 本文做出以下贡献：</p>
-<p>• 系统设计和实现（第 2 节和第 5 节）：总体贡献是 Milvus 的设计和实现，这是一个专门构建的矢量数据管理系统，用于管理大规模动态矢量数据，以支持数据科学和人工智能应用 。 Milvus 开源于 <a href="https://github.com/milvus-io/milvus" target="_blank" rel="noopener noreffer ">https://github.com/milvus-io/milvus</a>。</p>
+<p>• 系统设计和实现（第 2 节和第 5 节）：总体贡献是 Milvus 的设计和实现，这是一个专门构建的矢量数据管理系统，用于管理大规模动态矢量数据，以支持数据科学和人工智能应用 。 Milvus 开源于 <a href="https://github.com/milvus-io/milvus" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/milvus-io/milvus</a>。</p>
 <p>• 异构计算（第 3 部分）：我们针对具有现代 CPU 和 GPU 的异构硬件平台优化 Milvus，以实现快速查询处理。 对于面向 CPU 的设计，我们建议<strong>缓存感知和 SIMD 感知</strong>（例如 SSE、AVX、AVX2、AVX512）优化。 对于面向 GPU 的设计，我们设计了一种新的<strong>混合索引，充分利用了 CPU 和 GPU 的优点</strong>，并且我们还开发了一种<strong>新的调度策略来支持多个 GPU 设备</strong>。</p>
 <p>• 高级查询处理（第 4 节）：除了简单的向量相似性搜索之外，我们还支持 Milvus 中的属性过滤和多向量查询处理。 特别是，我们设计了一种新的<strong>基于分区的属性过滤算法和两种用于多向量查询处理的算法</strong>（向量融合和迭代合并）。</p>
 <p>• 新颖的应用程序（第 6 节）：我们描述由 Milvus 提供支持的新颖的应用程序。 特别是，我们在 Milvus 之上构建了一系列 10 个应用程序，以展示其广泛的适用性，包括图像搜索、视频搜索、化学结构分析、COVID-19 数据集搜索、个性化推荐、生物多因素认证、智能问答、图像-文本检索、跨模式行人搜索和食谱食物搜索</p>
-<h2 id="system-design">SYSTEM DESIGN</h2>
-<blockquote>
+<h2 class="heading-element" id="system-design"><span>SYSTEM DESIGN</span>
+  <a href="#system-design" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>下次再读</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-02-25</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus A Purpose-Built Vector Data Management System" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus A Purpose-Built Vector Data Management System"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus A Purpose-Built Vector Data Management System"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus A Purpose-Built Vector Data Management System"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-02-25 10:08:12">更新于 2024-02-25&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus a Purpose-Built Vector Data Management System" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/milvus-paper/" data-title="Paper Reading: Milvus a Purpose-Built Vector Data Management System"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/vbase-paper/" class="prev" rel="prev" title="Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</a>
-            <a href="../../posts/analyticdb-paper/" class="next" rel="next" title="Paper Reading: AnalyticDB-V">Paper Reading: AnalyticDB-V<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/vbase-paper/" class="post-nav-item" rel="prev" title="Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: VBase: Unifying Online Vector Similarity Search and Relational Queries via Relaxed Monotonicity</a><a href="../../posts/analyticdb-paper/" class="post-nav-item" rel="next" title="Paper Reading: AnalyticDB-V">Paper Reading: AnalyticDB-V<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#milvusa-purpose-built-vector-data-management-system">Milvus：A Purpose-Built Vector Data Management System</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#system-design">SYSTEM DESIGN</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/c48c8e8989a6d137a2f06b5198b8062b.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

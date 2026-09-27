@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Index on Adbean&#39;s Blog</title>
-		<link>https://ad-bean.github.io/tags/index/</link>
-		<description>Recent content in Index on Adbean&#39;s Blog</description>
-		<generator>Hugo</generator>
-		<language>zh-CN</language>
-		
-			<managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
-		
-		
-			<webMaster>adbeanx@outlook.com (Adbean)</webMaster>
-		
-		
-		
-			<lastBuildDate>Sat, 26 Sep 2026 00:00:00 +0800</lastBuildDate>
-		
-			<atom:link href="https://ad-bean.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
-			<item>
-				<title>Reading Map</title>
-				<link>https://ad-bean.github.io/reading-map/</link>
-				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/reading-map/</guid>
-				<description>&lt;h2 id=&#34;这是什么&#34;&gt;这是什么&lt;/h2&gt;&#xA;&lt;p&gt;这个博客的知识索引。所有文章按 &lt;strong&gt;6 条轨道&lt;/strong&gt;归类，每条轨道标出&lt;strong&gt;读到哪里、断在哪&lt;/strong&gt;。以后再写新的，挂到对应轨道下面即可。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;总览&lt;/strong&gt;：61 篇，跨 2024-01 → 2025-12。最大的两块是 &lt;strong&gt;OS/Kernel（22）&lt;/strong&gt; 和 &lt;strong&gt;Database（11）&lt;/strong&gt;——论文读得很多，但&lt;strong&gt;动手只到 Mini-LSM 第一周&lt;/strong&gt;。这是目前最大的缺口。&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>关于</title>
-				<link>https://ad-bean.github.io/about/</link>
-				<pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
-				<guid>https://ad-bean.github.io/about/</guid>
-				<description>&lt;p&gt;做流式数据库（&lt;a href=&#34;https://risingwave.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;RisingWave&lt;/a&gt;）。这里是系统方向的学习笔记，索引见 &lt;a href=&#34;../../reading-map/&#34; rel=&#34;&#34;&gt;阅读地图&lt;/a&gt;。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;GitHub: &lt;a href=&#34;https://github.com/ad-bean&#34; target=&#34;_blank&#34; rel=&#34;noopener noreffer &#34;&gt;@ad-bean&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Email: &lt;a href=&#34;mailto:adbeanx@outlook.com&#34; rel=&#34;&#34;&gt;adbeanx@outlook.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
-			</item>
-	</channel>
+  <channel>
+    <title>Index - 标签 - Adbean&#39;s Blog</title>
+    <link>https://ad-bean.github.io/tags/index/</link>
+    <description>Adbean&#39;s Blog</description>
+    <generator>Hugo 0.166.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <managingEditor>adbeanx@outlook.com (Adbean)</managingEditor>
+    <webMaster>adbeanx@outlook.com (Adbean)</webMaster>
+    <lastBuildDate>Sat, 26 Sep 2026 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://ad-bean.github.io/tags/index/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reading Map</title>
+      <link>https://ad-bean.github.io/reading-map/</link>
+      <pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/reading-map/</guid>
+      <category domain="https://ad-bean.github.io/categories/notes/">Notes</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;这是什么&#34;&gt;&lt;span&gt;这是什么&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e8%bf%99%e6%98%af%e4%bb%80%e4%b9%88&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;这个博客的知识索引。所有文章按 &lt;strong&gt;6 条轨道&lt;/strong&gt;归类，每条轨道标出&lt;strong&gt;读到哪里、断在哪&lt;/strong&gt;。以后再写新的，挂到对应轨道下面即可。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>关于</title>
+      <link>https://ad-bean.github.io/about/</link>
+      <pubDate>Sat, 26 Sep 2026 00:00:00 +0800</pubDate><author>adbeanx@outlook.com (Adbean)</author>
+      <guid>https://ad-bean.github.io/about/</guid>
+      <category domain="https://ad-bean.github.io/categories/notes/">Notes</category>
+      <description>&lt;p&gt;系统方向的学习笔记，索引见 &lt;a href=&#34;../../reading-map/&#34;&gt;阅读地图&lt;/a&gt;。&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

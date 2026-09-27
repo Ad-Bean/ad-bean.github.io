@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: The eXpress Data Path - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-xdp/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: The EXpress Data Path - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: The eXpress Data Path">
+	<meta itemprop="description" content="The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。">
+	<meta itemprop="datePublished" content="2024-09-18T00:00:33-04:00">
+	<meta itemprop="dateModified" content="2024-09-18T00:00:33-04:00">
+	<meta itemprop="wordCount" content="4849">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-xdp/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: The eXpress Data Path">
 	<meta property="og:description" content="The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。">
@@ -19,113 +27,100 @@
 	<meta name="twitter:title" content="Paper Reading: The eXpress Data Path">
 	<meta name="twitter:description" content="The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-xdp/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-arrakis/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-prism/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: The eXpress Data Path",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-xdp\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  4849 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-xdp\/","datePublished": "2024-09-18T00:00:33-04:00","dateModified": "2024-09-18T00:00:33-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-xdp/" title="Paper Reading: The eXpress Data Path - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-arrakis/" title="Paper Reading: Arrakis" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-prism/" title="Paper Reading: Rethinking the RDMA Interface for Distributed Systems" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: The eXpress Data Path",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-xdp\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  4849 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-xdp\/","datePublished": "2024-09-18T00:00:33-04:00","dateModified": "2024-09-18T00:00:33-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: The eXpress Data Path</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-18">2024-09-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4849 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: The EXpress Data Path</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-09-18 00:00:33"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-09-18">2024-09-18</time></span>&nbsp;<span title="4849 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 4900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel">The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -146,8 +141,11 @@
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel">The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel</h2>
-<p>ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel"><span>The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel</span>
+  <a href="#the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>ACM coNEXT 2018，在内核层面快速处理 packet，开源很完善，与 dpdk 之类的区别在于不是纯在用户态处理，也不是用户态协议栈。</p>
 <p>而是利用 eBPF 在内核态执行。</p>
 <blockquote>
 <p>明明不算很高强度看了两周论文，已经不适了。可能是不太懂 OS + Network 相关的吧，实在是太难了，很多概念都没接触过，只是入个门，比如这篇的 BPF 就没接触过。没写过没认真研究过的东西需要在几个小时弄明白太困难了。</p>
@@ -156,19 +154,25 @@
 <p>XDP 是可以在 Linux 开启的，应该是应用比较广泛的，https://www.datadoghq.com/blog/xdp-intro/，分三种，一个是加载到网卡驱动，一个是加载到网卡，一个是 Linux 协议栈入口（性能-通用 tradeoff）</p>
 <p>AF_XDP 是 XDP 技术的一种应用场景，AF_XDP 是一种高性能 Linux socket。</p>
 <p>主要几个缺点是，没有缓存队列，可能不太适合高延迟的设备，而且没有网络栈通用吧</p>
-<p><a href="https://github.com/facebookincubator/katran" target="_blank" rel="noopener noreffer ">https://github.com/facebookincubator/katran</a></p>
+<p><a href="https://github.com/facebookincubator/katran" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/facebookincubator/katran</a></p>
 <p>Meta 基于 BPF + XDP 实现的高性能 load balancer，尤其是在 XDP 驱动模式下表现非常快。</p>
 </blockquote>
-<h2 id="abstract">ABSTRACT</h2>
-<p>Programmable packet processing is increasingly implemented using kernel bypass techniques, where a userspace application takes complete control of the networking hardware to avoid expensive context switches between kernel and userspace</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Programmable packet processing is increasingly implemented using kernel bypass techniques, where a userspace application takes complete control of the networking hardware to avoid expensive context switches between kernel and userspace</p>
 <p>application isolation and security mechanisms and well-tested configuration, deployment and management tools cease to function</p>
 <blockquote>
 <p>绕过操作系统会带来什么，隔离、安全、配置？有具体例子吗，比如防火墙、ACL、还是权限、进程隔离？</p>
 </blockquote>
 <p>we present the design of a novel approach to programmable packet processing, called the <strong>eXpress Data Path</strong> (XDP)</p>
 <p>XDP is part of the <strong>mainline Linux kernel</strong> and provides a fully <strong>integrated</strong> solution working in concert with the kernel’s networking stack. Applications are written in higher level languages such as C and compiled into custom byte code which the kernel statically analyses for safety, and translates into native instructions</p>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>DPDK bypass the operating sys- tem completely, instead passing control of the network hardware directly to the network application and dedicating one, or several, CPU cores exclusively to packet processing.</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>DPDK bypass the operating sys- tem completely, instead passing control of the network hardware directly to the network application and dedicating one, or several, CPU cores exclusively to packet processing.</p>
 <p>内核旁路方法可以显著提高性能，但是有一个缺点，那就是更难与现有系统集成，应用程序必须重新实现操作系统网络栈提供的功能，比如路由表和更高级别的协议。</p>
 <p>在最坏的情况下，这将导致一种场景，即数据包处理应用程序在一个完全独立的环境中运行，由于需要直接的硬件访问，操作系统提供的熟悉的工具和部署机制无法使用。这会增加系统的复杂性，模糊操作系统内核强制执行的安全边界。</p>
 <p>基础设施正在转向基于容器的工作负载和编排系统(如 Docker 或 Kubernetes) ，在这些系统中，内核在资源抽象和隔离方面发挥着主导作用</p>
@@ -195,8 +199,11 @@
 <p>这是在哪发生的？是 dpdk 吗</p>
 <p>dedicating full CPU cores 也是一个很奇怪的点，low traffic 会占用 dpdk 一个核 100% 吗？</p>
 </blockquote>
-<h2 id="related-work">RELATED WORK</h2>
-<p>Examples of such applica- tions include those performing single functions, such as switch- ing [47], routing [19], named-based forwarding [28], classifica- tion [48], caching [33] or traffic generation</p>
+<h2 class="heading-element" id="related-work"><span>RELATED WORK</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Examples of such applica- tions include those performing single functions, such as switch- ing [47], routing [19], named-based forwarding [28], classifica- tion [48], caching [33] or traffic generation</p>
 <p>为了在 Common Off The Shelf 通用现货(COTS)硬件上实现高性能的数据包处理，有必要消除网络接口卡 (NIC) 和执行数据包处理的程序之间的任何瓶颈。由于性能瓶颈的主要来源之一是操作系统内核和运行在其上的用户空间应用程序之间的 interface (因为系统调用的高开销和底层功能丰富的通用堆栈的复杂性) ，低级数据包处理框架必须以这样或那样的方式管理这种开销。支持上面提到的应用程序的现有框架采用多种方法来确保高性能; XDP 基于其中几种方法的技术。在接下来的文章中，我们将简要概述 XDP 与现有最常用框架之间的异同。</p>
 <p>DataPlanDevelopmentKit (DPDK)[16]可能是用于高速数据包处理的最广泛使用的框架。它最初是一个 Intel 专用的硬件支持包，但是在 Linux 基金会的管理下已经得到了广泛的应用。DPDK 是一种所谓的内核旁路框架，它将网络硬件的控制从内核移到网络应用程序中，完全消除了内核-用户空间边界的开销。</p>
 <p>however, as mentioned in the introduction, it has significant management, maintenance and security drawbacks.</p>
@@ -225,19 +232,15 @@
 <blockquote>
 <p>XDP 怎么知道是 performance-sensitive，还是说全部这么处理？额外处理不需要时间吗</p>
 </blockquote>
-<h2 id="the-design-of-xdp">THE DESIGN OF XDP</h2>
-<p>This deep integration with the kernel obviously imposes some design constraints</p>
+<h2 class="heading-element" id="the-design-of-xdp"><span>THE DESIGN OF XDP</span>
+  <a href="#the-design-of-xdp" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>This deep integration with the kernel obviously imposes some design constraints</p>
 <blockquote>
 <p>什么限制？</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png"
-        data-srcset="https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png, https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png 1.5x, https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png"
-        title="https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png' alt="https://s2.loli.net/2024/09/18/Nz15SqFbRCHoasE.png"></p>
 <blockquote>
 <p>在数据包到达时，在接触数据包数据之前，设备驱动程序在主 XDP 挂钩中执行 eBPF 程序。这个程序可以选择丢弃数据包; 将它们发送回原来接收到的接口; 将它们重定向到另一个接口(包括虚拟机的 vNIC) ，或者通过特殊的 AF _ XDP 套接字发送到用户空间; 或者允许它们进入常规的网络堆栈，</p>
 <p>问题是，hook 的耗时会不会影响正常的包？</p>
@@ -246,26 +249,25 @@
 <p><strong>The eBPF virtual machine</strong> executes the byte code of the XDP program, and <strong>just-in-time-compiles</strong> it for increased performance.</p>
 <p><strong>BPF maps are key/value stores</strong> that serve as the primary communication channel to the rest of the system.</p>
 <p>The <strong>eBPF verifier</strong> statically verifies programs before they are loaded to make sure they do not crash or corrupt the running kernel.</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png"
-        data-srcset="https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png, https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png 1.5x, https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png"
-        title="https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png' alt="https://s2.loli.net/2024/09/18/Xb2RGpnD6iwqI1E.png"></p>
 <blockquote>
 <p>当数据包到达时，程序首先解析数据包头以提取它将对之作出反应的信息。然后，它从多个源之一读取或更新元数据。最后，可以重写一个数据包，并确定对该数据包的最终判决。该程序可以在数据包解析、元数据查找和重写之间进行交替，所有这些都是可选的。</p>
 <p>map 是干嘛的</p>
 </blockquote>
-<h3 id="the-xdp-driver-hook">The XDP Driver Hook</h3>
-<p>XDP programs run in the Extended BPF (eBPF) virtual machine. eBPF is an evolution of the original BSD packet filter (BPF) [37] which has seen extensive use in various packet filtering applications over the last decades. BPF uses a register-based virtual machine to describe filtering actions</p>
+<h3 class="heading-element" id="the-xdp-driver-hook"><span>The XDP Driver Hook</span>
+  <a href="#the-xdp-driver-hook" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>XDP programs run in the Extended BPF (eBPF) virtual machine. eBPF is an evolution of the original BSD packet filter (BPF) [37] which has seen extensive use in various packet filtering applications over the last decades. BPF uses a register-based virtual machine to describe filtering actions</p>
 <blockquote>
 <p>register-based virtual machine 会不会出现问题，比如 容量不够什么的</p>
 </blockquote>
 <p>程序通常首先解析数据包数据，并通过尾调用将控制权传递给<strong>不同的 XDP 程序</strong>，从而将处理分成逻辑子单元（例如，基于 IP 头版本）。</p>
-<h2 id="performance-evaluation">PERFORMANCE EVALUATION</h2>
-<p>现有系统中有许多用于高性能数据包处理的解决方案，并且在本文范围内对所有这些系统进行基准测试是不现实的。相反，我们注意到 DPDK 是现有解决方案中性能最高的[18]，并将其作为高速软件数据包处理当前技术水平的基准进行比较（使用 DPDK 18.05 版本附带的 testpmd 示例应用程序）。我们专注于原始数据包处理性能，使用合成基准测试，并将其与 Linux 内核网络堆栈的性能进行比较，以展示 XDP 在同一系统中提供的性能改进。在下一节中，我们将通过一些在 XDP 之上实现的实际应用示例来补充这些原始性能基准测试，以展示其在编程模型中的可行性。</p>
+<h2 class="heading-element" id="performance-evaluation"><span>PERFORMANCE EVALUATION</span>
+  <a href="#performance-evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>现有系统中有许多用于高性能数据包处理的解决方案，并且在本文范围内对所有这些系统进行基准测试是不现实的。相反，我们注意到 DPDK 是现有解决方案中性能最高的[18]，并将其作为高速软件数据包处理当前技术水平的基准进行比较（使用 DPDK 18.05 版本附带的 testpmd 示例应用程序）。我们专注于原始数据包处理性能，使用合成基准测试，并将其与 Linux 内核网络堆栈的性能进行比较，以展示 XDP 在同一系统中提供的性能改进。在下一节中，我们将通过一些在 XDP 之上实现的实际应用示例来补充这些原始性能基准测试，以展示其在编程模型中的可行性。</p>
 <ul>
 <li>
 <p>Packet drop performance 数据包丢弃性能。为了展示最大数据包处理性能，我们测量丢弃传入数据包的最简单操作的性能。这实际上测量了整个系统的开销，并作为实际数据包处理应用程序预期性能的上限。</p>
@@ -281,10 +283,19 @@
 <p>奇怪的指标，</p>
 </blockquote>
 <p>我们已经验证，在全尺寸（1500 字节）数据包的情况下，我们的系统可以在半空闲的单个核心上以线速（100 Gbps）处理数据包。这清楚地表明，挑战在于<strong>每秒处理大量数据包</strong>，正如其他人也指出的那样[46]。因此，我们使用<strong>最小尺寸（64 字节）<strong>数据包进行所有测试，并测量系统可以处理的最大数据包数每秒。为了测量性能如何随 CPU 核心数量扩展，我们使用越来越多的专门用于数据包处理的核心重复测试。对于 XDP 和 Linux 网络堆栈（它们没有提供明确的方式来专门为数据包处理分配核心），我们通过配置</strong>硬件接收端扩展（RSS）功能</strong>，将流量引导到每个测试所需的多个核心来实现这一点。</p>
-<h3 id="packet-drop-performance">Packet Drop Performance</h3>
-<h3 id="cpu-usage">CPU Usage</h3>
-<h3 id="packet-forwarding-performance">Packet Forwarding Performance</h3>
-<blockquote>
+<h3 class="heading-element" id="packet-drop-performance"><span>Packet Drop Performance</span>
+  <a href="#packet-drop-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="cpu-usage"><span>CPU Usage</span>
+  <a href="#cpu-usage" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h3 class="heading-element" id="packet-forwarding-performance"><span>Packet Forwarding Performance</span>
+  <a href="#packet-forwarding-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
 <p>适用案例：
 软件路由（XDP routing）</p>
 <p>Linux 内核实现了一个功能完全的路由表，生态系统功能丰富，结合 XDP 包处理框架实现了一个完美的路由功能。其性能与常规的 Linux 内核网络栈相比提升了 2.5 - 3 倍左右。</p>
@@ -304,47 +315,72 @@
 </blockquote>
 <blockquote>
 <p>2021 年，Yoann Ghigoff 等人更是基于 eBPF 和 XDP、TC 在内核中实现了一层 Memcached 的缓存，达到了比 DPDK 内核旁路方案还要高的性能。智能网卡也开始对 eBPF 卸载进行了支持，将包处理进一步从网卡驱动层卸载到了网卡，释放了更多的主机 CPU 资源，实现更高的性能。我们常用的虚拟交换机 OVS 的团队也在 2.12.0 版本就开始对 AF_XDP 进行探索，在 2021 年 SIGCOMM 会议上，发表了这些年他们对于数据面的探索，将 AF_XDP 选型用于其数据面，解决了很多 DPDK 解决不了的问题。其他的应用场景如负载均衡、流采样和监控……更多的可能正在被学术和工业界探索。</p>
-<p><a href="https://cloud.tencent.com/developer/article/1909298" target="_blank" rel="noopener noreffer ">https://cloud.tencent.com/developer/article/1909298</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1909298" target="_blank" rel="external nofollow noopener noreferrer">https://cloud.tencent.com/developer/article/1909298</a></p>
 </blockquote>
-<h2 id="conclusion">Conclusion</h2>
-<blockquote>
+<h2 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>XDP 论文看起来只是 CPU 消耗好很多，但他的意义在于，真的合入了内核，开源，而且属于是里程碑真的引起了后续的多种技术发展，AF_XDP 等等</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-09-18</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The eXpress Data Path" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The eXpress Data Path"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The eXpress Data Path"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The eXpress Data Path"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-09-18 00:00:33">更新于 2024-09-18&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The EXpress Data Path" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-xdp/" data-title="Paper Reading: The EXpress Data Path"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-arrakis/" class="prev" rel="prev" title="Paper Reading: Arrakis"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Arrakis</a>
-            <a href="../../posts/paper-prism/" class="next" rel="next" title="Paper Reading: Rethinking the RDMA Interface for Distributed Systems">Paper Reading: Rethinking the RDMA Interface for Distributed Systems<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-arrakis/" class="post-nav-item" rel="prev" title="Paper Reading: Arrakis"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Arrakis</a><a href="../../posts/paper-prism/" class="post-nav-item" rel="next" title="Paper Reading: Rethinking the RDMA Interface for Distributed Systems">Paper Reading: Rethinking the RDMA Interface for Distributed Systems<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-express-data-path-fast-programmable-packet-processing-in-the-operating-system-kernel">The eXpress Data Path: Fast Programmable Packet Processing in the Operating System Kernel</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+    <li><a href="#the-design-of-xdp">THE DESIGN OF XDP</a>
+      <ul>
+        <li><a href="#the-xdp-driver-hook">The XDP Driver Hook</a></li>
+      </ul>
+    </li>
+    <li><a href="#performance-evaluation">PERFORMANCE EVALUATION</a>
+      <ul>
+        <li><a href="#packet-drop-performance">Packet Drop Performance</a></li>
+        <li><a href="#cpu-usage">CPU Usage</a></li>
+        <li><a href="#packet-forwarding-performance">Packet Forwarding Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/02c1186087f2ee43a54c1dcfda53133a.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

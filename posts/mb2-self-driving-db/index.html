@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/mb2-self-driving-db/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems">
+	<meta itemprop="description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems">
+	<meta itemprop="datePublished" content="2024-04-05T09:50:55-04:00">
+	<meta itemprop="dateModified" content="2024-04-05T09:50:55-04:00">
+	<meta itemprop="wordCount" content="8609">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/mb2-self-driving-db/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems">
-	<meta property="og:description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems
-ABSTRACT Database management systems (DBMSs) are notoriously difficult to deploy and administer.self-driving DBMS is to remove these impediments by managing itself automatically
-predict the DBMS’s runtime behavior and resource consumption.
-ModelBot2 e2e framework for constructing and maintaining prediction models using machine learning (ML) in self-driving DBMSs.
-decomposes a DBMS’s architecture into fine-grained operating units that make it easier to estimate the system’s behavior for configurations ModelBot2 then provides an offline execution environment to exercise the system to produce the training data used to train its models. We integrated ModelBot2 in an in-memory DBMS and measured its ability to predict its performance for OLTP and OLAP workloads running in dynamic environments. We also compare ModelBot2 against state-of-the-art ML models and show that our models are up to 25×more accurate in multiple scenarios">
+	<meta property="og:description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -21,119 +25,102 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems">
-	<meta name="twitter:description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems
-ABSTRACT Database management systems (DBMSs) are notoriously difficult to deploy and administer.self-driving DBMS is to remove these impediments by managing itself automatically
-predict the DBMS’s runtime behavior and resource consumption.
-ModelBot2 e2e framework for constructing and maintaining prediction models using machine learning (ML) in self-driving DBMSs.
-decomposes a DBMS’s architecture into fine-grained operating units that make it easier to estimate the system’s behavior for configurations ModelBot2 then provides an offline execution environment to exercise the system to produce the training data used to train its models. We integrated ModelBot2 in an in-memory DBMS and measured its ability to predict its performance for OLTP and OLAP workloads running in dynamic environments. We also compare ModelBot2 against state-of-the-art ML models and show that our models are up to 25×more accurate in multiple scenarios">
+	<meta name="twitter:description" content="MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems self-driving database management systems">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/mb2-self-driving-db/" /><link rel="prev" href="https://ad-bean.github.io/posts/minilsm-2/" /><link rel="next" href="https://ad-bean.github.io/posts/ml-based-autotunning/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/mb2-self-driving-db\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  8609 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/mb2-self-driving-db\/","datePublished": "2024-04-05T09:50:55-04:00","dateModified": "2024-04-05T09:50:55-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/mb2-self-driving-db/" title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/minilsm-2/" title="Mini-LSM Week 1 Day2" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/ml-based-autotunning/" title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/mb2-self-driving-db\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  8609 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/mb2-self-driving-db\/","datePublished": "2024-04-05T09:50:55-04:00","dateModified": "2024-04-05T09:50:55-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-05">2024-04-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8609 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/learned-data-systems/" class="post-category" title="分类 - Learned Data Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> Learned Data Systems</a></span></div><div class="post-meta-line"><span title="发布于 2024-04-05 09:50:55"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-04-05">2024-04-05</time></span>&nbsp;<span title="8609 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 8700 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 18 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems">MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -182,10 +169,16 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
     <li><a href="#conclusion">CONCLUSION</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems">MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</h2>
-<p>self-driving database management systems</p>
-<h2 id="abstract">ABSTRACT</h2>
-<p>Database management systems (DBMSs) are notoriously difficult to deploy and administer.<strong>self-driving DBMS</strong> is to remove these impediments by <strong>managing itself automatically</strong></p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems"><span>MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</span>
+  <a href="#mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>self-driving database management systems</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Database management systems (DBMSs) are notoriously difficult to deploy and administer.<strong>self-driving DBMS</strong> is to remove these impediments by <strong>managing itself automatically</strong></p>
 <p>predict the DBMS’s runtime behavior and resource consumption.</p>
 <p>ModelBot2 e2e framework for constructing and maintaining prediction models using <strong>machine learning</strong> (ML) in self-driving DBMSs.</p>
 <ol>
@@ -196,8 +189,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>完全自治的数据库，用 ML 预测和修改配置。和同样是 Andy 组的 Ottertune 区别在哪呢？</p>
 </blockquote>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>A self-driving DBMS can configure, tune, and optimize itself <strong>without human intervention</strong>, even as the application’s workload, dataset, and operating environment evolve.</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>A self-driving DBMS can configure, tune, and optimize itself <strong>without human intervention</strong>, even as the application’s workload, dataset, and operating environment evolve.</p>
 <p>Such automation seeks to remove the complications and costs involved with <strong>DBMS deployments</strong>. The core component that underlies a self-driving DBMS’s decision-making is <strong>behavior models</strong> [51]. These models estimate and explain how the system’s performance changes due to a <strong>potential action</strong> (e.g., changing knobs, creating an index). This is similar to how self-driving vehicles use physical models to guide their autonomous planning [49].</p>
 <p>Techniques for constructing database <strong>behavior models</strong> fall under two categories: (1) <strong>“white-box” analytical</strong> methods and (2) <strong>ML methods</strong>. Analytical models use a <strong>human-devised formula</strong> to describe a DBMS component’s behavior, such as the buffer pool or lock manager [42, 45, 74]. These models are customized per DBMS and version. They are difficult to migrate to a new DBMS and require redesign under system updates or reconfiguration. Recent works on using ML methods to construct models have shown that they are more adaptable and scalable than white-box approaches, but they have several <strong>limitations</strong>. These works mostly target isolated query execution [9, 17, 20, 34, 40]. The models that support concurrent queries focus on real-time settings where the interleaving of queries is known [16, 68, 72], but a self-driving DBMS needs to plan for future workloads without such accurate information [37]. Many ML-based models also rely on dataset or workload-dependent information [16, 40, 58]; thus, a DBMS cannot deploy these models in new environments without expensive retraining.</p>
 <blockquote>
@@ -211,53 +207,51 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>拆成更小单元，训练每个小的，联合预测。评测结果支持 OLTP OLAP 工作负载，with a minimal loss of accuracy</p>
 </blockquote>
-<h2 id="background-and-motivation">BACKGROUND AND MOTIVATION</h2>
-<p>类比 self-driving DBMS 和无人驾驶，同样有 1. forecasting 2. behavior model 3. planning system</p>
+<h2 class="heading-element" id="background-and-motivation"><span>BACKGROUND AND MOTIVATION</span>
+  <a href="#background-and-motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>类比 self-driving DBMS 和无人驾驶，同样有 1. forecasting 2. behavior model 3. planning system</p>
 <p>The <strong>forecasting system</strong> is how the DBMS observes and predicts the application’s future workload</p>
 <p>The DBMS then uses these <strong>forecasts</strong> with its <strong>behavior models</strong> to predict its <strong>runtime behavior</strong> relative to the target <strong>objective function</strong> (e.g., latency, throughput). The DBMS’s planning system selects actions that <strong>improve this objective function</strong></p>
 <blockquote>
 <p>预测 + action + 目标函数</p>
 <p>Behavior models 是基础</p>
 </blockquote>
-<h3 id="behavior-modeling">Behavior Modeling</h3>
-<p>Given an <strong>action</strong>, a self-driving <strong>DBMS’s behavior models estimate</strong> (1) <strong>how long</strong> the action takes, (2) <strong>how much resource</strong> the action consumes, (3) how applying the action <strong>impacts the system performance</strong>, and (4) how the action impacts the system once it is deployed.</p>
+<h3 class="heading-element" id="behavior-modeling"><span>Behavior Modeling</span>
+  <a href="#behavior-modeling" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Given an <strong>action</strong>, a self-driving <strong>DBMS’s behavior models estimate</strong> (1) <strong>how long</strong> the action takes, (2) <strong>how much resource</strong> the action consumes, (3) how applying the action <strong>impacts the system performance</strong>, and (4) how the action impacts the system once it is deployed.</p>
 <blockquote>
 <p>对比 Analytical models 和 Behavir Model，前者最近可以用 ML 分析，用 query plan information (cardinality estimates) 估计性能参数 (latency)</p>
 </blockquote>
 <p>尽管 ML 方法可扩展，但还需要调整或重新训练，而且不支持事务 workload，也没考虑 DBMS 维护操作（GC）。一些方法支持并发查询，但对完全自治的 DBMS 还不够，因为未来工作量未知。</p>
 <p>举了个例子，如果删除二级索引，DBMS 会重新加回来，启动之前会用 planning component 和 behavior model 预测什么索引比较好，还会选择创建索引的线程数。</p>
-<h3 id="challenges">Challenges</h3>
-<p>ML 方法建造一个自治 DBMS 会遇到的问题：</p>
+<h3 class="heading-element" id="challenges"><span>Challenges</span>
+  <a href="#challenges" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>ML 方法建造一个自治 DBMS 会遇到的问题：</p>
 <ol>
 <li>High Dimensionality 高纬度，一个大模型捕捉 DBMS 所有方面，workload, configuration, actions. 自治 DBMS 还需要考虑 runtime state (e.g., database contents, knob configurations), interactions with other components (e.g., garbage collection), and other autonomous actions (e.g., building indexes), which further increases dimensionality</li>
 <li>Concurrent Operations 并行操作，动态环境 query 之间的干涉 interference，资源竞争。</li>
 <li>Training, Generalizability, and Explainability，资源收集比较困难，构建索引耗时很久。</li>
 </ol>
-<h2 id="overview">OVERVIEW</h2>
-<p>MB2, embedde behavior modeling framework for self-driving DBMS.</p>
+<h2 class="heading-element" id="overview"><span>OVERVIEW</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>MB2, embedde behavior modeling framework for self-driving DBMS.</p>
 <ol>
 <li>MB2 generates model offline in a dataset and workload independent manner</li>
 <li>MB2&rsquo;s models are debuggable, explainable, and adaptable.</li>
 </ol>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png"
-        data-srcset="https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png, https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png 1.5x, https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png"
-        title="https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png' alt="https://s2.loli.net/2024/04/07/qeu2KP76GgmdZ9w.png"></p>
 <p>decompose the DBMS into independent operating units (OUs). An OU represents a step that the DBMS performs to <strong>complete a specific task</strong>. These tasks include query execution steps (e.g., building join hash tables (JHTs)) and internal maintenance steps (e.g., garbage collection). DBMS developers are responsible for creating OUs and deciding their boundaries based on the system’s implementation.</p>
 <p>MB2 <strong>pairs each OU with an OU-runner</strong> that exercises the OU’s corresponding DBMS component by sweeping the component’s input parameter space. MB2 then provides a lightweight <strong>data collection layer</strong> to transform these OU-runners’ inputs to OU features and track the OU’s behavior metrics (e.g., runtime, CPU utilization). For each OU, MB2 automatically searches, trains, and validates an OU-model using the data collected from the related OU-runner</p>
 <p>simulate concurrent enviornments, MB2 uses concurrent runners to execute e2e workloads.</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png"
-        data-srcset="https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png, https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png 1.5x, https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png"
-        title="https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png' alt="https://s2.loli.net/2024/04/07/EJNafQ5emIut2Lw.png"></p>
 <blockquote>
 <p>将数据库操作拆成 OU 和对应的 OU runner，比如创建索引、垃圾回收、Flush Log，开发者来提供 OU 集合。OU runner 用于训练 OU 模型，需要知道有多少 tuple, column 等等，以及 output feature: CPU, memory utilization, IO 等等。</p>
 </blockquote>
@@ -273,24 +267,23 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>没法预测 ad-hoc 用户自己的数据集，预测缓存非常困难。也只支持内存数据库。</p>
 </blockquote>
-<h2 id="ou-models">OU-MODELS</h2>
-<p>create a <strong>DBMS’s OU-models</strong> with MB2. The goal of these models is to <strong>estimate the time and resources</strong> that the DBMS will consume to execute a query or action. A self-driving DBMS can <strong>make proper planning decisions</strong> by combining these <strong>estimates</strong> from multiple queries <strong>in a workload forecast interval</strong>. In addition to accuracy, these models need to have three properties that are important for self-driving operations: (1) they provide <strong>explanations</strong> of the DBMS’s behavior, (2) they support <strong>any dataset and workload</strong>, and (3) they <strong>adapt to DBMS software updates</strong></p>
+<h2 class="heading-element" id="ou-models"><span>OU-MODELS</span>
+  <a href="#ou-models" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>create a <strong>DBMS’s OU-models</strong> with MB2. The goal of these models is to <strong>estimate the time and resources</strong> that the DBMS will consume to execute a query or action. A self-driving DBMS can <strong>make proper planning decisions</strong> by combining these <strong>estimates</strong> from multiple queries <strong>in a workload forecast interval</strong>. In addition to accuracy, these models need to have three properties that are important for self-driving operations: (1) they provide <strong>explanations</strong> of the DBMS’s behavior, (2) they support <strong>any dataset and workload</strong>, and (3) they <strong>adapt to DBMS software updates</strong></p>
 <blockquote>
 <p>除了精确度，能够提供解释、支持任何数据集、支持动态更新</p>
 </blockquote>
-<h3 id="principles">Principles</h3>
-<p>Developers use MB2 to <strong>decompose the DBMS into</strong> OUs to build explainable, adaptable, and workload independent behavior models.</p>
+<h3 class="heading-element" id="principles"><span>Principles</span>
+  <a href="#principles" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Developers use MB2 to <strong>decompose the DBMS into</strong> OUs to build explainable, adaptable, and workload independent behavior models.</p>
 <blockquote>
 <p>开发人员来做 decompose, 因为 NoisePage 是 CMU 自己的关系型数据库，可以拆除很多操作单元，比如 Hash Table Build, Probe 等等</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png"
-        data-srcset="https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png, https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png 1.5x, https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png"
-        title="https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png' alt="https://s2.loli.net/2024/04/07/QzVqtXFArI7Y4HS.png"></p>
 <ol>
 <li>Independent: The runtime behavior of an OU must be <strong>independent of other OUs</strong>. Thus, changes to one OU do not directly affect another unrelated OU. For example, if the DBMS changes the knob that controls the <strong>join hash table size</strong> then this does not change the resource consumption of the DBMS’s <strong>WAL component</strong> or the resource consumption of sequential scans for the same queries.</li>
 </ol>
@@ -304,8 +297,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>OU 到底是对 DBMS 设置，还是针对数据集设置的？</p>
 </blockquote>
-<h3 id="input-features">Input Features</h3>
-<p>After deciding which OUs to implement, DBMS developers then specify the OU-models’ input features based on their <strong>degree of freedom</strong></p>
+<h3 class="heading-element" id="input-features"><span>Input Features</span>
+  <a href="#input-features" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>After deciding which OUs to implement, DBMS developers then specify the OU-models’ input features based on their <strong>degree of freedom</strong></p>
 <ol>
 <li>the <strong>amount of work</strong> for a single OU invocation or multiple OU invocations in a batch (the number of tuples to process)</li>
 <li>the parallel invocation status of an OU (e.g., number of threads to create an index), and</li>
@@ -314,14 +310,7 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>degree of freedom 统计学概念？</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png"
-        data-srcset="https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png, https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png 1.5x, https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png"
-        title="https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png' alt="https://s2.loli.net/2024/04/07/jgJdQK4GrBAu9Oo.png"></p>
 <p>Although <strong>humans select the features for each OU-model</strong>, the features’ <strong>values are generated automatically</strong> by the DBMS based on the workload and actions. Some features are generic and will be the same <strong>across many DBMSs</strong>, whereas others are specific to a DBMS’s implementation. We categorize OUs into three types based on their behavior pattern, which impacts what information the input features have</p>
 <ol>
 <li>Singular OUs: The first type of OUs have input features that represent the amount of work and resource consumption for a <strong>single invocation</strong>. These include NoisePage’s execution category OUs in Table 1. Almost all its execution OUs have the same seven input features. The first six features are related to the relational operator that the OU belongs to: (1) <strong>number of input tuples</strong>, (2) number of columns of input tuples, (3) average input tuple size, (4) estimated key cardinality (e.g., sorting, joins), (5) payload size (e.g., hash table entry size for hash joins), and (6) number of loops (only for index nested loop joins). Lastly, the seventh feature is an <strong>execution mode flag</strong> that is specific to NoisePage; this indicates whether the DBMS executes a query with its <strong>interpreter</strong> or as <strong>JIT-compiled</strong>. NoisePage’s networking OU also belongs to this type since network communication is discrete amount of work.</li>
@@ -332,8 +321,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <p>独立的 OU，批处理 OU，竞争 OU。第一个可以迁移，因为 input 类似，比如行数、列数、行大小、基数等等。第二个可能跨 query 比如日志落盘。第三个是并行可能引起锁竞争的 OU，比如多线程构建索引，需要知道行数、key 数量、key 大小、key 基数估计、等等</p>
 </blockquote>
 <p>A self-driving DBMS must also predict <strong>how changes to its configuration knobs impact its OUs</strong>. We categorize these tunable knobs into <strong>behavior knobs</strong> and <strong>resource knobs</strong>.</p>
-<h3 id="output-labels">Output Labels</h3>
-<p>Every OU-model produces the same output labels, (1) elapsed time, (2) CPU time, (3) CPU cycles, (4) CPU instructions, (5) CPU cache references, (6) CPU cache misses, (7) disk block reads, (8) disk block writes (for logging), and (9) memory consumption.</p>
+<h3 class="heading-element" id="output-labels"><span>Output Labels</span>
+  <a href="#output-labels" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Every OU-model produces the same output labels, (1) elapsed time, (2) CPU time, (3) CPU cycles, (4) CPU instructions, (5) CPU cache references, (6) CPU cache misses, (7) disk block reads, (8) disk block writes (for logging), and (9) memory consumption.</p>
 <p>These <strong>metrics explain what work an OU does independent of which OU it is</strong>. Using the same labels enables MB2 to combine them together to <strong>predict the interference among concurrent OUs</strong>. They also help the self-driving DBMS estimate the <strong>impact of knobs</strong> for resource allocation. For example, the OU-models can predict each query’s memory consumption by predicting the memory consumption for all the OUs related to the query. A self-driving DBMS evaluates what queries can execute under the knob that limits the working memory for each query, and then sets that knob according to its memory budget. Similarly, CPU usage predictions help a self-driving DBMS evaluate whether it has assigned enough CPU resources for queries or its internal components</p>
 <blockquote>
 <p>OU-model 输出 label，所以有利于 debug</p>
@@ -342,8 +334,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>如何处理 label？使用 normalize, divides the outputs by the related OU’s complexity <strong>based on the number of tuples</strong>, 但是构建哈希表时，由于 NoisePage 使用不同的哈希表处理 join 和 agg：预先分配内存给 join，哈希表会对插入的 unique key 额外增长。所以 MB2 需要用除法来归一化。</p>
 </blockquote>
-<h2 id="interference-model">INTERFERENCE MODEL</h2>
-<p>The OU-models capture the <strong>internal contention on data structures or latches within an OU</strong> (Sec. 4.2). But there can also be interference among OUs due to resource competition, such as CPU, I/O, and memory.2 MB2 builds a common interference model to capture such interference since it may impact any OU.</p>
+<h2 class="heading-element" id="interference-model"><span>INTERFERENCE MODEL</span>
+  <a href="#interference-model" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The OU-models capture the <strong>internal contention on data structures or latches within an OU</strong> (Sec. 4.2). But there can also be interference among OUs due to resource competition, such as CPU, I/O, and memory.2 MB2 builds a common interference model to capture such interference since it may impact any OU.</p>
 <blockquote>
 <p>论文也观察到，OU 之间也存在资源共享，比如连续运行的 OU 会有缓存局部性。但论文说这是极端情况。</p>
 </blockquote>
@@ -351,25 +346,40 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>需要提前预测，但不能精确预测并行发生的时间，并且 OU 组合是指数级的</p>
 </blockquote>
-<h3 id="input-features-1">Input Features</h3>
-<p>The interference model’s inputs are the OU-model’s output labels for the OU to predict and summary statistics of the OUs forecasted to run <strong>in the same interval</strong> (e.g., one minute).</p>
-<h3 id="output-labels-1">Output Labels</h3>
-<p>The interference model generates the same set of outputs as the OU-models.</p>
-<h2 id="data-generation-and-training">DATA GENERATION AND TRAINING</h2>
-<p>MB2 is an <strong>end-to-end solution</strong> that enables self-driving DBMSs to <strong>generate training data from OUs</strong> and then <strong>build accurate models that predict their behavior</strong>.</p>
+<h3 class="heading-element" id="input-features-1"><span>Input Features</span>
+  <a href="#input-features-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The interference model’s inputs are the OU-model’s output labels for the OU to predict and summary statistics of the OUs forecasted to run <strong>in the same interval</strong> (e.g., one minute).</p>
+<h3 class="heading-element" id="output-labels-1"><span>Output Labels</span>
+  <a href="#output-labels-1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The interference model generates the same set of outputs as the OU-models.</p>
+<h2 class="heading-element" id="data-generation-and-training"><span>DATA GENERATION AND TRAINING</span>
+  <a href="#data-generation-and-training" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>MB2 is an <strong>end-to-end solution</strong> that enables self-driving DBMSs to <strong>generate training data from OUs</strong> and then <strong>build accurate models that predict their behavior</strong>.</p>
 <blockquote>
 <p>MB2 如何有利于收集数据和训练模型，并且再次强调需要在离线情况下，非生产环境，运行 MB2。推迟了如何在在线系统收集数据，而不会导致性能观察退化的问题。</p>
 </blockquote>
-<h3 id="data-collection-infrastructure">Data Collection Infrastructure</h3>
-<p><strong>OU Translator</strong>: This component extracts OUs from query and action plans and then generates their corresponding input features. MB2 uses the same translator infrastructure for both <strong>offline training</strong> data collection and <strong>runtime inference</strong>.</p>
+<h3 class="heading-element" id="data-collection-infrastructure"><span>Data Collection Infrastructure</span>
+  <a href="#data-collection-infrastructure" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><strong>OU Translator</strong>: This component extracts OUs from query and action plans and then generates their corresponding input features. MB2 uses the same translator infrastructure for both <strong>offline training</strong> data collection and <strong>runtime inference</strong>.</p>
 <p><strong>Resource Tracker</strong>: Next, MB2’s tracker records the <strong>elapsed time</strong> and <strong>resource consumption metrics</strong> (i.e., output labels) during OUs execution. The framework also uses this method for the interference model data since it uses the <strong>same output labels</strong> to adjust the OU-models’ outputs.</p>
 <p><strong>Metrics Collector</strong>: The challenges with collecting training data are that (1) <strong>multiple threads</strong> produce metrics and thus require coordination, and (2) resource tracker can incur a <strong>noticeable cost</strong>. It is important for MB2 to support low-overhead metrics collection to reduce the cost of accumulating training data and interference with the behavior of OUs, especially in concurrent environments</p>
 <p>MB2 uses a <strong>decentralized metrics collector</strong> to address the first issue. When the DBMS executes in <strong>training mode</strong>, a worker thread records the features and metrics for each OU that it encounters in its thread-local memory. MB2 then uses a <strong>dedicated aggregator</strong> to periodically gather this data from the threads and <strong>store it in the DBMS’s training data repository</strong>. To address the second challenge, MB2 supports resource tracking <strong>only for a subset of queries</strong> or DBMS components. For example, when MB2 collects training data for the OUs in the execution engine, the DBMS can turn off the tracker and metrics collector for other components</p>
 <blockquote>
 <p>数据收集的架构</p>
 </blockquote>
-<h3 id="ou-runners">OU-Runners</h3>
-<p>An OU-runner is a <strong>specialized microbenchmark</strong> in MB2 that exercises a single OU. The goal of each OU-runner is to reproduce situations that an OU could encounter when the DBMS executes a real application’s workload. The OU-runners sweep the input feature space (i.e., number of rows, columns, and column types) for each OU with fixed-length and exponential step sizes, which is similar to the grid search optimization</p>
+<h3 class="heading-element" id="ou-runners"><span>OU-Runners</span>
+  <a href="#ou-runners" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>An OU-runner is a <strong>specialized microbenchmark</strong> in MB2 that exercises a single OU. The goal of each OU-runner is to reproduce situations that an OU could encounter when the DBMS executes a real application’s workload. The OU-runners sweep the input feature space (i.e., number of rows, columns, and column types) for each OU with fixed-length and exponential step sizes, which is similar to the grid search optimization</p>
 <p>There are two ways to implement OU-runners: (1) <strong>low-level execution code</strong> that uses the DBMS’s <strong>internal API</strong> and (2) high level <strong>SQL statements</strong>. We chose the <strong>latter</strong> for NoisePage because it requires less upfront engineering effort to implement them, and has little to no maintenance costs if the DBMS’s internal API changes</p>
 <blockquote>
 <p>用 SQL statement 实现 OU runner 是怎么做到的</p>
@@ -389,10 +399,16 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>每次都是用事务，避免了 CPU data cache，并且用 rollback 改回了 DBMS 的状态。label 和 trimmed mean percentage and warmup iterations 不敏感。那为什么要 warm up？</p>
 </blockquote>
-<h3 id="concurrent-runners">Concurrent Runners</h3>
-<p>Since OU-runners invoke their SQL queries <strong>one at a time</strong>, MB2 also provides concurrent runners that execute end-to-end benchmarks (e.g., TPC-C, TPC-H). These concurrent runners provide MB2 with the necessary data to train its <strong>interference model</strong></p>
-<h3 id="model-training">Model Training</h3>
-<p>Lastly, we discuss how MB2 trains its behavior models using the <strong>runner-generated data</strong>. Since OUs have <strong>different input features</strong> and <strong>behaviors</strong>, they may require using <strong>different ML algorithms</strong> that are better at handling their unique properties and assumptions about their behavior. For example, Huber regression (a variant of linear regression) is simple enough to model the filter OUs with arithmetic operations. In contrast, sorting and hash join OUs require more complex models, such as random forests, to support their behaviors under different key number, key size, and cardinality combinations</p>
+<h3 class="heading-element" id="concurrent-runners"><span>Concurrent Runners</span>
+  <a href="#concurrent-runners" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Since OU-runners invoke their SQL queries <strong>one at a time</strong>, MB2 also provides concurrent runners that execute end-to-end benchmarks (e.g., TPC-C, TPC-H). These concurrent runners provide MB2 with the necessary data to train its <strong>interference model</strong></p>
+<h3 class="heading-element" id="model-training"><span>Model Training</span>
+  <a href="#model-training" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Lastly, we discuss how MB2 trains its behavior models using the <strong>runner-generated data</strong>. Since OUs have <strong>different input features</strong> and <strong>behaviors</strong>, they may require using <strong>different ML algorithms</strong> that are better at handling their unique properties and assumptions about their behavior. For example, Huber regression (a variant of linear regression) is simple enough to model the filter OUs with arithmetic operations. In contrast, sorting and hash join OUs require more complex models, such as random forests, to support their behaviors under different key number, key size, and cardinality combinations</p>
 <blockquote>
 <p>使用不同的 ML 方法，那怎么选？</p>
 </blockquote>
@@ -400,33 +416,38 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>自动选了 ML 方法（精度最高的）</p>
 </blockquote>
-<h2 id="handling-software-updates">HANDLING SOFTWARE UPDATES</h2>
-<p>讨论了 DBMS 可以更新（bug 修复，性能提升等等）的情况下，自动驾驶的 DBMS 应该怎么处理。因为 OUs 之间是独立的，MB2 只需要重新跑受影响的 OU-runners 。 This restricted retraining is possible because the <strong>OUs are independent of each other</strong>. The OU-runners issue SQL queries to the DBMS to exercise the OUs, which means that developers do not need to update them unless there are changes to the DBMS’s SQL syntax. Furthermore, MB2 does not need to retrain its interference models in most cases because resource competition is not specific to any OU.</p>
+<h2 class="heading-element" id="handling-software-updates"><span>HANDLING SOFTWARE UPDATES</span>
+  <a href="#handling-software-updates" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>讨论了 DBMS 可以更新（bug 修复，性能提升等等）的情况下，自动驾驶的 DBMS 应该怎么处理。因为 OUs 之间是独立的，MB2 只需要重新跑受影响的 OU-runners 。 This restricted retraining is possible because the <strong>OUs are independent of each other</strong>. The OU-runners issue SQL queries to the DBMS to exercise the OUs, which means that developers do not need to update them unless there are changes to the DBMS’s SQL syntax. Furthermore, MB2 does not need to retrain its interference models in most cases because resource competition is not specific to any OU.</p>
 <p>In NoisePage, we currently use a heuristic for MB2 to retrain the interference models when a DBMS update affects at least five OUs</p>
 <blockquote>
 <p>不需要重新训练干扰模型，只需要重新跑 OU runner。除非 DBMS 引入了新的 OU behavior 比如新的组件，MB2 就需要重新运行 OU concurrent runners 生成干扰模型。</p>
 </blockquote>
-<h2 id="experimental-evaluation">EXPERIMENTAL EVALUATION</h2>
-<p>NoisePage DBMS: OLTP-Bench testbed as an end-to-end workload generator for the SmallBank, TATP , TPC-C, and TPC-H benchmarks.</p>
+<h2 class="heading-element" id="experimental-evaluation"><span>EXPERIMENTAL EVALUATION</span>
+  <a href="#experimental-evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>NoisePage DBMS: OLTP-Bench testbed as an end-to-end workload generator for the SmallBank, TATP , TPC-C, and TPC-H benchmarks.</p>
 <blockquote>
 <p>OLAP 和 OLTP 都测了，使用不同的指标</p>
 </blockquote>
 <p>We use two evaluation metrics. For OLAP workloads, we use the <strong>average relative error</strong> ( |𝐴𝑐𝑡𝑢𝑎𝑙−𝑃𝑟𝑒𝑑𝑖𝑐𝑡| 𝐴𝑐𝑡𝑢𝑎𝑙 ) used in similar prediction tasks in previous work . Since OLTP queries have short run-times with high variance, their relative errors are too noisy to have a meaningful interpretation. Thus, we use the <strong>average absolute error</strong> ( |𝐴𝑐𝑡𝑢𝑎𝑙 −𝑃𝑟𝑒𝑑𝑖𝑐𝑡|) per OLTP query template</p>
-<h3 id="data-collection-and-training">Data Collection and Training</h3>
-<p>MB2’s data collection and model training.</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png"
-        data-srcset="https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png, https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png 1.5x, https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png"
-        title="https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png" /></p>
+<h3 class="heading-element" id="data-collection-and-training"><span>Data Collection and Training</span>
+  <a href="#data-collection-and-training" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>MB2’s data collection and model training.</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png' alt="https://s2.loli.net/2024/04/07/R17TNgndqQ5AGaE.png"></p>
 <blockquote>
 <p>看上去训练数据不是很大，训练时间也不是很久。</p>
 </blockquote>
-<h3 id="ou-model-accuracy">OU-Model Accuracy</h3>
-<p>the OU-model test relative error averaged across all output labels. More than 80% of the OU-models have an average prediction error less than 20%, which demonstrates the effectiveness of the OU-models.</p>
+<h3 class="heading-element" id="ou-model-accuracy"><span>OU-Model Accuracy</span>
+  <a href="#ou-model-accuracy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>the OU-model test relative error averaged across all output labels. More than 80% of the OU-models have an average prediction error less than 20%, which demonstrates the effectiveness of the OU-models.</p>
 <blockquote>
 <p>OU 模型的预测误差小于 20%，证明了有效性。但没看懂这个结果，用不同的 ML 方法得到的误差都不同，有的很低有的很高，比如随机森林总是很低的误差，论文也提到 OU 模型维度很低，容易出现过拟合。</p>
 </blockquote>
@@ -434,8 +455,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>看上去结果很容易受到 CPU 缓存影响。但前文又说影响不大？能够预测 query runtime 和 workload</p>
 </blockquote>
-<h3 id="ou-model-generalization">OU-Model Generalization</h3>
-<p>For a state-of-the-art baseline, we compare against the <strong>QPPNet ML model</strong> for query performance prediction</p>
+<h3 class="heading-element" id="ou-model-generalization"><span>OU-Model Generalization</span>
+  <a href="#ou-model-generalization" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>For a state-of-the-art baseline, we compare against the <strong>QPPNet ML model</strong> for query performance prediction</p>
 <p>QPPNet uses a tree-structured neural network to capture a query plan’s structural information. It outperforms other recent models on predicting query runtime especially when generalizing the trained model to different workloads (e.g., changing dataset sizes)</p>
 <p>Since NoisePage is an <strong>in-memory DBMS</strong> with a <strong>fused-operator JIT query engine</strong>, we remove any <strong>disk-oriented features</strong> from QPPNet’s inputs and adapt its operator-level tree structure to support pipelines. But such adaptation requires QPPNet’s training data to contain all the operator combinations in the test data pipelines to do inference with the proper tree structure. Thus, we can only train QPPNet on more complex workloads (e.g., TPC-C) and test on the same or simpler workloads (e.g., SmallBank)</p>
 <blockquote>
@@ -454,8 +478,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>再次强调 normalization 的重要性</p>
 </blockquote>
-<h3 id="interference-model-accuracy">Interference Model Accuracy</h3>
-<p>We next measure the ability of MB2’s interference model to capture the impact of resource competition on concurrent OUs. We run the concurrent runner with the 1 GB TPC-H benchmark since it contains a diverse set of OUs. The concurrent runner enumerates three parameters: (1) <strong>subsets of TPC-H queries</strong>, (2) <strong>number of concurrent threads</strong>, and (3) <strong>query arrival rate</strong>.</p>
+<h3 class="heading-element" id="interference-model-accuracy"><span>Interference Model Accuracy</span>
+  <a href="#interference-model-accuracy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>We next measure the ability of MB2’s interference model to capture the impact of resource competition on concurrent OUs. We run the concurrent runner with the 1 GB TPC-H benchmark since it contains a diverse set of OUs. The concurrent runner enumerates three parameters: (1) <strong>subsets of TPC-H queries</strong>, (2) <strong>number of concurrent threads</strong>, and (3) <strong>query arrival rate</strong>.</p>
 <p>Since the interference model is not specific to any OU or DBMS configuration, the concurrent runner does not need to exercise all OU-model inputs or knobs. For example, with the knob that controls the number of threads, we only generate training data for odd-numbered settings (i.e., 1, 3, 5, . . . 19) and then test on even-numbered settings. The concurrent runner executes each query setup for 20s. To reduce the evaluation time, we assume the average query arrival rate per query template per 10s is given to the model. In practice, this interval can be larger. Neural network performs the best for this model given its capacity to consume the summary statistics of OU-model output labels</p>
 <p>To evaluate the model’s generalizability, the concurrent runner executes queries only in the <strong>DBMS’s interpretive mode</strong> (execution knob discussed in Sec. 4.2), but we test the model under <strong>JIT compilation mode</strong>. We also evaluate the model with thread numbers and workload sizes that are different from those used by MB2’s concurrent runners. To isolate the interference model’s estimation, we execute the queries in both single-thread and concurrent environments and compare the true adjustment factors (the concurrent interference impact) against the predicted adjustment factors</p>
 <blockquote>
@@ -465,15 +492,24 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>还是 normalization</p>
 </blockquote>
-<h3 id="model-adaptation-and-robustness">Model Adaptation and Robustness</h3>
-<p>噪声影响，noisy estimation</p>
-<h3 id="hardware-context">Hardware Context</h3>
-<p>Since MB2 <strong>generates models offline</strong>, their predictions may be inaccurate when the hardware used for training data generation and production differs.</p>
+<h3 class="heading-element" id="model-adaptation-and-robustness"><span>Model Adaptation and Robustness</span>
+  <a href="#model-adaptation-and-robustness" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>噪声影响，noisy estimation</p>
+<h3 class="heading-element" id="hardware-context"><span>Hardware Context</span>
+  <a href="#hardware-context" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Since MB2 <strong>generates models offline</strong>, their predictions may be inaccurate when the hardware used for training data generation and production differs.</p>
 <blockquote>
 <p>在不同的 CPU 频率上训练，带来的误差也不同，而且看上去受影响很大？但为什么是跟主频有关？是因为训练的时候，错误估计了查询时间吗？所以可以扩展多一些参数吗？</p>
 </blockquote>
-<h3 id="end-to-end-self-driving-execution">End-to-End Self-Driving Execution</h3>
-<p>demonstrate MB2’s <strong>behavior models’</strong> application for a <strong>self-driving DBMS’s planning components</strong> and show how it enables interpretation of its <strong>decision-making process</strong>. We assume that the DBMS has (1) workload forecasting information of average query arrival rate per query template in each 10s forecasting interval. and (2) an “oracle” planner that makes decisions using predictions from behavior models. We assume a perfect workload forecast to isolate MB2’s prediction error</p>
+<h3 class="heading-element" id="end-to-end-self-driving-execution"><span>End-to-End Self-Driving Execution</span>
+  <a href="#end-to-end-self-driving-execution" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>demonstrate MB2’s <strong>behavior models’</strong> application for a <strong>self-driving DBMS’s planning components</strong> and show how it enables interpretation of its <strong>decision-making process</strong>. We assume that the DBMS has (1) workload forecasting information of average query arrival rate per query template in each 10s forecasting interval. and (2) an “oracle” planner that makes decisions using predictions from behavior models. We assume a perfect workload forecast to isolate MB2’s prediction error</p>
 <blockquote>
 <p>创建索引时，runtime，cpu 占用率都预测得很好，是 self-driving database 的基础</p>
 </blockquote>
@@ -482,8 +518,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>但也存在预测错误的情况</p>
 </blockquote>
-<h2 id="related-work">RELATED WORK</h2>
-<p>We broadly classify the previous work in DBMS modeling into the following categories:</p>
+<h2 class="heading-element" id="related-work"><span>RELATED WORK</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>We broadly classify the previous work in DBMS modeling into the following categories:</p>
 <ol>
 <li>ML models</li>
 <li>analytical models.</li>
@@ -503,8 +542,11 @@ decomposes a DBMS’s architecture into fine-grained operating units that make i
 <blockquote>
 <p>没理解为什么用模块化方法而不是端到端 RL</p>
 </blockquote>
-<h2 id="conclusion">CONCLUSION</h2>
-<p><strong>Behavior modeling</strong> is the foundation for building a self-driving DBMS. We propose a modeling framework ModelBot2 (MB2) that decomposes the DBMS into operating units (OUs) and builds models for each OU with runners that exercise OUs’ behavior. Our evalua- tion shows that MB2’s behavior models provide the essential cost, impact, and benefit estimations for actions of self-driving DBMSs and generalize to various workloads and environments.</p>
+<h2 class="heading-element" id="conclusion"><span>CONCLUSION</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>Behavior modeling</strong> is the foundation for building a self-driving DBMS. We propose a modeling framework ModelBot2 (MB2) that decomposes the DBMS into operating units (OUs) and builds models for each OU with runners that exercise OUs’ behavior. Our evalua- tion shows that MB2’s behavior models provide the essential cost, impact, and benefit estimations for actions of self-driving DBMSs and generalize to various workloads and environments.</p>
 <blockquote>
 <p>主要讲了怎么建模 behavior model，怎么拆分 Operation Unit 然后用 ML 方法做预测，还有很重要的 normalization。结合起来就是 self-driving DBMS 的基础。</p>
 <p>中间很多地方没怎么看懂，好像就是在特殊的数据库上拆出各种单元任务，用各种不同的 ML 方法预测，然后 normalize 结果。但 normalize 部分不太清楚，怎么选 ML 方法看上去也玄学。OU 选的也挺少的，而且无法处理 disk-oriented DBMS，假设还是挺强的。</p>
@@ -538,40 +580,90 @@ The paper proposes a modeling framework called ModelBot2(MB2) for building a sel
 <p>The paper makes an analogy between self-driving vehicles and databases. It is a very good paper. I might try to improve it based on several limitations of MB2. First, I would try to extend MB2&rsquo;s capabilities to disk-oriented DBMS, it would be necessary to incorporate models that understand and predict disk I/O operations and the cached content. It might need to develop hybrid models that can handle both in-memory and disk-based operations, apply more ML methods to predict cached contents. What&rsquo;s more, MB2 could be improved by implementing online learning algorithms that can update the models in real-time for database updates or new workloads. Finally, I will try to enhance MB2 to adapt to different CPU frequencies, it might involve creating models that factor in CPU performance metrics and how they affect DBMS operations.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-04-05</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-04-05 09:50:55">更新于 2024-04-05&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/mb2-self-driving-db/" data-title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/minilsm-2/" class="prev" rel="prev" title="Mini-LSM Week 1 Day2"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Mini-LSM Week 1 Day2</a>
-            <a href="../../posts/ml-based-autotunning/" class="next" rel="next" title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems">Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/minilsm-2/" class="post-nav-item" rel="prev" title="Mini-LSM Week 1 Day2"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Mini-LSM Week 1 Day2</a><a href="../../posts/ml-based-autotunning/" class="post-nav-item" rel="next" title="Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems">Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#mb2-decomposed-behavior-modeling-for-self-driving-database-management-systems">MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#background-and-motivation">BACKGROUND AND MOTIVATION</a>
+      <ul>
+        <li><a href="#behavior-modeling">Behavior Modeling</a></li>
+        <li><a href="#challenges">Challenges</a></li>
+      </ul>
+    </li>
+    <li><a href="#overview">OVERVIEW</a></li>
+    <li><a href="#ou-models">OU-MODELS</a>
+      <ul>
+        <li><a href="#principles">Principles</a></li>
+        <li><a href="#input-features">Input Features</a></li>
+        <li><a href="#output-labels">Output Labels</a></li>
+      </ul>
+    </li>
+    <li><a href="#interference-model">INTERFERENCE MODEL</a>
+      <ul>
+        <li><a href="#input-features-1">Input Features</a></li>
+        <li><a href="#output-labels-1">Output Labels</a></li>
+      </ul>
+    </li>
+    <li><a href="#data-generation-and-training">DATA GENERATION AND TRAINING</a>
+      <ul>
+        <li><a href="#data-collection-infrastructure">Data Collection Infrastructure</a></li>
+        <li><a href="#ou-runners">OU-Runners</a></li>
+        <li><a href="#concurrent-runners">Concurrent Runners</a></li>
+        <li><a href="#model-training">Model Training</a></li>
+      </ul>
+    </li>
+    <li><a href="#handling-software-updates">HANDLING SOFTWARE UPDATES</a></li>
+    <li><a href="#experimental-evaluation">EXPERIMENTAL EVALUATION</a>
+      <ul>
+        <li><a href="#data-collection-and-training">Data Collection and Training</a></li>
+        <li><a href="#ou-model-accuracy">OU-Model Accuracy</a></li>
+        <li><a href="#ou-model-generalization">OU-Model Generalization</a></li>
+        <li><a href="#interference-model-accuracy">Interference Model Accuracy</a></li>
+        <li><a href="#model-adaptation-and-robustness">Model Adaptation and Robustness</a></li>
+        <li><a href="#hardware-context">Hardware Context</a></li>
+        <li><a href="#end-to-end-self-driving-execution">End-to-End Self-Driving Execution</a></li>
+      </ul>
+    </li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+    <li><a href="#conclusion">CONCLUSION</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/f3c2817e2c61087a16f387530467f5a5.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

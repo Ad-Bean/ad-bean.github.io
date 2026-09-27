@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: IX: A Protected Dataplane Operating System - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ix-paper/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: IX: A Protected Dataplane Operating System - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: IX: A Protected Dataplane Operating System">
+	<meta itemprop="description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。">
+	<meta itemprop="datePublished" content="2024-09-15T14:47:50-04:00">
+	<meta itemprop="dateModified" content="2024-09-15T14:47:50-04:00">
+	<meta itemprop="wordCount" content="8831">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/ix-paper/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: IX: A Protected Dataplane Operating System">
-	<meta property="og:description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。
-不得不说这类型的论文阅读起来太费劲了。
-Abstract 传统观点认为，激进的网络需求，比如小消息的高包速率和微秒级的尾部延迟，最好在内核之外的用户级网络堆栈中进行处理。我们介绍了 IX，一个数据平面操作系统，它提供了高 I/O 性能，同时保持了现有核心提供的强保护的关键优势。IX 使用硬件虚拟化将内核(控制平面)的管理和调度功能与网络处理(数据平面)分离开来。数据平面体系结构建立在原生的零拷贝 API 之上，通过将硬件线程和网络队列专用于数据平面实例，处理有界批量的数据包以完成，并通过消除一致性流量和多核同步来优化带宽和延迟。我们展示了 IX 在吞吐量和端到端延迟方面都明显优于 Linux 和最先进的用户空间网络堆栈。此外，IX 提高了一个广泛部署的键值存储器的吞吐量达到 3.6 倍，并减少了超过 2 倍的尾延迟。">
+	<meta property="og:description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -19,117 +25,102 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: IX: A Protected Dataplane Operating System">
-	<meta name="twitter:description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。
-不得不说这类型的论文阅读起来太费劲了。
-Abstract 传统观点认为，激进的网络需求，比如小消息的高包速率和微秒级的尾部延迟，最好在内核之外的用户级网络堆栈中进行处理。我们介绍了 IX，一个数据平面操作系统，它提供了高 I/O 性能，同时保持了现有核心提供的强保护的关键优势。IX 使用硬件虚拟化将内核(控制平面)的管理和调度功能与网络处理(数据平面)分离开来。数据平面体系结构建立在原生的零拷贝 API 之上，通过将硬件线程和网络队列专用于数据平面实例，处理有界批量的数据包以完成，并通过消除一致性流量和多核同步来优化带宽和延迟。我们展示了 IX 在吞吐量和端到端延迟方面都明显优于 Linux 和最先进的用户空间网络堆栈。此外，IX 提高了一个广泛部署的键值存储器的吞吐量达到 3.6 倍，并减少了超过 2 倍的尾延迟。">
+	<meta name="twitter:description" content="IX: A Protected Dataplane Operating System for High Throughput and Low Latency OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ix-paper/" /><link rel="prev" href="https://ad-bean.github.io/posts/dune-paper/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-arrakis/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: IX: A Protected Dataplane Operating System",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/ix-paper\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  8831 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/ix-paper\/","datePublished": "2024-09-15T14:47:50-04:00","dateModified": "2024-09-15T14:47:50-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/ix-paper/" title="Paper Reading: IX: A Protected Dataplane Operating System - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/dune-paper/" title="Paper Reading: Dune" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-arrakis/" title="Paper Reading: Arrakis" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: IX: A Protected Dataplane Operating System",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/ix-paper\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  8831 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/ix-paper\/","datePublished": "2024-09-15T14:47:50-04:00","dateModified": "2024-09-15T14:47:50-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: IX: A Protected Dataplane Operating System</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-15">2024-09-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8831 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: IX: A Protected Dataplane Operating System</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-09-15 14:47:50"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-09-15">2024-09-15</time></span>&nbsp;<span title="8831 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 8900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 18 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency">IX: A Protected Dataplane Operating System for High Throughput and Low Latency</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -165,17 +156,26 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
     <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency">IX: A Protected Dataplane Operating System for High Throughput and Low Latency</h2>
-<p>OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency"><span>IX: A Protected Dataplane Operating System for High Throughput and Low Latency</span>
+  <a href="#ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>OSDI 2014, Dune 的衍生，同样利用硬件虚拟化 VT-x 技术。IX 最重要的是 Data Plane 和 Control Plane 分离了。</p>
 <p>不得不说这类型的论文阅读起来太费劲了。</p>
-<h2 id="abstract">Abstract</h2>
-<p>传统观点认为，激进的网络需求，比如小消息的高包速率和微秒级的尾部延迟，最好在<strong>内核之外的用户级网络堆栈</strong>中进行处理。我们介绍了 IX，一个数据平面操作系统，它提供了高 I/O 性能，同时保持了现有核心提供的强保护的关键优势。IX 使用<strong>硬件虚拟化将内核</strong>(控制平面)的管理和调度功能与网络处理(数据平面)分离开来。数据平面体系结构建立在原生的<strong>零拷贝 API</strong> 之上，通过将硬件线程和网络队列专用于数据平面实例，处理有界批量的数据包以完成，并通过消除一致性流量和多核同步来优化带宽和延迟。我们展示了 IX 在吞吐量和端到端延迟方面都明显优于 Linux 和最先进的用户空间网络堆栈。此外，IX 提高了一个广泛部署的键值存储器的吞吐量达到 3.6 倍，并减少了超过 2 倍的尾延迟。</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>传统观点认为，激进的网络需求，比如小消息的高包速率和微秒级的尾部延迟，最好在<strong>内核之外的用户级网络堆栈</strong>中进行处理。我们介绍了 IX，一个数据平面操作系统，它提供了高 I/O 性能，同时保持了现有核心提供的强保护的关键优势。IX 使用<strong>硬件虚拟化将内核</strong>(控制平面)的管理和调度功能与网络处理(数据平面)分离开来。数据平面体系结构建立在原生的<strong>零拷贝 API</strong> 之上，通过将硬件线程和网络队列专用于数据平面实例，处理有界批量的数据包以完成，并通过消除一致性流量和多核同步来优化带宽和延迟。我们展示了 IX 在吞吐量和端到端延迟方面都明显优于 Linux 和最先进的用户空间网络堆栈。此外，IX 提高了一个广泛部署的键值存储器的吞吐量达到 3.6 倍，并减少了超过 2 倍的尾延迟。</p>
 <blockquote>
 <p>IX，利用 VTX 将控制平面（内核）和数据平面（网络处理）区分开，后者利用零拷贝处理？</p>
 <p>延迟和吞吐都有提升</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>need for networking stacks that provide more than high streaming performance. The new requirements include high packet rates for short messages, microsecond-level responses to remote requests with tight tail latency guarantees, and support for high connection counts and churn</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>need for networking stacks that provide more than high streaming performance. The new requirements include high packet rates for short messages, microsecond-level responses to remote requests with tight tail latency guarantees, and support for high connection counts and churn</p>
 <blockquote>
 <p>目前对高性能网络的需求</p>
 </blockquote>
@@ -202,9 +202,15 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <p>听上去和用户级 tcp/ip 可能差距并不大，不知道有没有用户级的 kcp/quic 能否比较一下</p>
 </blockquote>
 <p>两个 IX 服务器之间的空载单向延迟为 5.7 微秒，比标准 Linux 内核之间的延迟好 4 倍，</p>
-<h2 id="background-and-motivation">Background and Motivation</h2>
-<h3 id="challenges-for-datacenter-applications">Challenges for Datacenter Applications</h3>
-<p>Microsecond tail latency: 将一些服务请求的延迟降低到几十 μs 是至关重要的，我们还必须考虑跨数据中心的 RPC 请求的延迟分布的长尾。虽然尾部公差实际上是一个端到端的挑战，但系统软件栈在加剧问题方面起着重要作用[36]。总的来说，理想情况下，每个服务节点都必须严格限制第 99 百分位的请求延迟</p>
+<h2 class="heading-element" id="background-and-motivation"><span>Background and Motivation</span>
+  <a href="#background-and-motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="challenges-for-datacenter-applications"><span>Challenges for Datacenter Applications</span>
+  <a href="#challenges-for-datacenter-applications" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Microsecond tail latency: 将一些服务请求的延迟降低到几十 μs 是至关重要的，我们还必须考虑跨数据中心的 RPC 请求的延迟分布的长尾。虽然尾部公差实际上是一个端到端的挑战，但系统软件栈在加剧问题方面起着重要作用[36]。总的来说，理想情况下，每个服务节点都必须严格限制第 99 百分位的请求延迟</p>
 <blockquote>
 <p>tail-tolerance is actually an end-to-end challenge 应该在分布式很重要</p>
 </blockquote>
@@ -214,14 +220,20 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 </blockquote>
 <p>Protection: isolation between applications</p>
 <p>Resource efficiency: 每个服务节点将使用最少的资源(核心、内存或 IOPS)来满足任何时候的数据包速率和尾延迟需求</p>
-<h3 id="the-hardware--os-mismatch">The Hardware – OS Mismatch</h3>
-<p>硬件发展</p>
+<h3 class="heading-element" id="the-hardware--os-mismatch"><span>The Hardware – OS Mismatch</span>
+  <a href="#the-hardware--os-mismatch" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>硬件发展</p>
 <p>商用操作系统</p>
 <blockquote>
 <p>这些文章大部分的 motivation 都来自于硬件发展快速，比如 100Gbe 网卡，商用系统不够专用等等</p>
 </blockquote>
-<h3 id="alternative-approaches">Alternative Approaches</h3>
-<p>User-space networking stacks: OpenOnload [59] ，mTCP [29]和 Sandstorm [40]等系统在用户空间中运行整个网络栈，以消除内核交叉开销并优化数据包处理，而不会引起内核修改的复杂性</p>
+<h3 class="heading-element" id="alternative-approaches"><span>Alternative Approaches</span>
+  <a href="#alternative-approaches" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>User-space networking stacks: OpenOnload [59] ，mTCP [29]和 Sandstorm [40]等系统在用户空间中运行整个网络栈，以消除内核交叉开销并优化数据包处理，而不会引起内核修改的复杂性</p>
 <p>更重要的是，当网络被提升到用户空间，而应用程序错误可能破坏网络堆栈时，安全性权衡就会出现</p>
 <p>Alternatives to TCP: RDMA 可以减少延迟，但是需要在连接的两端都有专门的适配器。使用普通的以太网，Facebook 的 memcached 部署使用 UDP 来避免连接可伸缩性限制[46]。即使 UDP 在内核中运行，可靠的通信和拥塞管理仍然委托给应用程序</p>
 <blockquote>
@@ -235,8 +247,11 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <blockquote>
 <p>不兼容 epoll 是什么意思，busy polling 是增加 CPU 利用率一直轮询，减少延迟。轮询和 epoll 事件通知有区别吧。</p>
 </blockquote>
-<h2 id="ix-design-approach">IX Design Approach</h2>
-<p>microsecond latency &amp;&amp; high packet rates</p>
+<h2 class="heading-element" id="ix-design-approach"><span>IX Design Approach</span>
+  <a href="#ix-design-approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>microsecond latency &amp;&amp; high packet rates</p>
 <p>These requirements have been addressed in the design of <strong>middleboxes</strong> such as firewalls, load-balancers by integrating the networking stack and the application into a single dataplane</p>
 <blockquote>
 <p>middleboxes 集成了网络栈和应用程序到一个单一的数据平面，</p>
@@ -258,16 +273,15 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 </blockquote>
 <p>Flow consistent, synchronization-free processing:</p>
 <p>multi-queue NICs provide flow-consistent hashing of incoming traffic to distinct hardware queues</p>
-<h2 id="ix-implementation">IX Implementation</h2>
-<h3 id="overview">Overview</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png"
-        data-srcset="https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png, https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png 1.5x, https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png"
-        title="https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png" /></p>
+<h2 class="heading-element" id="ix-implementation"><span>IX Implementation</span>
+  <a href="#ix-implementation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="overview"><span>Overview</span>
+  <a href="#overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png' alt="https://s2.loli.net/2024/09/16/2aXU59cO6Gxvj8B.png"></p>
 <p>IX 架构，重点介绍了控制平面和多个数据平面之间的分离</p>
 <p>IX 控制平面由完整的 Linux 内核和 IXCP（一个用户级程序）组成。</p>
 <p>Linux 内核初始化 PCIe 设备（如网卡），并为<strong>数据平面</strong>提供资源分配的基本机制，包括核心、内存和网络队列。同样重要的是，Linux 提供了系统调用和服务，这些是与广泛应用程序兼容所必需的，如文件系统和信号支持。</p>
@@ -290,8 +304,11 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <p>POSIX 旨在确保不同操作系统之间的兼容性，Portable，比如 I/O 之类的。POSIX 定义了网络编程的接口，如 socket 编程。</p>
 <p>弹性线程，网络 IO。后台线程，垃圾回收？</p>
 </blockquote>
-<h3 id="the-ix-dataplane">The IX Dataplane</h3>
-<p>IX 数据平面，它与典型的内核不同，因为它专门用于高性能网络 I/O，并且只运行一个应用程序，类似于库操作系统，但具有内存隔离。我们的数据平面仍然提供了许多熟悉的内核级服务。</p>
+<h3 class="heading-element" id="the-ix-dataplane"><span>The IX Dataplane</span>
+  <a href="#the-ix-dataplane" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>IX 数据平面，它与典型的内核不同，因为它专门用于高性能网络 I/O，并且只运行一个应用程序，类似于库操作系统，但具有内存隔离。我们的数据平面仍然提供了许多熟悉的内核级服务。</p>
 <blockquote>
 <p>library OS,</p>
 </blockquote>
@@ -306,8 +323,11 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <p>硬件限制还是很严重的，看着像缝合怪？lwIP 是 lightweight IP 开源 TCP/IP 协议栈，为什么不基于 UDP 呢，会不会吞吐和延迟更好看？还是说受限于 TCP，因为大部分 NIC 或者 middleboxes 都优化了 TCP</p>
 <p>还有就是 batch 能不能变成 streaming？毕竟 TCP 底层应该是流的，字节流</p>
 </blockquote>
-<h3 id="dataplane-api-and-operation">Dataplane API and Operation</h3>
-<p>应用程序的 elastic threads 弹性线程通过三种异步、非阻塞机制与 IX 数据平面进行交互</p>
+<h3 class="heading-element" id="dataplane-api-and-operation"><span>Dataplane API and Operation</span>
+  <a href="#dataplane-api-and-operation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>应用程序的 elastic threads 弹性线程通过三种异步、非阻塞机制与 IX 数据平面进行交互</p>
 <blockquote>
 <p>弹性线程 处理 IO</p>
 </blockquote>
@@ -321,8 +341,11 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <blockquote>
 <p>完整的流程，使用的是轮询，IX 能实现更高效的 epoll 或者其他事件驱动机制吗？IX 应该是有 Multi-queue 的, IX 框架中的弹性线程负责处理网络数据包。每个弹性线程可以绑定到一个特定的 CPU 核心， 提高并行处理能力</p>
 </blockquote>
-<h3 id="multi-core-scalability">Multi-core Scalability</h3>
-<p>IX 数据平面针对<strong>多核可扩展</strong>性进行了优化，因为弹性线程在常见情况下以无同步和无一致性的方式运行。这比无锁同步的要求更强，无锁同步即使在单个线程是特定数据结构的主要消费者时，也需要昂贵的原子指令[13]。这是通过一系列有意识的设计和实现权衡实现的。</p>
+<h3 class="heading-element" id="multi-core-scalability"><span>Multi-core Scalability</span>
+  <a href="#multi-core-scalability" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>IX 数据平面针对<strong>多核可扩展</strong>性进行了优化，因为弹性线程在常见情况下以无同步和无一致性的方式运行。这比无锁同步的要求更强，无锁同步即使在单个线程是特定数据结构的主要消费者时，也需要昂贵的原子指令[13]。这是通过一系列有意识的设计和实现权衡实现的。</p>
 <blockquote>
 <p>不知道弹性线程是怎么实现的，应该是修复了 Dune 不好支持多线程的问题</p>
 </blockquote>
@@ -338,22 +361,34 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <blockquote>
 <p>还是需要一致性，更新很罕见？</p>
 </blockquote>
-<h3 id="security-model">Security Model</h3>
-<p>IX API 及其实现采用了一种应用程序代码与网络处理栈之间的协作流控模型。与用户级栈不同，在用户级栈中，应用程序被信任以正确执行网络行为，而 IX 的保护模型对应用程序的假设很少。恶意或行为不端的应用程序只能伤害自身，而不能破坏网络栈或影响其他应用程序。IX 中的所有应用程序代码都在<strong>用户模式</strong>下运行，而数据平面代码则在受保护的 Ring 0 中运行。应用程序无法访问数据平面内存，除非是只读的消息缓冲区。无法通过批量系统调用或其他用户级操作来违反对 TCP 和其他网络规范的正确遵循。此外，<strong>数据平面</strong>可用于强制执行网络安全策略，如防火墙和访问控制列表。IX 的<strong>安全模型</strong>与传统的基于内核的网络栈一样强大，这是所有最近提出的用户级栈所不具备的特性。</p>
+<h3 class="heading-element" id="security-model"><span>Security Model</span>
+  <a href="#security-model" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>IX API 及其实现采用了一种应用程序代码与网络处理栈之间的协作流控模型。与用户级栈不同，在用户级栈中，应用程序被信任以正确执行网络行为，而 IX 的保护模型对应用程序的假设很少。恶意或行为不端的应用程序只能伤害自身，而不能破坏网络栈或影响其他应用程序。IX 中的所有应用程序代码都在<strong>用户模式</strong>下运行，而数据平面代码则在受保护的 Ring 0 中运行。应用程序无法访问数据平面内存，除非是只读的消息缓冲区。无法通过批量系统调用或其他用户级操作来违反对 TCP 和其他网络规范的正确遵循。此外，<strong>数据平面</strong>可用于强制执行网络安全策略，如防火墙和访问控制列表。IX 的<strong>安全模型</strong>与传统的基于内核的网络栈一样强大，这是所有最近提出的用户级栈所不具备的特性。</p>
 <blockquote>
 <p>IX 利用了 vt-x ring3 和 ring0 吧，应该是比 dune 更安全？分离也使得更安全</p>
 <p>IO MMU 没有用到？</p>
 </blockquote>
-<h2 id="evaluation">Evaluation</h2>
-<blockquote>
+<h2 class="heading-element" id="evaluation"><span>Evaluation</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>evaluation 表现都非常好，对比了 Linux 和用户态的 mTCP，</p>
 <p>都使用了 TCP</p>
 </blockquote>
-<h3 id="experimental-methodology">Experimental Methodology</h3>
-<p>我们启用了超线程，因为它可以提高性能</p>
+<h3 class="heading-element" id="experimental-methodology"><span>Experimental Methodology</span>
+  <a href="#experimental-methodology" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们启用了超线程，因为它可以提高性能</p>
 <p>我们的基准测试的 Linux 客户端和服务器实现使用了 libevent 框架和 epoll 系统调用。我们从公共领域发布中下载并安装了 mTCP [30]，但必须使用 mTCP API 自己编写基准测试。我们使用 2.6.36 Linux 内核运行 mTCP，因为这是最新支持的内核版本。我们只报告了 mTCP 的 10GbE 结果，因为它不支持 NIC 绑定。对于 IX，我们将最大批处理大小绑定到每次迭代 B=64 个数据包，这在微基准测试中最大化吞吐量</p>
-<h3 id="latency-and-single-flow-bandwidth">Latency and Single-flow Bandwidth</h3>
-<p>NetPIPE ping-pong benchmark</p>
+<h3 class="heading-element" id="latency-and-single-flow-bandwidth"><span>Latency and Single-flow Bandwidth</span>
+  <a href="#latency-and-single-flow-bandwidth" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>NetPIPE ping-pong benchmark</p>
 <p>IX 服务器的单向延迟为 5.7μs, 并实现了 5Gbps 的吞吐量，这是最大值的一半，消息大小仅为 20KB</p>
 <p>两个 Linux 服务器的单向延迟为 24μs, 385KB messages to achieve 5Gbps</p>
 <blockquote>
@@ -363,27 +398,39 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <blockquote>
 <p>IX 消息小，处理很快，能达到高吞吐 5Gbps，单项延迟很低</p>
 </blockquote>
-<h3 id="throughput-and-scalability">Throughput and Scalability</h3>
-<p>对于所有三个测试（核心扩展、消息计数扩展、消息大小扩展），IX 的扩展性都比 mTCP 和 Linux 更激进。图 3a 显示，IX 仅需要 3 个核心即可饱和 10GbE 链路，而 mTCP 需要所有 8 个核心。在图 3b 中，对于每个连接 1024 次往返，IX 每秒交付 880 万条消息，这是 mTCP 吞吐量的 1.9 倍，是 Linux 的 8.8 倍。在这个数据包速率下，IX 达到了线路速率，仅受限于 10GbE 带宽。</p>
+<h3 class="heading-element" id="throughput-and-scalability"><span>Throughput and Scalability</span>
+  <a href="#throughput-and-scalability" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>对于所有三个测试（核心扩展、消息计数扩展、消息大小扩展），IX 的扩展性都比 mTCP 和 Linux 更激进。图 3a 显示，IX 仅需要 3 个核心即可饱和 10GbE 链路，而 mTCP 需要所有 8 个核心。在图 3b 中，对于每个连接 1024 次往返，IX 每秒交付 880 万条消息，这是 mTCP 吞吐量的 1.9 倍，是 Linux 的 8.8 倍。在这个数据包速率下，IX 达到了线路速率，仅受限于 10GbE 带宽。</p>
 <blockquote>
 <p>IX 几乎是线性扩展，核心越多吞吐量越大，估计分离和弹性线程绑定 CPU + 批处理（减少上下文切换？）带来了很多好处</p>
 </blockquote>
-<h3 id="connection-scalability">Connection Scalability</h3>
-<p>能处理大量连接 a large number of concurrent connections</p>
+<h3 class="heading-element" id="connection-scalability"><span>Connection Scalability</span>
+  <a href="#connection-scalability" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>能处理大量连接 a large number of concurrent connections</p>
 <p>最多 250,000 个连接，这是我们可用客户端机器的上限。正如预期的那样，吞吐量随着连接并发度的增加而增加，但对于非常大的连接数，由于在打开的连接之间进行多路复用的成本越来越高，吞吐量会下降。在峰值时，IX 的性能比 Linux 好 10 倍，与图 3b 的结果一致。在 250,000 个连接和 4x10GbE 的情况下，IX 能够达到其峰值吞吐量的 47%。</p>
 <blockquote>
 <p>Linux 应该很难做到，但 IX 也有大量的 L3 缓存未命中？可以通过进一步优化 lwIP 和 TCP/IP 协议控制块结构大小和访问模式（这里没看懂）</p>
 </blockquote>
-<h3 id="memcached-performance">Memcached Performance</h3>
-<p>平均和第 99 百分位延迟作为实现吞吐量</p>
+<h3 class="heading-element" id="memcached-performance"><span>Memcached Performance</span>
+  <a href="#memcached-performance" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>平均和第 99 百分位延迟作为实现吞吐量</p>
 <p>第 99 百分位延迟捕捉尾部延迟问题，是数据中心应用程序最相关的指标 [14]。大多数商业 memcached 部署都为每个服务器配置，以使第 99 百分位延迟不超过 200μs 到 500μs。</p>
 <p>我们尚未尝试调整 memcached 的内部可扩展性 [20] 或支持零拷贝 I/O 操作</p>
 <p>IX 显著减少了未加载的延迟，大约减少了一半</p>
 <blockquote>
 <p>这里很奇怪，为什么没支持零拷贝？但表现仍好于 Linux 而且好太多了</p>
 </blockquote>
-<h2 id="discussion">Discussion</h2>
-<p>What makes IX fast:</p>
+<h2 class="heading-element" id="discussion"><span>Discussion</span>
+  <a href="#discussion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>What makes IX fast:</p>
 <p>a networking stack can be implemented in a <strong>protected OS kernel</strong> and still deliver wire-rate performance for most benchmark</p>
 <p>IX 的好处不仅仅是最小化内核开销，零拷贝方法也有所帮助</p>
 <p>没有中间缓冲区允许高效、特定于应用程序的 I/O 抽象实现，例如 libix 事件库</p>
@@ -408,45 +455,88 @@ Abstract 传统观点认为，激进的网络需求，比如小消息的高包�
 <blockquote>
 <p>除了 TCP 应该还可以做 UDP？</p>
 </blockquote>
-<h2 id="related-work">Related Work</h2>
-<p>与 IX 类似，Arrakis 使用硬件虚拟化将 I/O 数据平面与控制平面分离 [50]。IX 的不同之处在于它使用<strong>完整的 Linux 内核作为控制平面</strong>；在控制平面、网络栈和应用程序之间提供三向隔离；并提出了一种数据平面架构，该架构针对高吞吐量和低延迟进行了优化。另一方面，Arrakis 使用 <strong>Barrelfish</strong> 作为控制平面 [6]，并包括对 IOMMU 和 SR-IOV 的支持。</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>memcached 移植到 IX 可以消除内核瓶颈，并将吞吐量提高多达 3.6 倍，同时将尾部延迟减少超过 2 倍。</p>
+<h2 class="heading-element" id="related-work"><span>Related Work</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>与 IX 类似，Arrakis 使用硬件虚拟化将 I/O 数据平面与控制平面分离 [50]。IX 的不同之处在于它使用<strong>完整的 Linux 内核作为控制平面</strong>；在控制平面、网络栈和应用程序之间提供三向隔离；并提出了一种数据平面架构，该架构针对高吞吐量和低延迟进行了优化。另一方面，Arrakis 使用 <strong>Barrelfish</strong> 作为控制平面 [6]，并包括对 IOMMU 和 SR-IOV 的支持。</p>
+<h2 class="heading-element" id="conclusion"><span>Conclusion</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>memcached 移植到 IX 可以消除内核瓶颈，并将吞吐量提高多达 3.6 倍，同时将尾部延迟减少超过 2 倍。</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-09-15</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ix-paper/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-09-15 14:47:50">更新于 2024-09-15&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ix-paper/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ix-paper/" data-title="Paper Reading: IX: A Protected Dataplane Operating System"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/dune-paper/" class="prev" rel="prev" title="Paper Reading: Dune"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Dune</a>
-            <a href="../../posts/paper-arrakis/" class="next" rel="next" title="Paper Reading: Arrakis">Paper Reading: Arrakis<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/dune-paper/" class="post-nav-item" rel="prev" title="Paper Reading: Dune"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Dune</a><a href="../../posts/paper-arrakis/" class="post-nav-item" rel="next" title="Paper Reading: Arrakis">Paper Reading: Arrakis<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#ix-a-protected-dataplane-operating-system-for-high-throughput-and-low-latency">IX: A Protected Dataplane Operating System for High Throughput and Low Latency</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#background-and-motivation">Background and Motivation</a>
+      <ul>
+        <li><a href="#challenges-for-datacenter-applications">Challenges for Datacenter Applications</a></li>
+        <li><a href="#the-hardware--os-mismatch">The Hardware – OS Mismatch</a></li>
+        <li><a href="#alternative-approaches">Alternative Approaches</a></li>
+      </ul>
+    </li>
+    <li><a href="#ix-design-approach">IX Design Approach</a></li>
+    <li><a href="#ix-implementation">IX Implementation</a>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#the-ix-dataplane">The IX Dataplane</a></li>
+        <li><a href="#dataplane-api-and-operation">Dataplane API and Operation</a></li>
+        <li><a href="#multi-core-scalability">Multi-core Scalability</a></li>
+        <li><a href="#security-model">Security Model</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">Evaluation</a>
+      <ul>
+        <li><a href="#experimental-methodology">Experimental Methodology</a></li>
+        <li><a href="#latency-and-single-flow-bandwidth">Latency and Single-flow Bandwidth</a></li>
+        <li><a href="#throughput-and-scalability">Throughput and Scalability</a></li>
+        <li><a href="#connection-scalability">Connection Scalability</a></li>
+        <li><a href="#memcached-performance">Memcached Performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li><a href="#related-work">Related Work</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/fedca99077567f1df86dc362c13cc838.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

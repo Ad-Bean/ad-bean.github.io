@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-based-autotunning/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems">
+	<meta itemprop="description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。">
+	<meta itemprop="datePublished" content="2024-04-07T14:22:23-04:00">
+	<meta itemprop="dateModified" content="2024-04-07T14:22:23-04:00">
+	<meta itemprop="wordCount" content="5817">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/ml-based-autotunning/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems">
-	<meta property="og:description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。
-ABSTRACT Modern database management systems (DBMS) expose dozens of configurable knobs that control their runtime behavior
-与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有有限调优机会的合成工作负载上进行评估的，因此尚不清楚它们是否在生产环境中提供相同的好处">
+	<meta property="og:description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -19,117 +25,102 @@ ABSTRACT Modern database management systems (DBMS) expose dozens of configurable
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems">
-	<meta name="twitter:description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。
-ABSTRACT Modern database management systems (DBMS) expose dozens of configurable knobs that control their runtime behavior
-与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有有限调优机会的合成工作负载上进行评估的，因此尚不清楚它们是否在生产环境中提供相同的好处">
+	<meta name="twitter:description" content="An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/ml-based-autotunning/" /><link rel="prev" href="https://ad-bean.github.io/posts/mb2-self-driving-db/" /><link rel="next" href="https://ad-bean.github.io/posts/learned-sorting/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/ml-based-autotunning\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  5817 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/ml-based-autotunning\/","datePublished": "2024-04-07T14:22:23-04:00","dateModified": "2024-04-07T14:22:23-04:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/ml-based-autotunning/" title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/mb2-self-driving-db/" title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/learned-sorting/" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/ml-based-autotunning\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  5817 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/ml-based-autotunning\/","datePublished": "2024-04-07T14:22:23-04:00","dateModified": "2024-04-07T14:22:23-04:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/learned-data-systems/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Learned Data Systems</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-07">2024-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5817 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/learned-data-systems/" class="post-category" title="分类 - Learned Data Systems"><i class="fa-regular fa-folder" aria-hidden="true"></i> Learned Data Systems</a></span></div><div class="post-meta-line"><span title="发布于 2024-04-07 14:22:23"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-04-07">2024-04-07</time></span>&nbsp;<span title="5817 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 5900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 12 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems">An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</a></li>
     <li><a href="#abstract">ABSTRACT</a></li>
@@ -168,17 +159,26 @@ ABSTRACT Modern database management systems (DBMS) expose dozens of configurable
     <li><a href="#conclusion">CONCLUSION</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems">An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</h2>
-<p>CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。</p>
-<h2 id="abstract">ABSTRACT</h2>
-<p>Modern database management systems (DBMS) expose dozens of <strong>configurable knobs</strong> that control their runtime behavior</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems"><span>An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</span>
+  <a href="#an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>CMU 的对于 DBMS 自动调优的论文，采用了 ML 机器学习方法，是 Ottertune 的论文。</p>
+<h2 class="heading-element" id="abstract"><span>ABSTRACT</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Modern database management systems (DBMS) expose dozens of <strong>configurable knobs</strong> that control their runtime behavior</p>
 <p>与专家 DBA 相比，使用机器学习（ML）进行自动调整方法，的最新工作已显示出更好的性能。然而，这些基于 ML 的方法是在具有<strong>有限调优机会</strong>的<strong>合成</strong>工作负载上进行评估的，因此尚不清楚它们是否在<strong>生产环境</strong>中提供相同的好处</p>
 <p>To better understand ML-based tuning, we conducted a thorough evaluation of ML-based DBMS knob tuning methods on an enterprise database application. We use the OtterTune tuning service to compare three state-of-the-art ML algorithms on an Oracle installation with a real workload trace. Our results with OtterTune show that these algorithms generate knob configurations that improve performance by 45% over enterprise-grade configurations. We also identify deployment and measurement issues that were overlooked by previous research in automated DBMS tuning services</p>
 <blockquote>
 <p>在企业数据库上实现了 OtterTune，提高了 45% 的性能，并且发现了部署和检测问题。</p>
 </blockquote>
-<h2 id="introduction">INTRODUCTION</h2>
-<p>automate the tuning of database management systems (DBMSs)</p>
+<h2 class="heading-element" id="introduction"><span>INTRODUCTION</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>automate the tuning of database management systems (DBMSs)</p>
 <ol>
 <li>“self-adaptive” DBMSs that used recommendation tools with physical database design (e.g., indexes, partitioning).</li>
 <li>In the early 2000s, “self-tuning” systems expanded the scope of the problem to include automatic knob configuration. These <strong>knobs</strong> are tunable options that control nearly all aspects of the DBMS’s <strong>runtime</strong> behavior.</li>
@@ -210,12 +210,18 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>knob 多的时候，效果差不多，但收敛速度不一样</p>
 </blockquote>
-<h2 id="background">BACKGROUND</h2>
-<p>how an automated tuning service works using <strong>OtterTune</strong> as an example</p>
+<h2 class="heading-element" id="background"><span>BACKGROUND</span>
+  <a href="#background" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>how an automated tuning service works using <strong>OtterTune</strong> as an example</p>
 <p>limitations of previous evaluations</p>
 <p>why a more robust assessment is needed to understand their capabilities</p>
-<h3 id="ottertune-overview">OtterTune Overview</h3>
-<p>介绍 OtterTune，It maintains a repository of data collected from previous tuning sessions and uses it to build models of how the DBMS responds to different knob configurations. It uses these models to guide experimentation and recommend new settings. Each recommendation provides the service with more data in a feedback loop for refining and improving the accuracy of its models</p>
+<h3 class="heading-element" id="ottertune-overview"><span>OtterTune Overview</span>
+  <a href="#ottertune-overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>介绍 OtterTune，It maintains a repository of data collected from previous tuning sessions and uses it to build models of how the DBMS responds to different knob configurations. It uses these models to guide experimentation and recommend new settings. Each recommendation provides the service with more data in a feedback loop for refining and improving the accuracy of its models</p>
 <blockquote>
 <p>feedback loop 有点像 RL</p>
 </blockquote>
@@ -225,19 +231,15 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <p>需要用户指定优化目标</p>
 </blockquote>
 <p>first tuning iteration, 1.executes the target workload on the DBMS. After the workload finishes, the controller 2.collects the runtime metrics and configuration knobs from the DBMS and 3.uploads them to the tuning manager. OtterTune’s tuning manager 4.receives the latest result from the controller and stores it in its repository. Next, the tuning manager 5.uses its ML models to generate the next knob configuration and returns it to the controller. The controller 6.applies the knob configuration to the DBMS and starts the next tuning iteration. This loop continues until the user is satisfied with the improvements over the original configuration</p>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png"
-        data-srcset="https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png, https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png 1.5x, https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png"
-        title="https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png' alt="https://s2.loli.net/2024/04/08/uWeoQbUAY9SltMF.png"></p>
 <blockquote>
 <p>控制器 1○ 执行 DBMS 上的目标工作负载。工作负载完成后，控制器 2○ 收集 DBMS 的运行时指标和配置旋钮将其上传到 Tuning Manager。Ottertune 的调整管理器 4○ 收到控制器的最新结果，并将其存储在其存储库中。接下来，Tuning Manager 5○ 使用其 ML 型号生成下一个旋钮配置并将其返回到控制器。控制器 6○ 将旋钮配置应用于 DBMS，并开始下一个调整迭代。该循环继续进行，直到用户对原始配置的改进感到满意</p>
 </blockquote>
-<h3 id="motivation">Motivation</h3>
-<p>(1) workload, (2) DBMS, and (3) operating environment.</p>
+<h3 class="heading-element" id="motivation"><span>Motivation</span>
+  <a href="#motivation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>(1) workload, (2) DBMS, and (3) operating environment.</p>
 <p><strong>Workload Complexity</strong>: Gaining access to production workloads to evaluate new research ideas is non-trivial due to privacy constraints and other restrictions. Prior studies evaluate their techniques using synthetic benchmarks; the most complex benchmark used to evaluate ML-based tuning techniques to date is the TPC-C OLTP benchmark from the early 1990s. But previous studies have found that some characteristics of TPC-C are not representative of real-world database applications [23, 25]. Many of the unrealistic aspects of TPC-C are due to its simplistic database schema and query complexity. Another notable difference is the existence of temporary and <strong>large objects</strong> in production databases. Some DBMSs provide knobs for tuning these objects (e.g., Postgres, Oracle), which have not been considered in prior work</p>
 <blockquote>
 <p>之前的研究都是 synthetic benchmarks, TPC-C OLTP benchmark 无法代表显示，很多不符合实际。而且许多生产数据库会有超大临时对象，以前的工作没有考虑这种</p>
@@ -257,12 +259,18 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>强调了非本地存储的情况，对比了本地存储 SSD 和云存储 VM 存储，后者延迟不好预测，前者则稳定。</p>
 </blockquote>
-<h2 id="automated-tuning-field-study">AUTOMATED TUNING FIELD STUDY</h2>
-<blockquote>
+<h2 class="heading-element" id="automated-tuning-field-study"><span>AUTOMATED TUNING FIELD STUDY</span>
+  <a href="#automated-tuning-field-study" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><blockquote>
 <p>文章的突破点在于，更加现实的自动调优 DBMS，给出了商业数据库的例子，甚至对比专业的 DBA 都有很好的表现。</p>
 </blockquote>
-<h3 id="target-database-application">Target Database Application</h3>
-<p>TicketTracker 数据</p>
+<h3 class="heading-element" id="target-database-application"><span>Target Database Application</span>
+  <a href="#target-database-application" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>TicketTracker 数据</p>
 <p><strong>Database</strong>: We created a <strong>snapshot</strong> of the TicketTracker database from its production server using the Oracle Recovery Manager tool. The total uncompressed size of the database on disk is ∼1.1 TB, of which 27% is table data, 19% is table indexes, and 54% is large objects (LOBs). This LOB data is notable because Oracle exposes knobs that control how it manages LOBs, and previous work has not explored this aspect of DBMS tuning.</p>
 <blockquote>
 <p>large objects LOB 数据是以前没有探讨过的，</p>
@@ -275,14 +283,20 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>分析了 TPC-C 和该 workload 的区别，虽然这是现实例子，但它具有代表性吗？</p>
 </blockquote>
-<h3 id="deployment">Deployment</h3>
-<p>DBA 实现根据文档也调整了一些 knobs， As such, for the TicketTracker workload, the DBA further customized some of the knobs in the pre-tuned configuration, including one that improves the performance of LOBs</p>
+<h3 class="heading-element" id="deployment"><span>Deployment</span>
+  <a href="#deployment" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>DBA 实现根据文档也调整了一些 knobs， As such, for the TicketTracker workload, the DBA further customized some of the knobs in the pre-tuned configuration, including one that improves the performance of LOBs</p>
 <p>We set up multiple of <strong>OtterTune’s tuning managersand controllers</strong> in the same data center as the Oracle DBMSs. We ran each component in a Docker container with eight vCPUs and 16 GB RAM. Each DBMS instance has a dedicated OtterTune tuning manager assigned to it. This separation prevents one session from using training data collected in another session, which will affect the convergence rate and efficacy of the algorithms</p>
 <blockquote>
 <p>Oracle Knob: DB_32K_CACHE_SIZE</p>
 </blockquote>
-<h3 id="tuning">Tuning</h3>
-<p>At the beginning of each iteration in a tuning session, the controller first <strong>restarts</strong> its target DBMS instance. Restarting ensures that the knob changes that OtterTune made to the DBMS in the last iteration take effect. Some knobs in Oracle do not require restarting the DBMS, but changing them is not instantaneous and requires additional monitoring to determine when their updated values have been fully applied. To avoid issues with incomplete or inconsistent configurations, we restart the DBMS each time</p>
+<h3 class="heading-element" id="tuning"><span>Tuning</span>
+  <a href="#tuning" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>At the beginning of each iteration in a tuning session, the controller first <strong>restarts</strong> its target DBMS instance. Restarting ensures that the knob changes that OtterTune made to the DBMS in the last iteration take effect. Some knobs in Oracle do not require restarting the DBMS, but changing them is not instantaneous and requires additional monitoring to determine when their updated values have been fully applied. To avoid issues with incomplete or inconsistent configurations, we restart the DBMS each time</p>
 <blockquote>
 <p>需要重启，以更改 knob，这是不是一个限制？也有很多 knob 不需要重启 DBMS，但修改不是立刻见效的，还需要额外检测，所以还是需要重启。</p>
 </blockquote>
@@ -298,26 +312,44 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>replay time 是什么，为什么限制 replay time，一个是 10min segtime 可能需要几个小时完成，一个是 Oracle RAT 不稳定，尽管提供了解决方案但太晚了（可能也是另一个 limitation）</p>
 </blockquote>
-<h2 id="tuning-algorithms">TUNING ALGORITHMS</h2>
-<p>(1) Gaussian Process Regression (GPR),</p>
+<h2 class="heading-element" id="tuning-algorithms"><span>TUNING ALGORITHMS</span>
+  <a href="#tuning-algorithms" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>(1) Gaussian Process Regression (GPR),</p>
 <p>(2) Deep Neural Network (DNN), and</p>
 <p>(3) Deep Deterministic Policy Gradient (DDPG).</p>
 <p>Although there are other algorithms that use query data to guide the search process [28], they are not usable at SG because of privacy concerns since the queries contain user-identifiable data. Methods to anonymize this data are outside the scope of this paper</p>
 <blockquote>
 <p>为什么其他方法会设计隐私？那为什么 DDPG 不会？</p>
 </blockquote>
-<h3 id="41-gpr--ottertune-2017">4.1 GPR — OtterTune (2017)</h3>
-<p>Data Pre-Processing: Each invocation takes up to an hour, depending on the number of samples and DBMS metrics</p>
+<h3 class="heading-element" id="41-gpr--ottertune-2017"><span>4.1 GPR — OtterTune (2017)</span>
+  <a href="#41-gpr--ottertune-2017" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Data Pre-Processing: Each invocation takes up to an hour, depending on the number of samples and DBMS metrics</p>
 <p>具体算法略</p>
-<h3 id="42-dnn--ottertune-2019">4.2 DNN — OtterTune (2019)</h3>
-<p>Previous research has argued that <strong>Gaussian process</strong> models do not perform well on <strong>larger data sets</strong> and <strong>high-dimensional feature vectors</strong></p>
-<h3 id="43-ddpg--cdbtune-2019">4.3 DDPG — CDBTune (2019)</h3>
-<p>RL 方法，OtterTune 实现了 DDPG++</p>
+<h3 class="heading-element" id="42-dnn--ottertune-2019"><span>4.2 DNN — OtterTune (2019)</span>
+  <a href="#42-dnn--ottertune-2019" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Previous research has argued that <strong>Gaussian process</strong> models do not perform well on <strong>larger data sets</strong> and <strong>high-dimensional feature vectors</strong></p>
+<h3 class="heading-element" id="43-ddpg--cdbtune-2019"><span>4.3 DDPG — CDBTune (2019)</span>
+  <a href="#43-ddpg--cdbtune-2019" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>RL 方法，OtterTune 实现了 DDPG++</p>
 <p>We identified a few optimizations to CDBTune’s DDPG algorithm that reduce the amount of training data needed to learn the representation of the Q-value. We call this enhanced version DDPG++.</p>
-<h2 id="evaluation">EVALUATION</h2>
-<p>使用 Random sampling 方法评估</p>
-<h3 id="performance-variability">Performance Variability</h3>
-<p>Because each tuning session in our experiments <strong>takes multiple days to complete</strong>, we deployed the Oracle DBMS on multiple VMs to run the sessions in parallel. Our VMs run on the same physical machines during this time, but the other tenants on these machines or in the same rack may change. As discussed in Section 2.2, running a DBMS in virtualized environments with shared storage can lead to unexplained changes in the system’s performance across instances with the same hardware allocations and even on the same instance</p>
+<h2 class="heading-element" id="evaluation"><span>EVALUATION</span>
+  <a href="#evaluation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>使用 Random sampling 方法评估</p>
+<h3 class="heading-element" id="performance-variability"><span>Performance Variability</span>
+  <a href="#performance-variability" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Because each tuning session in our experiments <strong>takes multiple days to complete</strong>, we deployed the Oracle DBMS on multiple VMs to run the sessions in parallel. Our VMs run on the same physical machines during this time, but the other tenants on these machines or in the same rack may change. As discussed in Section 2.2, running a DBMS in virtualized environments with shared storage can lead to unexplained changes in the system’s performance across instances with the same hardware allocations and even on the same instance</p>
 <blockquote>
 <p>每次 tuning session 都需要好几天？这是为什么？甚至花了六个月来检测，每周测一次。甚至同一个 VM 上 DBMS 也有性能波动？</p>
 </blockquote>
@@ -326,8 +358,11 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <p>出现了一些不一致的结果，论文认为是共享存储的一些延迟尖峰引起的，因为他们测了 VM 的性能，CPU 占用率和 IO 延迟，认为算法已经收敛，所以应该是外部因素有关，而不是 DBMS 内部问题。</p>
 <p>为什么不是某次的 knob 调整出问题了？这里没有提到 knob 是否更改，虽然 IO 的问题应该更大一些。Performance Variability 这部分没有很好地解释这个变化到底是为什么，也不太直白。</p>
 </blockquote>
-<h3 id="tuning-knobs-selected-by-dba">Tuning Knobs Selected by DBA</h3>
-<p>让 DBA 选 40 个 knobs 来调优，</p>
+<h3 class="heading-element" id="tuning-knobs-selected-by-dba"><span>Tuning Knobs Selected by DBA</span>
+  <a href="#tuning-knobs-selected-by-dba" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>让 DBA 选 40 个 knobs 来调优，</p>
 <p>Figure 11 shows that the configurations recommended by DNN and DDPG++ that tune 10 knobs improve the DB Time by 45% and 43% over the default settings, respectively. Although LHS, GPR, and DDPG achieve over 35% better DB Time, they do not perform as well as DNN and DDPG++ because they select a sub-optimal version of the optimizer features to enable</p>
 <blockquote>
 <p>DNN 和 DDPG++ 改了 10 个 knobs 提高了 45% 左右的性能，改 20 个 knobs 时提高 33-40% 性能但存在至少一个 knob 错误，论文认为是复杂度太高，算法的随机性以及 VM 的噪声引起的。但没有解释哪个原因才是根本的。</p>
@@ -341,25 +376,24 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>GPR 可以快速收敛，但容易陷入 local minima，所以选取初始 knob 就很重要，而其他的需要更多数据。</p>
 </blockquote>
-<h3 id="tuning-knobs-ranked-by-ottertune">Tuning Knobs Ranked by OtterTune</h3>
-<p>不需要 DBA 参与，使用 OtterTune Lasso 算法选择旋钮，然后用 LHS。</p>
+<h3 class="heading-element" id="tuning-knobs-ranked-by-ottertune"><span>Tuning Knobs Ranked by OtterTune</span>
+  <a href="#tuning-knobs-ranked-by-ottertune" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>不需要 DBA 参与，使用 OtterTune Lasso 算法选择旋钮，然后用 LHS。</p>
 <blockquote>
 <p>实际上 OtterTune 选择的 knobs 和 DBA 很近似，而且会选很重要的几个 knob 比如 DB_CACHE_SIZE</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png"
-        data-srcset="https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png, https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png 1.5x, https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png"
-        title="https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png" /></p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png' alt="https://s2.loli.net/2024/04/08/yiqeu8EPX4W7JK3.png"></p>
 <blockquote>
 <p>LHS 配置无法识别？但是提升很大，10knobs 都有提升，但是 20knobs 只有 GPR 和 DNN 有提升，大部分要么没提升，要么就一点，甚至不超过默认配置。论文认为是当时共享存储的 noise 很多，导致了差异。但这差异也太大了。。。</p>
 <p>论文也没怎么介绍 Lasso 算法，甚至在 10knobs 也不知道哪个算法是比较好的，有些小的改进还可能是 noise 引起的</p>
 </blockquote>
-<h3 id="adaptability-to-different-workload">Adaptability to Different Workload</h3>
-<p>We next analyze the quality of ML-generated configurations when we train their models on one workload and then use them to tune <strong>another workload</strong>. The ability to reuse training data across workloads potentially reduces the number of iterations that the algorithms need for their models to converge.</p>
+<h3 class="heading-element" id="adaptability-to-different-workload"><span>Adaptability to Different Workload</span>
+  <a href="#adaptability-to-different-workload" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>We next analyze the quality of ML-generated configurations when we train their models on one workload and then use them to tune <strong>another workload</strong>. The ability to reuse training data across workloads potentially reduces the number of iterations that the algorithms need for their models to converge.</p>
 <blockquote>
 <p>最近看的一些调优相关的，都很注重 across workloads</p>
 </blockquote>
@@ -368,10 +402,16 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <blockquote>
 <p>前文提到的 LOB ，但是却没有修改 LOB buffer，因为 TPC-C 数据比较小，而他们实验是在 TicketTracker 这种很大的数据集上，实际上需要打开。</p>
 </blockquote>
-<h3 id="execution-time-breakdown">Execution Time Breakdown</h3>
-<p>DDPG++ has <strong>fewer canceled replays</strong> than DDPG due to its <strong>improved convergence rate</strong> (see Section 4.3). LHS has the highest workload execution time and percentage of canceled replays because it is a sampling technique and never converges</p>
-<h2 id="lessons-learned">LESSONS LEARNED</h2>
-<p>(1) Handling Long-running Configurations:</p>
+<h3 class="heading-element" id="execution-time-breakdown"><span>Execution Time Breakdown</span>
+  <a href="#execution-time-breakdown" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>DDPG++ has <strong>fewer canceled replays</strong> than DDPG due to its <strong>improved convergence rate</strong> (see Section 4.3). LHS has the highest workload execution time and percentage of canceled replays because it is a sampling technique and never converges</p>
+<h2 class="heading-element" id="lessons-learned"><span>LESSONS LEARNED</span>
+  <a href="#lessons-learned" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>(1) Handling Long-running Configurations:</p>
 <p>Given this, the controller needs to support an <strong>early abort mechanism</strong> that stops long-running workload replays. Setting the early abort threshold to lower values is beneficial because it reduces the total tuning time. This threshold, however, must be set high enough to account for variability in cloud environments. We found that the 45-minute cut-off worked well, but further investigation is needed on more robust methods. For early aborted configurations, the DBMS’s metrics, especially Oracle’s DB Time, are incorrectly smaller because the workload is cut off. Thus, to correct this data, the controller calculates a completion ratio as the number of finished transactions divided by the total transactions in the workload. It then uses this ratio to scale all counter metrics to approximate what they would have been if the DBMS executed the full workload trace</p>
 <blockquote>
 <p>需要一个可以早起终止的机制</p>
@@ -383,10 +423,16 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 </blockquote>
 <p>(3) DBMS Maintenance Tasks</p>
 <p>(4) Unexpected Cost Considerations:</p>
-<h2 id="related-work">RELATED WORK</h2>
-<p>略</p>
-<h2 id="conclusion">CONCLUSION</h2>
-<p>In this study, we conducted a <strong>thorough evaluation</strong> of machine learning-based DBMS knob tuning methods with a real workload on an Oracle installation in an enterprise environment. We implemented three state-of-the-art ML algorithms in the OtterTune tuning service in order to make a head-to-head comparison. Our results showed that these algorithms could generate knob configurations that improved performance by up to 45% over ones generated by a human expert, but the performance was influenced by the number of tuning knobs and the assistance of human experts in knob selection. We also solved several deployment and measurement issues that were overlooked by previous studies</p>
+<h2 class="heading-element" id="related-work"><span>RELATED WORK</span>
+  <a href="#related-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>略</p>
+<h2 class="heading-element" id="conclusion"><span>CONCLUSION</span>
+  <a href="#conclusion" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>In this study, we conducted a <strong>thorough evaluation</strong> of machine learning-based DBMS knob tuning methods with a real workload on an Oracle installation in an enterprise environment. We implemented three state-of-the-art ML algorithms in the OtterTune tuning service in order to make a head-to-head comparison. Our results showed that these algorithms could generate knob configurations that improved performance by up to 45% over ones generated by a human expert, but the performance was influenced by the number of tuning knobs and the assistance of human experts in knob selection. We also solved several deployment and measurement issues that were overlooked by previous studies</p>
 <blockquote>
 <p>这篇论文读着太吃力了，而且对 ML 调优的印象更加差了。做了一堆事情，好像什么都没解决，也不知道原因。</p>
 <p>更像是 OtterTune 在现实数据库和数据集的一个尝试，但这个新的数据集区别又很大，实验结果也很莫名其妙，10-20 knobs 效果有，但是 40 knobs 效果不好又说是共享存储的问题</p>
@@ -412,40 +458,80 @@ MongoDB) and (2) synthetic benchmarks with uniform workload patterns</p>
 <p>The paper did a lot of experiments, but the paper also mentioned that Oracle fixed a very important issue in the later stage. I guess this will require re-experimenting, although this may be very time consuming. I may also want to try some methods to reduce the tuning time, because this will allow me to experiment with more rounds and reflect the differences between DDPG and DDPG++. In addition, I would like to conduct the experiments on other real-world workloads, which can demonstrate the ability of OtterTune and ML-based tuning methods to tune on diverse datasets and workloads. In addition, I might also want to carefully explain the impact of shared storage on ML-based tuning methods and OtterTune, especially setting up a control group to experiment, or try to reproduce the situation at that time to find out the real problem.</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-04-07</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-04-07 14:22:23">更新于 2024-04-07&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/ml-based-autotunning/" data-title="Paper Reading: An Inquiry Into Machine Learning-Based Automatic Configuration Tuning Services on Real-World Database Management Systems"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/mb2-self-driving-db/" class="prev" rel="prev" title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</a>
-            <a href="../../posts/learned-sorting/" class="next" rel="next" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]">Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/mb2-self-driving-db/" class="post-nav-item" rel="prev" title="Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: MB2: Decomposed Behavior Modeling for Self-Driving Database Management Systems</a><a href="../../posts/learned-sorting/" class="post-nav-item" rel="next" title="Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]">Paper Reading: The Case for a Learned Sorting Algorithm [SIGMOD 2020]<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#an-inquiry-into-machine-learning-based-automatic-configuration-tuning-services-on-real-world-database-management-systems">An Inquiry into Machine Learning-based Automatic Configuration Tuning Services on Real-World Database Management Systems</a></li>
+    <li><a href="#abstract">ABSTRACT</a></li>
+    <li><a href="#introduction">INTRODUCTION</a></li>
+    <li><a href="#background">BACKGROUND</a>
+      <ul>
+        <li><a href="#ottertune-overview">OtterTune Overview</a></li>
+        <li><a href="#motivation">Motivation</a></li>
+      </ul>
+    </li>
+    <li><a href="#automated-tuning-field-study">AUTOMATED TUNING FIELD STUDY</a>
+      <ul>
+        <li><a href="#target-database-application">Target Database Application</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#tuning">Tuning</a></li>
+      </ul>
+    </li>
+    <li><a href="#tuning-algorithms">TUNING ALGORITHMS</a>
+      <ul>
+        <li><a href="#41-gpr--ottertune-2017">4.1 GPR — OtterTune (2017)</a></li>
+        <li><a href="#42-dnn--ottertune-2019">4.2 DNN — OtterTune (2019)</a></li>
+        <li><a href="#43-ddpg--cdbtune-2019">4.3 DDPG — CDBTune (2019)</a></li>
+      </ul>
+    </li>
+    <li><a href="#evaluation">EVALUATION</a>
+      <ul>
+        <li><a href="#performance-variability">Performance Variability</a></li>
+        <li><a href="#tuning-knobs-selected-by-dba">Tuning Knobs Selected by DBA</a></li>
+        <li><a href="#tuning-knobs-ranked-by-ottertune">Tuning Knobs Ranked by OtterTune</a></li>
+        <li><a href="#adaptability-to-different-workload">Adaptability to Different Workload</a></li>
+        <li><a href="#execution-time-breakdown">Execution Time Breakdown</a></li>
+      </ul>
+    </li>
+    <li><a href="#lessons-learned">LESSONS LEARNED</a></li>
+    <li><a href="#related-work">RELATED WORK</a></li>
+    <li><a href="#conclusion">CONCLUSION</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/52a4e9d4ba93540d5f834309f9dd4198.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>

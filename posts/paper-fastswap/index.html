@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap) - Adbean&#39;s Blog</title><meta name="Description" content="Adbean&#39;s Blog"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-fastswap/">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap) - Adbean&#39;s Blog</title><meta name="author" content="Adbean">
+<meta name="description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看
+"><meta name="keywords" content='Paper Reading'>
+	<meta itemprop="name" content="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)">
+	<meta itemprop="description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看">
+	<meta itemprop="datePublished" content="2024-11-05T23:12:01-05:00">
+	<meta itemprop="dateModified" content="2024-11-05T23:12:01-05:00">
+	<meta itemprop="wordCount" content="5189">
+	<meta itemprop="keywords" content="Paper Reading"><meta property="og:url" content="https://ad-bean.github.io/posts/paper-fastswap/">
 	<meta property="og:site_name" content="Adbean&#39;s Blog">
 	<meta property="og:title" content="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)">
-	<meta property="og:description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看
-Abstract 随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。
-种解决方案是内存解耦，即作业可以远程访问其他服务器上的内存，或称为远端内存">
+	<meta property="og:description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看">
 	<meta property="og:locale" content="zh_CN">
 	<meta property="og:type" content="article">
 		<meta property="article:section" content="posts">
@@ -19,117 +25,102 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:title" content="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)">
-	<meta name="twitter:description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看
-Abstract 随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。
-种解决方案是内存解耦，即作业可以远程访问其他服务器上的内存，或称为远端内存">
+	<meta name="twitter:description" content="Can Far Memory Improve Job Throughput? memory disaggregation 内存解耦的论文，稍微看看">
 <meta name="application-name" content="Adbean&#39;s Blog">
-<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="../../site.webmanifest"><link rel="canonical" href="https://ad-bean.github.io/posts/paper-fastswap/" /><link rel="prev" href="https://ad-bean.github.io/posts/paper-far-memory/" /><link rel="next" href="https://ad-bean.github.io/posts/paper-aifm/" /><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/ad-bean.github.io\/posts\/paper-fastswap\/"
-        },"genre": "posts","keywords": "Paper Reading","wordcount":  5189 ,
-        "url": "https:\/\/ad-bean.github.io\/posts\/paper-fastswap\/","datePublished": "2024-11-05T23:12:01-05:00","dateModified": "2024-11-05T23:12:01-05:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "Adbean"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="Adbean&#39;s Blog"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="../../favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png"><link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://ad-bean.github.io/posts/paper-fastswap/" title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap) - Adbean&#39;s Blog" /><link rel="prev" type="text/html" href="https://ad-bean.github.io/posts/paper-far-memory/" title="Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers" /><link rel="next" type="text/html" href="https://ad-bean.github.io/posts/paper-aifm/" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)" /><link rel="stylesheet" href="../../css/config.min.css"><link rel="stylesheet" href="../../css/style.min.css"><link rel="preload" href="../../lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="../../lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../../lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/ad-bean.github.io\/posts\/paper-fastswap\/"
+    },"genre": "posts","keywords": "Paper Reading","wordcount":  5189 ,
+    "url": "https:\/\/ad-bean.github.io\/posts\/paper-fastswap\/","datePublished": "2024-11-05T23:12:01-05:00","dateModified": "2024-11-05T23:12:01-05:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "Adbean"
+      },"description": ""
+  }
+  </script><script src="../../js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="32" width="32"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="../../">主页</a></li><li class="menu-item">
+              <a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item">
+              <a class="menu-link" href="../../about/">关于</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="../../"> 主页 </a><a class="menu-item" href="../../posts/"> 文章 </a><a class="menu-item" href="../../tags/"> 标签 </a><a class="menu-item" href="../../categories/"> 分类 </a><a class="menu-item" href="../../reading-map/" title="博客的知识索引"> 阅读地图 </a><a class="menu-item" href="../../about/"> 关于 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="../../" title="Adbean&#39;s Blog"><img class="logo" src='../../favicon.ico' alt="Adbean&#39;s Blog" height="26" width="26"><span class="header-title-text">Adbean&#39;s Blog</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="../../" title="Adbean&#39;s Blog"><img
-        class="lazyload logo"
-        src="../../svg/loading.min.svg"
-        data-src="../../favicon.ico"
-        data-srcset="../../favicon.ico, ../../favicon.ico 1.5x, ../../favicon.ico 2x"
-        data-sizes="auto"
-        alt="/favicon.ico"
-        title="/favicon.ico" />Adbean&#39;s Blog</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="../../" title="">主页</a><a class="menu-item" href="../../posts/" title="">文章</a><a class="menu-item" href="../../tags/" title="">标签</a><a class="menu-item" href="../../categories/" title="">分类</a><a class="menu-item" href="../../reading-map/" title="博客的知识索引">阅读地图</a><a class="menu-item" href="../../about/" title="">关于</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="../../">主页</a></li><li class="menu-item"><a class="menu-link" href="../../posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="../../tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="../../categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="../../reading-map/" title="博客的知识索引">阅读地图</a></li><li class="menu-item"><a class="menu-link" href="../../about/">关于</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Adbean</a></span>&nbsp;<span class="post-category">收录于 <a href="../../categories/os/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>OS</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-05">2024-11-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5189 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><a href="https://github.com/ad-bean" title="作者" target="_blank" rel="external nofollow noopener noreferrer author" class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+    Adbean</a></span><span class="post-included-in">&nbsp;收录于 <a href="../../categories/os/" class="post-category" title="分类 - OS"><i class="fa-regular fa-folder" aria-hidden="true"></i> OS</a></span></div><div class="post-meta-line"><span title="发布于 2024-11-05 23:12:01"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-11-05">2024-11-05</time></span>&nbsp;<span title="5189 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 5200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#can-far-memory-improve-job-throughput">Can Far Memory Improve Job Throughput?</a></li>
     <li><a href="#abstract">Abstract</a></li>
@@ -143,7 +134,12 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
     <li><a href="#cfm-overview">CFM Overview</a>
       <ul>
         <li><a href="#approach">Approach</a></li>
-        <li><a href="#challenges-and-contributions">Challenges and Contributions</a></li>
+        <li><a href="#challenges-and-contributions">Challenges and Contributions</a>
+          <ul>
+            <li><a href="#fast-swapping">Fast Swapping</a></li>
+            <li><a href="#cluster-scheduling">Cluster Scheduling</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#fastswap">Fastswap</a>
@@ -156,18 +152,27 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
     <li><a href="#far-memory-aware-scheduler">Far Memory-Aware Scheduler</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="can-far-memory-improve-job-throughput">Can Far Memory Improve Job Throughput?</h2>
-<p>memory disaggregation 内存解耦的论文，稍微看看</p>
-<h2 id="abstract">Abstract</h2>
-<p>随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。</p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="can-far-memory-improve-job-throughput"><span>Can Far Memory Improve Job Throughput?</span>
+  <a href="#can-far-memory-improve-job-throughput" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>memory disaggregation 内存解耦的论文，稍微看看</p>
+<h2 class="heading-element" id="abstract"><span>Abstract</span>
+  <a href="#abstract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>随着内存需求的增加和内存技术进步的放缓，大型计算集群中主内存的可用性越来越成为瓶颈。</p>
 <p>种解决方案是内存解耦，即作业可以远程访问其他服务器上的内存，或称为远端内存</p>
 <p>本文首先介绍了更快的交换机制和一个支持远端内存的集群调度器，使其能够在机架 rack 规模上支持远端内存。</p>
 <p>memory-intensive workloads</p>
 <blockquote>
 <p>机架规模是什么，一个架子上的一堆机器？</p>
 </blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>内存密集型工作负载（如机器学习应用和键值存储）的日益流行，</p>
+<h2 class="heading-element" id="introduction"><span>Introduction</span>
+  <a href="#introduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>内存密集型工作负载（如机器学习应用和键值存储）的日益流行，</p>
 <p>虽然远端内存并不减少运行单个作业所需的内存总量，也不使内存更便宜或更密集，但它确实意味着作业不必局限于本地内存，而是可以利用集群中其他位置的内存。这绕过了“内存容量墙”[48]，并增加了内存跨作业共享的效率。</p>
 <blockquote>
 <p>google 利用 zswap 来实现远端内存，和这里提到的有什么区别？他们的 bigtable 表现好像也一般，没有降低太多的成本</p>
@@ -199,27 +204,42 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
 <p>系统设计没有银弹</p>
 </blockquote>
 <p>如果内存需求远大于可用内存，那么通过增加每个服务器的本地内存而不是将等量的内存添加到共享的远端内存服务器上，可以获得更好的性能。然而，我们发现远端内存在单个机架的两个关键场景中提供了显著的好处：（1）如果工作负载是<strong>内存密集型</strong>的（即内存可用性而不是核心可用性是瓶颈），将计算节点转换为远端内存服务器可以导致（在我们研究的情况下）与原始机架相比大约 <strong>10% 的吞吐量提升</strong>，尽管两种机架配置的内存总量相同。（2）如果操作员希望适度增加机架的内存容量，向内存服务器添加内存允许更细粒度的增加，这仍然会导致显著的性能提升，而升级每个服务器的本地内存只能以更大的（因此更昂贵的）增量进行（正如我们在下一节中讨论的那样）。</p>
-<h2 id="context">Context</h2>
-<h3 id="memory-provisioning">Memory Provisioning</h3>
-<p>重要的是要记住，本地内存只能以粗粒度进行配置。</p>
+<h2 class="heading-element" id="context"><span>Context</span>
+  <a href="#context" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="memory-provisioning"><span>Memory Provisioning</span>
+  <a href="#memory-provisioning" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>重要的是要记住，本地内存只能以粗粒度进行配置。</p>
 <blockquote>
 <p>啥意思？跟 DIMM 插槽有关？</p>
 </blockquote>
-<h3 id="deployment-scenarios">Deployment Scenarios</h3>
-<p>我们主要不是考虑 green-field deployments 但我们的主要关注点是逐步升级现有部署。他们现有的数据中心往往已经填满了所有 DIMM 插槽。这在经济上是合理的，因为每单位内存的成本随着 DIMM 容量的增加而增加，因此配置给定数量的内存的最便宜方式是使用所有可用的 DIMM 插槽。</p>
+<h3 class="heading-element" id="deployment-scenarios"><span>Deployment Scenarios</span>
+  <a href="#deployment-scenarios" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们主要不是考虑 green-field deployments 但我们的主要关注点是逐步升级现有部署。他们现有的数据中心往往已经填满了所有 DIMM 插槽。这在经济上是合理的，因为每单位内存的成本随着 DIMM 容量的增加而增加，因此配置给定数量的内存的最便宜方式是使用所有可用的 DIMM 插槽。</p>
 <blockquote>
 <p>green-field deployments 绿场部署，是从头开始，全新的部署</p>
 </blockquote>
 <p>虽然远端内存有可能提高集群吞吐量，但这会以单个作业运行时间变慢为代价。因此，我们认为远端内存最适合那些主要指标是作业吞吐量的应用，而不是面向客户或对延迟敏感的应用；这是本文的重点。</p>
-<h2 id="cfm-overview">CFM Overview</h2>
-<p>CFM 的目标是通过利用专用内存服务器上的远端内存来提高集群的端到端作业吞吐量。</p>
+<h2 class="heading-element" id="cfm-overview"><span>CFM Overview</span>
+  <a href="#cfm-overview" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>CFM 的目标是通过利用专用内存服务器上的远端内存来提高集群的端到端作业吞吐量。</p>
 <p>尽管之前的研究已经探索了启用远端内存的机制，并展示了单个作业在交换时的性能优势（例如，[34]），但据我们所知，没有先前的研究在机架规模上展示了远端内存的性能改进。我们专注于改进端到端完成时间，即完成执行作业列表所需的时间。在高层次上，CFM 的方法（§3.1）与先前的工作相似，但 CFM 克服了几个关键挑战（§3.2），这些挑战使得今天难以从远端内存中获得集群规模的收益。</p>
 <blockquote>
 <p>这里提到单个作业性能提高的论文是</p>
 <p>Juncheng Gu, Youngmoon Lee, Yiwen Zhang, Mosharaf Chowdhury, and Kang G. Shin. 2017. Efficient Memory Disaggregation with INFINISWAP. In Symposium on Networked Systems Design and Implementation (NSDI’17). 649–667.</p>
 </blockquote>
-<h3 id="approach">Approach</h3>
-<p>在 CFM 中，应用程序通过 RDMA 交换来利用远端内存。CFM 使用 Linux 控制组来强制执行内存分配。</p>
+<h3 class="heading-element" id="approach"><span>Approach</span>
+  <a href="#approach" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 CFM 中，应用程序通过 RDMA 交换来利用远端内存。CFM 使用 Linux 控制组来强制执行内存分配。</p>
 <p>Swapping: 应用程序可以通过两种广泛的方式利用远端内存：透明地（无需应用程序修改），或通过显式且可能是自定义的 API。 相反，类似于 Infiniswap [34]，CFM 通过交换实现远端内存，这是一种现有的机制，将虚拟内存扩展到物理可用内存之外。当 CPU 访问物理内存中不存在的页面中的内存地址时，会引发页面故障，页面故障处理程序<strong>透明地将页面内容从交换空间获取到本地内存中</strong>。传统上，交换空间位于磁盘上，由此产生的毫秒级访问延迟对工作负载引入了大且难以理解的性能开销。然而，交换本身并不意味着毫秒级的延迟，并且随着今天的<strong>微秒级网络延迟</strong>，通过网络交换到远端内存有可能获得良好的性能。</p>
 <p>Cgroups: CFM 使用 Linux 控制组（cgroups）[5]来<strong>enforces 执行每个作业的本地内存消耗限制</strong>。控制组控制分配给一组进程的物理内存量，CFM 使用交换系统<strong>将多余的内存保持在远端内存中</strong>。</p>
 <blockquote>
@@ -229,33 +249,41 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
 <blockquote>
 <p>什么 API？</p>
 </blockquote>
-<h3 id="challenges-and-contributions">Challenges and Contributions</h3>
-<p>两个主要挑战：<strong>快速交换</strong>和决定如何在本地和远端内存之间<strong>调度</strong>作业</p>
-<h4 id="fast-swapping">Fast Swapping</h4>
-<p>RDMA 交换设备已经在先前的研究中进行了探索，例如 Infiniswap [34]和 HPBD [47]。然而，这些方法无法维持当今应用程序所需的高性能</p>
+<h3 class="heading-element" id="challenges-and-contributions"><span>Challenges and Contributions</span>
+  <a href="#challenges-and-contributions" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>两个主要挑战：<strong>快速交换</strong>和决定如何在本地和远端内存之间<strong>调度</strong>作业</p>
+<h4 class="heading-element" id="fast-swapping"><span>Fast Swapping</span>
+  <a href="#fast-swapping" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>RDMA 交换设备已经在先前的研究中进行了探索，例如 Infiniswap [34]和 HPBD [47]。然而，这些方法无法维持当今应用程序所需的高性能</p>
 <ol>
 <li>为了隐藏未来页面故障的 I/O 延迟，操作系统通常通过在每次页面故障时获取多个页面来实现页面<strong>预取</strong>。不幸的是，在 Linux 中，故障页面——应用程序当前所需的页面——可能位于要预取的对齐页面窗口中的任何位置。因此使用 Linux 默认的预取窗口大小 8，<strong>头阻塞</strong>可能会延迟故障处理数十微秒。</li>
 <li>在现有的通过 RDMA 进行交换的系统中，CPU 通过<strong>中断通知 RDMA 操作</strong>（例如，读取远程页面）已完成。这种中断处理发生在关键路径上——在页面故障处理程序能够返回到应用程序之前——并且可能会增加 10 微秒或更多的页面故障处理时间[13]。</li>
 <li>在故障页面的内容被读入本地内存后，操作系统通过增加其内存计数器将其计入其控制组。如果控制组内存限制被超过，则需要<strong>回收多余的页面</strong>。与 Linux 中的系统范围回收不同，控制组中的内存回收总是直接进行的，即在离开页面故障处理程序并返回到应用程序之前。因此，整个回收过程（查找要回收的页面，将它们写入交换设备，并将页面返回内核以供重用）会延迟页面故障解决。</li>
 </ol>
 <p>CFM 引入了一个名为 Fastswap（§4）的更快的交换系统，克服了所有这三个挑战，使 CFM 能够实现比现有系统（如 Infiniswap）更低的延迟和更高的远程交换吞吐量（§6.4）。</p>
-<h4 id="cluster-scheduling">Cluster Scheduling</h4>
-<p>许多现有的调度器通过在<strong>核心、内存和其他资源之间调度作业来实现集群资源的有效共享</strong>。然而，现有调度器不考虑远端内存；也就是说，它们不支持调度内存可以在本地和远端内存之间动态分割的作业，也不指定如何最好地在共享同一机器的多个作业之间分配本地内存。CFM 提出了一种<strong>集中的远端内存感知调度器</strong>（§5），在将作业分配给机器时考虑远端内存，并决定如何在不同作业之间划分本地内存以优化完成时间。</p>
-<h2 id="fastswap">Fastswap</h2>
-<p>但我们发现，要实现更高的交换性能，需要对页面故障处理程序、交换系统和控制组内存控制器进行修改。我们通过修改大约 300 行内核代码和为 Linux 4.11 编写了一个新的 1200 行代码的设备驱动程序来实现 Fastswap</p>
+<h4 class="heading-element" id="cluster-scheduling"><span>Cluster Scheduling</span>
+  <a href="#cluster-scheduling" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>许多现有的调度器通过在<strong>核心、内存和其他资源之间调度作业来实现集群资源的有效共享</strong>。然而，现有调度器不考虑远端内存；也就是说，它们不支持调度内存可以在本地和远端内存之间动态分割的作业，也不指定如何最好地在共享同一机器的多个作业之间分配本地内存。CFM 提出了一种<strong>集中的远端内存感知调度器</strong>（§5），在将作业分配给机器时考虑远端内存，并决定如何在不同作业之间划分本地内存以优化完成时间。</p>
+<h2 class="heading-element" id="fastswap"><span>Fastswap</span>
+  <a href="#fastswap" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>但我们发现，要实现更高的交换性能，需要对页面故障处理程序、交换系统和控制组内存控制器进行修改。我们通过修改大约 300 行内核代码和为 Linux 4.11 编写了一个新的 1200 行代码的设备驱动程序来实现 Fastswap</p>
 <p>提高分页性能具有挑战性。虽然许多系统专注于在<strong>毫秒时间尺度上进行改进</strong>[35, 46]，但我们的系统力求实现<strong>微秒尺度的交换</strong>。我们在本节中讨论的大多数机制发生在程序执行暂停时。因此，我们节省的每一微秒都是返回给应用程序的计算时间。</p>
 <blockquote>
 <p>?? 他是怎么实现微秒级别的</p>
 </blockquote>
-<h3 id="rdma-backend">RDMA Backend</h3>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png"
-        data-srcset="https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png, https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png 1.5x, https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png"
-        title="https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png" /></p>
+<h3 class="heading-element" id="rdma-backend"><span>RDMA Backend</span>
+  <a href="#rdma-backend" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><img loading="lazy" src='https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png' alt="https://s2.loli.net/2024/11/06/LiocD8AOVF6Xr2w.png"></p>
 <p>在 Fastswap 中，操作系统使用 RDMA 后端与 RDMA NIC 交互</p>
 <p>如图 2 所示，后端用于所有交换操作类型：页面故障、预取和内存回收。尽管之前的研究已经将 RDMA 后端暴露为块设备</p>
 <blockquote>
@@ -266,69 +294,104 @@ Abstract 随着内存需求的增加和内存技术进步的放缓，大型计�
 <blockquote>
 <p>加队列就完了</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="../../svg/loading.min.svg"
-        data-src="https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png"
-        data-srcset="https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png, https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png 1.5x, https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png 2x"
-        data-sizes="auto"
-        alt="https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png"
-        title="https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png" /></p>
-<h3 id="page-fault-handler">Page Fault Handler</h3>
-<p>Fastswap 通过两种关键方式修改页面故障处理程序。</p>
+<p><img loading="lazy" src='https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png' alt="https://s2.loli.net/2024/11/06/65vFnBIjTmPadXK.png"></p>
+<h3 class="heading-element" id="page-fault-handler"><span>Page Fault Handler</span>
+  <a href="#page-fault-handler" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Fastswap 通过两种关键方式修改页面故障处理程序。</p>
 <p>首先，它指示交换系统以不同的方式处理故障页面和<strong>预取页面</strong>，如上所述。其次，Fastswap 修改交换系统，首先读取故障页面，然后读取预取窗口内的剩余页面</p>
 <p>在发出所有读取操作后，Fastswap 轮询等待故障读取完成。通过首先发出故障读取，我们重叠了为预取读取分配物理页面的延迟和发出预取 RDMA 读取的延迟，与故障页面的 RDMA 读取。图 3 展示了 Fastswap 如何处理页面故障及其相关的预取。</p>
 <p>分别处理故障页面和预取页面最小化了错过预取的成本。例如，假设页面故障 1 发生在地址 F1，并有一组相关的<strong>预取页面</strong> P1。我们的交换系统将发出 F1 和 P1 的读取操作，并轮询直到 F1 的读取完成。此时，页面故障处理程序将返回到用户空间。然后，假设页面故障 2 发生在地址 F2，其中 F2 &lt; P1（即预取未命中）。<strong>Fastswap 可以在不等待 P1 中的任何页面的情况下获取 F2</strong>，而之前的系统则需要等待 P1 中的所有页面完成后才能完成 F2 的读取</p>
 <blockquote>
 <p>fastswap 就是把预读的优先级降低了？</p>
 </blockquote>
-<h3 id="memory-reclaim">Memory Reclaim</h3>
-<p>我们已经介绍了 Fastswap 交换系统如何将页面从远端内存带入本地内存。现在我们描述 Fastswap 如何<strong>回收内存</strong>，以确保进程不会使用超过其允许份额的本地内存。Fastswap 通过修改控制组内存控制器，<strong>将回收操作从页面故障处理的关键路径上移除</strong>。</p>
+<h3 class="heading-element" id="memory-reclaim"><span>Memory Reclaim</span>
+  <a href="#memory-reclaim" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我们已经介绍了 Fastswap 交换系统如何将页面从远端内存带入本地内存。现在我们描述 Fastswap 如何<strong>回收内存</strong>，以确保进程不会使用超过其允许份额的本地内存。Fastswap 通过修改控制组内存控制器，<strong>将回收操作从页面故障处理的关键路径上移除</strong>。</p>
 <p>传统上，在读取故障页面后，内存控制器将页面计入其控制组。然后，控制器检查控制组是否有超过其允许份额的内存。如果有多余的页面，它们会被直接回收，并可能被驱逐到远端内存。直接回收发生在页面故障处理程序的上下文中，因此它会阻止 CPU 返回到用户空间并继续工作负载执行。</p>
 <p>Linux 中的内存回收出乎意料地昂贵，<strong>当我们的应用程序有 50%的内存位于远端内存时，消耗了 62-85%的内核时间</strong>。为了减少这些成本，每当节点使用远端内存时，我们修改的内存控制器将内存回收<strong>卸载到专用回收 CPU</strong>（图 2）；我们称之为<strong>卸载回收 offloaded reclaim</strong>。卸载内存回收允许导致页面故障的 CPU 在不需要花费时间进行直接回收的情况下返回到用户空间。最近的努力已经使用了类似的方法来卸载冷内存压缩[43]和数据包处理[22, 52]到专用 CPU。</p>
 <p>无论内存回收是直接的还是卸载的，在将页面驱逐到远端内存时，我们都会轮询它们的完成情况。只有在页面写入远端内存完成后，页面才能完全回收。</p>
-<h2 id="far-memory-aware-scheduler">Far Memory-Aware Scheduler</h2>
-<p>&hellip;</p>
+<h2 class="heading-element" id="far-memory-aware-scheduler"><span>Far Memory-Aware Scheduler</span>
+  <a href="#far-memory-aware-scheduler" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>&hellip;</p>
 <blockquote>
 <p>后面都省略了，实验也跳过，怪怪的</p>
 <p>使用了定义的几个参数，负载 / 集群配置差不多，看远端内存会调用多少，然后做了一个最优化问题，最大 (A - B) / C, A−B is the total local memory-time product saving, C is the total far memory-time product</p>
 <p>更想看每个组件的表现而不是这种</p>
 </blockquote>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2024-11-05</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)" data-hashtags="Paper Reading"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-hashtag="Paper Reading"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2024-11-05 23:12:01">更新于 2024-11-05&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)" data-hashtags="Paper Reading"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-hashtag="Paper Reading"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://ad-bean.github.io/posts/paper-fastswap/" data-title="Paper Reading: Can Far Memory Improve Job Throughput? (Fastswap)"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="../../tags/paper-reading/">Paper Reading</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="../../posts/paper-far-memory/" class="prev" rel="prev" title="Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</a>
-            <a href="../../posts/paper-aifm/" class="next" rel="next" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)">Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="../../tags/paper-reading/" class="post-tag" title="标签 - Paper Reading">Paper Reading</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="../../">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="../../posts/paper-far-memory/" class="post-nav-item" rel="prev" title="Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Paper Reading: Software-Defined Far Memory in Warehouse-Scale Computers</a><a href="../../posts/paper-aifm/" class="post-nav-item" rel="next" title="Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)">Paper Reading: AIFM: High-Performance, Application-Integrated Far Memory (OSDI 20)<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.166.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/ad-bean" target="_blank">Adbean</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="../../lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="../../js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#can-far-memory-improve-job-throughput">Can Far Memory Improve Job Throughput?</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#context">Context</a>
+      <ul>
+        <li><a href="#memory-provisioning">Memory Provisioning</a></li>
+        <li><a href="#deployment-scenarios">Deployment Scenarios</a></li>
+      </ul>
+    </li>
+    <li><a href="#cfm-overview">CFM Overview</a>
+      <ul>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#challenges-and-contributions">Challenges and Contributions</a>
+          <ul>
+            <li><a href="#fast-swapping">Fast Swapping</a></li>
+            <li><a href="#cluster-scheduling">Cluster Scheduling</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#fastswap">Fastswap</a>
+      <ul>
+        <li><a href="#rdma-backend">RDMA Backend</a></li>
+        <li><a href="#page-fault-handler">Page Fault Handler</a></li>
+        <li><a href="#memory-reclaim">Memory Reclaim</a></li>
+      </ul>
+    </li>
+    <li><a href="#far-memory-aware-scheduler">Far Memory-Aware Scheduler</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.166.0"><img class="hugo-icon" src="../../images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="../../images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="https://github.com/ad-bean" target="_blank" rel="external nofollow noopener noreferrer">Adbean</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="../../lib/cookieconsent/cookieconsent.min.css"><script src="../../lib/autocomplete/autocomplete.min.js" defer></script><script src="../../lib/fuse/fuse.min.js" defer></script><script src="../../lib/sharer/sharer.min.js" async defer></script><script src="../../lib/cookieconsent/cookieconsent.min.js" defer></script><script src="../../lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="../../js/config/47f9079d836906ef961af55b285737bb.js" defer></script><script src="../../js/theme.min.js" defer></script></body>
 </html>
